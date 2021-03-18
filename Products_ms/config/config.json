@@ -1,13 +1,13 @@
 {
   "development": {
-    "PORT": 6000,
+    "PORT": 5000,
     "MONGODB_URI": "mongodb+srv://k2lis:k2lisdev@cluster0.rhtbb.mongodb.net/OrderDB?retryWrites=true&w=majority",
     "JWT_SECRET": "SECRET#123",
     "JWT_EXP": "24h"
   },
   "production": {
-    "PORT": 6000,
-    "MONGODB_URI": "mongodb+srv://k2lis:k2lisdev@cluster0.rhtbb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "PORT": 5000,
+    "MONGODB_URI": "mongodb+srv://k2lis:k2lisdev@cluster0.rhtbb.mongodb.net/OrderDB?retryWrites=true&w=majority",
     "JWT_SECRET": "SECRET#123",
     "JWT_EXP": "24h"
   }

@@ -7,22 +7,23 @@ const productSchema = new mongoose.Schema({
     //     //ref : 'User'
     // },
 
-    name :{type:String},
+    name :
+    {   type : String,
+        unique : true,
+        required : true
+    },
 
-    description :{type:String},
+    description :{type : String},
 
-    type :{type:String},
+    brand:{type : String},
 
-    brand:{type:String},
-
-    price:{type:Number},
+    price:{type : Number,required : true},
     
-    imagePath:{type:String},
+    imagePath:{type : String},
 
-    category: {type:String}
+    category: {type : String}
     
 
  })
 
-
-module.exports =  mongoose.model('product', productSchema);
+mongoose.model('product', productSchema);
