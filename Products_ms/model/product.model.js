@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-    // owner : 
-    // {
+    // merchants : 
+    // [{
     //     type:mongoose.Schema.Types.ObjectId,
-    //     //ref : 'User'
-    // },
+    //     //ref : 'merchant'
+    // }],
 
     name :
     {   type: String,
