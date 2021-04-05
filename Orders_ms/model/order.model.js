@@ -2,33 +2,34 @@ const mongoose = require('mongoose');
 require('./product.model');
 
 const orderSchema = new mongoose.Schema({
-    client : 
+  client:
     {
-        type:mongoose.Schema.Types.ObjectId,
-        //ref : 'Client'
+      type: mongoose.Schema.Types.ObjectId,
+      // ref : 'Client'
     },
 
-    merchant : 
+  merchant:
     {
-        type : mongoose.Schema.Types.ObjectId,
-        //ref : 'Merchant'
+      type: mongoose.Schema.Types.ObjectId,
+      // ref : 'Merchant'
     },
 
-    products : [{
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'product'
-    }],
+  products: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'product',
+  }],
 
-    date : { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now },
 
-    status : {type: String,
-            enum: ['pending', 'validated', 'canceled', 'terminated'],
-            default: 'pending'},
+  status:
+    {
+      type: String,
+      enum: ['pending', 'accepted', 'rejected', 'terminated'],
+      default: 'pending',
+    },
 
-    bookmarked : {type:Boolean, default: false}
+  bookmarked: { type: Boolean, default: false },
 
- })
+});
 
-
-
-module.exports =  mongoose.model('order', orderSchema);
+module.exports = mongoose.model('order', orderSchema);
