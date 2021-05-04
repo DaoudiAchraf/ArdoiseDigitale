@@ -12,9 +12,15 @@ const Step1 = ({toNextStep}) => {
     const [phoneNumber ,setPhoneNumber] = useState();
 
     const submit = () =>{
-        console.log(lastName);
-        setFormState({...formState,phoneNumber:"5"});
-        toNextStep();
+        
+        setFormState({
+            ...formState,
+            lastName,
+            firstName,
+            phoneNumber,
+        });
+        console.log(formState);
+        toNextStep(formState);
     }
 
     return (

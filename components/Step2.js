@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import SignUpContext from '../contexts/SignUp.context';
 import Input from './Input';
@@ -7,9 +7,14 @@ const Step2 = ({toNextStep}) => {
 
     const {formState,setFormState} = useContext(SignUpContext);
 
+    const [code, setCode] = useState('');
+
     const submit = () =>{
- 
-        console.log('2',formState);
+        setFormState({
+            ...formState,
+            code
+        });
+        console.log('2->',formState);
         toNextStep();
     }
 
@@ -28,7 +33,10 @@ const Step2 = ({toNextStep}) => {
                 <View>
                     <Text style={{marginBottom:5}}>Code de verification *</Text>
             
-                    <Input/>
+                    <Input
+                      value = {code}
+                      handleChange = {setCode}
+                    />
                     <TouchableOpacity onPress={submit} style={styles.nextBtn}>
                         <Text style={{color:"white"}}>Suivant</Text>
                     </TouchableOpacity>

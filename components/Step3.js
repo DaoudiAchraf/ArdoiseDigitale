@@ -1,20 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Input from './Input';
 import ImagePicker from './ImagePicker';
+import SignUpContext from '../contexts/SignUp.context';
 
 const Step3 = ({toNextStep}) => {
 
+    const {formState,setFormState} = useContext(SignUpContext);
+
     const submit = () =>{
+        // setFormState({
+        //     ...formState,
+      
+        // });
+        console.log('3->',formState);
         toNextStep();
     }
 
     return (
         <View style={styles.stepTwo_container} >
             <View>
-                <Text style={{marginBottom:5}}>Code de verification *</Text>
+                <Text style={{marginBottom:5}}>Réference de la CIN *</Text>
                 <Input/>
-                <Text style={{marginBottom:5}}>Code de verification *</Text>
+                <Text style={{marginBottom:5}}>Date d'expiration de CIN *</Text>
                 <Input/>
                 <Text style={{marginBottom:5}}>Photo de la CIN *</Text>
                 <ImagePicker/>

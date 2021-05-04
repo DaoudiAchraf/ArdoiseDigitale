@@ -1,13 +1,19 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Entypo,AntDesign } from '@expo/vector-icons'; 
 
 
 const SignUp = ({ navigation }) => {
     return (
-        <View style={styles.signIn_container}>
+        <View style={styles.signUp_container}>
+            <View style={{flex:1}}>
+                <Image
+                resizeMode="contain"
+                style={{width:"100%",height:"70%"}} 
+                source={require('../assets/logo-light.png')}/>
+            </View>
             
-            <View style={styles.signIn__Box}>
+            <View style={styles.signUp__Box}>
                 <Text style={styles.topTxt}>Créer un compte</Text>
                 
                 <TouchableOpacity 
@@ -27,7 +33,12 @@ const SignUp = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            <Text style={styles.bottomTxt}>J'ai déja un compte</Text>
+            <Text
+              style={styles.bottomTxt}
+              onPress={()=>navigation.navigate("SignUp")} 
+            >
+                J'ai déja un compte
+            </Text>
         </View>
     )
 }
@@ -37,14 +48,14 @@ const SignUp = ({ navigation }) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-    signIn_container:{
+    signUp_container:{
         padding: 50,
-        height: '100%',
+        flex:1,
         justifyContent: 'flex-end',
         backgroundColor: '#426252'
     },
-    signIn__Box:{
-        padding: 12,
+    signUp__Box:{
+        padding: 10,
         backgroundColor: 'white',
         marginBottom: 20
     },

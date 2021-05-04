@@ -16,8 +16,9 @@ const SignIn = ({ navigation }) => {
         <View style={styles.signIn_container}>
             <View style={{flex:1}}>
                 <Image
+                
                 resizeMode="contain"
-                style={{width:"100%",height:"80%"}} 
+                style={{width:"100%",height:"70%"}} 
                 source={require('../assets/logo-light.png')}/>
             </View>
           
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     signIn__Box:{
-        padding: 12,
+        padding: 10,
         backgroundColor: 'white',
         marginBottom: 20,
  
