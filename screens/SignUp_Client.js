@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { View,Text,StyleSheet, Image, ScrollView} from "react-native";
 import StepIndicator from 'react-native-step-indicator';
-import Step1 from '../components/SignUp_Trader/Step1';
+import Step1 from '../components/SignUp_Client/Step1';
 import Step2 from '../components/Step2';
 import Step3 from '../components/Step3';
-import Step4 from '../components/SignUp_Trader/Step4';
-import Step5 from '../components/SignUp_Trader/Step5';
+import Step4 from '../components/SignUp_Client/Step4';
 import FinalStep from '../components/FinalStep';
 import SignUpContext from '../contexts/SignUp.context';
 import logo from '../assets/logo-dark.png'
@@ -20,14 +19,15 @@ const App = () => {
         firstName: null,
         lastName: null,
         phoneNumber: null,
+        maritalStatus: null,
+        photo: null,
         code: null,
         CinRef: null,
         expDate: null,
-        activityDomain: null,
-        numPatente: null,
-        legalStatus: null,
-        address: null
+        address:null
     });
+    
+
     //---------------------------
 
     const toNextStep = ()=>{
@@ -44,10 +44,8 @@ const App = () => {
             case 2:
                 return (<Step3 toNextStep={toNextStep}/>) 
             case 3:
-                return (<Step4 toNextStep={toNextStep}/>)
+                return (<Step4 toNextStep={toNextStep}/>)  
             case 4:
-                return (<Step5 toNextStep={toNextStep}/>)  
-            case 5:
                 return (<FinalStep toNextStep={toNextStep}/>)  
             default:
                 break;
@@ -67,22 +65,22 @@ const App = () => {
         <ScrollView 
           contentContainerStyle={styles.scrollContent}
           style={{marginTop:10}}
-            >
+        >
             <View style={styles.stepsContainer}>
                 <Text style={styles.headerTxt} >Créer un compte</Text>
                 <StepIndicator
-                  stepCount = {6}
-                  customStyles={customStyles}
-                   currentPosition={currentPosition}
+                    customStyles={customStyles}
+                    currentPosition={currentPosition}
                 />
 
-                <View style={{marginTop:20}}>
-                    {renderSteps()}
-                </View>
+            <View style={{marginTop:20}}>
+                {renderSteps()}
+            </View>
                 
+            
                 <Text style={styles.footerTxt}>J'ai déja un compte</Text>
         
-            </View>
+        </View>
        </ScrollView>
       </View>
  

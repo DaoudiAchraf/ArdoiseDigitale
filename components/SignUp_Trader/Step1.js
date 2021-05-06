@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import SignUpContext from '../contexts/SignUp.context';
-import Input from './Input';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import SignUpContext from '../../contexts/SignUp.context';
+import Input from '../Input';
 
 const Step1 = ({toNextStep}) => {
 

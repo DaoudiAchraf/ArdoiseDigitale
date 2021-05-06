@@ -26,7 +26,7 @@ const SignUp = ({ navigation }) => {
 
                 <TouchableOpacity
                    style={styles.connectBtn}
-                        
+                   onPress={()=>navigation.navigate("SignUp_Client")}
                 >
                     <AntDesign name="shoppingcart" size={27} color="white" style={{marginRight:15}}/>
                     <Text style={{color:"white",textAlign:"right"}}>Je suis un client</Text>

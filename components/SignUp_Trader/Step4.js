@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text,TouchableOpacity,View } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import Input from './Input';
+import Input from '../Input';
 
 
-const Step5 = ({toNextStep}) => {
+const Step4 = ({toNextStep}) => {
 
     const [selectedLanguage, setSelectedLanguage] = useState();
     
-    const [numPatente, setNumPatente] = useState();
-    
+    const [address,setAddress] = useState();
+
     const submit = () =>{
+ 
         toNextStep();
     }
 
     return (
         <View style={styles.stepTwo_container} >
             <View>
-                <Text style={{marginBottom:5}}>Numéro de patente *</Text>
-                <Input
-                   value={numPatente}
-                   handleChange={setNumPatente}
-                /> 
-
-                <Text style={{marginBottom:5}}>Statut juridique *</Text>
+                <Text style={{marginBottom:5}}>Domaine d'activité *</Text>
                 
                 <View style={{borderBottomWidth:0.3,marginBottom:5,backgroundColor:"#E7E7E7"}}>
                     <Picker 
@@ -32,13 +27,16 @@ const Step5 = ({toNextStep}) => {
                         onValueChange={(itemValue, itemIndex) =>
                             setSelectedLanguage(itemValue)
                         }>
-                        <Picker.Item label="    En Nom Propre" value={0} />
-                        <Picker.Item label="    Entreprise Individuelle" value={1}/>
-                        <Picker.Item label="    S A R L" value={2} />
-                        <Picker.Item label="    S A" value={3} />
+                        <Picker.Item label="    Supermarché" value={0} />
+                        
                     </Picker>
                 </View>
-                
+
+                <Text style={{marginBottom:5}}>Adresse de commerce *</Text>
+                <Input
+                    value={address}
+                    handleChange={setAddress}
+                /> 
                 <TouchableOpacity onPress={submit} style={styles.nextBtn}>
                     <Text style={{color:"white"}}>Suivant</Text>
                 </TouchableOpacity>
@@ -48,7 +46,7 @@ const Step5 = ({toNextStep}) => {
     )
 }
 
-export default Step5
+export default Step4
 
 const styles = StyleSheet.create({
     step_container: {
@@ -63,5 +61,4 @@ const styles = StyleSheet.create({
     }
 
 })
-
 

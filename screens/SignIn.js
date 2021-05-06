@@ -33,7 +33,7 @@ const SignIn = ({ navigation }) => {
                 <Input
                   value={password}
                   handleChange={setPassword}
-                  placeholder="*******" 
+                  placeholder='••••••••••••••' 
                   secureTextEntry
                 />
 
@@ -45,12 +45,16 @@ const SignIn = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
+      
+         
             <Text 
               style={styles.account_Txt}
               onPress={()=>navigation.navigate("SignUp")}  
             >
                 Créer un compte
             </Text>
+            
+           
         </View>
     )
 }
