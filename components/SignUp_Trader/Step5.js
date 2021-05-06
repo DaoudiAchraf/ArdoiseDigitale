@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text,TouchableOpacity,View } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import DropDown from '../DropDown';
 import Input from '../Input';
 
 
 const Step5 = ({toNextStep}) => {
 
-    const [selectedLanguage, setSelectedLanguage] = useState();
+    const dropdownItems = ['En Nom Propre','Entreprise Individuelle','S A R L','S A'];
+
+    const [selectedItem, setSelectedItem] = useState();
     
     const [numPatente, setNumPatente] = useState();
     
@@ -24,21 +26,13 @@ const Step5 = ({toNextStep}) => {
                 /> 
 
                 <Text style={{marginBottom:5}}>Statut juridique *</Text>
-                
-                <View style={{borderBottomWidth:0.3,marginBottom:5,backgroundColor:"#E7E7E7"}}>
-                    <Picker 
-                        style={{height:38}}
-                        selectedValue={selectedLanguage}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setSelectedLanguage(itemValue)
-                        }>
-                        <Picker.Item label="    En Nom Propre" value={0} />
-                        <Picker.Item label="    Entreprise Individuelle" value={1}/>
-                        <Picker.Item label="    S A R L" value={2} />
-                        <Picker.Item label="    S A" value={3} />
-                    </Picker>
-                </View>
-                
+              
+                <DropDown
+                  items={dropdownItems}
+                  selectedItem={selectedItem}
+                  handleChange={setSelectedItem}
+                />
+            
                 <TouchableOpacity onPress={submit} style={styles.nextBtn}>
                     <Text style={{color:"white"}}>Suivant</Text>
                 </TouchableOpacity>

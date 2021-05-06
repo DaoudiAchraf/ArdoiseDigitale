@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text,TouchableOpacity,View } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import DropDown from '../DropDown';
 import Input from '../Input';
 
 
 const Step4 = ({toNextStep}) => {
 
-    const [selectedLanguage, setSelectedLanguage] = useState();
+    const [selectedItem, setSelectedItem] = useState();
+
+    const dropdownItems = [
+        'supermarché',
+        'épicerie',
+        'droguerie',
+        'parfumerie',
+        'boucherie',
+        'boulangerie',
+        'patisserie',
+        'buraliste',
+        'épicerie',
+        'fine'
+    ]
     
     const [address,setAddress] = useState();
 
     const submit = () =>{
- 
         toNextStep();
     }
 
@@ -20,17 +32,11 @@ const Step4 = ({toNextStep}) => {
             <View>
                 <Text style={{marginBottom:5}}>Domaine d'activité *</Text>
                 
-                <View style={{borderBottomWidth:0.3,marginBottom:5,backgroundColor:"#E7E7E7"}}>
-                    <Picker 
-                        style={{height:38}}
-                        selectedValue={selectedLanguage}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setSelectedLanguage(itemValue)
-                        }>
-                        <Picker.Item label="    Supermarché" value={0} />
-                        
-                    </Picker>
-                </View>
+                <DropDown
+                  items={dropdownItems}
+                  selectedItem={selectedItem}
+                  handleChange={setSelectedItem}
+                />
 
                 <Text style={{marginBottom:5}}>Adresse de commerce *</Text>
                 <Input
