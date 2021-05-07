@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { View,Text,StyleSheet, Image, ScrollView} from "react-native";
 import StepIndicator from 'react-native-step-indicator';
+import indicatorStyle from '../styles/StepIndicator';
 import Step1 from '../components/SignUp_Client/Step1';
 import Step2 from '../components/Step2';
 import Step3 from '../components/Step3';
@@ -69,7 +70,7 @@ const App = () => {
             <View style={styles.stepsContainer}>
                 <Text style={styles.headerTxt} >Créer un compte</Text>
                 <StepIndicator
-                    customStyles={customStyles}
+                    customStyles={indicatorStyle}
                     currentPosition={currentPosition}
                 />
 
@@ -130,32 +131,3 @@ const styles = StyleSheet.create({
 
 });
 
-
-const customStyles = {
-
-    stepIndicatorSize: 30,
-    currentStepIndicatorSize:40,
-    separatorStrokeWidth: 3,
-    currentStepStrokeWidth: 5,
-    separatorStrokeUnfinishedWidth: 0,
-    separatorStrokeFinishedWidth: 0,
-    stepStrokeCurrentColor: '#324B3E',
-    stepStrokeWidth: 3,
-    stepStrokeFinishedColor: '#324B3E',
-    stepStrokeUnFinishedColor: '#aaaaaa',
-    separatorFinishedColor: '#324B3E',
-    separatorUnFinishedColor: '#aaaaaa',
-    stepIndicatorFinishedColor: '#324B3E',
-    stepIndicatorUnFinishedColor: '#ffffff',
-    stepIndicatorCurrentColor: '#ffffff',
-    stepIndicatorLabelFontSize: 15,
-    currentStepIndicatorLabelFontSize: 15,
-    stepIndicatorLabelCurrentColor: '#324B3E',
-    stepIndicatorLabelFinishedColor: '#ffffff',
-    stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-    labelColor: '#999999',
-    labelSize: 13,
-    currentStepLabelColor: '#324B3E',
-    
-
-}
