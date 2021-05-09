@@ -1,15 +1,12 @@
 
 import React, { useState } from "react";
-import { View,Text,StyleSheet, Image, ScrollView} from "react-native";
+import { View,Text,StyleSheet, Image, ScrollView, TouchableOpacity} from "react-native";
 import StepIndicator from 'react-native-step-indicator';
 import indicatorStyle from '../styles/StepIndicator';
 import logo from '../assets/logo-dark.png';
-import DayTimeSelector from '../components/DayTimeSelector';
+import DayTimeSelector from '../components/Calender';
 
 const App = () => {
-
-    //---- States ---------------
-    const [currentPosition, setcurrentPosition] = useState(0);
 
     const [formState, setFormState] = useState({
         firstName: null,
@@ -23,11 +20,6 @@ const App = () => {
         legalStatus: null,
         address: null
     });
-    //---------------------------
-
-    const toNextStep = ()=>{
-        setcurrentPosition(currentPosition+1);
-    }
 
     
   return (
@@ -40,18 +32,21 @@ const App = () => {
         
         <View style={styles.stepsContainer}>
             <Text style={styles.headerTxt} >
-                Créer un compte
+                Horaires d'ouverture
             </Text>
 
             <StepIndicator
               stepCount = {6}
               customStyles={indicatorStyle}
-              currentPosition={currentPosition}
+              currentPosition={1}
             />
-         
+        
             <DayTimeSelector/>
 
-          
+            <TouchableOpacity style={styles.nextBtn}>
+                <Text style={{color:"white"}}>Suivant</Text>
+            </TouchableOpacity>
+
         </View>
     </View>
  
@@ -64,7 +59,7 @@ const styles = StyleSheet.create({
     container:{
         backgroundColor: 'white',
         justifyContent: 'space-between',
-        padding: 40,
+        padding: 36,
         paddingBottom: 20,
         paddingTop:10,
         flex:1,
@@ -75,13 +70,12 @@ const styles = StyleSheet.create({
         height:200,
         width:200
     },
- 
     stepsContainer:{
+        flex:1,
         paddingTop:7,
         paddingBottom: 10,
-        borderWidth: 3,
-        justifyContent:"flex-end",
-        flex:1
+        justifyContent: 'flex-end',
+        
     },
 
     headerTxt:{
@@ -96,6 +90,14 @@ const styles = StyleSheet.create({
         color: "#324B3E",
         fontSize:15
     },
+
+    nextBtn: {
+        alignItems: "center",
+        backgroundColor: "#324B3E",
+        padding: 10,
+        marginBottom: "5%",
+        marginTop:"4%"
+    }
 
 });
 

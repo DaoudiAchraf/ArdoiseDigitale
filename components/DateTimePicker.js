@@ -1,19 +1,26 @@
-import React, {useState} from 'react';
-import {View, Button, Platform} from 'react-native';
+import React, { useState } from 'react';
+import {View, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
 
 
-export const Picker = ({mode,show,setShow}) => {
+export const Picker = ({mode,show,setShow,handleChange}) => {
 
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [value,setValue] = useState(new Date());
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
+      const currentDate = selectedDate || value;
+      setShow(Platform.OS === 'ios');
+      setValue(currentDate);
+      
+      let time;
+      if(Math.trunc(currentDate.getMinutes() / 10) === 0)
+        time = currentDate.getHours()+':'+'0'+currentDate.getMinutes();
+      else
+        time = currentDate.getHours()+':'+currentDate.getMinutes();
+      handleChange(time);
 
+  };
  
   return (
     <View>
@@ -21,7 +28,7 @@ export const Picker = ({mode,show,setShow}) => {
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
+          value={value}
           mode={mode}
           is24Hour={true}
           display="default"
@@ -37,10 +44,10 @@ export default Picker;
 Picker.propTypes = {
     show: PropTypes.bool,
     mode: PropTypes.string,
-  };
+};
   
 Picker.defaultProps = {
-    mode : 'date',
-    show : false
+    mode: 'date',
+    show: false,
   };
   
