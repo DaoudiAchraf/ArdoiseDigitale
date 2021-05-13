@@ -9,7 +9,7 @@ import Step3 from '../components/Step3';
 import Step4 from '../components/SignUp_Client/Step4';
 import FinalStep from '../components/FinalStep';
 import SignUpContext from '../contexts/SignUp.context';
-import logo from '../assets/logo-dark.png'
+import logo from '../assets/images/logo-dark.png'
 
 const App = () => {
 
@@ -97,13 +97,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         padding: 36,
         paddingBottom: 20,
-        paddingTop:20,
-        flex:1,
+        paddingTop: 20,
+        flex: 1,
     },
     logoStyle:{
-        alignSelf:"center",
-        height:"100%",
-        width:"80%"
+        alignSelf: 'center',
+        height: '100%',
+        width: '80%'
     },
     scrollContent:
     {
@@ -111,12 +111,12 @@ const styles = StyleSheet.create({
      justifyContent: 'flex-end' 
     },
     stepsContainer:{
-        justifyContent:"flex-end"
+        justifyContent: 'flex-end'
     },
     headerTxt:{
-        textAlign:'center',
-        color:"#324B3E",
-        fontSize:20,
+        textAlign: 'center',
+        color: '#324B3E',
+        fontSize: 20,
         marginBottom: 12
     },
 
@@ -124,9 +124,9 @@ const styles = StyleSheet.create({
         marginTop: 25,
     },
     footerTxt: {
-        textAlign:"center",
-        color: "#324B3E",
-        fontSize:15
+        textAlign: 'center',
+        color: '#324B3E',
+        fontSize: 15
     },
 
 });

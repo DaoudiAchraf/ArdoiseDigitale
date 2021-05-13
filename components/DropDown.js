@@ -19,7 +19,7 @@ const DropDown = ({items,selectedItem,handleChange}) => {
                       return (
                         <Picker.Item 
                            key={index} 
-                           label={'    '+item}
+                           label={item}
                            value={index}
                         />
                       )
@@ -35,10 +35,13 @@ export default DropDown
 
 const styles = StyleSheet.create({
     container: {
-        borderBottomWidth: 0.3,
+        borderBottomWidth: 1,
+        borderColor: 'grey',
         marginBottom: 5,
         marginTop: 5,
-        backgroundColor: '#E7E7E7'
+        backgroundColor: '#F6F6F6',
+ 
+        
     },
 
 })

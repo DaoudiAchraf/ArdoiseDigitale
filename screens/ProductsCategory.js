@@ -4,9 +4,9 @@ import { View,Text,StyleSheet, Image, ScrollView, TouchableOpacity} from "react-
 import StepIndicator from 'react-native-step-indicator';
 import indicatorStyle from '../styles/StepIndicator';
 import logo from '../assets/images/logo-dark.png';
-import DayTimeSelector from '../components/Calender';
+import CategorySelector from '../components/CategorySelector';
 
-const App = () => {
+const ProductsCategory = () => {
 
     const [formState, setFormState] = useState({
         firstName: null,
@@ -25,35 +25,46 @@ const App = () => {
   return (
     <View style={styles.container}>
   
-        <Image
-           style={styles.logoStyle}
-           source={logo} 
-        />
+  <View style={{flex:1}}>
+            {<Image
+               resizeMode = 'contain' 
+               style={styles.logoStyle}
+               source={logo} 
+            />}
+        </View>
         
         <View style={styles.stepsContainer}>
             <Text style={styles.headerTxt} >
-                Horaires d'ouverture
+                Catégories de produits
             </Text>
+           
+            <View style={{marginBottom:12}} >
 
             <StepIndicator
               stepCount = {6}
               customStyles={indicatorStyle}
               currentPosition={1}
             />
-        
-            <DayTimeSelector/>
+            </View>
+    
+            <CategorySelector/>
+
+            <Text style={styles.footerTxt}>
+              Sélectionner les Catégories de produits que votre 
+              commerce offre.
+            </Text>
 
             <TouchableOpacity style={styles.nextBtn}>
                 <Text style={{color:"white"}}>Suivant</Text>
             </TouchableOpacity>
-
+          
         </View>
     </View>
  
   );
 };
  
-export default App;
+export default ProductsCategory;
 
 const styles = StyleSheet.create({
     container:{
@@ -63,34 +74,30 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         paddingTop:10,
         flex:1,
-  
     },
     logoStyle:{
         alignSelf:"center",
-        height:200,
-        width:200
+        height: '100%',
+        width: '100%'
     },
     stepsContainer:{
-        flex:1,
-        paddingTop:7,
+        flex: 4,
+        paddingTop: 7,
         paddingBottom: 10,
-        justifyContent: 'flex-end',
-        
+        justifyContent: 'flex-end'
     },
-
     headerTxt:{
         textAlign:'center',
         color:"#324B3E",
         fontSize:20,
         marginBottom: 12
     },
-
     footerTxt: {
-        textAlign:"center",
-        color: "#324B3E",
-        fontSize:15
+        marginTop: 10,
+        textAlign: 'justify',
+        color: '#808080',
+        fontSize: 15
     },
-
     nextBtn: {
         alignItems: "center",
         backgroundColor: "#324B3E",
@@ -98,7 +105,6 @@ const styles = StyleSheet.create({
         marginBottom: "5%",
         marginTop:"4%"
     }
-
 });
 
 

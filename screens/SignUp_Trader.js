@@ -10,7 +10,7 @@ import Step4 from '../components/SignUp_Trader/Step4';
 import Step5 from '../components/SignUp_Trader/Step5';
 import FinalStep from '../components/FinalStep';
 import SignUpContext from '../contexts/SignUp.context';
-import logo from '../assets/logo-dark.png'
+import logo from '../assets/images/logo-dark.png'
 
 const App = () => {
 

@@ -19,7 +19,7 @@ const SignIn = ({ navigation }) => {
                 
                 resizeMode="contain"
                 style={{width:"100%",height:"70%"}} 
-                source={require('../assets/logo-light.png')}/>
+                source={require('../assets/images/logo-light.png')}/>
             </View>
           
             

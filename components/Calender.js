@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, CheckBox, Text, ScrollView, TouchableOpacity} from 'react-native';
 import { DataTable, Title } from 'react-native-paper';
 import DateTimePicker from './DateTimePicker';
-import { days } from '../constants/constants';
+import { days } from '../constants/Arrays';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons'; 
 import PropTypes from 'prop-types';

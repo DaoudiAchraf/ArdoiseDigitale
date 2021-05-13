@@ -10,7 +10,7 @@ const SignUp = ({ navigation }) => {
                 <Image
                 resizeMode="contain"
                 style={{width:"100%",height:"70%"}} 
-                source={require('../assets/logo-light.png')}/>
+                source={require('../assets/images/logo-light.png')}/>
             </View>
             
             <View style={styles.signUp__Box}>
@@ -21,7 +21,7 @@ const SignUp = ({ navigation }) => {
                    onPress={()=>navigation.navigate("SignUp_Trader")}     
                 >
                     <Entypo name="shop" size={24} color="white" style={{marginRight:15}} />
-                    <Text style={{color:"white",textAlign:"justify"}}>Je suis un marchant</Text>
+                    <Text style={{color:"white",textAlign:"justify"}}>Je suis un marchand</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
