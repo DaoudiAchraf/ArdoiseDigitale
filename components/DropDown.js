@@ -1,48 +1,33 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
+const DropDown = ({ items, selectedItem, handleChange }) => {
+  return (
+    <View style={styles.container}>
+      <Picker
+        style={{ height: 38 }}
+        selectedValue={selectedItem}
+        onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
+      >
+        {items.map((item, index) => {
+          return <Picker.Item key={index} label={item} value={index} />;
+        })}
+      </Picker>
+    </View>
+  );
+};
 
-const DropDown = ({items,selectedItem,handleChange}) => {
-
-    return (
-        
-        <View style={styles.container}>
-            <Picker 
-                style={{height:38}}
-                selectedValue={selectedItem}
-                onValueChange={(itemValue, itemIndex) =>
-                handleChange(itemValue)
-            }>
-                {
-                    items.map((item,index) => {
-                      return (
-                        <Picker.Item 
-                           key={index} 
-                           label={item}
-                           value={index}
-                        />
-                      )
-                    })
-                }
-              
-            </Picker>
-        </View>
-    )
-}
-
-export default DropDown
+export default DropDown;
 
 const styles = StyleSheet.create({
-    container: {
-        borderBottomWidth: 1,
-        borderColor: 'grey',
-        marginBottom: 5,
-        marginTop: 5,
-        backgroundColor: '#F6F6F6',
- 
-        
-    },
+  container: {
+    borderBottomWidth: 1,
+    borderColor: "grey",
+    marginBottom: 5,
+    marginTop: 5,
+    backgroundColor: "#F6F6F6",
 
-})
 
+  },
+});

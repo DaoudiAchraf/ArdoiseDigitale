@@ -12,11 +12,14 @@ import clientaccount from "./screens/client-account";
 import notification from "./screens/notification";
 import consultercomptemarchand from "./screens/consulter-compte-marchand";
 
+import ProductsCatalog from './screens/ProductsCatalog';
+import TraderFirstConnection from './screens/TraderFirstConnection';
+
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="consultercomptemarchand"
+    initialRouteName="TraderFirstConnection"
     screenOptions={{ headerShown: false }}
   >
     <Stack.Screen name="SignIn" component={SignIn} />
@@ -32,6 +35,7 @@ const StackNavigator = () => (
       name="consultercomptemarchand"
       component={consultercomptemarchand}
     />
+      <Stack.Screen name="TraderFirstConnection" component={TraderFirstConnection} />
   </Stack.Navigator>
 );
 
