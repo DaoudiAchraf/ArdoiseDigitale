@@ -11,6 +11,8 @@ import AddProduct from "./screens/AddProduct";
 import clientaccount from "./screens/client-account";
 import notification from "./screens/notification";
 import consultercomptemarchand from "./screens/consulter-compte-marchand";
+import test from './screens/test';
+import test_components from './screens/test_components';
 
 import ProductsCatalog from './screens/ProductsCatalog';
 import TraderFirstConnection from './screens/TraderFirstConnection';
@@ -28,6 +30,10 @@ const StackNavigator = () => (
     <Stack.Screen name="SignUp_Client" component={SignUp_Client} />
     <Stack.Screen name="OpeningTime" component={OpeningTime} />
     <Stack.Screen name="ProductsCategory" component={ProductsCategory} />
+    <Stack.Screen name="ProductsCatalog" component={ProductsCatalog} />
+
+    <Stack.Screen name="test" component={test} />
+    <Stack.Screen name="test_components" component={test_components} />
     <Stack.Screen name="add" component={AddProduct} />
     <Stack.Screen name="notification" component={notification} />
     <Stack.Screen name="clientaccount" component={clientaccount} />
