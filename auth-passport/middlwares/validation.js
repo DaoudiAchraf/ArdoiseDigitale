@@ -32,6 +32,32 @@ const clientLoginValidation = data => {
     return schema.validate(data, Joi.schema);
 }
 
+//merchant register validation
+const merchantRegisterValidation = (data) => {
+    const schema = Joi.object({
+        comName: Joi.string().required(),
+        numPatent: Joi.number().required(),
+        addressWay: Joi.string().required(),
+        addressState: Joi.string().required(),
+        addressRegion: Joi.string().required(),
+        addressComplement: Joi.string(),
+        juridicState: Joi.string().required(),
+        refCIN: Joi.number().required(),
+        mandataireFN: Joi.string().required(),
+        mandataireLN: Joi.string().required(),
+        identityCard: Joi.object().required(),
+        mandatairephoneNumber: Joi.number().required(),
+        activityDomain: Joi.string().required(),
+        creationDay: Joi.date(),
+        experationDay: Joi.date(),
+        walletId: Joi.string()
+    });
+
+    return schema.validate(data, Joi.schema);
+};
+
+
 
 module.exports.clientRegisterValidation = clientRegisterValidation;
+module.exports.merchantRegisterValidation = merchantRegisterValidation;
 module.exports.clientLoginValidation = clientLoginValidation;

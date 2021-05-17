@@ -45,6 +45,9 @@ const merchantSchema = new mongoose.Schema ({
     },
     expirationDay: {
         type: Date
+    },
+    walletID: {
+        type: String
     }
 });
 

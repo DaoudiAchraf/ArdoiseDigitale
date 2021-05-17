@@ -45,15 +45,16 @@ const clientSchema = new mongoose.Schema ({
         default: Date.now
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     userName: {
         type: String
     },
     walletId: {
         type: String
-    }
+    },
+    hash: String,
+    salt: String
 });
 
 module.exports = mongoose.model('client', clientSchema);
