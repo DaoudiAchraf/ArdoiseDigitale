@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Input from "../components/Input";
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Input from '../components/Input';
 
 const SignIn = ({ navigation }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const submit = () => {
-    console.log("->", username, password);
+    console.log('->', username, password);
   };
 
   return (
@@ -15,8 +15,8 @@ const SignIn = ({ navigation }) => {
       <View style={{ flex: 1 }}>
         <Image
           resizeMode="contain"
-          style={{ width: "100%", height: "70%" }}
-          source={require("../assets/images/logo-light.png")}
+          style={{ width: '100%', height: '70%' }}
+          source={require('../assets/images/logo-light.png')}
         />
       </View>
 
@@ -41,7 +41,7 @@ const SignIn = ({ navigation }) => {
 
       <Text
         style={styles.account_Txt}
-        onPress={() => navigation.navigate("SignUp")}
+        onPress={() => navigation.navigate('SignUp')}
       >
         Créer un compte
       </Text>
@@ -54,27 +54,27 @@ const styles = StyleSheet.create({
   signIn_container: {
     padding: 50,
     paddingTop: 30,
-    justifyContent: "flex-end",
-    backgroundColor: "#426252",
+    justifyContent: 'flex-end',
+    backgroundColor: '#426252',
     flex: 1,
   },
   signIn__Box: {
     padding: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     marginBottom: 20,
   },
   connectBtn: {
-    alignItems: "center",
-    backgroundColor: "#324B3E",
+    alignItems: 'center',
+    backgroundColor: '#324B3E',
     padding: 10,
   },
   btnTxt: {
-    color: "white",
+    color: 'white',
     fontSize: 17,
   },
   account_Txt: {
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
     fontSize: 16,
   },
 });
