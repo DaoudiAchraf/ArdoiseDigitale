@@ -16,14 +16,16 @@ import test_components from './screens/test_components';
 
 import ProductsCatalog from './screens/ProductsCatalog';
 import TraderFirstConnection from './screens/TraderFirstConnection';
+import ProfilMarchand from './screens/ProfilMarchand';
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="notification"
+    initialRouteName="test"
     screenOptions={{ headerShown: false }}
   >
+    <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
     <Stack.Screen name="SignIn" component={SignIn} />
     <Stack.Screen name="SignUp" component={SignUp} />
     <Stack.Screen name="SignUp_Trader" component={SignUp_Trader} />

@@ -8,7 +8,7 @@ function MarkerSvg(props) {
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 500 500"
-      width="25em"
+      width="700em"
       height="25em"
       {...props}
     >

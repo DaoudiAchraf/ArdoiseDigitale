@@ -1,15 +1,15 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
+import * as React from 'react';
+import Svg, { Path } from 'react-native-svg';
 /* SVGR has dropped some elements not supported by react-native-svg: title */
 
-function recherche(props) {
+function Recherche(props) {
   return (
     <Svg
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 500 500"
-      width="1em"
-      height="1em"
+      width="20em"
+      height="20em"
       {...props}
     >
       <Path
@@ -20,4 +20,4 @@ function recherche(props) {
   );
 }
 
-export default recherche;
+export default Recherche;
