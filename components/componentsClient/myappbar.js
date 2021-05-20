@@ -6,7 +6,7 @@ const myappbar = (props) => {
   const _goBack = () => console.log("Went back");
 
   return (
-    <Appbar.Header style={{ backgroundColor: "transparent" }}>
+    <Appbar.Header style={{ backgroundColor: "transparent", marginTop: "5%" }}>
       <Appbar.BackAction onPress={_goBack} color="#FFFFFF" />
       <Appbar.Content
         title={props.title}

@@ -9,7 +9,7 @@ import {
   Paragraph,
 } from "react-native-paper";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import Item2 from "../../components/componentsClient/myitem2";
+import Item2 from "../../components/componentsClient/Item2";
 
 const card = (props) => {
   return (
