@@ -10,38 +10,87 @@ import Myappbar from '../components/componentsClient/myappbar';
 import Mynavbar from '../components/componentsClient/navbar';
 import Item2 from '../components/componentsClient/myitem2';
 import NotificationBackground from '../assets/assets/svgricons/notificationBackground';
+import Myappbar from '../components/componentsClient/myappbar';
+import Mynavbar from '../components/componentsClient/navbar';
+import Item2 from '../components/componentsClient/Item2';
+import Item3 from '../components/componentsClient/Item3';
 
 const Separator = () => <View style={styles.separator} />;
 
-function clientaccount() {
+function Notification() {
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView style={{ backgroundColor: '#324B3E' }}>
-        <Myappbar
-          title="Notifications"
-          subtitle="Vous avez nouvelles notifications"
-        />
-        <NotificationBackground style={styles.image} />
-        <View style={{ marginTop: '10%' }}>
-          <Item2 title="bla" small="bla" smaller="bla" />
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor: '#324B3E',
+      }}
+    >
+      <Myappbar
+        title="Notifications"
+        subtitle="Vous avez 3 nouvelles notifications"
+      />
+      <Image
+        style={styles.image}
+        source={require('../assets/assets/icons/client-fond-btn-notification.png')}
+      />
 
-          <Item2 title="bla" small="bla" smaller="bla" />
-        </View>
-        <Separator />
-      </ScrollView>
-      <Mynavbar></Mynavbar>
-    </View>
+      <View style={{ marginTop: '18%', margin: '3%' }}>
+        <Item2
+          title="Offre de prix reçue"
+          small="Sam lrving le 12/12/2020 à 10h30"
+          smaller="Appuyez pour voir les détails."
+          source={require('../assets/assets/icons/fond-page-commandes.png')}
+        />
+        <Item2
+          title="Commande prete"
+          small="Sam lrving le 12/12/2020 à 10h30"
+          smaller="Appuyez pour voir les détails."
+          source={require('../assets/assets/icons/fond-page-commandes.png')}
+        />
+        <Item2
+          title="Commande servie"
+          small="Sam lrving le 12/12/2020 à 10h30"
+          smaller="Appuyez pour voir les détails."
+          source={require('../assets/assets/icons/fond-page-commandes.png')}
+        />
+        <Item3
+          title="Ardoise payée"
+          small="Sam lrving le 12/12/2020 à 10h30"
+          smaller="Appuyez pour voir les détails."
+          source={require('../assets/assets/icons/fond-page-historique.png')}
+        />
+        <Item3
+          title="Echéance étendue"
+          small="Sam lrving le 12/12/2020 à 10h30"
+          smaller="Appuyez pour voir les détails."
+          source={require('../assets/assets/icons/fond-page-historique.png')}
+        />
+        <Item3
+          title="Solde insuffisant"
+          small="Sam lrving le 12/12/2020 à 10h30"
+          smaller="Appuyez pour voir les détails."
+          source={require('../assets/assets/icons/fond-page-historique.png')}
+        />
+        <Item3
+          title="Payement du dans 2 jours"
+          small="Sam lrving le 12/12/2020 à 10h30"
+          smaller="Appuyez pour voir les détails."
+          source={require('../assets/assets/icons/fond-page-historique.png')}
+        />
+      </View>
+      <Separator />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    flex: 1,
-    height: '40%',
-    width: '20%',
-    resizeMode: 'cover',
+    height: '50%',
+    width: '30%',
+    resizeMode: 'contain',
     alignSelf: 'flex-end',
     position: 'absolute',
+    top: '-12%',
   },
   separator: {
     marginVertical: 8,
@@ -52,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default clientaccount;
+export default Notification;

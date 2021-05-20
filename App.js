@@ -8,21 +8,20 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import ProductsCategory from './screens/ProductsCategory';
 import AddProduct from './screens/AddProduct';
-import clientaccount from './screens/client-account';
-import notification from './screens/notification';
-import consultercomptemarchand from './screens/consulter-compte-marchand';
+import Clientaccount from './screens/Client-account';
+import Notification from './screens/Notification';
+import Consultercomptemarchand from './screens/Consulter-compte-marchand';
 import test from './screens/test';
 import test_components from './screens/test_components';
-
 import ProductsCatalog from './screens/ProductsCatalog';
 import TraderFirstConnection from './screens/TraderFirstConnection';
-import ProfilMarchand from './screens/ProfilMarchand';
+import Listemarchands from './screens/Liste-marchands';
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="test"
+    initialRouteName="Listemarchands"
     screenOptions={{ headerShown: false }}
   >
     <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
@@ -33,15 +32,15 @@ const StackNavigator = () => (
     <Stack.Screen name="OpeningTime" component={OpeningTime} />
     <Stack.Screen name="ProductsCategory" component={ProductsCategory} />
     <Stack.Screen name="ProductsCatalog" component={ProductsCatalog} />
-
+    <Stack.Screen name="Listemarchands" component={Listemarchands} />
     <Stack.Screen name="test" component={test} />
     <Stack.Screen name="test_components" component={test_components} />
     <Stack.Screen name="add" component={AddProduct} />
-    <Stack.Screen name="notification" component={notification} />
-    <Stack.Screen name="clientaccount" component={clientaccount} />
+    <Stack.Screen name="Notification" component={Notification} />
+    <Stack.Screen name="Clientaccount" component={Clientaccount} />
     <Stack.Screen
-      name="consultercomptemarchand"
-      component={consultercomptemarchand}
+      name="Consultercomptemarchand"
+      component={Consultercomptemarchand}
     />
     <Stack.Screen
       name="TraderFirstConnection"
