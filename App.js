@@ -19,12 +19,13 @@ import Listemarchands from "./screens/Liste-marchands";
 import HistoriquePaiements from "./screens/HistoriquePaiements";
 import DetailsTransaction from "./screens/DetailsTransaction";
 import ProfilMarchand from "./screens/ProfilMarchand";
+import Chip from "./components/componentsClient/Chip";
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="test"
+    initialRouteName="Chip"
     screenOptions={{ headerShown: false }}
   >
     <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
@@ -41,6 +42,7 @@ const StackNavigator = () => (
     <Stack.Screen name="add" component={AddProduct} />
     <Stack.Screen name="Notification" component={Notification} />
     <Stack.Screen name="Clientaccount" component={Clientaccount} />
+    <Stack.Screen name="Chip" component={Chip} />
     <Stack.Screen
       name="ConsulterCompteMarchand"
       component={ConsulterCompteMarchand}
