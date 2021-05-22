@@ -65,6 +65,7 @@ export default function test({ navigation }) {
 
               <Callout>
                 <CalloutCard
+                  navigation={navigation}
                   source={aaa}
                   small={marker.description}
                   {...marker}
