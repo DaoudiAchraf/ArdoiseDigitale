@@ -6,7 +6,7 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-import Myappbar from "../components/componentsClient/myappbar";
+import Myappbar from "../components/componentsClient/Myappbar";
 import Card from "../components/componentsClient/card";
 import { Button } from "react-native-paper";
 import { w } from "../utils/Size";
