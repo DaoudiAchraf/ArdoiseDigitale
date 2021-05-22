@@ -1,25 +1,49 @@
 import React, { useState } from 'react';
 
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
 import MarkerSvg from '../assets/svg-icones-client/marker.jsx';
 import Filter from '../assets/svg-icones-client/filter.jsx';
 import BackSvg from '../assets/svg-icones-client/back.jsx';
+import Recherche from '../assets/assets/svgricons/recherche.jsx';
+import MyCard from '../components/componentsClient/card';
+import { h, w } from '../utils/Size';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
-import { Button, TextInput, Portal } from 'react-native-paper';
+import { Button, TextInput, Portal, Searchbar } from 'react-native-paper';
 import MenuFiltres from '../components/Client_UI/menu_filtres';
+import CalloutCard from '../components/Client_UI/CalloutCard.js';
+import ItemInCallout from '../components/Client_UI/ItemInCallout';
 
-export default function test() {
+export default function test({ navigation }) {
   const [markers, setMarkers] = useState([
     {
-      title: 'marchand 1',
-      latlng: { latitude: 36.9, longitude: 10.238 },
+      title: 'Target Express',
+      latlng: { latitude: 36.865384, longitude: 10.304349 },
+      description: '751 Green Hill Dr. Webster,\nNY 114580',
+    },
+    {
+      title: 'marchand 2',
+      latlng: { latitude: 36.870488, longitude: 10.263784 },
+      description: 'I am a very good shop',
+    },
+    {
+      title: 'marchand 3',
+      latlng: { latitude: 36.850059, longitude: 10.259115 },
+      description: 'I am a very good shop',
+    },
+    {
+      title: 'marchand 4',
+      latlng: { latitude: 36.846111, longitude: 10.272494 },
       description: 'I am a very good shop',
     },
   ]);
+  const aaa = require('../assets/assets/targetexpress.jpg');
 
   return (
     <ScrollView>
+      <ItemInCallout navigation={navigation} />
+
       <View style={styles.container}>
         <MapView
           style={styles.map}
@@ -38,14 +62,17 @@ export default function test() {
               description={marker.description}
             >
               <MarkerSvg />
+
+              <Callout>
+                <CalloutCard
+                  source={aaa}
+                  small={marker.description}
+                  {...marker}
+                />
+              </Callout>
             </Marker>
           ))}
-          <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
         </MapView>
-
-        <View style={styles.container3}>
-          <MenuFiltres />
-        </View>
 
         <View style={styles.container2}>
           <View style={{ width: '10%' }}>
@@ -58,15 +85,18 @@ export default function test() {
             ></Button>
           </View>
 
+          <MenuFiltres />
+
           <View style={{ width: '50%' }}>
-            <TextInput
-              mode="flat"
-              dense="true"
+            <Searchbar
+              icon={Recherche}
               placeholder={'Recherche..'}
-              selectionColor="#426252"
-              underlineColor="#426252"
               onChangeText={(text) => console.log(text)}
-              style={{ height: '100%' }}
+              onIconPress={(text) => {
+                console.log(text);
+              }}
+              inputStyle={{ fontSize: RFValue(12) }}
+              style={{ height: h(5.5) }}
             />
           </View>
         </View>
@@ -78,13 +108,16 @@ export default function test() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexWrap: 'wrap',
     backgroundColor: '#fff',
-    alignItems: 'stretch',
+    alignItems: 'flex-start',
     justifyContent: 'center',
   },
   map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+    elevation: -1,
+    zIndex: -1,
   },
   container2: {
     flex: 1,
@@ -93,13 +126,16 @@ const styles = StyleSheet.create({
     left: '7%',
     position: 'absolute',
     justifyContent: 'space-between',
-    width: '90%',
-    height: '4.5%',
-  },
-  container3: {
-    width: '30%',
-    top: '100%',
-    backgroundColor: 'black',
-    position: 'relative',
+    width: '88%',
+    height: '100%',
   },
 });
+/*
+<TextInput
+              mode="flat"
+              dense="true"
+              selectionColor="#426252"
+              underlineColor="#426252"
+              style={{ height: '100%' }}
+            />
+            */

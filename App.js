@@ -26,6 +26,7 @@ const StackNavigator = () => (
     initialRouteName="DetailsTransaction"
     screenOptions={{ headerShown: false }}
   >
+    <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
     <Stack.Screen name="SignIn" component={SignIn} />
     <Stack.Screen name="SignUp" component={SignUp} />
     <Stack.Screen name="SignUp_Trader" component={SignUp_Trader} />
