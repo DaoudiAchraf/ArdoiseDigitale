@@ -76,7 +76,7 @@ export default function test({ navigation }) {
         </MapView>
 
         <View style={styles.container2}>
-          <View style={{ width: '10%' }}>
+          <View style={{ width: w(10) }}>
             <Button
               compact="true"
               icon={BackSvg}
@@ -88,7 +88,7 @@ export default function test({ navigation }) {
 
           <MenuFiltres />
 
-          <View style={{ width: '50%' }}>
+          <View style={{ width: w(50) }}>
             <Searchbar
               icon={Recherche}
               placeholder={'Recherche..'}
@@ -117,18 +117,16 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    elevation: -1,
-    zIndex: -1,
   },
   container2: {
     flex: 1,
     flexDirection: 'row',
-    top: '5%',
-    left: '7%',
+    top: h(5),
+    left: w(7),
     position: 'absolute',
     justifyContent: 'space-between',
-    width: '88%',
-    height: '100%',
+    width: w(88),
+    height: h(100),
   },
 });
 /*

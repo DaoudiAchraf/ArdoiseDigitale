@@ -1,20 +1,20 @@
-import React from "react";
-import { View, ScrollView, Image, StyleSheet } from "react-native";
-import Transaction from "../components/componentsClient/Transaction";
-import Myappbar from "../components/componentsClient/Myappbar";
+import React from 'react';
+import { View, ScrollView, Image, StyleSheet } from 'react-native';
+import Transaction from '../components/componentsClient/Transaction';
+import Myappbar from '../components/componentsClient/Myappbar';
 
 const Separator = () => <View style={styles.separator} />;
 
 function DetailsTransaction() {
   return (
-    <View style={{ flex: 1, backgroundColor: "#324B3E" }}>
+    <View style={{ flex: 1, backgroundColor: '#324B3E' }}>
       <ScrollView style={{ flex: 1 }}>
         <Myappbar title="Details de la transaction" />
         <Image
           style={styles.image}
-          source={require("../assets/assets/icons/fond-page-historique.png")}
+          source={require('../assets/assets/icons/fond-page-historique.png')}
         />
-        <View style={{ margin: "3%" }}>
+        <View style={{ margin: '3%' }}>
           <Transaction
             type="Type de paiement"
             title1="Paiement au comptant"
@@ -37,19 +37,19 @@ function DetailsTransaction() {
 
 const styles = StyleSheet.create({
   image: {
-    height: "50%",
-    width: "30%",
-    resizeMode: "contain",
-    alignSelf: "flex-end",
-    position: "absolute",
-    top: "-12%",
+    height: '50%',
+    width: '30%',
+    resizeMode: 'contain',
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    top: '-12%',
   },
   separator: {
     marginVertical: 8,
-    borderBottomColor: "#FFFFFF",
+    borderBottomColor: '#FFFFFF',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginLeft: "25%",
-    marginRight: "25%",
+    marginLeft: '25%',
+    marginRight: '25%',
   },
 });
 
