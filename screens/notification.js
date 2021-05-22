@@ -27,51 +27,51 @@ function Notification() {
       />
       <Image
         style={styles.image}
-        source={require("../assets/assets/icons/client-fond-btn-notification.png")}
+        source={require("../assets/assets/icons/fond-page-notifications.png")}
       />
 
-      <View style={{ marginTop: "18%", margin: "3%" }}>
+      <View style={{ marginTop: "18%", margin: "3%", padding: "2%" }}>
         <Item2
           title="Offre de prix reçue"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
-          source={require("../assets/assets/icons/fond-page-commandes.png")}
+          source={require("../assets/assets/icons/client-fond-btn-commande.png")}
         />
         <Item2
           title="Commande prete"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
-          source={require("../assets/assets/icons/fond-page-commandes.png")}
+          source={require("../assets/assets/icons/client-fond-btn-commande.png")}
         />
         <Item2
           title="Commande servie"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
-          source={require("../assets/assets/icons/fond-page-commandes.png")}
+          source={require("../assets/assets/icons/client-fond-btn-commande.png")}
         />
         <Item3
           title="Ardoise payée"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
-          source={require("../assets/assets/icons/fond-page-historique.png")}
+          source={require("../assets/assets/icons/client-fond-btn-historique.png")}
         />
         <Item3
           title="Echéance étendue"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
-          source={require("../assets/assets/icons/fond-page-historique.png")}
+          source={require("../assets/assets/icons/client-fond-btn-historique.png")}
         />
         <Item3
           title="Solde insuffisant"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
-          source={require("../assets/assets/icons/fond-page-historique.png")}
+          source={require("../assets/assets/icons/client-fond-btn-historique.png")}
         />
         <Item3
           title="Payement du dans 2 jours"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
-          source={require("../assets/assets/icons/fond-page-historique.png")}
+          source={require("../assets/assets/icons/client-fond-btn-historique.png")}
         />
       </View>
       <Separator />

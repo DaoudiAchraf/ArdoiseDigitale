@@ -12,12 +12,12 @@ const Item2 = (props) => {
       onPress={() => console.log("Pressed")}
     >
       <View style={{ flexDirection: "row", marginTop: "-5%" }}>
-        <View style={{ width: w(80), margin: "3%" }}>
+        <View style={{ width: w(87), margin: "4%", marginLeft: "2%" }}>
           <Text style={styles.title}>{props.title}</Text>
           <Text style={styles.small}>{props.small}</Text>
           <Text style={styles.smaller}>{props.smaller}</Text>
         </View>
-        <View style={{ width: w(20), marginTop: "3%", marginLeft: "-25%" }}>
+        <View style={{ width: w(20), marginTop: "3%", marginLeft: "-22%" }}>
           <Image source={props.source} style={styles.image}></Image>
         </View>
       </View>
@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     padding: "3%",
     borderRadius: 3,
-    marginTop: "3%",
-    height: h(8.5),
-    width: w(85),
+    marginTop: "5%",
+    height: h(9.5),
+    width: w(92),
     alignSelf: "center",
   },
   title: {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontSize: RFValue(9),
   },
   image: {
-    height: "85%",
+    height: "100%",
     width: "85%",
   },
 });

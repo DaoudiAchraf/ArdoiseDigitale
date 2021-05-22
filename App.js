@@ -10,18 +10,20 @@ import ProductsCategory from "./screens/ProductsCategory";
 import AddProduct from "./screens/AddProduct";
 import Clientaccount from "./screens/Client-account";
 import Notification from "./screens/Notification";
-import Consultercomptemarchand from "./screens/Consulter-compte-marchand";
+import ConsulterCompteMarchand from "./screens/ConsulterCompteMarchand";
 import test from "./screens/test";
 import test_components from "./screens/test_components";
 import ProductsCatalog from "./screens/ProductsCatalog";
 import TraderFirstConnection from "./screens/TraderFirstConnection";
 import Listemarchands from "./screens/Liste-marchands";
+import HistoriquePaiements from "./screens/HistoriquePaiements";
+import DetailsTransaction from "./screens/DetailsTransaction";
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="Listemarchands"
+    initialRouteName="DetailsTransaction"
     screenOptions={{ headerShown: false }}
   >
     <Stack.Screen name="SignIn" component={SignIn} />
@@ -38,13 +40,15 @@ const StackNavigator = () => (
     <Stack.Screen name="Notification" component={Notification} />
     <Stack.Screen name="Clientaccount" component={Clientaccount} />
     <Stack.Screen
-      name="Consultercomptemarchand"
-      component={Consultercomptemarchand}
+      name="ConsulterCompteMarchand"
+      component={ConsulterCompteMarchand}
     />
     <Stack.Screen
       name="TraderFirstConnection"
       component={TraderFirstConnection}
     />
+    <Stack.Screen name="HistoriquePaiements" component={HistoriquePaiements} />
+    <Stack.Screen name="DetailsTransaction" component={DetailsTransaction} />
   </Stack.Navigator>
 );
 

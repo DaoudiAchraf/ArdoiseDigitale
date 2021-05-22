@@ -31,14 +31,9 @@ function Listemarchands() {
             img={require("../assets/assets/icons/client-fond-btn-carte.png")}
           />
 
-          <View style={{ flexDirection: "row", margin: "3%" }}>
-            <View style={{ width: "95%", margin: "1%" }}>
-              <Divider borderColor="#fff" color="#fff" orientation="center">
-                Ma liste
-              </Divider>
-            </View>
-            <View style={{ width: "5%", marginTop: "-2%" }}></View>
-          </View>
+          <Divider borderColor="#fff" color="#fff" orientation="center">
+            Ma liste
+          </Divider>
 
           <Item2
             title="Commande prete"
