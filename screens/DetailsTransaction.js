@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ScrollView, Image, StyleSheet } from "react-native";
 import Transaction from "../components/componentsClient/Transaction";
-import Myappbar from "../components/componentsClient/myappbar";
+import Myappbar from "../components/componentsClient/Myappbar";
 
 const Separator = () => <View style={styles.separator} />;
 
