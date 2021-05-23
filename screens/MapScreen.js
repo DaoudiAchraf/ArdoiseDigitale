@@ -6,7 +6,6 @@ import MarkerSvg from '../assets/svg-icones-client/marker.jsx';
 import Filter from '../assets/svg-icones-client/filter.jsx';
 import BackSvg from '../assets/svg-icones-client/back.jsx';
 import Recherche from '../assets/assets/svgricons/recherche.jsx';
-import MyCard from '../components/componentsClient/card';
 import { h, w } from '../utils/Size';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
@@ -15,7 +14,7 @@ import MenuFiltres from '../components/Client_UI/menu_filtres';
 import CalloutCard from '../components/Client_UI/CalloutCard.js';
 import ItemInCallout from '../components/Client_UI/ItemInCallout';
 
-export default function test({ navigation }) {
+export default function MapScreen({ navigation }) {
   const [markers, setMarkers] = useState([
     {
       title: 'Target Express',
@@ -63,7 +62,7 @@ export default function test({ navigation }) {
             >
               <MarkerSvg />
 
-              <Callout>
+              <Callout onPress={() => navigation.navigate('ProfilMarchand')}>
                 <CalloutCard
                   navigation={navigation}
                   source={aaa}

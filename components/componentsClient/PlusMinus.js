@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import Maximiser from '../../assets/assets/svgricons/maximiser';
 import Minimiser from '../../assets/assets/svgricons/minimiser';
 
-function MyComponent() {
+function PlusMinus(props) {
   const [isMinus, setIsMinus] = useState(false);
 
   return (
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyComponent;
+export default PlusMinus;
 /*<Image
 style={styles.image}
 source={require('../../assets/assets/icons/inscription-marchand-categorie-minimiser.png')}

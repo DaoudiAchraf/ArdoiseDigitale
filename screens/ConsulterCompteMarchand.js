@@ -7,7 +7,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import Myappbar from '../components/componentsClient/Myappbar';
-import Card from '../components/componentsClient/card';
+import CardClient from '../components/componentsClient/CardClient';
 import { Button } from 'react-native-paper';
 import { w } from '../utils/Size';
 import Btn from '../components/componentsClient/test';
@@ -28,7 +28,7 @@ function ConsulterCompteMarchand() {
         />
 
         <View style={{ marginTop: '10%', alignContent: 'space-around' }}>
-          <Card
+          <CardClient
             title="Express"
             small="bla"
             smaller="bla"

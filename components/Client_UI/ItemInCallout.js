@@ -20,7 +20,6 @@ export default function ItemInCallout({ title, caption, img, navigation }) {
         description={caption}
         left={(props) => <List.Icon {...props} icon="folder" />}
         style={{
-          backgroundColor: '#426252',
           width: '90%',
           alignSelf: 'center',
           marginBottom: '3%',
