@@ -11,7 +11,7 @@ import AddProduct from './screens/AddProduct';
 import Clientaccount from './screens/Client-account';
 import Notification from './screens/Notification';
 import ConsulterCompteMarchand from './screens/ConsulterCompteMarchand';
-import test from './screens/test';
+import MapScreen from './screens/MapScreen';
 import test_components from './screens/test_components';
 import ProductsCatalog from './screens/ProductsCatalog';
 import TraderFirstConnection from './screens/TraderFirstConnection';
