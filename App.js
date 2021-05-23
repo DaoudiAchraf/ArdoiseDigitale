@@ -11,7 +11,7 @@ import AddProduct from './screens/AddProduct';
 import Clientaccount from './screens/Client-account';
 import Notification from './screens/Notification';
 import ConsulterCompteMarchand from './screens/ConsulterCompteMarchand';
-import MapScreen from './screens/MapScreen';
+import test from './screens/test';
 import test_components from './screens/test_components';
 import ProductsCatalog from './screens/ProductsCatalog';
 import TraderFirstConnection from './screens/TraderFirstConnection';
@@ -19,12 +19,13 @@ import Listemarchands from './screens/Liste-marchands';
 import HistoriquePaiements from './screens/HistoriquePaiements';
 import DetailsTransaction from './screens/DetailsTransaction';
 import ProfilMarchand from './screens/ProfilMarchand';
+import ConsulterArdoiseFermee from './screens/ConsulterArdoiseFermee';
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="ProfilMarchand"
+    initialRouteName="ConsulterArdoiseFermee"
     screenOptions={{ headerShown: false }}
   >
     <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
@@ -51,6 +52,11 @@ const StackNavigator = () => (
     />
     <Stack.Screen name="HistoriquePaiements" component={HistoriquePaiements} />
     <Stack.Screen name="DetailsTransaction" component={DetailsTransaction} />
+
+    <Stack.Screen
+      name="ConsulterArdoiseFermee"
+      component={ConsulterArdoiseFermee}
+    />
   </Stack.Navigator>
 );
 
