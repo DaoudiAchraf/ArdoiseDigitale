@@ -12,7 +12,7 @@ function Minimiser(props) {
       height="12em"
       {...props}
     >
-      <Path d="M470 280H30a30 30 0 110-60h440a30 30 0 010 60z" fill="white" />
+      <Path d="M470 280H30a30 30 0 110-60h440a30 30 0 010 60z" fill="#324B3E" />
     </Svg>
   );
 }

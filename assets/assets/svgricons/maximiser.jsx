@@ -14,7 +14,7 @@ function Maximiser(props) {
     >
       <Path
         d="M470 220H280V30a30 30 0 10-60 0v190H30a30 30 0 100 60h190v190a30 30 0 1060 0V280h190a30 30 0 000-60z"
-        fill="white"
+        fill="#324B3E"
       />
     </Svg>
   );
