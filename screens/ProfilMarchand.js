@@ -24,6 +24,7 @@ export default function ProfilMarchand(props) {
   const showDialog = () => setVisible(true);
 
   const hideDialog = () => setVisible(false);
+
   return (
     <Provider>
       <View style={{ backgroundColor: '#324B3E', height: h(100) }}>
