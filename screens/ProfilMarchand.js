@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import Divider from 'react-native-divider';
 import {
@@ -19,12 +19,14 @@ import NextButton from '../components/componentsClient/test';
 import PlusMinus from '../components/componentsClient/PlusMinus';
 
 export default function ProfilMarchand(props) {
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
+  const [isMinus, setIsMinus] = useState(false);
 
   const showDialog = () => setVisible(true);
 
   const hideDialog = () => setVisible(false);
 
+  const aaa = () => console.log('aaaaa');
   return (
     <Provider>
       <View style={{ backgroundColor: '#324B3E', height: h(100) }}>
@@ -67,8 +69,9 @@ export default function ProfilMarchand(props) {
             </Divider>
           </View>
           <View style={{ width: '10%', alignSelf: 'center' }}>
-            <PlusMinus />
+            <PlusMinus action={aaa} isMinus={isMinus} setIsMinus={setIsMinus} />
           </View>
+          {isMinus && <Text>aaaaa</Text>}
         </View>
       </View>
     </Provider>
