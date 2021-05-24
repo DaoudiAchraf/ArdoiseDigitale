@@ -20,14 +20,18 @@ import HistoriquePaiements from './screens/HistoriquePaiements';
 import DetailsTransaction from './screens/DetailsTransaction';
 import ProfilMarchand from './screens/ProfilMarchand';
 import ConsulterArdoiseFermee from './screens/ConsulterArdoiseFermee';
+import ListeDesCommandes from './screens/ListeDesCommandes';
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="Clientaccount"
+    initialRouteName="ListeDesCommandes"
     screenOptions={{ headerShown: false }}
   >
+    <Stack.Screen name="ListeDesCommandes">
+      {(props) => <ListeDesCommandes {...props} name={'ListeDesCommandes'} />}
+    </Stack.Screen>
     <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
     <Stack.Screen name="SignIn" component={SignIn} />
     <Stack.Screen name="SignUp" component={SignUp} />

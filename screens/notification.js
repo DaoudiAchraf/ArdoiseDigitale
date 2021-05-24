@@ -10,8 +10,7 @@ import Myappbar from '../components/componentsClient/Myappbar';
 import Mynavbar from '../components/componentsClient/navbar';
 import Item2 from '../components/componentsClient/Item2';
 import Item3 from '../components/componentsClient/Item3';
-
-const Separator = () => <View style={styles.separator} />;
+import Separator from '../components/componentsClient/Separator';
 
 function Notification() {
   return (
@@ -87,13 +86,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     position: 'absolute',
     top: '-12%',
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#FFFFFF',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginLeft: '25%',
-    marginRight: '25%',
   },
 });
 

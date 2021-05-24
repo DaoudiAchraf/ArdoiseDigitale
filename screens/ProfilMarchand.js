@@ -71,8 +71,8 @@ export default function ProfilMarchand(props) {
           <View style={{ width: '10%', alignSelf: 'center' }}>
             <PlusMinus action={aaa} isMinus={isMinus} setIsMinus={setIsMinus} />
           </View>
-          {isMinus && <Text>aaaaa</Text>}
         </View>
+        {isMinus && <Text>aaaaa</Text>}
       </View>
     </Provider>
   );

@@ -4,8 +4,9 @@ import Item1 from '../components/componentsClient/Item1';
 import Item2 from '../components/componentsClient/Item2';
 import Divider from 'react-native-divider';
 import { Button } from 'react-native-paper';
+import NextButton from '../components/componentsClient/test';
 
-function Clientaccount() {
+function Clientaccount({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: '#324B3E' }}>
       <View style={{ height: '17%' }}>
@@ -72,7 +73,8 @@ function Clientaccount() {
             alignSelf: 'center',
           }}
           mode="contained"
-          onPress={() => console.log('Pressed')}
+          uppercase="false"
+          onPress={() => navigation.navigate('ListeDesCommandes')}
         >
           Voir toutes mes commandes
         </Button>
