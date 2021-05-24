@@ -15,6 +15,7 @@ import Separator from '../components/componentsClient/Separator';
 import Divider from 'react-native-divider';
 import { RFValue } from 'react-native-responsive-fontsize';
 import PlusMinus from '../components/componentsClient/PlusMinus';
+import PlusMinus1 from '../components/componentsClient/PlusMinus1';
 
 const ListeDesCommandes = ({ name }) => {
   const [isMinus, setIsMinus] = useState(0);
@@ -50,7 +51,7 @@ const ListeDesCommandes = ({ name }) => {
             </Divider>
           </View>
           <View style={{ width: '10%', alignSelf: 'center' }}>
-            <PlusMinus where="act" isMinus={isMinus} setIsMinus={setIsMinus} />
+            <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
           </View>
         </View>
         {isMinus && (
@@ -93,11 +94,7 @@ const ListeDesCommandes = ({ name }) => {
             </Divider>
           </View>
           <View style={{ width: '10%', alignSelf: 'center' }}>
-            <PlusMinus
-              where="term"
-              isMinus1={isMinus1}
-              setIsMinus1={setIsMinus1}
-            />
+            <PlusMinus1 isMinus1={isMinus1} setIsMinus1={setIsMinus1} />
           </View>
         </View>
         {isMinus1 && (

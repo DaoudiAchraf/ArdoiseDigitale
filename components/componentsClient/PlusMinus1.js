@@ -3,13 +3,13 @@ import { View, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import Maximiser from '../../assets/assets/svgricons/maximiser';
 import Minimiser from '../../assets/assets/svgricons/minimiser';
 
-function PlusMinus({ isMinus, setIsMinus }) {
+function PlusMinus1({ isMinus1, setIsMinus1 }) {
   return (
     <View style={{ margin: '10%' }}>
-      {isMinus ? (
+      {isMinus1 ? (
         <TouchableHighlight
           onPress={() => {
-            setIsMinus(false);
+            setIsMinus1(false);
           }}
           style={styles.imageContainer}
         >
@@ -18,7 +18,7 @@ function PlusMinus({ isMinus, setIsMinus }) {
       ) : (
         <TouchableHighlight
           onPress={() => {
-            setIsMinus(true);
+            setIsMinus1(true);
           }}
           style={styles.imageContainer}
         >
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PlusMinus;
+export default PlusMinus1;
