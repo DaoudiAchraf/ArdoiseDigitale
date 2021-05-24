@@ -17,7 +17,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import PlusMinus from '../components/componentsClient/PlusMinus';
 import PlusMinus1 from '../components/componentsClient/PlusMinus1';
 
-const ListeDesCommandes = ({ name }) => {
+const ListeDesCommandes = () => {
   const [isMinus, setIsMinus] = useState(false);
   const [isMinus1, setIsMinus1] = useState(false);
 
@@ -28,7 +28,7 @@ const ListeDesCommandes = ({ name }) => {
         backgroundColor: '#324B3E',
       }}
     >
-      <Myappbar title={name} subtitle="Vous avez 3 Commandes actives" />
+      <Myappbar title={'name'} subtitle="Vous avez 3 Commandes actives" />
       <Image
         style={styles.image}
         source={require('../assets/assets/icons/fond-page-notifications.png')}
