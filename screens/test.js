@@ -15,7 +15,7 @@ import MyAppbar from "../components/componentsClient/Myappbar";
 import { w, h } from "../utils/Size";
 import ItemInCallout from "../components/Client_UI/ItemInCallout";
 import CardClient from "../components/componentsClient/CardClient";
-import NextButton from "../components/componentsClient/test";
+import GreenBtn from "../components/componentsClient/GreenBtn";
 import PlusMinus from "../components/componentsClient/PlusMinus";
 
 export default function ProfilMarchand(props) {
@@ -38,7 +38,7 @@ export default function ProfilMarchand(props) {
           text2="..."
           source={require("../assets/assets/targetexpress.jpg")}
         />
-        <NextButton action={showDialog} title="Fermer l'ardoise" />
+        <GreenBtn action={showDialog} title="Fermer l'ardoise" />
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>
             <Dialog.Title>
@@ -53,10 +53,7 @@ export default function ProfilMarchand(props) {
               </Paragraph>
             </Dialog.Content>
             <Dialog.Actions>
-              <NextButton
-                title="Fermer l'ardoise"
-                action={hideDialog}
-              ></NextButton>
+              <GreenBtn title="Fermer l'ardoise" action={hideDialog}></GreenBtn>
             </Dialog.Actions>
           </Dialog>
         </Portal>
