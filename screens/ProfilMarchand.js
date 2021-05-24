@@ -25,7 +25,6 @@ export default function ProfilMarchand(props) {
   const showDialog = () => setVisible(true);
 
   const hideDialog = () => setVisible(false);
-  //const context = useContext(ShowListContext);
 
   const aaa = () => console.log('aaaaa');
   return (

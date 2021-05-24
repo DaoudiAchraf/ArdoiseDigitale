@@ -25,7 +25,7 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="ProfilMarchand"
+    initialRouteName="Clientaccount"
     screenOptions={{ headerShown: false }}
   >
     <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
