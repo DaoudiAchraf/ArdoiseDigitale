@@ -35,14 +35,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   title: {
-    color: "#485c54",
+    color: "#B0AEAE",
     textAlign: "left",
     alignSelf: "stretch",
     fontSize: RFValue(17),
     fontWeight: "bold",
   },
   small: {
-    color: "#485c54",
+    color: "#B0AEAE",
     textAlign: "left",
     alignSelf: "stretch",
     fontSize: RFValue(11),
