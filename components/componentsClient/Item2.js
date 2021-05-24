@@ -17,7 +17,7 @@ const Item2 = (props) => {
           <Text style={styles.small}>{props.small}</Text>
           <Text style={styles.smaller}>{props.smaller}</Text>
         </View>
-        <View style={{ width: w(20), marginTop: "3%", marginLeft: "-22%" }}>
+        <View style={{ width: w(20), marginLeft: "-23%" }}>
           <Image source={props.source} style={styles.image}></Image>
         </View>
       </View>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontSize: RFValue(9),
   },
   image: {
-    height: "100%",
+    height: "90%",
     width: "85%",
   },
 });

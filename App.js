@@ -46,6 +46,8 @@ const StackNavigator = () => (
     <Stack.Screen name="add" component={AddProduct} />
     <Stack.Screen name="Notification" component={Notification} />
     <Stack.Screen name="Clientaccount" component={Clientaccount} />
+
+    <Stack.Screen name="test" component={test} />
     <Stack.Screen
       name="ConsulterCompteMarchand"
       component={ConsulterCompteMarchand}

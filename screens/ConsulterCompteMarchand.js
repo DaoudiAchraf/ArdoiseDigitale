@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Image,
   StyleSheet,
   ScrollView,
   ImageBackground,
-} from 'react-native';
-import Myappbar from '../components/componentsClient/Myappbar';
-import CardClient from '../components/componentsClient/CardClient';
-import { Button } from 'react-native-paper';
-import { w } from '../utils/Size';
-import Btn from '../components/componentsClient/test';
+} from "react-native";
+import Myappbar from "../components/componentsClient/Myappbar";
+import CardClient from "../components/componentsClient/CardClient";
+import { Button } from "react-native-paper";
+import { w } from "../utils/Size";
+import GreenBtn from "../components/componentsClient/GreenBtn";
 
 function ConsulterCompteMarchand() {
   return (
@@ -18,16 +18,16 @@ function ConsulterCompteMarchand() {
       <ScrollView
         style={{
           flex: 1,
-          backgroundColor: '#324B3E',
+          backgroundColor: "#324B3E",
         }}
       >
         <Myappbar title="Name" subtitle="Vous avez 3 nouvelles notifications" />
         <Image
           style={styles.image}
-          source={require('../assets/assets/icons/client-fond-btn-marchands.png')}
+          source={require("../assets/assets/icons/client-fond-btn-marchands.png")}
         />
 
-        <View style={{ marginTop: '10%', alignContent: 'space-around' }}>
+        <View style={{ marginTop: "10%", alignContent: "space-around" }}>
           <CardClient
             title="Express"
             small="bla"
@@ -35,51 +35,51 @@ function ConsulterCompteMarchand() {
             merchant="Kristin"
             text1="....."
             text2="..."
-            source={require('../assets/assets/user.png')}
+            source={require("../assets/assets/user.png")}
           />
         </View>
         <View
           style={{
-            flexDirection: 'row',
-            margin: '5%',
+            flexDirection: "row",
+            margin: "5%",
           }}
         >
           <View
             style={{
-              width: '35%',
-              alignSelf: 'center',
+              width: "35%",
+              alignSelf: "center",
             }}
           >
-            <Btn title="Fermer l'ardoise" />
+            <GreenBtn title="Fermer l'ardoise" />
           </View>
-          <View style={{ width: '65%', alignSelf: 'center' }}>
-            <Btn title=" Passer une commande" />
+          <View style={{ width: "65%", alignSelf: "center" }}>
+            <GreenBtn title=" Passer une commande" />
           </View>
         </View>
         <View
           style={{
-            width: '95%',
-            alignSelf: 'center',
+            width: "95%",
+            alignSelf: "center",
           }}
         >
-          <Btn title="Historique" />
+          <GreenBtn title="Historique" />
         </View>
         <View
           style={{
-            flexDirection: 'row',
-            margin: '5%',
+            flexDirection: "row",
+            margin: "5%",
           }}
         >
           <View
             style={{
-              width: '50%',
-              alignSelf: 'center',
+              width: "50%",
+              alignSelf: "center",
             }}
           >
-            <Btn title="Historique des paiements" />
+            <GreenBtn title="Historique des paiements" />
           </View>
-          <View style={{ width: '50%', alignSelf: 'center' }}>
-            <Btn title=" Payer maintenant" />
+          <View style={{ width: "50%", alignSelf: "center" }}>
+            <GreenBtn title=" Payer maintenant" />
           </View>
         </View>
       </ScrollView>
@@ -88,12 +88,12 @@ function ConsulterCompteMarchand() {
 }
 const styles = StyleSheet.create({
   image: {
-    height: '50%',
-    width: '30%',
-    resizeMode: 'contain',
-    alignSelf: 'flex-end',
-    position: 'absolute',
-    top: '-10%',
+    height: "50%",
+    width: "30%",
+    resizeMode: "contain",
+    alignSelf: "flex-end",
+    position: "absolute",
+    top: "-10%",
   },
 });
 

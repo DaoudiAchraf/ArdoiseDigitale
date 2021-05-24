@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     alignSelf: 'flex-end',
     position: 'absolute',
-    top: '-12%',
+    top: '-17%',
   },
 });
 

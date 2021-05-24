@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { View, Text, TouchableHighlight } from "react-native";
 import Divider from "react-native-divider";
 import {
@@ -19,14 +19,12 @@ import GreenBtn from "../components/componentsClient/GreenBtn";
 import PlusMinus from "../components/componentsClient/PlusMinus";
 
 export default function ProfilMarchand(props) {
-  const [visible, setVisible] = useState(false);
-  const [isMinus, setIsMinus] = useState(false);
+  const [visible, setVisible] = React.useState(false);
 
   const showDialog = () => setVisible(true);
 
   const hideDialog = () => setVisible(false);
 
-  const aaa = () => console.log("aaaaa");
   return (
     <Provider>
       <View style={{ backgroundColor: "#324B3E", height: h(100) }}>
@@ -40,39 +38,25 @@ export default function ProfilMarchand(props) {
           text2="..."
           source={require("../assets/assets/targetexpress.jpg")}
         />
-        <GreenBtn action={showDialog} title="TargetExpress" />
+        <GreenBtn action={showDialog} title="Fermer l'ardoise" />
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title>Alert</Dialog.Title>
+            <Dialog.Title>
+              <Text style={{ color: "#324B3E", fontSize: RFValue(25) }}>
+                Fermeture d'ardoise
+              </Text>
+            </Dialog.Title>
             <Dialog.Content>
-              <Paragraph>This is simple dialog</Paragraph>
+              <Paragraph style={{ fontSize: RFValue(13), color: "#B0AEAE" }}>
+                Etes vous surs de vouloir fermer votre ardoise avec Kristen
+                Harper?
+              </Paragraph>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={hideDialog}>Done</Button>
+              <GreenBtn title="Fermer l'ardoise" action={hideDialog}></GreenBtn>
             </Dialog.Actions>
           </Dialog>
         </Portal>
-        <View
-          style={{
-            flexDirection: "row",
-            margin: "8%",
-          }}
-        >
-          <View
-            style={{
-              width: "90%",
-              alignSelf: "center",
-            }}
-          >
-            <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(17) }}> Avis des clients</Text>
-            </Divider>
-          </View>
-          <View style={{ width: "10%", alignSelf: "center" }}>
-            <PlusMinus action={aaa} isMinus={isMinus} setIsMinus={setIsMinus} />
-          </View>
-        </View>
-        {isMinus && <Text>aaaaa</Text>}
       </View>
     </Provider>
   );
