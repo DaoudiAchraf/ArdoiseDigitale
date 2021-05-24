@@ -26,7 +26,7 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="ListeDesCommandes"
+    initialRouteName="Notification"
     screenOptions={{ headerShown: false }}
   >
     <Stack.Screen name="ListeDesCommandes">
@@ -47,7 +47,6 @@ const StackNavigator = () => (
     <Stack.Screen name="Notification" component={Notification} />
     <Stack.Screen name="Clientaccount" component={Clientaccount} />
 
-    <Stack.Screen name="test" component={test} />
     <Stack.Screen
       name="ConsulterCompteMarchand"
       component={ConsulterCompteMarchand}

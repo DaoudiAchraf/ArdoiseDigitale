@@ -18,8 +18,8 @@ import PlusMinus from '../components/componentsClient/PlusMinus';
 import PlusMinus1 from '../components/componentsClient/PlusMinus1';
 
 const ListeDesCommandes = ({ name }) => {
-  const [isMinus, setIsMinus] = useState(0);
-  const [isMinus1, setIsMinus1] = useState(0);
+  const [isMinus, setIsMinus] = useState(false);
+  const [isMinus1, setIsMinus1] = useState(false);
 
   return (
     <ScrollView
