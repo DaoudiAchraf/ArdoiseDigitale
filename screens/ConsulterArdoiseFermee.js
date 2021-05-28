@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Image,
@@ -10,11 +10,16 @@ import {
 import Myappbar from "../components/componentsClient/Myappbar";
 import CardClient from "../components/componentsClient/CardClient";
 import GreenBtn from "../components/componentsClient/GreenBtn";
-import PlusMinus from "../components/componentsClient/PlusMinus";
 import Divider from "react-native-divider";
 import { RFValue } from "react-native-responsive-fontsize";
+import PlusMinus from "../components/componentsClient/PlusMinus";
+import PlusMinus1 from "../components/componentsClient/PlusMinus1";
+import Separator from "../components/componentsClient/Separator";
 
 function ConsulterArdoiseFermee() {
+  const [isMinus, setIsMinus] = useState(false);
+  const [isMinus1, setIsMinus1] = useState(false);
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -42,27 +47,23 @@ function ConsulterArdoiseFermee() {
             text2="..."
             source={require("../assets/assets/user.png")}
           />
-          <View
-            style={{
-              marginRight: "2%",
-              marginLeft: "2%",
-            }}
-          >
+          <View>
             <GreenBtn title="Demander la récouverture de l'ardoise" />
           </View>
+
           <View
             style={{
-              marginRight: "2%",
-              marginLeft: "2%",
               marginTop: "-5%",
             }}
           >
             <GreenBtn title=" Historique des paiements" />
           </View>
+
           <View
             style={{
               flexDirection: "row",
-              margin: "8%",
+              marginLeft: "10%",
+              marginRight: "10%",
             }}
           >
             <View
@@ -75,14 +76,23 @@ function ConsulterArdoiseFermee() {
                 <Text style={{ fontSize: RFValue(17) }}> Mes commandes</Text>
               </Divider>
             </View>
+
             <View style={{ width: "10%", alignSelf: "center" }}>
-              <PlusMinus />
+              <PlusMinus1 isMinus1={isMinus1} setIsMinus1={setIsMinus1} />
             </View>
           </View>
+
+          {isMinus1 && (
+            <View>
+              <Separator />
+            </View>
+          )}
+
           <View
             style={{
               flexDirection: "row",
-              margin: "8%",
+              marginLeft: "10%",
+              marginRight: "10%",
             }}
           >
             <View
@@ -95,10 +105,17 @@ function ConsulterArdoiseFermee() {
                 <Text style={{ fontSize: RFValue(17) }}> Avis des clients</Text>
               </Divider>
             </View>
+
             <View style={{ width: "10%", alignSelf: "center" }}>
-              <PlusMinus />
+              <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
             </View>
           </View>
+
+          {isMinus && (
+            <View>
+              <Separator />
+            </View>
+          )}
         </View>
       </ScrollView>
     </View>

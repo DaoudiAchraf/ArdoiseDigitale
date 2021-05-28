@@ -5,7 +5,7 @@ import NotificationBackground from '../../assets/assets/svgricons/notificationBa
 import PropTypes from 'prop-types';
 import { w, h } from '../../utils/Size';
 
-const Item2 = (props) => {
+const Item2 = (props, { navigation }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={() => props.navigation()}>
       <View style={{ flexDirection: 'row', marginTop: '-5%' }}>

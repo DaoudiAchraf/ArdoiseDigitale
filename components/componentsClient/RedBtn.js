@@ -3,9 +3,9 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-const NextButton = ({ title, navigation }) => {
+const NextButton = ({ title, action }) => {
   return (
-    <TouchableOpacity onPress={navigation} style={styles.btnStyle}>
+    <TouchableOpacity onPress={action} style={styles.btnStyle}>
       <Text style={{ color: "white", fontSize: RFValue(10) }}>{title}</Text>
     </TouchableOpacity>
   );
@@ -26,7 +26,7 @@ export default NextButton;
 const styles = StyleSheet.create({
   btnStyle: {
     alignItems: "center",
-    backgroundColor: "#485c54",
+    backgroundColor: "#c43c44",
     padding: 12,
     borderRadius: 3,
     marginHorizontal: "5%",
