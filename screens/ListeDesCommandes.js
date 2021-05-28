@@ -1,26 +1,14 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  ImageBackground,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Myappbar from '../components/componentsClient/Myappbar';
 import Mynavbar from '../components/componentsClient/navbar';
 import Item2 from '../components/componentsClient/Item2';
-import Item3 from '../components/componentsClient/Item3';
 import Separator from '../components/componentsClient/Separator';
 import Divider from 'react-native-divider';
 import { RFValue } from 'react-native-responsive-fontsize';
 import PlusMinus from '../components/componentsClient/PlusMinus';
 import PlusMinus1 from '../components/componentsClient/PlusMinus1';
-import FondPageNotificaiton from '../assets/svg-icones-client/fond-page-notifications';
-import { h } from '../utils/Size';
-import FondPageCatalogue from '../assets/svg-icones-client/fond-page-catalogue';
 import FondPageCommandes from '../assets/svg-icones-client/fond-page-commandes';
-import FondPageMarchand from '../assets/svg-icones-client/fond-page-marchands';
 
 const ListeDesCommandes = ({ navigation }) => {
   const [isMinus, setIsMinus] = useState(true);
@@ -90,7 +78,7 @@ const ListeDesCommandes = ({ navigation }) => {
               navigation={navOffrePrixCommandeAccepted}
             />
             <Item2
-              title="Commande prete"
+              title="Commande prête"
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require('../assets/assets/icons/client-fond-btn-commande.png')}
@@ -122,11 +110,12 @@ const ListeDesCommandes = ({ navigation }) => {
         {isMinus1 && (
           <View>
             <Item2
-              title="Commande Servie"
+              title="Commande Terminée"
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require('../assets/assets/icons/client-fond-btn-historique.png')}
               navigation={navCommandeTerminee}
+              grayed="true"
             />
             <Item2
               title="Commande payée"
@@ -134,6 +123,7 @@ const ListeDesCommandes = ({ navigation }) => {
               smaller="Appuyez pour voir les détails."
               source={require('../assets/assets/icons/client-fond-btn-historique.png')}
               navigation={navCommandePayee}
+              grayed="true"
             />
             <Item2
               title="Commande payée avec un avis"
@@ -141,6 +131,7 @@ const ListeDesCommandes = ({ navigation }) => {
               smaller="Appuyez pour voir les détails."
               source={require('../assets/assets/icons/client-fond-btn-historique.png')}
               navigation={navCommandePayeeAvis}
+              grayed="true"
             />
 
             <Separator />

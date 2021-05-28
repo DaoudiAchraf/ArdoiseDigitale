@@ -2,13 +2,18 @@ import React from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import NotificationBackground from '../../assets/assets/svgricons/notificationBackground';
-import PropTypes from 'prop-types';
 import { w, h } from '../../utils/Size';
+import { Badge } from 'react-native-paper';
 
-const Item2 = (props, { navigation }) => {
+const Item2 = (props) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={() => props.navigation()}>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => props.navigation && props.navigation()}
+    >
       <View style={{ flexDirection: 'row', marginTop: '-5%' }}>
+        {props.badged && <Badge size={10} style={styles.badge} />}
+
         <View style={{ width: w(87), margin: '4%', marginLeft: '2%' }}>
           <Text
             style={[styles.title, props.grayed ? styles.grayed : styles.normal]}
@@ -31,6 +36,11 @@ const Item2 = (props, { navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  badge: {
+    position: 'absolute',
+    right: '101.7%',
+    top: '1.7%',
+  },
   button: {
     backgroundColor: '#FFFFFF',
     padding: '3%',
