@@ -12,7 +12,11 @@ import Item2 from '../components/componentsClient/Item2';
 import Item3 from '../components/componentsClient/Item3';
 import Separator from '../components/componentsClient/Separator';
 
-function Notification() {
+function Notification({ navigation }) {
+  const navCommandePrete = () => navigation.navigate('CommandePrete');
+  const navCommandePayee = () => navigation.navigate('CommandePayee');
+  const navCommandeTerminee = () => navigation.navigate('CommandeTerminee');
+  const navOffrePrixCommande = () => navigation.navigate('OffrePrixCommande');
   return (
     <ScrollView
       style={{
@@ -35,42 +39,54 @@ function Notification() {
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-commande.png')}
+          navigation={navOffrePrixCommande}
+          badged="true"
         />
         <Item2
           title="Commande prete"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-commande.png')}
+          navigation={navCommandePrete}
+          badged="true"
         />
         <Item2
           title="Commande servie"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-commande.png')}
+          navigation={navCommandePrete}
+          badged="true"
         />
-        <Item3
+        <Item2
           title="Ardoise payée"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-historique.png')}
+          grayed="true"
+          navigation={navCommandePayee}
         />
-        <Item3
+        <Item2
           title="Echéance étendue"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-historique.png')}
+          grayed="true"
         />
-        <Item3
+        <Item2
           title="Solde insuffisant"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-historique.png')}
+          grayed="true"
         />
-        <Item3
+        <Item2
           title="Payement du dans 2 jours"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-historique.png')}
+          grayed="true"
+          navigation={navCommandeTerminee}
         />
       </View>
       <Separator />
