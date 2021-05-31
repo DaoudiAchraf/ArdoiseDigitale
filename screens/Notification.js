@@ -40,7 +40,7 @@ function Notification({ navigation }) {
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-commande.png')}
           navigation={navOffrePrixCommande}
-          badged="true"
+          badged
         />
         <Item2
           title="Commande prete"
@@ -48,7 +48,7 @@ function Notification({ navigation }) {
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-commande.png')}
           navigation={navCommandePrete}
-          badged="true"
+          badged
         />
         <Item2
           title="Commande servie"
@@ -56,14 +56,14 @@ function Notification({ navigation }) {
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-commande.png')}
           navigation={navCommandePrete}
-          badged="true"
+          badged
         />
         <Item2
           title="Ardoise payée"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-historique.png')}
-          grayed="true"
+          grayed
           navigation={navCommandePayee}
         />
         <Item2
@@ -71,21 +71,21 @@ function Notification({ navigation }) {
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-historique.png')}
-          grayed="true"
+          grayed
         />
         <Item2
           title="Solde insuffisant"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-historique.png')}
-          grayed="true"
+          grayed
         />
         <Item2
           title="Payement du dans 2 jours"
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require('../assets/assets/icons/client-fond-btn-historique.png')}
-          grayed="true"
+          grayed
           navigation={navCommandeTerminee}
         />
       </View>

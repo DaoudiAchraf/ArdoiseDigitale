@@ -1,22 +1,24 @@
-import React, { useContext, useState } from "react";
-import { View, Text, TouchableHighlight } from "react-native";
-import Divider from "react-native-divider";
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import Divider from 'react-native-divider';
 import {
   Provider,
   Button,
   Dialog,
   Portal,
   Paragraph,
-} from "react-native-paper";
+} from 'react-native-paper';
 
-import { RFValue } from "react-native-responsive-fontsize";
-import CalloutCard from "../components/Client_UI/CalloutCard";
-import MyAppbar from "../components/componentsClient/Myappbar";
-import { w, h } from "../utils/Size";
-import ItemInCallout from "../components/Client_UI/ItemInCallout";
-import CardClient from "../components/componentsClient/CardClient";
-import GreenBtn from "../components/componentsClient/GreenBtn";
-import PlusMinus from "../components/componentsClient/PlusMinus";
+import { RFValue } from 'react-native-responsive-fontsize';
+import CalloutCard from '../components/Client_UI/CalloutCard';
+import MyAppbar from '../components/componentsClient/Myappbar';
+import { w, h } from '../utils/Size';
+import ItemInCallout from '../components/Client_UI/ItemInCallout';
+import CardClient from '../components/componentsClient/CardClient';
+import GreenBtn from '../components/componentsClient/GreenBtn';
+import PlusMinus from '../components/componentsClient/PlusMinus';
+import FondPageMarchand from '../assets/svg-icones-client/fond-page-marchands';
+import DropDownFiltres from '../components/Client_UI/DropDownFiltres';
 
 export default function ProfilMarchand(props) {
   const [visible, setVisible] = useState(false);
@@ -26,54 +28,96 @@ export default function ProfilMarchand(props) {
 
   const hideDialog = () => setVisible(false);
 
-  const aaa = () => console.log("aaaaa");
+  const [selectedItem, setSelectedItem] = useState(0);
+
+  const aaa = () => console.log('aaaaa');
   return (
     <Provider>
-      <View style={{ backgroundColor: "#324B3E", height: h(100) }}>
+      <ScrollView style={{ backgroundColor: '#324B3E' }}>
         <MyAppbar title="ProfilMarchand" />
-        <CardClient
-          title="Express"
-          small="bla"
-          smaller="bla"
-          merchant="Kristin"
-          text1="....."
-          text2="..."
-          source={require("../assets/assets/targetexpress.jpg")}
-        />
-        <GreenBtn action={showDialog} title="TargetExpress" />
-        <Portal>
-          <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title>Alert</Dialog.Title>
-            <Dialog.Content>
-              <Paragraph>This is simple dialog</Paragraph>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={hideDialog}>Done</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
-        <View
-          style={{
-            flexDirection: "row",
-            margin: "8%",
-          }}
-        >
+        <FondPageMarchand style={styles.svg} />
+        <View style={styles.contentView}>
+          <CardClient
+            myCard
+            title="Express"
+            small="bla"
+            smaller="bla"
+            merchant="Kristin"
+            text1="....."
+            text2="..."
+            source={require('../assets/assets/targetexpress.jpg')}
+          />
+          <GreenBtn myGreenBtn action={showDialog} title="TargetExpress" />
+          <Portal>
+            <Dialog visible={visible} onDismiss={hideDialog}>
+              <Dialog.Title style={{ fontWeight: '600', color: '#426252' }}>
+                Option de l'ardoise
+              </Dialog.Title>
+              <Dialog.Content>
+                <Paragraph>Mode de payement préféré</Paragraph>
+                <DropDownFiltres
+                  selectedItem={selectedItem}
+                  handleChange={setSelectedItem}
+                  items={[
+                    'à la commande',
+                    'à la livraison',
+                    'vendredi fin de semaine',
+                    'en 3 fois (chaque mois)',
+                  ]}
+                />
+                <Paragraph>Mode de payement préféré</Paragraph>
+                <DropDownFiltres
+                  selectedItem={selectedItem}
+                  handleChange={setSelectedItem}
+                  items={['à récupérer', 'à domicile']}
+                />
+                <GreenBtn
+                  myGreenBtn
+                  action={hideDialog}
+                  title="Envoyer une Commande"
+                />
+              </Dialog.Content>
+            </Dialog>
+          </Portal>
           <View
             style={{
-              width: "90%",
-              alignSelf: "center",
+              flexDirection: 'row',
+              margin: '8%',
             }}
           >
-            <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(17) }}> Avis des clients</Text>
-            </Divider>
+            <View
+              style={{
+                width: '90%',
+                alignSelf: 'center',
+              }}
+            >
+              <Divider borderColor="#fff" color="#fff" orientation="center">
+                <Text style={{ fontSize: RFValue(17) }}> Avis des clients</Text>
+              </Divider>
+            </View>
+            <View style={{ width: '10%', alignSelf: 'center' }}>
+              <PlusMinus
+                action={aaa}
+                isMinus={isMinus}
+                setIsMinus={setIsMinus}
+              />
+            </View>
           </View>
-          <View style={{ width: "10%", alignSelf: "center" }}>
-            <PlusMinus action={aaa} isMinus={isMinus} setIsMinus={setIsMinus} />
-          </View>
+          {isMinus && <Text>aaaaa</Text>}
         </View>
-        {isMinus && <Text>aaaaa</Text>}
-      </View>
+      </ScrollView>
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  contentView: {
+    alignSelf: 'center',
+    width: w(80),
+    marginTop: h(7),
+  },
+  svg: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+  },
+});
