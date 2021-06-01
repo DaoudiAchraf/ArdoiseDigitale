@@ -39,12 +39,12 @@ export default function ProfilMarchand(props) {
         <View style={styles.contentView}>
           <CardClient
             myCard
-            title="Express"
-            small="bla"
-            smaller="bla"
+            title="Target Express"
+            small="751 Green Hill Dr. Webster,"
+            smaller="NY 14580"
             merchant="Kristin"
-            text1="....."
-            text2="..."
+            text1="Livraison disponible."
+            text2="Accepte le paiement comptant et par crédit total."
             source={require('../assets/assets/targetexpress.jpg')}
           />
           <GreenBtn myGreenBtn action={showDialog} title="TargetExpress" />

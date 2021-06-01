@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Divider from 'react-native-divider';
 import {
   Provider,
@@ -16,92 +16,100 @@ import { w, h } from '../utils/Size';
 import ItemInCallout from '../components/Client_UI/ItemInCallout';
 import CardClient from '../components/componentsClient/CardClient';
 import GreenBtn from '../components/componentsClient/GreenBtn';
-import PlusMinus from '../components/componentsClient/PlusMinus';
+import RedBtn from '../components/componentsClient/RedBtn';
+
 import FondPageMarchand from '../assets/svg-icones-client/fond-page-marchands';
 import DropDownFiltres from '../components/Client_UI/DropDownFiltres';
+import Item1 from '../components/componentsClient/Item1';
 
-export default function OffrePrixCommande(props) {
-  const [visible, setVisible] = useState(false);
-  const [isMinus, setIsMinus] = useState(false);
-
-  const showDialog = () => setVisible(true);
-
-  const hideDialog = () => setVisible(false);
-
+export default function ProfilMarchand(props) {
   const [selectedItem, setSelectedItem] = useState(0);
 
   const aaa = () => console.log('aaaaa');
   return (
     <Provider>
-      <View style={{ backgroundColor: '#324B3E', height: h(100) }}>
-        <MyAppbar title="ProfilMarchand" />
+      <ScrollView style={{ backgroundColor: '#324B3E' }}>
+        <MyAppbar title="Nouvelle commande" />
         <FondPageMarchand style={styles.svg} />
-        <CardClient
-          title="Express"
-          small="bla"
-          smaller="bla"
-          merchant="Kristin"
-          text1="....."
-          text2="..."
-          source={require('../assets/assets/targetexpress.jpg')}
-        />
-        <GreenBtn action={showDialog} title="TargetExpress" />
-        <Portal>
-          <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title>Option de l'ardoise</Dialog.Title>
-            <Dialog.Content>
-              <Paragraph>Mode de payement préféré</Paragraph>
-              <DropDownFiltres
-                selectedItem={selectedItem}
-                handleChange={setSelectedItem}
-                items={[
-                  'à la commande',
-                  'à la livraison',
-                  'vendredi fin de semaine',
-                  'en 3 fois (chaque mois)',
-                ]}
-              />
-              <Paragraph>Mode de payement préféré</Paragraph>
-              <DropDownFiltres
-                selectedItem={selectedItem}
-                handleChange={setSelectedItem}
-                items={['à récupérer', 'à domicile']}
-              />
-            </Dialog.Content>
-            <Dialog.Actions>
-              <GreenBtn action={hideDialog} title="Envoyer une Commande" />
+        <View style={styles.contentView}>
+          <CardClient
+            myCard
+            title="Target Express"
+            small="751 Green Hill Dr. Webster,"
+            smaller="NY 14580"
+            merchant="Kristin Harper"
+            text1="Livraison disponible."
+            text2="Accepte le paiement comptant et par crédit total."
+            source={require('../assets/assets/targetexpress.jpg')}
+            commandecree="12/12/2020 à 10h30: Commande créée"
+            offreDePrix="13/12/2020 à 10h31: Offre de prix envoyée par Kristen Harper"
+          />
 
-              <Button onPress={hideDialog}>Done</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
-        <View
-          style={{
-            flexDirection: 'row',
-            margin: '8%',
-          }}
-        >
           <View
             style={{
-              width: '90%',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <View
+              style={{
+                width: '47.5%',
+              }}
+            >
+              <RedBtn myRedBtn title="Refuser l'offre" />
+            </View>
+            <View style={{ width: '47.5%' }}>
+              <GreenBtn
+                myGreenBtn
+                title="Accepter l'offre"
+                onPress={() => navigation.navigate('Notification')}
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              width: '100%',
               alignSelf: 'center',
             }}
           >
             <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(17) }}> Avis des clients</Text>
+              <Text style={{ fontSize: RFValue(17) }}>Liste des produits</Text>
             </Divider>
-          </View>
-          <View style={{ width: '10%', alignSelf: 'center' }}>
-            <PlusMinus action={aaa} isMinus={isMinus} setIsMinus={setIsMinus} />
+            <Item1
+              title="Brit Care Hair & Skin"
+              description="Animaux » chiens"
+              img={require('../assets/assets/icons/client-fond-btn-commande.png')}
+              myItem
+              badged
+            />
+            <Item1
+              title="Brit Chicken & Salamon"
+              description="Animaux » chiens"
+              img={require('../assets/assets/icons/client-fond-btn-commande.png')}
+              myItem
+              badged
+              indisponible
+            />
+            <Divider borderColor="#fff" color="#fff" orientation="center">
+              <Text style={{ fontSize: RFValue(17) }}>
+                Options de la commande
+              </Text>
+            </Divider>
+            <Item1 title="Mode de payement" description="Crédit total" myItem />
+            <Item1 title="Livraison" description="Oui" myItem />
           </View>
         </View>
-        {isMinus && <Text>aaaaa</Text>}
-      </View>
+      </ScrollView>
     </Provider>
   );
 }
 
 const styles = StyleSheet.create({
+  contentView: {
+    alignSelf: 'center',
+    width: w(80),
+    marginTop: h(7),
+  },
   svg: {
     position: 'absolute',
     alignSelf: 'flex-end',
