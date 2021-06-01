@@ -1,15 +1,28 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import PropTypes from 'prop-types';
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import PropTypes from "prop-types";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-const NextButton = ({ title, navigation, action, myGreenBtn }) => {
+const NextButton = ({ title, navigation, action, grayed, myGreenBtn }) => {
   return (
     <TouchableOpacity
       onPress={(navigation, action)}
-      style={[myGreenBtn ? styles.myGreenBtn : styles.btnStyle]}
+      disabled={grayed}
+      style={[
+        myGreenBtn
+          ? [styles.myGreenBtn, grayed && styles.grayed]
+          : styles.btnStyle,
+      ]}
     >
-      <Text style={{ color: 'white', fontSize: RFValue(10) }}>{title}</Text>
+      <Text
+        style={[
+          grayed
+            ? { color: "grey", fontSize: RFValue(10) }
+            : { color: "white", fontSize: RFValue(10) },
+        ]}
+      >
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -20,7 +33,7 @@ NextButton.propTypes = {
 };
 
 NextButton.defaultProps = {
-  title: 'Suivant',
+  title: "Suivant",
   action: null,
 };
 
@@ -28,22 +41,25 @@ export default NextButton;
 
 const styles = StyleSheet.create({
   myGreenBtn: {
-    width: '100%',
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: '#485c54',
+    width: "100%",
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#485c54",
     padding: 12,
     borderRadius: 3,
-    marginTop: '10%',
-    marginBottom: '5%',
+    marginTop: "10%",
+    marginBottom: "5%",
   },
   btnStyle: {
-    alignItems: 'center',
-    backgroundColor: '#485c54',
+    alignItems: "center",
+    backgroundColor: "#485c54",
     padding: 12,
     borderRadius: 3,
-    marginHorizontal: '5%',
-    marginTop: '5%',
-    marginBottom: '5%',
+    marginHorizontal: "5%",
+    marginTop: "5%",
+    marginBottom: "5%",
+  },
+  grayed: {
+    backgroundColor: "lightgrey",
   },
 });

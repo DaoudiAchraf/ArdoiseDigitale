@@ -1,31 +1,72 @@
-import * as React from 'react';
-import { List } from 'react-native-paper';
-import { Image } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { h, w } from '../../utils/Size';
+import * as React from "react";
+import { List, Badge } from "react-native-paper";
+import { Image, View, StyleSheet } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { h, w } from "../../utils/Size";
+
 const Item1 = (props) => (
-  <List.Item
-    style={{
-      backgroundColor: '#485c54',
-      width: w(92),
-      borderRadius: 3,
-      alignSelf: 'center',
-      marginBottom: '3%',
-    }}
-    titleStyle={{
-      color: 'white',
-      fontSize: RFValue(17),
-      marginBottom: '1%',
-      fontWeight: 'bold',
-    }}
-    descriptionStyle={{ color: 'white', fontSize: RFValue(11) }}
-    title={props.title}
-    description={props.description}
-    right={() => (
-      <Image source={props.img} style={{ width: '17%', height: '100%' }} />
+  <View>
+    <List.Item
+      style={[
+        props.myItem
+          ? {
+              paddingRight: "0%",
+              backgroundColor: "white",
+              width: w(82),
+              borderRadius: 3,
+              alignSelf: "center",
+              marginBottom: "3%",
+            }
+          : {
+              backgroundColor: "#485c54",
+              width: w(92),
+              borderRadius: 3,
+              alignSelf: "center",
+              marginBottom: "3%",
+            },
+      ]}
+      titleStyle={[
+        props.myItem
+          ? {
+              color: "#485c54",
+              fontSize: RFValue(17),
+              marginBottom: "1%",
+              fontWeight: "bold",
+            }
+          : {
+              color: "white",
+              fontSize: RFValue(17),
+              marginBottom: "1%",
+              fontWeight: "bold",
+            },
+      ]}
+      descriptionStyle={[
+        props.myItem
+          ? { color: "#485c54", fontSize: RFValue(11), fontWeight: "bold" }
+          : { color: "white", fontSize: RFValue(11) },
+      ]}
+      title={props.title}
+      description={props.description}
+      right={() => (
+        <Image source={props.img} style={{ width: "20%", height: "100%" }} />
+      )}
+    />
+    {props.badged && (
+      <Badge size={25} style={styles.badge}>
+        x 3
+      </Badge>
     )}
-    onPress={() => props.navigation()}
-  />
+  </View>
 );
 
 export default Item1;
+
+const styles = StyleSheet.create({
+  badge: {
+    position: "absolute",
+    left: "90%",
+    top: "9%",
+    color: "#324B3E",
+    backgroundColor: "transparent",
+  },
+});
