@@ -15,18 +15,19 @@ import Divider from "react-native-divider";
 import PlusMinus from "../components/componentsClient/PlusMinus";
 import Separator from "../components/componentsClient/Separator";
 import { RFValue } from "react-native-responsive-fontsize";
+import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 
-function Listemarchands() {
+function Listemarchands({ navigation }) {
   const [isMinus, setIsMinus] = useState(false);
+  const navToConsulterCompteMarchand = () =>
+    navigation.navigate("ConsulterCompteMarchand");
+  const navToNouvelleCommande = () => navigation.navigate("NouvelleCommande");
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
         <Myappbar title="Ma liste de marchands" />
-        <Image
-          style={styles.image}
-          source={require("../assets/assets/icons/client-fond-btn-marchands.png")}
-        />
 
+        <FondPageMarchand style={styles.svg} />
         <View style={{ marginTop: "10%", margin: "3%", padding: "2%" }}>
           <MyItem
             title="Trouver un marchand"
@@ -67,12 +68,14 @@ function Listemarchands() {
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/user.png")}
+              navigation={navToConsulterCompteMarchand}
             />
             <Item2
               title="Sam lrving"
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/user2.png")}
+              navigation={navToNouvelleCommande}
             />
             <Item2
               title="Kristen Harper"
@@ -121,6 +124,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginLeft: "25%",
     marginRight: "25%",
+  },
+  svg: {
+    position: "absolute",
+    alignSelf: "flex-end",
   },
 });
 
