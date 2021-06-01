@@ -15,11 +15,16 @@ import { RFValue } from "react-native-responsive-fontsize";
 import PlusMinus from "../components/componentsClient/PlusMinus";
 import PlusMinus1 from "../components/componentsClient/PlusMinus1";
 import Separator from "../components/componentsClient/Separator";
+import Item2 from "../components/componentsClient/Item2";
+import FondPageMarchands from "../assets/svg-icones-client/fond-page-marchands";
 
-function ConsulterArdoiseFermee() {
+function ConsulterArdoiseFermee({ navigation }) {
+  const showDialog = () => setVisible(true);
   const [isMinus, setIsMinus] = useState(false);
   const [isMinus1, setIsMinus1] = useState(false);
-
+  const navToHistoriquePaiements = () =>
+    navigation.navigate("HistoriquePaiements");
+  const navToProfilMarchand = () => navigation.navigate("ProfilMarchand");
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -32,10 +37,7 @@ function ConsulterArdoiseFermee() {
           title="Kristen Harper"
           subtitle="Ardoise fermée le 12/12/2020 à 10h30"
         />
-        <Image
-          style={styles.image}
-          source={require("../assets/assets/icons/client-fond-btn-marchands.png")}
-        />
+        <FondPageMarchands style={styles.svg} />
 
         <View style={{ marginTop: "10%", alignContent: "space-around" }}>
           <CardClient
@@ -47,16 +49,15 @@ function ConsulterArdoiseFermee() {
             text2="..."
             source={require("../assets/assets/user.png")}
           />
-          <View>
-            <GreenBtn title="Demander la récouverture de l'ardoise" />
-          </View>
-
-          <View
-            style={{
-              marginTop: "-5%",
-            }}
-          >
-            <GreenBtn title=" Historique des paiements" />
+          <View style={{ width: "90%", alignSelf: "center" }}>
+            <GreenBtn
+              title="Demander la récouverture de l'ardoise"
+              action={navToProfilMarchand}
+            />
+            <GreenBtn
+              title=" Historique des paiements"
+              action={navToHistoriquePaiements}
+            />
           </View>
 
           <View
@@ -83,7 +84,33 @@ function ConsulterArdoiseFermee() {
           </View>
 
           {isMinus1 && (
-            <View>
+            <View
+              style={{
+                alignSelf: "center",
+              }}
+            >
+              <Item2
+                title="Commande Terminée"
+                small="Sam lrving le 12/12/2020 à 10h30"
+                smaller="Appuyez pour voir les détails."
+                source={require("../assets/assets/icons/client-fond-btn-historique.png")}
+                grayed="true"
+              />
+              <Item2
+                title="Commande payée"
+                small="Sam lrving le 12/12/2020 à 10h30"
+                smaller="Appuyez pour voir les détails."
+                source={require("../assets/assets/icons/client-fond-btn-historique.png")}
+                grayed="true"
+              />
+              <Item2
+                title="Commande payée avec un avis"
+                small="Sam lrving le 12/12/2020 à 10h30"
+                smaller="Appuyez pour voir les détails."
+                source={require("../assets/assets/icons/client-fond-btn-historique.png")}
+                grayed="true"
+              />
+
               <Separator />
             </View>
           )}
@@ -132,5 +159,9 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     position: "absolute",
     top: "-10%",
+  },
+  svg: {
+    position: "absolute",
+    alignSelf: "flex-end",
   },
 });

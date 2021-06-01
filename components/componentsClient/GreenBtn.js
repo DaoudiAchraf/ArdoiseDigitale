@@ -3,7 +3,14 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-const NextButton = ({ title, navigation, action, grayed, myGreenBtn }) => {
+const NextButton = ({
+  props,
+  title,
+  navigation,
+  action,
+  grayed,
+  myGreenBtn,
+}) => {
   return (
     <TouchableOpacity
       onPress={(navigation, action)}

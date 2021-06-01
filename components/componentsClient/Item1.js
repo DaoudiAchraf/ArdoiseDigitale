@@ -51,8 +51,13 @@ const Item1 = (props) => (
       title={props.title}
       description={props.description}
       right={() => (
+<<<<<<< HEAD
         <Image source={props.img} style={{ width: '20%', height: '100%' }} />
+=======
+        <Image source={props.img} style={{ width: "15%", height: "100%" }} />
+>>>>>>> 66accc617c3bd018a567119506ec0aef2b7f8422
       )}
+      onPress={() => props.navigation()}
     />
     {props.badged && (
       <Badge size={25} style={styles.badge}>

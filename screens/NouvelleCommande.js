@@ -20,14 +20,14 @@ import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import DropDownFiltres from "../components/Client_UI/DropDownFiltres";
 import Item1 from "../components/componentsClient/Item1";
 
-export default function ProfilMarchand(props) {
+export default function ProfilMarchand(props, { navigation }) {
   const [selectedItem, setSelectedItem] = useState(0);
-
+  const navToListemarchands = () => navigation.navigate("Listemarchands");
   const aaa = () => console.log("aaaaa");
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <MyAppbar title="Nouvelle commande" />
+        <MyAppbar title="Nouvelle commande" navigation={navToListemarchands} />
         <FondPageMarchand style={styles.svg} />
         <View style={styles.contentView}>
           <CardClient
