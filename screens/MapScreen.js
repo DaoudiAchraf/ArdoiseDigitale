@@ -41,8 +41,6 @@ export default function MapScreen({ navigation }) {
 
   return (
     <ScrollView>
-      <ItemInCallout navigation={navigation} />
-
       <View style={styles.container}>
         <MapView
           style={styles.map}

@@ -21,6 +21,8 @@ import RedBtn from '../components/componentsClient/RedBtn';
 import FondPageMarchand from '../assets/svg-icones-client/fond-page-marchands';
 import DropDownFiltres from '../components/Client_UI/DropDownFiltres';
 import Item1 from '../components/componentsClient/Item1';
+import Item3 from '../components/componentsClient/Item3';
+import ItemPrix from '../components/componentsClient/ItemPrix';
 
 export default function ProfilMarchand(props) {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -40,11 +42,11 @@ export default function ProfilMarchand(props) {
             merchant="Kristin Harper"
             text1="Livraison disponible."
             text2="Accepte le paiement comptant et par crédit total."
-            source={require('../assets/assets/targetexpress.jpg')}
-            commandecree="12/12/2020 à 10h30: Commande créée"
-            offreDePrix="13/12/2020 à 10h31: Offre de prix envoyée par Kristen Harper"
+            source={require('../assets/UserOrange.png')}
+            commandecree="12/12/2020 à 10h301"
+            offreDePrix={['13/12/2020 à 10h31', 'Kristen Harper']}
           />
-
+          <ItemPrix title="150 MAD" small="Prix proposé" />
           <View
             style={{
               flexDirection: 'row',
@@ -75,28 +77,27 @@ export default function ProfilMarchand(props) {
             <Divider borderColor="#fff" color="#fff" orientation="center">
               <Text style={{ fontSize: RFValue(17) }}>Liste des produits</Text>
             </Divider>
-            <Item1
-              title="Brit Care Hair & Skin"
-              description="Animaux » chiens"
-              img={require('../assets/assets/icons/client-fond-btn-commande.png')}
-              myItem
+
+            <Item3
+              title="Brit Chicken & Salamon"
+              small="Animaux » chiens"
               badged
             />
-            <Item1
+            <Item3
               title="Brit Chicken & Salamon"
-              description="Animaux » chiens"
-              img={require('../assets/assets/icons/client-fond-btn-commande.png')}
-              myItem
+              small=" - Animaux » chiens"
+              smaller="Indisponible"
               badged
               indisponible
             />
+
             <Divider borderColor="#fff" color="#fff" orientation="center">
               <Text style={{ fontSize: RFValue(17) }}>
-                Options de la commande
+                Détails de la commande
               </Text>
             </Divider>
-            <Item1 title="Mode de payement" description="Crédit total" myItem />
-            <Item1 title="Livraison" description="Oui" myItem />
+            <ItemPrix title="Crédit total" small="Mode de payement" />
+            <ItemPrix title="Livraison" small="Oui" />
           </View>
         </View>
       </ScrollView>

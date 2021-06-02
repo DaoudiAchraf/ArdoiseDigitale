@@ -18,10 +18,10 @@ const CardClient = (props) => {
       </Card.Content>
       <Divider />
       <View style={{ flexDirection: 'row', margin: '3%' }}>
-        <View style={{ width: w(13) }}>
+        <View style={{ alignSelf: 'center', width: w(15) }}>
           <Image source={props.source} style={styles.image}></Image>
         </View>
-        <View style={{ width: w(85), marginLeft: '2%' }}>
+        <View style={{ width: w(60), marginLeft: '2%' }}>
           <Text style={styles.title}>{props.merchant}</Text>
           <Text style={styles.small}>{props.text1}</Text>
           <Text style={styles.smaller} numberOfLines={2}>
@@ -30,34 +30,33 @@ const CardClient = (props) => {
         </View>
       </View>
       <Divider />
-      {props.commandecree && (
-        <Text
-          style={{
-            color: '#545353',
-            textAlign: 'left',
-            alignSelf: 'stretch',
-            fontSize: RFValue(12),
-
-            padding: '3%',
-          }}
-        >
-          {props.commandecree}
-        </Text>
-      )}
-      {props.offreDePrix && (
-        <Text
-          style={{
-            color: '#545353',
-            textAlign: 'left',
-            alignSelf: 'stretch',
-            fontSize: RFValue(12),
-
-            padding: '3%',
-          }}
-        >
-          {props.offreDePrix}
-        </Text>
-      )}
+      <View style={{ padding: '3%' }}>
+        {props.commandecree && (
+          <Text
+            style={{
+              color: '#545353',
+              textAlign: 'left',
+              fontSize: RFValue(12),
+            }}
+          >
+            <Text style={{ fontWeight: 'bold' }}>{props.commandecree}</Text>:
+            Commande créée
+          </Text>
+        )}
+        {props.offreDePrix && (
+          <Text
+            style={{
+              color: '#545353',
+              textAlign: 'left',
+              fontSize: RFValue(12),
+            }}
+          >
+            <Text style={{ fontWeight: 'bold' }}>{props.offreDePrix[0]}</Text>:
+            Offre de prix envoyée{' '}
+            <Text style={{ fontWeight: 'bold' }}>{props.offreDePrix[1]}</Text>
+          </Text>
+        )}
+      </View>
     </Card>
   );
 };
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: h(8),
-    width: w(13),
+    width: w(15),
   },
 });
 export default CardClient;
