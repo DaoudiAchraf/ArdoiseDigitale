@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import PropTypes from 'prop-types';
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import PropTypes from "prop-types";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const NextButton = ({ title, action, myRedBtn }) => {
   return (
@@ -9,7 +9,7 @@ const NextButton = ({ title, action, myRedBtn }) => {
       onPress={action}
       style={[myRedBtn ? styles.myRedBtn : styles.btnStyle]}
     >
-      <Text style={{ color: 'white', fontSize: RFValue(10) }}>{title}</Text>
+      <Text style={{ color: "white", fontSize: RFValue(10) }}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -20,7 +20,7 @@ NextButton.propTypes = {
 };
 
 NextButton.defaultProps = {
-  title: 'Suivant',
+  title: "Suivant",
   action: null,
 };
 
@@ -28,22 +28,23 @@ export default NextButton;
 
 const styles = StyleSheet.create({
   myRedBtn: {
-    width: '100%',
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: '#c43c44',
+    width: "100%",
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#c43c44",
     padding: 12,
     borderRadius: 3,
-    marginTop: '10%',
-    marginBottom: '5%',
+    marginTop: "10%",
+    marginBottom: "5%",
+    flexShrink: 1,
   },
   btnStyle: {
-    alignItems: 'center',
-    backgroundColor: '#c43c44',
+    alignItems: "center",
+    backgroundColor: "#c43c44",
     padding: 12,
     borderRadius: 3,
-    marginHorizontal: '5%',
-    marginTop: '5%',
-    marginBottom: '5%',
+    marginHorizontal: "5%",
+    marginTop: "5%",
+    marginBottom: "5%",
   },
 });
