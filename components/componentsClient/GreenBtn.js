@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     marginTop: "10%",
     marginBottom: "5%",
     flexShrink: 1,
+    elevation: 4,
   },
   myGreenBtn2: {
     width: "100%",
