@@ -28,6 +28,8 @@ export default function ProfilMarchand(props) {
 
   const [isMinus, setIsMinus] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
+  const [demandeSent, setDemandeSent] = useState(false);
+
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
@@ -44,11 +46,15 @@ export default function ProfilMarchand(props) {
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
           />
-          <GreenBtn
-            myGreenBtn
-            action={showDialog}
-            title="Ouvrir une ardoise avec ce marchand"
-          />
+          {demandeSent ? (
+            <GreenBtn grayed myGreenBtn title="Votre demande à été envoyée" />
+          ) : (
+            <GreenBtn
+              myGreenBtn
+              action={showDialog}
+              title="Ouvrir une ardoise avec ce marchand"
+            />
+          )}
 
           <View
             style={{
@@ -111,7 +117,10 @@ export default function ProfilMarchand(props) {
               />
               <GreenBtn
                 myGreenBtn
-                action={hideDialog}
+                action={() => {
+                  hideDialog();
+                  setDemandeSent(true);
+                }}
                 title="Envoyer une Commande"
               />
             </Dialog.Content>
