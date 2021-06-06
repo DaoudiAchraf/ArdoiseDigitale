@@ -1,61 +1,80 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Badge } from 'react-native-paper';
 import { RFValue } from 'react-native-responsive-fontsize';
-
+import FondBtnCommandes from '../../assets/svg-icones-client/client-fond-btn-commandes.jsx';
 import { w, h } from '../../utils/Size';
 
 const Item2 = (props) => {
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={[styles.button, props.indisponible && styles.indisponible]}
       onPress={() => console.log('Pressed')}
     >
-      <View style={{ flexDirection: 'row', marginTop: '-5%' }}>
-        <View style={{ width: w(87), margin: '4%', marginLeft: '2%' }}>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={{ width: w(87), marginLeft: '2%' }}>
           <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.small}>{props.small}</Text>
-          <Text style={styles.smaller}>{props.smaller}</Text>
+          <Text style={styles.small}>
+            <Text style={styles.smaller}>{props.smaller}</Text>
+            {props.small}
+          </Text>
         </View>
-        <View style={{ width: w(20), marginLeft: '-23%' }}>
-          <Image source={props.source} style={styles.image}></Image>
-        </View>
+        <FondBtnCommandes
+          style={{ position: 'absolute', left: '83%', top: '-20%' }}
+        />
+        {props.badged && (
+          <Badge size={25} style={styles.badge}>
+            x 3
+          </Badge>
+        )}
       </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  indisponible: {
+    backgroundColor: 'lightgrey',
+  },
   button: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'white',
+
     padding: '3%',
+    marginBottom: '3%',
     borderRadius: 3,
-    marginTop: '5%',
-    height: h(9.5),
-    width: w(92),
+    height: h(9),
+    width: '100%',
     alignSelf: 'center',
   },
   title: {
-    color: '#B0AEAE',
+    color: '#333333',
     textAlign: 'left',
     alignSelf: 'stretch',
     fontSize: RFValue(17),
     fontWeight: 'bold',
   },
   small: {
-    color: '#B0AEAE',
+    color: '#333333',
     textAlign: 'left',
     alignSelf: 'stretch',
     fontSize: RFValue(11),
+    fontWeight: 'bold',
   },
   smaller: {
-    color: '#B0AEAE',
+    color: '#C1272D',
     textAlign: 'left',
     alignSelf: 'stretch',
-    fontSize: RFValue(9),
+    fontSize: RFValue(11),
+    fontWeight: 'bold',
   },
-  image: {
-    height: '90%',
-    width: '85%',
+  badge: {
+    position: 'absolute',
+    left: '90%',
+    top: '-10%',
+    color: '#324B3E',
+    backgroundColor: 'transparent',
+    fontWeight: '700',
+    fontSize: RFValue(15),
   },
 });
 

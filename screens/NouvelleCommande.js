@@ -1,29 +1,20 @@
 import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Divider from "react-native-divider";
-import {
-  Provider,
-  Button,
-  Dialog,
-  Portal,
-  Paragraph,
-} from "react-native-paper";
+import { Provider } from "react-native-paper";
 
 import { RFValue } from "react-native-responsive-fontsize";
-import CalloutCard from "../components/Client_UI/CalloutCard";
 import MyAppbar from "../components/componentsClient/Myappbar";
 import { w, h } from "../utils/Size";
-import ItemInCallout from "../components/Client_UI/ItemInCallout";
 import CardClient from "../components/componentsClient/CardClient";
 import GreenBtn from "../components/componentsClient/GreenBtn";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
-import DropDownFiltres from "../components/Client_UI/DropDownFiltres";
 import Item1 from "../components/componentsClient/Item1";
 
 export default function ProfilMarchand({ props, navigation }) {
   const [selectedItem, setSelectedItem] = useState(0);
   const navToListemarchands = () => navigation.navigate("Listemarchands");
-  const aaa = () => console.log("aaaaa");
+
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
@@ -39,7 +30,7 @@ export default function ProfilMarchand({ props, navigation }) {
             text1="Livraison disponible."
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
-            commandecree="12/12/2020 à 10h30: Commande créée"
+            commandecree="12/12/2020 à 10h30"
           />
           <GreenBtn grayed myGreenBtn title="Commande passée" />
 

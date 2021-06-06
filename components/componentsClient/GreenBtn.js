@@ -10,6 +10,7 @@ const NextButton = ({
   action,
   grayed,
   myGreenBtn,
+  myGreenBtn2,
 }) => {
   return (
     <TouchableOpacity
@@ -18,13 +19,17 @@ const NextButton = ({
       style={[
         myGreenBtn
           ? [styles.myGreenBtn, grayed && styles.grayed]
-          : styles.btnStyle,
+          : [
+              myGreenBtn2
+                ? [styles.myGreenBtn2, grayed && styles.grayed]
+                : styles.btnStyle,
+            ],
       ]}
     >
       <Text
         style={[
           grayed
-            ? { color: "grey", fontSize: RFValue(10) }
+            ? { color: "#808080", fontSize: RFValue(10) }
             : { color: "white", fontSize: RFValue(10) },
         ]}
       >
@@ -56,6 +61,17 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     marginTop: "10%",
     marginBottom: "5%",
+    flexShrink: 1,
+    elevation: 4,
+  },
+  myGreenBtn2: {
+    width: "100%",
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#485c54",
+    padding: 12,
+    borderRadius: 3,
+    marginTop: "3%",
   },
   btnStyle: {
     alignItems: "center",
@@ -67,6 +83,6 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   grayed: {
-    backgroundColor: "lightgrey",
+    backgroundColor: "#D1D1D1",
   },
 });
