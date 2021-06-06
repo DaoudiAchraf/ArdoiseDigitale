@@ -27,7 +27,7 @@ import OffrePrixCommande from "./screens/OffrePrixCommande";
 import OffrePrixCommandeAccepted from "./screens/OffrePrixCommandeAccepted";
 import CommandePayee from "./screens/CommandePayee";
 import CommandePayeeAvis from "./screens/CommandePayeeAvis";
-
+import navbar from "./components/componentsClient/navbar";
 import NouvelleCommande from "./screens/NouvelleCommande";
 
 const Stack = createStackNavigator();
@@ -37,6 +37,7 @@ const StackNavigator = () => (
     initialRouteName="Clientaccount"
     screenOptions={{ headerShown: false }}
   >
+    <Stack.Screen name="navbar" component={navbar} />
     <Stack.Screen name="NouvelleCommande" component={NouvelleCommande} />
     <Stack.Screen name="ListeDesCommandes" component={ListeDesCommandes} />
     <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
