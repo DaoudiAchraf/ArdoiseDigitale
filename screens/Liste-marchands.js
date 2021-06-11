@@ -8,7 +8,6 @@ import {
   ImageBackground,
 } from "react-native";
 import Myappbar from "../components/componentsClient/Myappbar";
-import Mynavbar from "../components/componentsClient/navbar";
 import Item2 from "../components/componentsClient/Item2";
 import MyItem from "../components/componentsClient/Item1";
 import Divider from "react-native-divider";
@@ -22,6 +21,7 @@ function Listemarchands({ navigation }) {
   const navToConsulterCompteMarchand = () =>
     navigation.navigate("ConsulterCompteMarchand");
   const navToNouvelleCommande = () => navigation.navigate("NouvelleCommande");
+  console.log(navigation);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>

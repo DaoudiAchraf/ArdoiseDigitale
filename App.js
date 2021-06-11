@@ -21,22 +21,48 @@ import DetailsTransaction from "./screens/DetailsTransaction";
 import ProfilMarchand from "./screens/ProfilMarchand";
 import ConsulterArdoiseFermee from "./screens/ConsulterArdoiseFermee";
 import ListeDesCommandes from "./screens/ListeDesCommandes";
-import CommandePrete from "./screens/CommandePrete";
-import CommandeTerminee from "./screens/CommandeTerminee";
 import OffrePrixCommande from "./screens/OffrePrixCommande";
-import OffrePrixCommandeAccepted from "./screens/OffrePrixCommandeAccepted";
-import CommandePayee from "./screens/CommandePayee";
-import CommandePayeeAvis from "./screens/CommandePayeeAvis";
-
 import NouvelleCommande from "./screens/NouvelleCommande";
+import Navbar from "./components/componentsClient/navbar";
+//Merchant Screens
+import MerchantAccount from "./screens/MerchantAccount";
+import MerchantClientList from "./screens/MerchantClientList";
+import MerchantClientOrder from "./screens/MerchantClientOrder";
+import MerchantClientsOrdersList from "./screens/MerchantClientsOrdersList";
+import MerchantNotifications from "./screens/MerchantNotifications";
+import MerchantCatalogueModification from "./screens/MerchantCatalogueModification";
+import MerchantProfilClient from "./screens/MerchantProfilClient";
+import { View } from "react-native";
 
 const Stack = createStackNavigator();
-
+/*
 const StackNavigator = () => (
   <Stack.Navigator
-    initialRouteName="Clientaccount"
+    initialRouteName="Navbar"
     screenOptions={{ headerShown: false }}
   >
+    <Stack.Screen
+      name="MerchantProfilClient"
+      component={MerchantProfilClient}
+    />
+
+    <Stack.Screen name="MerchantAccount" component={MerchantAccount} />
+    <Stack.Screen name="MerchantClientList" component={MerchantClientList} />
+    <Stack.Screen name="MerchantClientOrder" component={MerchantClientOrder} />
+    <Stack.Screen
+      name="MerchantClientsOrdersList"
+      component={MerchantClientsOrdersList}
+    />
+    <Stack.Screen
+      name="MerchantNotifications"
+      component={MerchantNotifications}
+    />
+    <Stack.Screen
+      name="MerchantCatalogueModification"
+      component={MerchantCatalogueModification}
+    />
+    <Stack.Screen name="Navbar" component={Navbar} />
+
     <Stack.Screen name="NouvelleCommande" component={NouvelleCommande} />
     <Stack.Screen name="ListeDesCommandes" component={ListeDesCommandes} />
     <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
@@ -53,15 +79,8 @@ const StackNavigator = () => (
     <Stack.Screen name="add" component={AddProduct} />
     <Stack.Screen name="Notification" component={Notification} />
     <Stack.Screen name="Clientaccount" component={Clientaccount} />
-    <Stack.Screen name="CommandePrete" component={CommandePrete} />
-    <Stack.Screen name="CommandeTerminee" component={CommandeTerminee} />
+
     <Stack.Screen name="OffrePrixCommande" component={OffrePrixCommande} />
-    <Stack.Screen
-      name="OffrePrixCommandeAccepted"
-      component={OffrePrixCommandeAccepted}
-    />
-    <Stack.Screen name="CommandePayee" component={CommandePayee} />
-    <Stack.Screen name="CommandePayeeAvis" component={CommandePayeeAvis} />
 
     <Stack.Screen
       name="ConsulterCompteMarchand"
@@ -80,11 +99,12 @@ const StackNavigator = () => (
     />
   </Stack.Navigator>
 );
+*/
 
 export default function App() {
   return (
     <NavigationContainer>
-      <StackNavigator />
+      <Navbar />
     </NavigationContainer>
   );
 }

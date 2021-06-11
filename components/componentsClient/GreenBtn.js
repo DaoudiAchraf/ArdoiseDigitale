@@ -78,9 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#485c54",
     padding: 12,
     borderRadius: 3,
-    marginHorizontal: "5%",
-    marginTop: "5%",
-    marginBottom: "5%",
+    margin: "5%",
   },
   grayed: {
     backgroundColor: "#D1D1D1",

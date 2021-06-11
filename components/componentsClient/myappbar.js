@@ -4,8 +4,11 @@ import { Appbar } from "react-native-paper";
 
 const myappbar = (props) => {
   return (
-    <Appbar.Header style={{ backgroundColor: "transparent", marginTop: "5%" }}>
-      <Appbar.BackAction onPress={() => props.navigation()} color="#FFFFFF" />
+    <Appbar.Header style={{ backgroundColor: "transparent", marginTop: "10%" }}>
+      <Appbar.BackAction
+        onPress={() => props.navigation && props.navigation.goBack()}
+        color="#FFFFFF"
+      />
       <Appbar.Content
         title={props.title}
         subtitle={props.subtitle}

@@ -319,7 +319,7 @@ export default function OffrePrixCommande(props) {
               <ItemPrix title="150 MAD" small="Prix proposé" />
             )}
             <ItemPrix title="Crédit total" small="Mode de payement" />
-            <ItemPrix title="Livraison" small="Oui" />
+            <ItemPrix title="Oui" small="Livraison" />
           </View>
         </View>
       </ScrollView>

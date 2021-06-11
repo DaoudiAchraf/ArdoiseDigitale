@@ -7,7 +7,10 @@ import { Badge } from "react-native-paper";
 
 const Item2 = (props) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={() => props.navigation()}>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => props.navigation && props.navigation()}
+    >
       <View style={{ flexDirection: "row", marginTop: "-5%" }}>
         {props.badged && <Badge size={10} style={styles.badge} />}
 

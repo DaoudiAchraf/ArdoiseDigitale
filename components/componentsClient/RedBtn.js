@@ -37,14 +37,13 @@ const styles = StyleSheet.create({
     marginTop: "10%",
     marginBottom: "5%",
     flexShrink: 1,
+    elevation: 4,
   },
   btnStyle: {
     alignItems: "center",
     backgroundColor: "#c43c44",
     padding: 12,
     borderRadius: 3,
-    marginHorizontal: "5%",
-    marginTop: "5%",
-    marginBottom: "5%",
+    margin: "5%",
   },
 });

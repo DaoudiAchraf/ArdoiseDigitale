@@ -33,7 +33,7 @@ export default function ProfilMarchand(props) {
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <MyAppbar title="ProfilMarchand" />
+        <MyAppbar navigation={props.navigation} title="ProfilMarchand" />
         <FondPageMarchand style={styles.svg} />
         <View style={styles.contentView}>
           <CardClient
