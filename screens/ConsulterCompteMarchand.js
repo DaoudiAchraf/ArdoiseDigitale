@@ -41,6 +41,8 @@ function ConsulterCompteMarchand({ navigation }) {
   const navToConsulterArdoiseFermee = () =>
     navigation.navigate("ConsulterArdoiseFermee");
   const navToProfilMarchand = () => navigation.navigate("ProfilMarchand");
+
+  const navToListemarchands = () => navigation.navigate("Listemarchands");
   return (
     <View style={{ flex: 1 }}>
       <Provider>
@@ -53,6 +55,7 @@ function ConsulterCompteMarchand({ navigation }) {
           <Myappbar
             title="Name"
             subtitle="Vous avez 3 nouvelles notifications"
+            navigation={navToListemarchands}
           />
           <Image
             style={styles.image}

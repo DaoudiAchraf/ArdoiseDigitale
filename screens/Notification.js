@@ -16,6 +16,8 @@ function Notification({ navigation }) {
   const navCommandePayee = () => navigation.navigate("CommandePayee");
   const navCommandeTerminee = () => navigation.navigate("CommandeTerminee");
   const navOffrePrixCommande = () => navigation.navigate("OffrePrixCommande");
+
+  const navToClientaccount = () => navigation.navigate("Clientaccount");
   return (
     <ScrollView
       style={{
@@ -26,6 +28,7 @@ function Notification({ navigation }) {
       <Myappbar
         title="Notifications"
         subtitle="Vous avez 3 nouvelles notifications"
+        navigation={navToClientaccount}
       />
       <Image
         style={styles.image}

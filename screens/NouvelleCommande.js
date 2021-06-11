@@ -1,21 +1,23 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import Divider from 'react-native-divider';
-import { Provider } from 'react-native-paper';
+import React, { useContext, useState } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import Divider from "react-native-divider";
+import { Provider } from "react-native-paper";
 
-import { RFValue } from 'react-native-responsive-fontsize';
-import MyAppbar from '../components/componentsClient/Myappbar';
-import { w, h } from '../utils/Size';
-import CardClient from '../components/componentsClient/CardClient';
-import GreenBtn from '../components/componentsClient/GreenBtn';
-import FondPageMarchand from '../assets/svg-icones-client/fond-page-marchands';
-import Item1 from '../components/componentsClient/Item1';
+import { RFValue } from "react-native-responsive-fontsize";
+import MyAppbar from "../components/componentsClient/Myappbar";
+import { w, h } from "../utils/Size";
+import CardClient from "../components/componentsClient/CardClient";
+import GreenBtn from "../components/componentsClient/GreenBtn";
+import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
+import Item1 from "../components/componentsClient/Item1";
 
-export default function ProfilMarchand(props, { navigation }) {
-  const navToListemarchands = () => navigation.navigate('Listemarchands');
+export default function ProfilMarchand({ props, navigation }) {
+  const [selectedItem, setSelectedItem] = useState(0);
+  const navToListemarchands = () => navigation.navigate("Listemarchands");
+
   return (
     <Provider>
-      <ScrollView style={{ backgroundColor: '#324B3E' }}>
+      <ScrollView style={{ backgroundColor: "#324B3E" }}>
         <MyAppbar title="Nouvelle commande" navigation={navToListemarchands} />
         <FondPageMarchand style={styles.svg} />
         <View style={styles.contentView}>
@@ -27,15 +29,15 @@ export default function ProfilMarchand(props, { navigation }) {
             merchant="Kristin"
             text1="Livraison disponible."
             text2="Accepte le paiement comptant et par crédit total."
-            source={require('../assets/assets/targetexpress.jpg')}
+            source={require("../assets/assets/targetexpress.jpg")}
             commandecree="12/12/2020 à 10h30"
           />
           <GreenBtn grayed myGreenBtn title="Commande passée" />
 
           <View
             style={{
-              width: '100%',
-              alignSelf: 'center',
+              width: "100%",
+              alignSelf: "center",
             }}
           >
             <Divider borderColor="#fff" color="#fff" orientation="center">
@@ -44,14 +46,14 @@ export default function ProfilMarchand(props, { navigation }) {
             <Item1
               title="Brit Care Hair & Skin"
               description="Animaux » chiens"
-              img={require('../assets/assets/icons/client-fond-btn-commande.png')}
+              img={require("../assets/assets/icons/client-fond-btn-commande.png")}
               myItem
               badged
             />
             <Item1
               title="Brit Chicken & Salamon"
               description="Animaux » chiens"
-              img={require('../assets/assets/icons/client-fond-btn-commande.png')}
+              img={require("../assets/assets/icons/client-fond-btn-commande.png")}
               myItem
               badged
             />
@@ -71,12 +73,12 @@ export default function ProfilMarchand(props, { navigation }) {
 
 const styles = StyleSheet.create({
   contentView: {
-    alignSelf: 'center',
+    alignSelf: "center",
     width: w(80),
     marginTop: h(7),
   },
   svg: {
-    position: 'absolute',
-    alignSelf: 'flex-end',
+    position: "absolute",
+    alignSelf: "flex-end",
   },
 });

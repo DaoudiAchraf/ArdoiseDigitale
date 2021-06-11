@@ -25,6 +25,8 @@ function ConsulterArdoiseFermee({ navigation }) {
   const navToHistoriquePaiements = () =>
     navigation.navigate("HistoriquePaiements");
   const navToProfilMarchand = () => navigation.navigate("ProfilMarchand");
+  const navToListemarchands = () => navigation.navigate("Listemarchands");
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -36,6 +38,7 @@ function ConsulterArdoiseFermee({ navigation }) {
         <Myappbar
           title="Kristen Harper"
           subtitle="Ardoise fermée le 12/12/2020 à 10h30"
+          navigation={navToListemarchands}
         />
         <FondPageMarchands style={styles.svg} />
 

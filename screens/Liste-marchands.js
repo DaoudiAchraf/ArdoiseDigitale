@@ -21,11 +21,16 @@ function Listemarchands({ navigation }) {
   const navToConsulterCompteMarchand = () =>
     navigation.navigate("ConsulterCompteMarchand");
   const navToNouvelleCommande = () => navigation.navigate("NouvelleCommande");
-  console.log(navigation);
+  const navToMapScreen = () => navigation.navigate("MapScreen");
+
+  const navToClientaccount = () => navigation.navigate("Clientaccount");
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <Myappbar title="Ma liste de marchands" />
+        <Myappbar
+          title="Ma liste de marchands"
+          navigation={navToClientaccount}
+        />
 
         <FondPageMarchand style={styles.svg} />
         <View style={{ marginTop: "10%", margin: "3%", padding: "2%" }}>
@@ -33,6 +38,7 @@ function Listemarchands({ navigation }) {
             title="Trouver un marchand"
             description="Appuyez pour afficher la carte."
             img={require("../assets/assets/icons/client-fond-btn-carte.png")}
+            navigation={navToMapScreen}
           />
         </View>
 

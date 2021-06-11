@@ -20,6 +20,8 @@ const ListeDesCommandes = ({ navigation }) => {
   const navOffrePrixCommande = () => navigation.navigate("OffrePrixCommande");
   const navOffrePrixCommandeAccepted = () =>
     navigation.navigate("OffrePrixCommandeAccepted");
+  const navToClientaccount = () => navigation.navigate("Clientaccount");
+
   /*
         <Image
         style={styles.image}
@@ -36,6 +38,7 @@ const ListeDesCommandes = ({ navigation }) => {
       <Myappbar
         title={"Liste Des Commandes"}
         subtitle="Vous avez 3 Commandes actives"
+        navigation={navToClientaccount}
       />
       <FondPageCommandes style={styles.svg} />
 
