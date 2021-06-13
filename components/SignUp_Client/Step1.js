@@ -3,39 +3,42 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import SignUpContext from "../../contexts/SignUp.context";
 import DropDown from "../DropDown";
 import Input from "../Input";
-import { Formik } from 'formik';
-import ImagePicker from "./ImagePicker";
+import { Formik } from "formik";
+import { Context } from "../../contexts/SignUp.context";
+import ButtonNext from "../ButtonNext";
+import { isValid } from "../Alert";
+import ImagePicker from "../ImagePicker";
 
 const Step1 = ({ toNextStep }) => {
-  const { formState, setFormState } = useContext(SignUpContext);
-  const {addInfos,initialState} = useContext(Context);
-
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState();
+  const { addInfos, initialState } = useContext(Context);
+  const [cinImage, setCinImage] = useState(initialState["photo"]);
   const [selectedItem, setSelectedItem] = useState(0);
 
-
-
-  const onSubmit = (values) => {
-
-    values['image'] = clientImage;
-    // console.log(values);
-
-    if(isValid(values,errors,setErrors))
-    {
-     // console.log("--->",{...values,photo:cinImage});
-   
-    addInfos({...values,image:clientImage});
-    toNextStep()
-    }
-  
-    ;
+  const [errors, setErrors] = useState({
+    lastName: false,
+    firstName: false,
+    phoneNumber: false,
+  });
+  const initialValues = {
+    lastName: null,
+    firstName: null,
+    phoneNumber: null,
+    ...initialState,
   };
 
+  const onSubmit = (values) => {
+    values["image"] = cinImage;
+    // console.log(values);
 
+    if (isValid(values, errors, setErrors)) {
+      // console.log("--->",{...values,photo:cinImage});
 
- /* const submit = () => {
+      addInfos({ ...values, image: cinImage });
+      toNextStep();
+    }
+  };
+
+  /* const submit = () => {
     setFormState({
       ...formState,
       lastName,
@@ -48,13 +51,12 @@ const Step1 = ({ toNextStep }) => {
 
   return (
     <Formik
-     initialValues={ initialValues }
-     onSubmit={values => onSubmit(values)}
-   >
-     {({ handleChange, handleBlur, handleSubmit, values }) => (
-        <View >
-
-                  <View
+      initialValues={initialValues}
+      onSubmit={(values) => onSubmit(values)}
+    >
+      {({ handleChange, handleBlur, handleSubmit, values }) => (
+        <View>
+          <View
             style={{
               flexDirection: "row",
               marginLeft: "10%",
@@ -67,46 +69,44 @@ const Step1 = ({ toNextStep }) => {
                 alignSelf: "center",
               }}
             >
-                 <Input 
-        label='Nom'
-        value={values.firstName}
-        handleChange={handleChange('firstName')}
-        error={errors.firstName}
-        onFocus={()=>setErrors({...errors,firstName:false})}
-      />
-
+              <Input
+                label="Nom"
+                value={values.firstName}
+                handleChange={handleChange("firstName")}
+                error={errors.firstName}
+                onFocus={() => setErrors({ ...errors, firstName: false })}
+              />
             </View>
 
             <View style={{ width: "45%", alignSelf: "center" }}>
- <Input 
-        label='Prénom'
-        value={values.lastName}
-        handleChange={handleChange('lastName')}
-        error={errors.lastName}
-        onFocus={()=>setErrors({...errors,lastName:false})}
-      />            </View>
+              <Input
+                label="Prénom"
+                value={values.lastName}
+                handleChange={handleChange("lastName")}
+                error={errors.lastName}
+                onFocus={() => setErrors({ ...errors, lastName: false })}
+              />
+            </View>
           </View>
 
-     
-
-      <Input
-        keyboardType= 'numeric'
-        label='Numero de télephone'
-        value={values.phoneNumber}
-        error={errors.phoneNumber}
-        handleChange={handleChange('phoneNumber')}
-        onFocus={()=>setErrors({...errors,phoneNumber:false})}
-      />
-      <ImagePicker 
-        image={clientImage}
-        error={errors.image}
-        handleChange={setClientImage}
-        onFocus={()=>setErrors({...errors,image:false})}
-        />
-      <ButtonNext onPress={handleSubmit}/>
-     </View>
-           )}
-   </Formik>
+          <Input
+            keyboardType="numeric"
+            label="Numero de télephone"
+            value={values.phoneNumber}
+            error={errors.phoneNumber}
+            handleChange={handleChange("phoneNumber")}
+            onFocus={() => setErrors({ ...errors, phoneNumber: false })}
+          />
+          <ImagePicker
+            image={cinImage}
+            error={errors.image}
+            handleChange={setCinImage}
+            onFocus={() => setErrors({ ...errors, image: false })}
+          />
+          <ButtonNext onPress={handleSubmit} />
+        </View>
+      )}
+    </Formik>
   );
 };
 
