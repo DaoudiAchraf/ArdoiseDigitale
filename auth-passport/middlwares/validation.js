@@ -35,21 +35,18 @@ const clientLoginValidation = data => {
 //merchant register validation
 const merchantRegisterValidation = (data) => {
     const schema = Joi.object({
-        comName: Joi.string().required(),
+        firstName: Joi.string().required(),
+        lastName: Joi.string().required(),
         numPatent: Joi.number().required(),
-        addressWay: Joi.string().required(),
-        addressState: Joi.string().required(),
-        addressRegion: Joi.string().required(),
-        addressComplement: Joi.string(),
+        address: Joi.object().required(),
         juridicState: Joi.string().required(),
         refCIN: Joi.number().required(),
-        mandataireFN: Joi.string().required(),
-        mandataireLN: Joi.string().required(),
+
         identityCard: Joi.object().required(),
-        mandatairephoneNumber: Joi.number().required(),
+        phoneNumber: Joi.number().required(),
         activityDomain: Joi.string().required(),
-        creationDay: Joi.date(),
-        experationDay: Joi.date(),
+
+        expirationDate: Joi.date(),
         walletId: Joi.string()
     });
 

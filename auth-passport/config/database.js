@@ -7,3 +7,4 @@ const uri = process.env.db;
 mongoose.connect(uri,{ useNewUrlParser: true, useUnifiedTopology: true },
 () => console.log('connected db')
 );
+require('../models/user');
