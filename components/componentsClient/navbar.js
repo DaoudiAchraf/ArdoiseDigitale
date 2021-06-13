@@ -39,7 +39,7 @@ import MerchantProfilClient from "../../screens/MerchantProfilClient";
 
 import Listemarchands from "../../screens/Liste-marchands";
 import Clientaccount from "../../screens/Client-account";
-import Listecommandes from "../../screens/ListeDesCommandes";
+import ListeDesCommandes from "../../screens/ListeDesCommandes";
 
 const Stack = createStackNavigator();
 const StackNavigator = ({ initScr }) => {
@@ -86,7 +86,7 @@ const StackNavigator = ({ initScr }) => {
       <Stack.Screen name="add" component={AddProduct} />
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Clientaccount" component={Clientaccount} />
-      <Stack.Screen name="Listecommandes" component={Listecommandes} />
+      <Stack.Screen name="ListeDesCommandes" component={ListeDesCommandes} />
 
       <Stack.Screen name="OffrePrixCommande" component={OffrePrixCommande} />
 
@@ -204,7 +204,9 @@ function navbar({ merchant }) {
       >
         {(props) => (
           <StackNavigator
-            initScr={merchant ? "MerchantClientsOrdersList" : "Listecommandes"}
+            initScr={
+              merchant ? "MerchantClientsOrdersList" : "ListeDesCommandes"
+            }
             {...props}
           />
         )}

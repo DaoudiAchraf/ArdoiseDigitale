@@ -27,10 +27,7 @@ function Listemarchands({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <Myappbar
-          title="Ma liste de marchands"
-          navigation={navToClientaccount}
-        />
+        <Myappbar title="Ma liste de marchands" navigation={navigation} />
 
         <FondPageMarchand style={styles.svg} />
         <View style={{ marginTop: "10%", margin: "3%", padding: "2%" }}>

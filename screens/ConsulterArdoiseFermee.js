@@ -38,7 +38,7 @@ function ConsulterArdoiseFermee({ navigation }) {
         <Myappbar
           title="Kristen Harper"
           subtitle="Ardoise fermée le 12/12/2020 à 10h30"
-          navigation={navToListemarchands}
+          navigation={navigation}
         />
         <FondPageMarchands style={styles.svg} />
 

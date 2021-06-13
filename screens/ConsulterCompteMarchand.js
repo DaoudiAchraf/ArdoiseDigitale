@@ -55,7 +55,7 @@ function ConsulterCompteMarchand({ navigation }) {
           <Myappbar
             title="Name"
             subtitle="Vous avez 3 nouvelles notifications"
-            navigation={navToListemarchands}
+            navigation={navigation}
           />
           <Image
             style={styles.image}

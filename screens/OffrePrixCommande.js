@@ -22,7 +22,7 @@ import ItemPrix from "../components/componentsClient/ItemPrix";
 import moment from "moment";
 import CalloutCard from "../components/Client_UI/CalloutCard";
 
-export default function OffrePrixCommande(props) {
+export default function OffrePrixCommande({ navigation }) {
   const [commande, setCommande] = useState({
     ref: "HM-123456789",
     dateOfCreation: moment(new Date()).format("DD/MM/YYYY [à] hh[h]mm"),
@@ -68,7 +68,7 @@ export default function OffrePrixCommande(props) {
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <MyAppbar title="Commande" />
+        <MyAppbar navigation={navigation} title="Commande" />
         <FondPageCommandes style={styles.svg} />
         <View style={styles.contentView}>
           <CalloutCard commande={commande} />

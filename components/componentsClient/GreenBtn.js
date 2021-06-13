@@ -14,7 +14,10 @@ const NextButton = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={(navigation, action)}
+      onPress={() => {
+        navigation && navigation();
+        action && action();
+      }}
       disabled={grayed}
       style={[
         myGreenBtn

@@ -14,7 +14,7 @@ function HistoriquePaiements({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: "#324B3E" }}>
       <ScrollView style={{ flex: 1 }}>
-        <Myappbar title="Historique des paiements" />
+        <Myappbar navigation={navigation} title="Historique des paiements" />
         <Image
           style={styles.image}
           source={require("../assets/assets/icons/fond-page-historique.png")}

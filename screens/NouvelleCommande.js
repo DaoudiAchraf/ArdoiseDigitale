@@ -11,14 +11,14 @@ import GreenBtn from "../components/componentsClient/GreenBtn";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import Item1 from "../components/componentsClient/Item1";
 
-export default function ProfilMarchand({ props, navigation }) {
+export default function ProfilMarchand({ navigation }) {
   const [selectedItem, setSelectedItem] = useState(0);
   const navToListemarchands = () => navigation.navigate("Listemarchands");
 
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <MyAppbar title="Nouvelle commande" navigation={navToListemarchands} />
+        <MyAppbar title="Nouvelle commande" navigation={navigation} />
         <FondPageMarchand style={styles.svg} />
         <View style={styles.contentView}>
           <CardClient

@@ -28,7 +28,7 @@ function Notification({ navigation }) {
       <Myappbar
         title="Notifications"
         subtitle="Vous avez 3 nouvelles notifications"
-        navigation={navToClientaccount}
+        navigation={navigation}
       />
       <Image
         style={styles.image}
