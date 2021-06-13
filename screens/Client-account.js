@@ -4,7 +4,6 @@ import Item1 from "../components/componentsClient/Item1";
 import Item2 from "../components/componentsClient/Item2";
 import Divider from "react-native-divider";
 import GreenBtn from "../components/componentsClient/GreenBtn";
-import Navbar from "../components/componentsClient/navbar";
 
 function Clientaccount({ navigation }) {
   const navToNotification = () => navigation.navigate("Notification");
@@ -77,7 +76,6 @@ function Clientaccount({ navigation }) {
           title="Voir toutes mes commandes"
           action={navToListeDesCommandes}
         />
-        <Navbar></Navbar>
       </ScrollView>
     </View>
   );
