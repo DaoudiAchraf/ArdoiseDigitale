@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image, ScrollView ,BackHandler, Alert } from "react-native";
 import StepIndicator from "react-native-step-indicator";
 import indicatorStyle from "../styles/StepIndicator";
 import Step1 from "../components/SignUp_Trader/Step1";
@@ -8,37 +8,66 @@ import Step3 from "../components/Step3";
 import Step4 from "../components/SignUp_Trader/Step4";
 import Step5 from "../components/SignUp_Trader/Step5";
 import FinalStep from "../components/FinalStep";
-import SignUpContext from "../contexts/SignUp.context";
-import logo from "../assets/images/logo-dark.png";
 
-const App = () => {
-  // ---- States ---------------
+import logo from "../assets/images/logo-dark.png";
+import SignUpContext from "../contexts/SignUp.context";
+
+
+const App = ({navigation}) => {
+  
   const [currentPosition, setcurrentPosition] = useState(0);
 
-  const [formState, setFormState] = useState({
-    firstName: null,
-    lastName: null,
-    phoneNumber: null,
-    code: null,
-    CinRef: null,
-    expDate: null,
-    activityDomain: null,
-    numPatente: null,
-    legalStatus: null,
-    address: null,
-  });
-  //---------------------------
-
   const toNextStep = () => {
-    setcurrentPosition(currentPosition + 1);
+
+    if(currentPosition === 5)
+      navigation.navigate("SignIn");
+
+    else
+    {
+      const pos = currentPosition +1;
+      setcurrentPosition(pos);
+    }
+    
   };
+
+  const toPreviousStep = () => {
+    if (currentPosition > 0 )
+      setcurrentPosition(currentPosition-1)
+    else
+      navigation.navigate('SignUp');
+  };
+
+  const backAction = () => {
+   
+    Alert.alert("Attention !", "Voulez vous confirmer le retour à l'étape précédente", [
+      {
+        text: "Non",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "Oui", onPress: () => toPreviousStep() }
+    ]);
+    
+    return true;
+  };
+
+  useEffect(() => {
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, [currentPosition]);
+
 
   const renderSteps = () => {
     switch (currentPosition) {
       case 0:
-        return <Step1 toNextStep={toNextStep} />;
+        return <Step1  toNextStep={toNextStep} />;
       case 1:
-        return <Step2 toNextStep={toNextStep} />;
+        return <Step2  toNextStep={toNextStep} />;
       case 2:
         return <Step3 toNextStep={toNextStep} />;
       case 3:
@@ -53,7 +82,7 @@ const App = () => {
   };
 
   return (
-    <SignUpContext.Provider value={{ formState, setFormState }}>
+    <SignUpContext>
       <View style={styles.container}>
         <View style={{ flex: 4 }}>
           <Image resizeMode="contain" style={styles.logoStyle} source={logo} />
@@ -76,7 +105,7 @@ const App = () => {
           </View>
         </ScrollView>
       </View>
-    </SignUpContext.Provider>
+      </SignUpContext>
   );
 };
 

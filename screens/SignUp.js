@@ -1,9 +1,12 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, ImageBackground } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
+import { h, totalSize, w } from "../utils/Size";
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 const SignUp = ({ navigation }) => {
   return (
+    <ImageBackground source={require('../assets/images/BG.png')} style={styles.image} >
     <View style={styles.signUp_container}>
       <View style={{ flex: 1 }}>
         <Image
@@ -17,16 +20,16 @@ const SignUp = ({ navigation }) => {
         <Text style={styles.topTxt}>Créer un compte</Text>
 
         <TouchableOpacity
-          style={{ ...styles.connectBtn, marginBottom: 10 }}
+          style={{ ...styles.connectBtn, marginBottom: h(1.6) }}
           onPress={() => navigation.navigate("SignUp_Trader")}
         >
           <Entypo
             name="shop"
-            size={24}
+            size={totalSize(3.5)}
             color="white"
-            style={{ marginRight: 15 }}
+            style={{ marginRight: w(5) }}
           />
-          <Text style={{ color: "white", textAlign: "justify" }}>
+          <Text style={styles.btnText}>
             Je suis un marchand
           </Text>
         </TouchableOpacity>
@@ -37,11 +40,11 @@ const SignUp = ({ navigation }) => {
         >
           <AntDesign
             name="shoppingcart"
-            size={27}
+            size={totalSize(3.5)}
             color="white"
-            style={{ marginRight: 15 }}
+            style={{ marginRight: w(5) }}
           />
-          <Text style={{ color: "white", textAlign: "right" }}>
+          <Text style={styles.btnText}>
             Je suis un client
           </Text>
         </TouchableOpacity>
@@ -54,6 +57,7 @@ const SignUp = ({ navigation }) => {
         J'ai déja un compte
       </Text>
     </View>
+    </ImageBackground>
   );
 };
 
@@ -61,15 +65,16 @@ export default SignUp;
 
 const styles = StyleSheet.create({
   signUp_container: {
-    padding: 50,
-    flex: 1,
+    padding: totalSize(5),
+    paddingTop: h(5),
     justifyContent: "flex-end",
-    backgroundColor: "#426252",
+    flex: 1,
   },
   signUp__Box: {
-    padding: 10,
+    padding: totalSize(1.5),
     backgroundColor: "white",
-    marginBottom: 20,
+    marginBottom: h(4),
+    borderRadius:5
   },
   connectBtn: {
     flexDirection: "row",
@@ -81,12 +86,23 @@ const styles = StyleSheet.create({
   topTxt: {
     textAlign: "center",
     color: "#324B3E",
-    fontSize: 20,
-    marginBottom: 12,
+    fontSize: RFPercentage(3.8),
+    marginBottom: h(2),
   },
   bottomTxt: {
     textAlign: "center",
     color: "white",
-    fontSize: 15,
+    fontSize: RFPercentage(3),
   },
+
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
+  btnText:{
+    color: "white",
+    textAlign: "justify",
+    fontSize: RFPercentage(2.8)
+  }
 });

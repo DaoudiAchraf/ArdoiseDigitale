@@ -1,17 +1,56 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Input from "../components/Input";
+import ButtonNext from '../components/ButtonNext';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import { h, totalSize } from "../utils/Size";
+import {isValidWithoutAlert, setAlert} from '../components/Alert';
+import {TEXT_ERROR} from '../constants/Strings';
+import authService from '../services/Auth';
+
+import { Context } from '../contexts/Auth.context';
 
 const SignIn = ({ navigation }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
-  const submit = () => {
+  //----------------------------
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const [errors,setErrors] = useState({
+    username: false,
+    password: false,
+    
+  });
+  //-----------------------
+  const {signIn}= useContext(Context);
+
+
+  const submit = async() => {
+    const values = {username,password};
     console.log("->", username, password);
+    
+    if(isValidWithoutAlert(values,errors,setErrors))
+    {
+      const v = {userName: "AA529",password:"uwNro2kONP"};
+      signIn(v);
+
+    }
+    else if (errors.username && errors.password)
+       setAlert(TEXT_ERROR.empty_inputs_signIn);
+    else if (errors.username)
+       setAlert(TEXT_ERROR.empty_input_username);
+    else
+       setAlert(TEXT_ERROR.empty_input_password);
+ 
+ 
+
+
   };
 
-  return (
+  return (  
+  <ImageBackground source={require('../assets/images/BG.png')} style={styles.image} >
     <View style={styles.signIn_container}>
+     
       <View style={{ flex: 1 }}>
         <Image
           resizeMode="contain"
@@ -21,60 +60,80 @@ const SignIn = ({ navigation }) => {
       </View>
 
       <View style={styles.signIn__Box}>
+
+
         <Input
+          mode='box'
+          styleBox={{...styles.InputStyle,marginBottom:h(2)}}
           value={username}
           handleChange={setUsername}
           placeholder="Nom d'utilisateur"
+          error={errors.username}
+          onFocus={()=>setErrors({...errors,username:false})}
         />
 
         <Input
+          mode='box'
+          styleBox={styles.InputStyle}
           value={password}
           handleChange={setPassword}
           placeholder="••••••••••••••"
           secureTextEntry
+          error={errors.password}
+          onFocus={()=>setErrors({...errors,password:false})}
         />
 
-        <TouchableOpacity style={styles.connectBtn} onPress={submit}>
-          <Text style={styles.btnTxt}>Se conneter</Text>
-        </TouchableOpacity>
+    <ButtonNext
+      title="Se connecter" 
+      onPress={() => submit()}
+      style={styles.btnStyle}
+    />
+     
       </View>
 
-      <Text
-        style={styles.account_Txt}
-        onPress={() => navigation.navigate("SignUp")}
-      >
-        Créer un compte
-      </Text>
-    </View>
+      <TouchableOpacity  onPress={() => navigation.navigate("SignUp")}>
+        <Text style={styles.account_Txt}>
+          Créer un compte
+        </Text>
+      </TouchableOpacity>
+
+  
+   
+    </View>  
+     </ImageBackground>
   );
 };
 
 export default SignIn;
 const styles = StyleSheet.create({
   signIn_container: {
-    padding: 50,
-    paddingTop: 30,
+    padding: totalSize(5),
+    paddingTop: h(5),
     justifyContent: "flex-end",
-    backgroundColor: "#426252",
+
     flex: 1,
   },
   signIn__Box: {
-    padding: 10,
+    padding: totalSize(1.5),
     backgroundColor: "white",
-    marginBottom: 20,
+    marginBottom: h(4),
+    borderRadius:5
   },
-  connectBtn: {
-    alignItems: "center",
-    backgroundColor: "#324B3E",
-    padding: 10,
-  },
-  btnTxt: {
-    color: "white",
-    fontSize: 17,
+  InputStyle:{
+    height: h(8)
   },
   account_Txt: {
     textAlign: "center",
     color: "white",
-    fontSize: 16,
+    fontSize: RFPercentage(3),
+  },
+  btnStyle:{
+    marginBottom: 0,
+    marginTop: h(2)
+  }, 
+   image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
 });

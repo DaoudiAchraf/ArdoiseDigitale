@@ -1,46 +1,61 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useState,useContext } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import DropDown from "../DropDown";
-import Input from "../Input";
+import { traderAcitvity } from "../../constants/Arrays";
+import Geo_autocomplete from '../Geo_autocomplete';
+import ButtonNext from '../ButtonNext';
+import { Context } from '../../contexts/SignUp.context';
+import { isValid } from '../Alert';
 
 const Step4 = ({ toNextStep }) => {
-  const [selectedItem, setSelectedItem] = useState();
 
-  const dropdownItems = [
-    "supermarché",
-    "épicerie",
-    "droguerie",
-    "parfumerie",
-    "boucherie",
-    "boulangerie",
-    "patisserie",
-    "buraliste",
-    "épicerie",
-    "fine",
-  ];
+  const {initialState,addInfos} = useContext(Context);
+ // console.log("55",initialState);
+  //-------------------States-----------------------------
+  const [activitySector, setActivitySector] = useState(initialState['activitySector']);
+  const [address ,setAddress] = useState(initialState['address']);
+  
+  const [errors,setErrors] = useState({
+      address: false
+    }
+  );
+  //-----------------------------------------------------
 
-  const [address, setAddress] = useState();
 
-  const submit = () => {
-    toNextStep();
+
+  
+
+  const onSubmit = () => {
+    if(isValid({address},errors,setErrors))
+    {
+      console.log('adrress',{...address});
+      console.log('tpee', typeof({...address}));
+      console.log("--------------------------");
+      const k = JSON.stringify(address);
+      console.log("string",k);
+      console.log("parsed",JSON.parse(k));
+      console.log("--------------------------");
+      addInfos({address:JSON.stringify(address)});
+      toNextStep();
+    }
   };
 
   return (
-    <View style={styles.stepTwo_container}>
-      <View>
-        <Text style={{ marginBottom: 5 }}>Domaine d'activité *</Text>
-
+    <View style={styles.container}>
+      <View>  
         <DropDown
-          items={dropdownItems}
-          selectedItem={selectedItem}
-          handleChange={setSelectedItem}
+          items={traderAcitvity}
+          activitySector={activitySector}
+          handleChange={setActivitySector}
         />
 
-        <Text style={{ marginBottom: 5 }}>Adresse de commerce *</Text>
-        <Input value={address} handleChange={setAddress} />
-        <TouchableOpacity onPress={submit} style={styles.nextBtn}>
-          <Text style={{ color: "white" }}>Suivant</Text>
-        </TouchableOpacity>
+       <Geo_autocomplete 
+         setAddress={setAddress}
+         error={errors.address}
+         setErrors={setErrors}
+       />
+
+       <ButtonNext onPress={onSubmit} />
       </View>
     </View>
   );
@@ -49,14 +64,7 @@ const Step4 = ({ toNextStep }) => {
 export default Step4;
 
 const styles = StyleSheet.create({
-  step_container: {
-    width: "100%",
-  },
-  nextBtn: {
-    alignItems: "center",
-    backgroundColor: "#324B3E",
-    padding: 10,
-    marginBottom: "5%",
-    marginTop: "4%",
-  },
+  container: {
+    flex: 1
+  }
 });

@@ -7,17 +7,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { DataTable, Title } from "react-native-paper";
-import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 import PropTypes from "prop-types";
-import { days } from "../constants/Arrays";
-import DateTimePicker from "./DateTimePicker";
 
-const Calender = ({ items, selectedItem, handleChange }) => {
-  const [calender, setCalender] = useState(days);
+import DateTimePicker from "./DateTimePicker";
+import ButtonNext from './ButtonNext';
+
+const Calender = ({ calender,setCalender}) => {
 
   const [showPicker, setShowPicker] = useState(false);
-
   const [currentIndex, setCurrentIndex] = useState(null);
 
   const onChange = (index) => {
@@ -28,6 +27,7 @@ const Calender = ({ items, selectedItem, handleChange }) => {
       isOpen: !item.isOpen,
     };
     setCalender(newCalender);
+
   };
 
   const setTime = (time) => {
@@ -88,11 +88,7 @@ const Calender = ({ items, selectedItem, handleChange }) => {
                   style={{ flexDirection: "row" }}
                   onPress={() => onTimeChange(index, true)}
                 >
-                  <MaterialCommunityIcons
-                    name="clock-start"
-                    size={25}
-                    color="black"
-                  />
+                 <AntDesign name="clockcircleo" size={20} color="black" />
                   <Entypo name="chevron-down" size={18} color="black" />
                 </TouchableOpacity>
               )}
@@ -105,12 +101,9 @@ const Calender = ({ items, selectedItem, handleChange }) => {
                   style={{ flexDirection: "row" }}
                   onPress={() => onTimeChange(index, false)}
                 >
-                  <MaterialCommunityIcons
-                    name="clock-start"
-                    size={25}
-                    color="black"
-                  />
-                  <Entypo name="chevron-down" size={18} color="black" />
+                 <AntDesign name="clockcircleo" size={20} color="black" />
+                 <Entypo name="chevron-down" size={18} color="black" />
+                
                 </TouchableOpacity>
               )}
             </DataTable.Cell>
@@ -118,6 +111,7 @@ const Calender = ({ items, selectedItem, handleChange }) => {
         ))}
       </DataTable>
 
+    
       <DateTimePicker
         show={showPicker}
         setShow={setShowPicker}

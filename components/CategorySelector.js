@@ -4,14 +4,14 @@ import {
   Text,
   View,
   CheckBox,
-  Image,
   ScrollView,
 } from "react-native";
 import { TouchableRipple } from "react-native-paper";
-import { categories } from "../constants/Arrays";
 
-const Selector = ({ items, selectedItem, handleChange }) => {
-  const [category, setCategory] = useState(categories);
+import { h, totalSize, w } from "../utils/Size";
+
+const Selector = ({ category, setCategory}) => {
+
 
   const onChipPress = (index) => {
     const item = category[index];
@@ -24,6 +24,7 @@ const Selector = ({ items, selectedItem, handleChange }) => {
   };
 
   return (
+
     <ScrollView>
       <View style={styles.container}>
         {category.map((item, index) => (
@@ -34,7 +35,7 @@ const Selector = ({ items, selectedItem, handleChange }) => {
             style={styles.touchableRipple}
           >
             <View style={styles.cardContainer}>
-              <Image style={styles.icon} source={item.icon} />
+            {item.icon(styles.icon)}
               <View style={styles.footer}>
                 <Text style={{ flex: 1 }}>{item.name}</Text>
                 <CheckBox value={item.isChecked} />
@@ -77,8 +78,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icon: {
-    width: 50,
-    height: 50,
+    width: totalSize(10),
+    height: h(10),
     marginBottom: 8,
+    alignSelf: 'center'
   },
 });

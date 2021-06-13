@@ -1,35 +1,95 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Input from "./Input";
 import ImagePicker from "./ImagePicker";
 import SignUpContext from "../contexts/SignUp.context";
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import { color } from '../constants/Colors';
+import ButtonNext from './ButtonNext';
+import { Formik } from 'formik';
+import { Context } from '../contexts/SignUp.context';
+import { isValid } from './Alert';
 
 const Step3 = ({ toNextStep }) => {
-  const { formState, setFormState } = useContext(SignUpContext);
 
-  const submit = () => {
-    // setFormState({
-    //     ...formState,
+  const {initialState,addInfos} = useContext(Context);
 
-    // });
-    console.log("3->", formState);
-    toNextStep();
+  const initialValues = {
+    refCIN: initialState["refCIN"],
+    expirationDate: initialState["expirationDate"],
+    
+  }
+
+  const [cinImage , setCinImage] = useState(initialState['photo']);
+
+  const [errors,setErrors] = useState({
+    refCIN: false,
+    expirationDate: false,
+    photo: false
+  });
+
+  
+
+
+
+  const onSubmit = (values) => {
+
+    values['photo'] = cinImage;
+
+   // console.log(values);
+
+    if(isValid(values,errors,setErrors))
+    {
+     // console.log("--->",{...values,photo:cinImage});
+   
+    addInfos({...values,photo:cinImage});
+    toNextStep()
+    }
+  
+    ;
   };
 
   return (
+    <Formik
+    initialValues={ initialValues }
+    onSubmit={values => onSubmit(values)}
+  >
+    {({ handleChange, handleBlur, handleSubmit, values }) => (
     <View style={styles.stepTwo_container}>
       <View>
-        <Text style={{ marginBottom: 5 }}>Réference de la CIN *</Text>
-        <Input />
-        <Text style={{ marginBottom: 5 }}>Date d'expiration de CIN *</Text>
-        <Input />
-        <Text style={{ marginBottom: 5 }}>Photo de la CIN *</Text>
-        <ImagePicker />
-        <TouchableOpacity onPress={submit} style={styles.nextBtn}>
-          <Text style={{ color: "white" }}>Suivant</Text>
-        </TouchableOpacity>
+
+        <Input 
+          label="Réference de CIN"
+          value={values.refCIN}
+          handleChange={handleChange('refCIN')}
+          error={errors.refCIN}
+          onFocus={()=>setErrors({...errors,refCIN:false})}
+        />
+ 
+        <Input 
+          label="Date d'expiration de CIN "
+          value={values.expirationDate}
+          handleChange={handleChange('expirationDate')}  
+          error={errors.expirationDate}
+          onFocus={()=>setErrors({...errors,expirationDate:false})}
+        />
+        
+        
+
+        <ImagePicker 
+        image={cinImage}
+        error={errors.photo}
+        handleChange={setCinImage}
+        onFocus={()=>setErrors({...errors,photo:false})}
+        />
+
+      
+        <ButtonNext onPress={handleSubmit}/>
       </View>
     </View>
+
+)}
+</Formik>
   );
 };
 
@@ -39,11 +99,9 @@ const styles = StyleSheet.create({
   stepTwo_container: {
     width: "100%",
   },
-  nextBtn: {
-    alignItems: "center",
-    backgroundColor: "#324B3E",
-    padding: 10,
-    marginBottom: "5%",
-    marginTop: "4%",
-  },
+  txt:{
+    fontSize: RFPercentage(2.9),
+    color: 'black',
+    padding: 10
+  }
 });

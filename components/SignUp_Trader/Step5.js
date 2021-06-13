@@ -1,41 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DropDown from "../DropDown";
 import Input from "../Input";
+import { legalStatus } from '../../constants/Arrays';
+import { Context } from '../../contexts/SignUp.context';
+import { isValid } from '../Alert';
+import ButtonNext from '../ButtonNext';
 
 const Step5 = ({ toNextStep }) => {
-  const dropdownItems = [
-    "En Nom Propre",
-    "Entreprise Individuelle",
-    "S A R L",
-    "S A",
-  ];
+  //------------- signUp context----------------------
+  const {initialState,addInfos} = useContext(Context);
+  //--------------------------------------------------
 
-  const [selectedItem, setSelectedItem] = useState();
+  const [juridicState, setjuridicState] = useState(initialState["juridicState"]);
+  const [numPatent, setnumPatent] = useState(initialState["numPatent"]);
 
-  const [numPatente, setNumPatente] = useState();
+  const [errors,setErrors] = useState({
+
+    numPatent: false
+  }
+);
+
+  
 
   const submit = () => {
-    toNextStep();
+    if(isValid({numPatent},errors,setErrors))
+    {
+        addInfos({juridicState,numPatent});
+        toNextStep();
+    }
+ 
   };
 
   return (
     <View style={styles.stepTwo_container}>
       <View>
-        <Text style={{ marginBottom: 5 }}>Numéro de patente *</Text>
-        <Input value={numPatente} handleChange={setNumPatente} />
-
-        <Text style={{ marginBottom: 5 }}>Statut juridique *</Text>
 
         <DropDown
-          items={dropdownItems}
-          selectedItem={selectedItem}
-          handleChange={setSelectedItem}
+          items={legalStatus}
+          selectedItem={juridicState}
+          handleChange={setjuridicState}
+        />
+    
+        <Input 
+          label="Numéro de patente"
+          value={numPatent}
+          handleChange={setnumPatent}
+          error={errors.numPatent}
+          onFocus={()=>setErrors({...errors,numPatent:false})}
         />
 
-        <TouchableOpacity onPress={submit} style={styles.nextBtn}>
-          <Text style={{ color: "white" }}>Suivant</Text>
-        </TouchableOpacity>
+        <ButtonNext onPress={submit}/>
+    
       </View>
     </View>
   );
@@ -47,11 +63,5 @@ const styles = StyleSheet.create({
   step_container: {
     width: "100%",
   },
-  nextBtn: {
-    alignItems: "center",
-    backgroundColor: "#324B3E",
-    padding: 10,
-    marginBottom: "5%",
-    marginTop: "4%",
-  },
+
 });

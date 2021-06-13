@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Button } from "react-native-paper";
+import {h} from '../utils/Size';
 
-export default function ImagePickerExample() {
-  const [image, setImage] = useState(null);
+export default function ImagePickerExample({handleChange,image,error}) {
+ // const [image, setImage] = useState(null);
+
+  const setImage =(img)=>{
+      handleChange(img);
+  }
 
   useEffect(() => {
     (async () => {
@@ -26,22 +31,36 @@ export default function ImagePickerExample() {
       quality: 1,
     });
 
-    console.log(result);
+
 
     if (!result.cancelled) {
-      setImage(result.uri);
+        const img = {
+          name: 'photo.jpg',
+          uri: result.uri,
+          type: "image/"+result.uri.substr(result.uri.lastIndexOf('.') + 1)
+        }
+
+
+         setImage(img);
+
+         
     }
   };
 
   return (
     <Button
-      icon="camera-plus"
+      icon=  {image ? "check" : "camera-plus" }
       mode="outlined"
       color="#426252"
       onPress={pickImage}
-      style={{ marginBottom: 5 }}
+      style={{ 
+        marginBottom: '7%',
+        marginTop: '3%',
+        borderColor: error? 'red': '#426252'
+        
+      }}
     >
-      Selectionner une photo
+      Photo de la CIN 
     </Button>
 
     /* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */

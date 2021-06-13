@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import SignUpContext from "../../contexts/SignUp.context";
 import DropDown from "../DropDown";
 import Input from "../Input";
+import { Formik } from 'formik';
 
 const Step1 = ({ toNextStep }) => {
   const { formState, setFormState } = useContext(SignUpContext);

@@ -1,11 +1,13 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
+import {h} from '../utils/Size'
 import PropTypes from "prop-types";
+import { Secondary } from "../constants/Colors";
 
 const Input = (props) => {
-  const { value, handleChange, mode, label, placeholder, secureTextEntry } =
-    props;
+  const { value, handleChange, mode, label,
+     placeholder, secureTextEntry, keyboardType, textArea, styleBox, error ,onFocus} = props;
 
   return (
     <TextInput
@@ -13,10 +15,16 @@ const Input = (props) => {
       placeholder={placeholder}
       value={value}
       onChangeText={(txt) => handleChange(txt)}
-      theme={{ colors: { primary: "green", underlineColor: "white" } }}
-      style={styles.inputStyle}
+      theme={{ colors: { primary: Secondary, underlineColor: "white" } }}
+      
+      style={mode ==='flat' ? styles.inputStyle: mode=== 'box'?{...styleBox}: textArea ?{height:h(15),textAlignVertical: 'top'}:{height: h(7)}}
       secureTextEntry={secureTextEntry}
       mode={mode}
+      keyboardType={keyboardType}
+      maxLength={ keyboardType === 'numeric' ? 8 : 10}
+      error={error}
+      onFocus={onFocus}
+      
     />
   );
 };
@@ -29,23 +37,33 @@ Input.propTypes = {
   handleChange: PropTypes.func,
   label: PropTypes.string,
   mode: PropTypes.string,
+  textArea: PropTypes.bool,
+  styleBox: PropTypes.any,
+  secureTextEntry: PropTypes.bool,
+  keyboardType: PropTypes.string,
+  error: PropTypes.bool,
+  onFocus: PropTypes.func,
 };
 
 Input.defaultProps = {
   placeholder: "",
   secureTextEntry: false,
-  value: "",
+  value: '',
   label: null,
   mode: "flat",
+  textArea: false,
+  keyboardType: 'default',
+  error: false,
+  onFocus: null
 };
 
 export default Input;
 
 const styles = StyleSheet.create({
   inputStyle: {
-    height: 38,
     justifyContent: "center",
-    marginBottom: 8,
-    marginTop: 5,
+    backgroundColor: 'transparent'
   },
+
+ 
 });
