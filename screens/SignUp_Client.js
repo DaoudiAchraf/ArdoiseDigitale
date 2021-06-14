@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  BackHandler,
+  Alert,
+} from "react-native";
 import StepIndicator from "react-native-step-indicator";
 import indicatorStyle from "../styles/StepIndicator";
 import Step1 from "../components/SignUp_Client/Step1";
@@ -10,11 +18,11 @@ import FinalStep from "../components/FinalStep";
 import SignUpContext from "../contexts/SignUp.context";
 import logo from "../assets/images/logo-dark.png";
 
-const App = () => {
+const App = ({ navigation }) => {
   // ---- States ---------------
   const [currentPosition, setcurrentPosition] = useState(0);
 
-  const [formState, setFormState] = useState({
+  /*const [formState, setFormState] = useState({
     firstName: null,
     lastName: null,
     phoneNumber: null,
@@ -24,13 +32,47 @@ const App = () => {
     CinRef: null,
     expDate: null,
     address: null,
-  });
+  });*/
 
   //---------------------------
 
   const toNextStep = () => {
-    setcurrentPosition(currentPosition + 1);
+    if (currentPosition === 4) navigation.navigate("SignIn");
+    else {
+      const pos = currentPosition + 1;
+      setcurrentPosition(pos);
+    }
   };
+
+  const toPreviousStep = () => {
+    if (currentPosition > 0) setcurrentPosition(currentPosition - 1);
+    else navigation.navigate("SignUp");
+  };
+
+  const backAction = () => {
+    Alert.alert(
+      "Attention !",
+      "Voulez vous confirmer le retour à l'étape précédente",
+      [
+        {
+          text: "Non",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "Oui", onPress: () => toPreviousStep() },
+      ]
+    );
+
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, [currentPosition]);
 
   const renderSteps = () => {
     switch (currentPosition) {
@@ -50,7 +92,7 @@ const App = () => {
   };
 
   return (
-    <SignUpContext.Provider value={{ formState, setFormState }}>
+    <SignUpContext>
       <View style={styles.container}>
         <View style={{ flex: 4 }}>
           <Image resizeMode="contain" style={styles.logoStyle} source={logo} />
@@ -62,6 +104,7 @@ const App = () => {
           <View style={styles.stepsContainer}>
             <Text style={styles.headerTxt}>Créer un compte</Text>
             <StepIndicator
+              stepCount={5}
               customStyles={indicatorStyle}
               currentPosition={currentPosition}
             />
@@ -72,7 +115,7 @@ const App = () => {
           </View>
         </ScrollView>
       </View>
-    </SignUpContext.Provider>
+    </SignUpContext>
   );
 };
 

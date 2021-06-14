@@ -43,9 +43,35 @@ const  SignUpContext  = (props) => {
      
    }
   
+const signUpClient = async()=>{
+
+    const keys = Object.keys(initialState);
+    keys.forEach((key) => data.append(key, initialState[key]));
+   // console.log(data);
+
+    console.log('signup');
+    console.log('****from signup',initialState);
+
+     const fd = new FormData();
+      // fd.append('name','tt');
+      // fd.append('zza',5);
+      // console.log('from signup',fd);
+
+      // fd.append('photo',{
+      //   uri: "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540kaspermood%252Fclient/ImagePicker/3d640164-209c-416d-b9cf-39ce46f36bc0.jpg",
+      //   name: 'my_photo.jpg',
+      //   type: 'image/jpg'
+      // })
+
+      //fd.append("ad",'fddfd');
+
+      const a = await authService.clientRegister(data).then(res=>console.log(res));
+     
+   }
+  
 
     return (
-      <Context.Provider value={{initialState,addInfos,signUp}} >
+      <Context.Provider value={{initialState,addInfos,signUp,signUpClient}} >
          {props.children}
       </Context.Provider>
     )
