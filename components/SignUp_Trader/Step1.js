@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Context, phoneId } from "../../contexts/SignUp.context";
 import Input from "../Input";
 import ButtonNext from "../ButtonNext";
 import { Formik } from 'formik';
 import { isValid } from '../Alert';
+
 
 const Step1 = ({toNextStep }) => {
 
@@ -65,7 +66,9 @@ const Step1 = ({toNextStep }) => {
    >
      {({ handleChange, handleBlur, handleSubmit, values }) => (
      <View >
-      <Input 
+
+       <View style={styles.container}>
+           <Input 
         label='Nom'
         value={values.firstName}
         handleChange={handleChange('firstName')}
@@ -89,6 +92,8 @@ const Step1 = ({toNextStep }) => {
         handleChange={handleChange('phoneNumber')}
         onFocus={()=>setErrors({...errors,phoneNumber:false})}
       />
+       </View>
+    
       
       <ButtonNext onPress={handleSubmit}/>
      </View>
@@ -98,4 +103,10 @@ const Step1 = ({toNextStep }) => {
 };
 
 export default Step1;
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: '10%'
+  }
+});
 

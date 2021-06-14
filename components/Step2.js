@@ -6,7 +6,9 @@ import { phoneId } from "../contexts/SignUp.context";
 import authService from '../services/Auth';
 import { txt } from '../constants/Strings';
 import ButtonNext from './ButtonNext';
-
+import { RFValue } from 'react-native-responsive-fontsize';
+import { color } from "../constants/Colors";
+import TextStep from './TextStep';
 
 const Step2 = ({ toNextStep }) => {
 
@@ -29,14 +31,33 @@ const Step2 = ({ toNextStep }) => {
   return (
 
     <View style={styles.container}>
-    
-      <Text style={{ textAlign: "justify", marginBottom: h(6)}}>
-          {txt.SMS_VERIFICATION_CODE}
-      </Text>
 
+     <TextStep>
+     {txt.SMS_VERIFICATION_CODE}
+     </TextStep>
+     
       <View>
 
-        <Input label="Code de verification" value={code} handleChange={setCode} />
+    <View style={{marginBottom:'10%'}}>
+
+     <Text style={{fontSize:RFValue(15),color:color.INFO_TEXT}}>
+          Code de Vérification :
+      </Text>
+
+       <Input keyboardType='numeric'value={code} handleChange={setCode} />
+    </View>
+     
+
+      {/* <View style={{flexDirection:'row',width:"100%",justifyContent:"space-between"}}>
+        <Input keyboardType='numeric' maxLength={1} value={code} handleChange={setCode} />
+        <Input keyboardType='numeric' maxLength={1} value={code} handleChange={setCode} />
+        <Input keyboardType='numeric' maxLength={1} value={code} handleChange={setCode} />
+        <Input keyboardType='numeric' maxLength={1} value={code} handleChange={setCode} />
+        <Input keyboardType='numeric' maxLength={1} value={code} handleChange={setCode} />
+        <Input keyboardType='numeric' maxLength={1} value={code} handleChange={setCode} />
+      </View> */}
+        
+        
         <ButtonNext onPress={onSubmit}/>
       </View>
     </View>

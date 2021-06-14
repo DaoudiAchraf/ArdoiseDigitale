@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   },
 
   text:{
-    fontSize: RFValue(18),
-    paddingTop: h(5),
+    fontSize: RFValue(16),
+    paddingTop: h(2),
     paddingBottom : h(5),
     color: InfoText,
     textAlign: 'justify'

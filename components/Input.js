@@ -7,7 +7,9 @@ import { Secondary } from "../constants/Colors";
 
 const Input = (props) => {
   const { value, handleChange, mode, label,
-     placeholder, secureTextEntry, keyboardType, textArea, styleBox, error ,onFocus} = props;
+     placeholder, secureTextEntry, keyboardType, textArea, styleBox, error ,onFocus,
+     maxLength
+    } = props;
 
   return (
     <TextInput
@@ -21,7 +23,7 @@ const Input = (props) => {
       secureTextEntry={secureTextEntry}
       mode={mode}
       keyboardType={keyboardType}
-      maxLength={ keyboardType === 'numeric' ? 8 : 10}
+      maxLength={ maxLength }
       error={error}
       onFocus={onFocus}
       
@@ -54,7 +56,8 @@ Input.defaultProps = {
   textArea: false,
   keyboardType: 'default',
   error: false,
-  onFocus: null
+  onFocus: null,
+  maxLength: 100
 };
 
 export default Input;

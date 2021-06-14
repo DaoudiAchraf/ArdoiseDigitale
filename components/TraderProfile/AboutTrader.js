@@ -4,12 +4,11 @@ import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
 import ImagePicker from '../ImagePicker';
 import ButtonNext from '../ButtonNext';
 import {w,h,totalSize} from '../../utils/Size';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import { RFPercentage,RFValue } from 'react-native-responsive-fontsize';
 import { InfoText } from '../../constants/Colors';
 import {Context} from '../../contexts/TraderProfile.context';
 
 const AboutTrader = ({toNextStep}) => {
-  console.log('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
 
   const { currentState,addInfos } = useContext(Context);
 
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
     
   },
   text:{
-    fontSize: RFPercentage(2.8),
+    fontSize: RFValue(16.5),
     paddingBottom: 0,
     color: InfoText,
     textAlign: 'justify'

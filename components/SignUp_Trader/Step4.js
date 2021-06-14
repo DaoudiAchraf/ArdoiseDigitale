@@ -42,7 +42,7 @@ const Step4 = ({ toNextStep }) => {
 
   return (
     <View style={styles.container}>
-      <View>  
+      <View style={styles.inputsContainer}>  
         <DropDown
           items={traderAcitvity}
           activitySector={activitySector}
@@ -54,9 +54,9 @@ const Step4 = ({ toNextStep }) => {
          error={errors.address}
          setErrors={setErrors}
        />
-
-       <ButtonNext onPress={onSubmit} />
       </View>
+       <ButtonNext onPress={onSubmit} />
+      
     </View>
   );
 };
@@ -66,5 +66,8 @@ export default Step4;
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  inputsContainer:{
+    marginBottom: '5%'
   }
 });

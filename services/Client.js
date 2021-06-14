@@ -3,7 +3,7 @@ import authStorage from '../utils/Storage';
 
 const apiClient = create({
 
-  baseURL: 'http://10.20.48.254:3000'
+  baseURL: 'http://192.168.1.64:3000'
   
 });
 

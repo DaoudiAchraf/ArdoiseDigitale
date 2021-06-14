@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity} from "react-native";
 import { Primary, Secondary } from '../constants/Colors';
 import PropTypes from "prop-types";
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import {RFValue } from 'react-native-responsive-fontsize';
 
 const NextButton = ({ title, onPress, style }) => {
 
   return (
       <TouchableOpacity onPress={onPress} style={{...styles.btnStyle,...style}}>
-        <Text style={{ color: "white",fontSize: RFPercentage(3) }}>{title}</Text>
+        <Text style={{ color: "white",fontSize: RFValue(17) }}>{title}</Text>
       </TouchableOpacity>
   );
 };

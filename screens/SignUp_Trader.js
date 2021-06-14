@@ -11,7 +11,7 @@ import FinalStep from "../components/FinalStep";
 
 import logo from "../assets/images/logo-dark.png";
 import SignUpContext from "../contexts/SignUp.context";
-
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const App = ({navigation}) => {
   
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
   footerTxt: {
     textAlign: "center",
     color: "#324B3E",
-    fontSize: 15,
+    fontSize: RFValue(16),
+    marginTop:10
   },
 });

@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View, ImageBackground } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { h, totalSize, w } from "../utils/Size";
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import { RFPercentage,RFValue } from 'react-native-responsive-fontsize';
 
 const SignUp = ({ navigation }) => {
   return (
@@ -17,7 +17,7 @@ const SignUp = ({ navigation }) => {
       </View>
 
       <View style={styles.signUp__Box}>
-        <Text style={styles.topTxt}>Créer un compte</Text>
+        <Text style={styles.topTxt}>Créer votre compte</Text>
 
         <TouchableOpacity
           style={{ ...styles.connectBtn, marginBottom: h(1.6) }}
@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
   topTxt: {
     textAlign: "center",
     color: "#324B3E",
-    fontSize: RFPercentage(3.8),
+    fontSize: RFValue(17),
     marginBottom: h(2),
   },
   bottomTxt: {
     textAlign: "center",
     color: "white",
-    fontSize: RFPercentage(3),
+    fontSize: RFValue(17),
   },
 
   image: {
@@ -103,6 +103,6 @@ const styles = StyleSheet.create({
   btnText:{
     color: "white",
     textAlign: "justify",
-    fontSize: RFPercentage(2.8)
+    fontSize: RFValue(16.5)
   }
 });

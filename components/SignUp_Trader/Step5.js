@@ -33,8 +33,8 @@ const Step5 = ({ toNextStep }) => {
   };
 
   return (
-    <View style={styles.stepTwo_container}>
-      <View>
+    <View>
+      <View style={styles.inputsContainer} >
 
         <DropDown
           items={legalStatus}
@@ -48,11 +48,10 @@ const Step5 = ({ toNextStep }) => {
           handleChange={setnumPatent}
           error={errors.numPatent}
           onFocus={()=>setErrors({...errors,numPatent:false})}
-        />
-
-        <ButtonNext onPress={submit}/>
-    
+        />       
       </View>
+
+      <ButtonNext onPress={submit}/>
     </View>
   );
 };
@@ -60,8 +59,8 @@ const Step5 = ({ toNextStep }) => {
 export default Step5;
 
 const styles = StyleSheet.create({
-  step_container: {
-    width: "100%",
+  inputsContainer: {
+    marginBottom: '10%'
   },
 
 });

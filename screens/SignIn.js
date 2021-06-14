@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Input from "../components/Input";
 import ButtonNext from '../components/ButtonNext';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import { RFPercentage,RFValue } from 'react-native-responsive-fontsize';
 import { h, totalSize } from "../utils/Size";
 import {isValidWithoutAlert, setAlert} from '../components/Alert';
 import {TEXT_ERROR} from '../constants/Strings';
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   account_Txt: {
     textAlign: "center",
     color: "white",
-    fontSize: RFPercentage(3),
+    fontSize: RFValue(17),
   },
   btnStyle:{
     marginBottom: 0,
