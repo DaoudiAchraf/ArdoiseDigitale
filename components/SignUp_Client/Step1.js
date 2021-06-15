@@ -13,6 +13,9 @@ const Step1 = ({ toNextStep }) => {
   const { addInfos, initialState } = useContext(Context);
   const [cinImage, setCinImage] = useState(initialState["photo"]);
   const [selectedItem, setSelectedItem] = useState(0);
+  const [maritalStatus, setMaritalStatus] = useState(
+    initialState["maritalStatus"]
+  );
 
   const [errors, setErrors] = useState({
     lastName: false,
@@ -59,8 +62,6 @@ const Step1 = ({ toNextStep }) => {
           <View
             style={{
               flexDirection: "row",
-              marginLeft: "10%",
-              marginRight: "10%",
             }}
           >
             <View
@@ -78,7 +79,9 @@ const Step1 = ({ toNextStep }) => {
               />
             </View>
 
-            <View style={{ width: "45%", alignSelf: "center" }}>
+            <View
+              style={{ width: "45%", alignSelf: "center", marginLeft: "10%" }}
+            >
               <Input
                 label="Prénom"
                 value={values.lastName}
@@ -96,6 +99,11 @@ const Step1 = ({ toNextStep }) => {
             error={errors.phoneNumber}
             handleChange={handleChange("phoneNumber")}
             onFocus={() => setErrors({ ...errors, phoneNumber: false })}
+          />
+          <DropDown
+            items={["Célibataire", "Marié"]}
+            maritalStatus={maritalStatus}
+            handleChange={setMaritalStatus}
           />
           <ImagePicker
             image={cinImage}
