@@ -25,7 +25,7 @@ const ProductsCategory = ({toNextStep}) => {
  }
   return (
       <View style={styles.stepsContainer}>
-        <Text style={styles.headerTxt}>Catalogues des produits</Text>
+        {/* <Text style={styles.headerTxt}>Catalogues des produits</Text> */}
 
       <ScrollView>
       {selectedCategories.map((item,categIndex)=>

@@ -110,7 +110,7 @@ const App = ({navigation}) => {
        
     
           <View style={styles.stepsContainer}>
-            <Text style={styles.headerTxt}>{stepTitle}</Text>
+            {/* <Text style={styles.headerTxt}>{stepTitle}</Text> */}
             <StepIndicator
               stepCount={5}
               customStyles={indicatorStyle}

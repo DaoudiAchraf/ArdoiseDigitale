@@ -27,7 +27,7 @@ const ProductsCategory = ({toNextStep}) => {
      
 
       <View style={styles.container}>
-        <Text style={styles.headerTxt}>Catégories de produits</Text>
+        {/* <Text style={styles.headerTxt}>Catégories de produits</Text> */}
 
        
         <CategorySelector
