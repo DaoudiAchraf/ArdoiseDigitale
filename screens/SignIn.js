@@ -26,13 +26,13 @@ const SignIn = ({ navigation }) => {
 
 
   const submit = async() => {
-    const values = {username,password};
-    console.log("->", username, password);
+    const values = {userName:username,password:password};
+    //console.log("->", username, password);
     
     if(isValidWithoutAlert(values,errors,setErrors))
     {
-      const v = {userName: "AA529",password:"uwNro2kONP"};
-      signIn(v);
+      //const v = {userName:username,password:password};
+      signIn(values);
 
     }
     else if (errors.username && errors.password)

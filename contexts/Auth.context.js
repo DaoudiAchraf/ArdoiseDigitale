@@ -31,15 +31,16 @@ export const Context = createContext();
         />
      );
 
-  const signIn = async()=>{
-      const v = {userName: "DB311",password:"rn3NV4NjBd"};
+  const signIn = async(v)=>{
+      //const v = {userName: "JK267",password:"b2IKmJmwVM"};
+
+      console.log('valuestt: ',v);
 
       const result = await authService.signIn(v);
 
       if(result.ok)
       {
         const { token } = result.data;
-        console.log('eeeeeeeee',token);
         storage.storeToken(token);
         setUser(jwtDecode(token));
       }
@@ -47,7 +48,7 @@ export const Context = createContext();
     
   }
     // Logout
-    storage.removeToken();
+     //storage.removeToken();
 
     return (
       <Context.Provider value={{user,signIn}} >
