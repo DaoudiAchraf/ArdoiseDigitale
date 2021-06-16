@@ -43,11 +43,12 @@ const Step5 = ({ toNextStep }) => {
         />
     
         <Input 
-          label="Numéro de patente"
+          label='Numéro de patente'
           value={numPatent}
           handleChange={setnumPatent}
           error={errors.numPatent}
           onFocus={()=>setErrors({...errors,numPatent:false})}
+          keyboardType= 'numeric'
         />       
       </View>
 

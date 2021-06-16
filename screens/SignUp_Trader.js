@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, ScrollView ,BackHandler, Alert } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView ,BackHandler, Alert, TouchableOpacity } from "react-native";
 import StepIndicator from "react-native-step-indicator";
 import indicatorStyle from "../styles/StepIndicator";
 import Step1 from "../components/SignUp_Trader/Step1";
@@ -101,7 +101,10 @@ const App = ({navigation}) => {
 
             <View style={{ marginTop: 20 }}>{renderSteps()}</View>
 
-            <Text style={styles.footerTxt}>J'ai déja un compte</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate('SignIn')} >
+                 <Text style={styles.footerTxt}>J'ai déja un compte</Text>
+              </TouchableOpacity>
+           
           </View>
         </ScrollView>
       </View>

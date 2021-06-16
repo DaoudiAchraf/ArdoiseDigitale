@@ -39,6 +39,7 @@ const  SignUpContext  = (props) => {
 
       //fd.append("ad",'fddfd');
 
+      initialState = {};
       const a = await authService.merchantRegister(data).then(res=>console.log(res));
      
    }

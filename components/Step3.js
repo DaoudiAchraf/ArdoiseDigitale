@@ -9,15 +9,15 @@ import ButtonNext from './ButtonNext';
 import { Formik } from 'formik';
 import { Context } from '../contexts/SignUp.context';
 import { isValid } from './Alert';
+import DatePicker from './DatePicker';
 
 const Step3 = ({ toNextStep }) => {
 
   const {initialState,addInfos} = useContext(Context);
+  const [expirationDate, setExpirationDate] = useState();
 
   const initialValues = {
-    refCIN: initialState["refCIN"],
-    expirationDate: initialState["expirationDate"],
-    
+    refCIN: initialState["refCIN"],    
   }
 
   const [cinImage , setCinImage] = useState(initialState['photo']);
@@ -41,9 +41,9 @@ const Step3 = ({ toNextStep }) => {
     if(isValid(values,errors,setErrors))
     {
      // console.log("--->",{...values,photo:cinImage});
-   
-    addInfos({...values,photo:cinImage});
-    toNextStep()
+     //console.log({...values,expirationDate,photo:cinImage});
+      addInfos({...values,expirationDate,photo:cinImage});
+      toNextStep()
     }
   
     ;
@@ -63,19 +63,18 @@ const Step3 = ({ toNextStep }) => {
           value={values.refCIN}
           handleChange={handleChange('refCIN')}
           error={errors.refCIN}
+          keyboardType= 'numeric'
+          maxLength={8}
           onFocus={()=>setErrors({...errors,refCIN:false})}
         />
  
-        <Input 
-          label="Date d'expiration de CIN "
-          value={values.expirationDate}
-          handleChange={handleChange('expirationDate')}  
-          error={errors.expirationDate}
-          onFocus={()=>setErrors({...errors,expirationDate:false})}
-        />
-        
         
 
+        <DatePicker 
+          date={expirationDate}
+          setDate={setExpirationDate}
+        />
+    
         <ImagePicker 
         image={cinImage}
         error={errors.photo}
@@ -89,6 +88,9 @@ const Step3 = ({ toNextStep }) => {
     </View>
 
 )}
+
+
+
 </Formik>
   );
 };

@@ -45,7 +45,7 @@ const Step4 = ({ toNextStep }) => {
       <View style={styles.inputsContainer}>  
         <DropDown
           items={traderAcitvity}
-          activitySector={activitySector}
+          selectedItem={activitySector}
           handleChange={setActivitySector}
         />
 

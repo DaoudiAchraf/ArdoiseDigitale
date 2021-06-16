@@ -1,4 +1,4 @@
-import React ,{ createContext, useContext, useState, useEffect } from 'react';
+import React ,{ createContext, useState} from 'react';
 import authService from '../services/Auth';
 import jwtDecode from 'jwt-decode';
 import storage from '../utils/Storage';
@@ -48,7 +48,7 @@ export const Context = createContext();
     
   }
     // Logout
-     //storage.removeToken();
+    //storage.removeToken();
 
     return (
       <Context.Provider value={{user,signIn}} >

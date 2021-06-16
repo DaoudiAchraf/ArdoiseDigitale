@@ -50,12 +50,14 @@ const SignUp = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <Text
-        style={styles.bottomTxt}
-        onPress={() => navigation.navigate("SignUp")}
-      >
-        J'ai déja un compte
+       <TouchableOpacity onPress={()=>navigation.navigate('SignIn')}>
+         <Text
+            style={styles.bottomTxt}
+          >
+             J'ai déja un compte
       </Text>
+       </TouchableOpacity>
+   
     </View>
     </ImageBackground>
   );
