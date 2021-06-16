@@ -54,8 +54,8 @@ const SignIn = ({ navigation }) => {
       <View style={{ flex: 1 }}>
         <Image
           resizeMode="contain"
-          style={{ width: "100%", height: "70%" }}
-          source={require("../assets/images/logo-light.png")}
+          style={{ width: '100%', height: '70%' }}
+          source={require('../assets/images/logo-light.png')}
         />
       </View>
 

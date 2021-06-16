@@ -48,6 +48,7 @@ export const Context = createContext();
     
   }
     // Logout
+    
     //storage.removeToken();
 
     return (

@@ -7,10 +7,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Context } from "../contexts/Auth.context";
 import { role } from '../constants/Strings';
-
 import TraderProfile from '../screens/TraderProfile';
+import Navbar from '../components/componentsClient/navbar';
 
 const Stack = createStackNavigator();
+///////////////////-----------------------------------
+
+
+
+
+
+
+
+///////------------------------------------------
 
 const AuthNavigator = () => (
   <Stack.Navigator
@@ -43,11 +52,12 @@ export default function App() {
   return (
 
     <NavigationContainer>
+        
       {user ? 
         user.role === role.PENDING_TRADER ?  
             <ProfileBuilder/> 
-        :null
-       
+        :<Navbar merchant/>
+     
        : <AuthNavigator/>}
     </NavigationContainer>
   
