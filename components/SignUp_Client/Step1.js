@@ -30,13 +30,13 @@ const Step1 = ({ toNextStep }) => {
   };
 
   const onSubmit = (values) => {
-    values["image"] = cinImage;
+    //values["image"] = cinImage;
     // console.log(values);
 
     if (isValid(values, errors, setErrors)) {
       // console.log("--->",{...values,photo:cinImage});
 
-      addInfos({ ...values, image: cinImage });
+      addInfos({ ...values });
       toNextStep();
     }
   };
@@ -105,12 +105,12 @@ const Step1 = ({ toNextStep }) => {
             maritalStatus={maritalStatus}
             handleChange={setMaritalStatus}
           />
-          <ImagePicker
+          {/* <ImagePicker
             image={cinImage}
             error={errors.image}
             handleChange={setCinImage}
             onFocus={() => setErrors({ ...errors, image: false })}
-          />
+          /> */}
           <ButtonNext onPress={handleSubmit} />
         </View>
       )}
