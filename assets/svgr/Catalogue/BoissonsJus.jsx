@@ -21,4 +21,4 @@ function BoissonsJus(props) {
   );
 }
 
-export default BoissonsJus;
+export default {BoissonsJus};

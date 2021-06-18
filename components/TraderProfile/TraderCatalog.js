@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import ButtonNext from '../ButtonNext';
 import { Context } from '../../contexts/TraderProfile.context';
 import Category from '../Category';
-import { GlobalProvider ,GlobalContext} from "../../contexts/ProductsCatalog.context";
+import { GlobalProvider ,GlobalContext} from "../../contexts/ProductsCatalog.context"
+
 
 const ProductsCategory = ({toNextStep}) => {
 
@@ -20,6 +21,8 @@ const ProductsCategory = ({toNextStep}) => {
  const submit = ()=>{
    console.log(products);
    addInfos({products});
+
+
    submitProfile();
    //toNextStep();
  }

@@ -31,6 +31,11 @@ export const Context = createContext();
         />
      );
 
+  const refreshToken = (newToken)=>{
+      storage.storeToken(newToken);
+      setUser(jwtDecode(newToken));
+  }
+
   const signIn = async(v)=>{
       //const v = {userName: "JK267",password:"b2IKmJmwVM"};
 
@@ -52,10 +57,10 @@ export const Context = createContext();
     //storage.removeToken();
 
     return (
-      <Context.Provider value={{user,signIn}} >
+      <Context.Provider value={{user,refreshToken,signIn}} >
          {children}
       </Context.Provider>
     )
 }
 
-export default SignInContext;
+export default SignInContext;  
