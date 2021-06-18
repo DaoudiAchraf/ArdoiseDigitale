@@ -1,6 +1,9 @@
-import React ,{ createContext, useState } from 'react';
+import React ,{ createContext, useContext, useState } from 'react';
 import traderService from '../services/Trader';
 import { days } from "../constants/Arrays";
+import { Context as soukiContext } from '../contexts/Auth.context';
+import jwtDecode from 'jwt-decode';
+import { setAlert } from '../components/Alert';
 
 export const Context = createContext();
 
@@ -16,6 +19,8 @@ let currentState = {
 
 const  ProfileContext  = (props) => {
 
+  const { refreshToken } = useContext(soukiContext);
+
   const addInfos = (infos)=>{
       currentState = {
         ...currentState,
@@ -26,8 +31,15 @@ const  ProfileContext  = (props) => {
   const submitProfile= async()=>{
 
 
-    const a = await traderService.traderCompleteProfile(currentState).then(res=>console.log(res));
-      console.log(a);
+    const response = await traderService.traderCompleteProfile(currentState);
+    if(response.ok)
+    {
+      const { token } = response.data.refreshToken;
+      refreshToken(token);
+    }
+  
+     
+      
    }
   
 

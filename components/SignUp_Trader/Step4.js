@@ -35,7 +35,7 @@ const Step4 = ({ toNextStep }) => {
       console.log("string",k);
       console.log("parsed",JSON.parse(k));
       console.log("--------------------------");
-      addInfos({address:JSON.stringify(address)});
+      addInfos({activitySector,address:JSON.stringify(address)});
       toNextStep();
     }
   };

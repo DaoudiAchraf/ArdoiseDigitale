@@ -6,7 +6,7 @@ import AppLoading from "expo-app-loading";
 
 export const Context = createContext();
 
-const SignInContext = ({ children }) => {
+const AuthContext = ({ children }) => {
   const [user, setUser] = useState();
 
   const restoreToken = async () => {
@@ -27,6 +27,11 @@ const SignInContext = ({ children }) => {
         onFinish={() => setIsReady(true)}
       />
     );
+
+  const refreshToken = (newToken) => {
+    storage.storeToken(newToken);
+    setUser(jwtDecode(newToken));
+  };
 
   const signIn = async (v) => {
     //const v = {userName: "JK267",password:"b2IKmJmwVM"};
@@ -49,10 +54,10 @@ const SignInContext = ({ children }) => {
   //storage.removeToken();
 
   return (
-    <Context.Provider value={{ user, signIn, logout }}>
+    <Context.Provider value={{ user, refreshToken, signIn, logout }}>
       {children}
     </Context.Provider>
   );
 };
 
-export default SignInContext;
+export default AuthContext;
