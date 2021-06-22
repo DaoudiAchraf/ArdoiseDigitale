@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import MapView, { Marker, Callout } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Dimensions, ScrollView ,Image } from "react-native";
 import MarkerSvg from "../assets/svg-icones-client/marker.jsx";
 import Filter from "../assets/svg-icones-client/filter.jsx";
 import BackSvg from "../assets/svg-icones-client/back.jsx";
@@ -12,8 +12,34 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Button, TextInput, Portal, Searchbar } from "react-native-paper";
 import MenuFiltres from "../components/Client_UI/menu_filtres";
 import CalloutCard from "../components/Client_UI/CalloutCard.js";
+import clientService from "../services/Clientt";
+import { Context } from '../contexts/Auth.context'
+import ProfilMarchand from "./ProfilMarchand.js";
+import CardClient from "../components/componentsClient/CardClient.js";
 
 export default function MapScreen({ navigation }) {
+
+  const { merchantsList, setMerchantsList} = useContext(Context);
+
+  const [currentMerchant , setCurrentMerchant] = useState(null);
+
+  const fetchMerchants = async()=>{
+    const result = await clientService.getProfiles();
+    if(result.ok)
+    {
+      console.log(result.data);
+
+      const tab = result.data.filter(item => item._id === "60d0b42971607e928ce4a7bf" || item._id === "60d0b4cc71607e928ce4a7c1" || item._id === "60d0b34e71607e928ce4a7bd");
+      console.log("-------------------",tab);
+      setMerchantsList(tab);
+
+    }
+  }
+
+  useEffect(()=>{
+      fetchMerchants();
+  },[]);
+
   const [markers, setMarkers] = useState([
     {
       title: "Target Express",
@@ -36,12 +62,13 @@ export default function MapScreen({ navigation }) {
       description: "I am a very good shop",
     },
   ]);
-  const aaa = require("../assets/assets/targetexpress.jpg");
+
 
   return (
-    <ScrollView>
+
       <View style={styles.container}>
         <MapView
+   
           style={styles.map}
           initialRegion={{
             latitude: 36.87014037882809,
@@ -50,19 +77,22 @@ export default function MapScreen({ navigation }) {
             longitudeDelta: 0.0421,
           }}
         >
-          {markers.map((marker, index) => (
+          {merchantsList.map((merchant, index) => (
             <Marker
-              key={index}
-              coordinate={marker.latlng}
-              title={marker.title}
-              description={marker.description}
+              onPress={()=>setCurrentMerchant(merchant)}
+              key={merchant._id}
+              coordinate={{
+                latitude:merchant.address.position.lat,
+                longitude:merchant.address.position.lng
+              }}
+  
+              tracksViewChanges={false}
             >
-              <MarkerSvg />
+              <MarkerSvg />    
 
-              <Callout
-                onPress={() => navigation.navigate("ProfilMarchand")}
-              ></Callout>
             </Marker>
+
+
           ))}
         </MapView>
 
@@ -89,8 +119,27 @@ export default function MapScreen({ navigation }) {
             style={{ width: w(47), height: h(5.5) }}
           />
         </View>
+
+        <View style={styles.callout}>  
+
+        {
+          currentMerchant && 
+          <CardClient
+            myCard
+            title="Target Express"
+            small="751 Green Hill Dr. Webster,"
+            smaller={currentMerchant.phoneNumber}
+            merchant={currentMerchant.firstName+' '+currentMerchant.lastName}
+            text1="Livraison disponible."
+            text2="Accepte le paiement comptant et par crédit total."
+            source={require("../assets/assets/targetexpress.jpg")}
+            action={()=>setCurrentMerchant(null)}
+          />
+        }
+
+</View>
       </View>
-    </ScrollView>
+
   );
 }
 
@@ -116,13 +165,13 @@ const styles = StyleSheet.create({
     width: w(88),
     height: h(100),
   },
+  callout: {
+    position: 'absolute',
+    bottom: h(4),
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    width: '100%'
+  },
 });
-/*
-<TextInput
-              mode="flat"
-              dense="true"
-              selectionColor="#426252"
-              underlineColor="#426252"
-              style={{ height: '100%' }}
-            />
-            */

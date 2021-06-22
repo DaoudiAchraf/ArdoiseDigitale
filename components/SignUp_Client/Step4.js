@@ -1,24 +1,47 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import Input from '../Input';
+import React, { useState, useContext } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Geo_autocomplete from "../Geo_autocomplete";
+
+import { Picker } from "@react-native-picker/picker";
+import Input from "../Input";
+import { Context } from "../../contexts/SignUp.context";
+import { isValid } from "../Alert";
 
 const Step4 = ({ toNextStep }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const { initialState, addInfos } = useContext(Context);
 
-  const [address, setAddress] = useState();
+  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [address, setAddress] = useState(initialState["address"]);
+
+  const [errors, setErrors] = useState({
+    address: false,
+  });
 
   const submit = () => {
-    toNextStep();
+    if (isValid({ address }, errors, setErrors)) {
+      console.log("adrress", { ...address });
+      console.log("tpee", typeof { ...address });
+      console.log("--------------------------");
+      const k = JSON.stringify(address);
+      console.log("string", k);
+      console.log("parsed", JSON.parse(k));
+      console.log("--------------------------");
+      addInfos({ address: JSON.stringify(address) });
+      toNextStep();
+    }
   };
 
   return (
     <View style={styles.stepTwo_container}>
       <View>
-        <Text style={{ marginBottom: 5 }}>Adresse de commerce *</Text>
-        <Input value={address} handleChange={setAddress} />
+        <Text style={{ marginBottom: 5 }}>Adresse *</Text>
+        <Geo_autocomplete
+          setAddress={setAddress}
+          error={errors.address}
+          setErrors={setErrors}
+        />
         <TouchableOpacity onPress={submit} style={styles.nextBtn}>
-          <Text style={{ color: 'white' }}>Suivant</Text>
+          <Text style={{ color: "white" }}>Suivant</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -29,13 +52,13 @@ export default Step4;
 
 const styles = StyleSheet.create({
   step_container: {
-    width: '100%',
+    width: "100%",
   },
   nextBtn: {
-    alignItems: 'center',
-    backgroundColor: '#324B3E',
+    alignItems: "center",
+    backgroundColor: "#324B3E",
     padding: 10,
-    marginBottom: '5%',
-    marginTop: '4%',
+    marginBottom: "5%",
+    marginTop: "4%",
   },
 });

@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, ScrollView, Image, StyleSheet } from "react-native";
 import Item1 from "../components/componentsClient/Item1";
 import Item2 from "../components/componentsClient/Item2";
 import Divider from "react-native-divider";
 import GreenBtn from "../components/componentsClient/GreenBtn";
+import { Context } from "../contexts/Auth.context";
 
 function Clientaccount({ navigation }) {
+  const { clientAccount, setClientAccount } = useContext(Context);
+
   const navToNotification = () => navigation.navigate("Notification");
   const navToListemarchands = () => navigation.navigate("Listemarchands");
   const navToMapScreen = () => navigation.navigate("MapScreen");

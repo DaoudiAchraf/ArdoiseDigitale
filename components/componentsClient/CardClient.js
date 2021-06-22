@@ -1,17 +1,26 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { Card, Divider, Surface } from 'react-native-paper';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
-import { w, h } from '../../utils/Size';
+import { w, h, totalSize } from '../../utils/Size';
+import { Feather } from '@expo/vector-icons'; 
 
 const CardClient = (props) => {
   return (
     <Card style={[props.myCard ? styles.myCard : styles.card]}>
+      
       <Card.Cover
+
         style={{ height: h(15) }}
         source={require('../../assets/assets/targetexpress.jpg')}
       />
+      
+      <TouchableOpacity onPress={props.action} style={styles.exitContainer}>
+        <Feather name="x" size={24} color="black"  />
+      </TouchableOpacity>
+      
       <Card.Content style={{ padding: '3%', paddingLeft: '5%' }}>
+        
         <Text style={styles.title}>{props.title}</Text>
         <Text style={styles.small}>{props.small}</Text>
         <Text style={styles.smaller}>{props.smaller}</Text>
@@ -94,5 +103,13 @@ const styles = StyleSheet.create({
     height: h(8),
     width: w(15),
   },
+  exitContainer:{
+    position:'absolute',
+    top:0,
+    backgroundColor: 'white',
+    padding: totalSize(0.5),
+    alignContent: 'center',
+    alignItems: 'center'
+  }
 });
 export default CardClient;

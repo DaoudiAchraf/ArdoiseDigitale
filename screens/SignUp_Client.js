@@ -85,7 +85,7 @@ const App = ({ navigation }) => {
       case 3:
         return <Step4 toNextStep={toNextStep} />;
       case 4:
-        return <FinalStep toNextStep={toNextStep} />;
+        return <FinalStep client toNextStep={toNextStep} />;
       default:
         break;
     }
