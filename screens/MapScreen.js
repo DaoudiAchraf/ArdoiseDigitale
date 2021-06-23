@@ -19,9 +19,8 @@ import CardClient from "../components/componentsClient/CardClient.js";
 
 export default function MapScreen({ navigation }) {
 
-  const { merchantsList, setMerchantsList} = useContext(Context);
+  const { merchantsList, setMerchantsList ,currentMerchant, setCurrentMerchant} = useContext(Context);
 
-  const [currentMerchant , setCurrentMerchant] = useState(null);
 
   const fetchMerchants = async()=>{
     const result = await clientService.getProfiles();
@@ -68,7 +67,7 @@ export default function MapScreen({ navigation }) {
 
       <View style={styles.container}>
         <MapView
-   
+        
           style={styles.map}
           initialRegion={{
             latitude: 36.87014037882809,
@@ -80,7 +79,7 @@ export default function MapScreen({ navigation }) {
           {merchantsList.map((merchant, index) => (
             <Marker
               // onPress={()=>setCurrentMerchant(merchant)}
-              onPress={()=>navigation.navigate('ProfilMarchand', {itemId: 86})}
+              onPress={()=>{setCurrentMerchant(merchant);navigation.navigate('ProfilMarchand');}}
               key={merchant._id}
               coordinate={{
                 latitude:merchant.address.position.lat,

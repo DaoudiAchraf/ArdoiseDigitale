@@ -9,6 +9,7 @@ export const Context = createContext();
 const AuthContext = ({ children }) => {
 
   const [merchantsList,setMerchantsList] = useState([]);
+  const [currentMerchant , setCurrentMerchant] = useState(null);
   const [ardoise,setArdoise ] = useState(null);
 
   const [user, setUser] = useState();
@@ -18,7 +19,10 @@ const AuthContext = ({ children }) => {
 
     if (!token) return;
 
-    setUser(jwtDecode(token));
+    if (jwtDecode(token).exp < Date.now() / 1000)
+      storage.removeToken();
+    else 
+      setUser(jwtDecode(token));
   };
 
   const [isReady, setIsReady] = useState(false);
@@ -65,6 +69,8 @@ const AuthContext = ({ children }) => {
        logout,
        merchantsList,
        setMerchantsList,
+       currentMerchant,
+       setCurrentMerchant,
        ardoise,
        setArdoise 
        }}>

@@ -24,59 +24,59 @@ import clientService from '../services/Clientt';
 import { setAlert } from "../components/Alert";
 import { Context } from '../contexts/Auth.context';
 
-export default function ProfilMarchand(props) {
+const ProfilMarchand = (props)=>{
+  //console.log('tbadlet',demandeSent);
+   
 
   useEffect(() => {
-    const { itemId} = props.route.params;
-    console.log(itemId);
-
+    console.log('tbadlet *3',demandeSent);
   }, [])
+ 
 
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
-
+  const [demandeSent, setDemandeSent] = useState(false);
   const [isMinus, setIsMinus] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
-  const [demandeSent, setDemandeSent] = useState(false);
 
-  const { setArdoise } = useContext(Context);
+
+  const { currentMerchant ,setArdoise } = useContext(Context);
 
 
   
   const sendDemande = async()=>{
     hideDialog();
     const response = await clientService.ardoiseDemande({
-      "clientId" : "60c4abf3eead56b27cb75fe5",
-      "merchantId": "60c4abf3eead56b27cb75fe5",
-      "state":"pending"
+       merchant: currentMerchant._id,
   });
     if(response.ok)
     {
       setDemandeSent(true);
       setArdoise(response.data);
     }
-      
     else
       setAlert('Un problème se produit, veuillez réessayer de nouveau')
   }
 
   return (
     <Provider>
+
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
         <MyAppbar navigation={props.navigation} title="ProfilMarchand" />
         <FondPageMarchand style={styles.svg} />
         <View style={styles.contentView}>
           <CardClient
             myCard
-            title="Target Express"
-            small="751 Green Hill Dr. Webster,"
-            smaller="NY 14580"
-            merchant="Kristin"
+            title={currentMerchant.firstName+' '+currentMerchant.lastName}
+            small={"Adresse : "+currentMerchant.address.location.label}
+            smaller={"Télephone : "+currentMerchant.phoneNumber}
+            merchant={currentMerchant.firstName+' '+currentMerchant.lastName}
             text1="Livraison disponible."
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
           />
+
           {demandeSent ? (
             <GreenBtn grayed myGreenBtn title="Votre demande à été envoyée" />
           ) : (
@@ -158,6 +158,8 @@ export default function ProfilMarchand(props) {
     </Provider>
   );
 }
+
+export default ProfilMarchand;
 
 const styles = StyleSheet.create({
   contentView: {

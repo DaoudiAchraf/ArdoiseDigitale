@@ -24,8 +24,8 @@ const CardClient = (props) => {
         
         <View>
           <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.small}>{props.small}</Text>
-          <Text style={styles.smaller}>{props.smaller}</Text>
+          <Text style={styles.smallTxt}>{props.small}</Text>
+          <Text style={styles.smallTxt}>{props.smaller}</Text>
         </View>
 
         
@@ -105,21 +105,15 @@ const styles = StyleSheet.create({
     color: '#545353',
     textAlign: 'left',
     alignSelf: 'stretch',
-    fontSize: RFValue(16),
+    fontSize: RFValue(16.5),
     fontWeight: 'bold',
     paddingBottom: '1%',
   },
-  small: {
+  smallTxt: {
     color: 'grey',
     textAlign: 'left',
     alignSelf: 'stretch',
-    fontSize: RFValue(12),
-  },
-  smaller: {
-    color: 'grey',
-    textAlign: 'left',
-    alignSelf: 'stretch',
-    fontSize: RFValue(12),
+    fontSize: RFValue(14),
   },
   image: {
     height: h(8),
