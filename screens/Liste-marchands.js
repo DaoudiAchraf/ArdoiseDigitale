@@ -52,7 +52,7 @@ function Listemarchands({ navigation }) {
             }}
           >
             <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(17) }}> Commandes Actives</Text>
+              <Text style={{ fontSize: RFValue(17) }}> Ma Liste</Text>
             </Divider>
           </View>
           <View

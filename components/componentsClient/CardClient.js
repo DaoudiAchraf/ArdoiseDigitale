@@ -4,6 +4,7 @@ import { Card, Divider, Surface } from 'react-native-paper';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { w, h, totalSize } from '../../utils/Size';
 import { Feather } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons'; 
 
 const CardClient = (props) => {
   return (
@@ -16,26 +17,47 @@ const CardClient = (props) => {
       />
       
       <TouchableOpacity onPress={props.action} style={styles.exitContainer}>
-        <Feather name="x" size={24} color="black"  />
+        <Feather name="x" size={totalSize(3)} color="black"/>
       </TouchableOpacity>
       
-      <Card.Content style={{ padding: '3%', paddingLeft: '5%' }}>
+      <Card.Content style={styles.cardContent}>
         
-        <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.small}>{props.small}</Text>
-        <Text style={styles.smaller}>{props.smaller}</Text>
+        <View>
+          <Text style={styles.title}>{props.title}</Text>
+          <Text style={styles.small}>{props.small}</Text>
+          <Text style={styles.smaller}>{props.smaller}</Text>
+        </View>
+
+        
+        <TouchableOpacity onPress={props.action}>
+        <AntDesign name="calendar" size={24} color="black" />
+      </TouchableOpacity>
+ 
+    
       </Card.Content>
       <Divider />
       <View style={{ flexDirection: 'row', margin: '3%' }}>
-        <View style={{ alignSelf: 'center', width: w(15) }}>
+
+      <View style={styles.merchantCard}>
+          <Image
+           source={require('../../assets/assets/targetexpress.jpg')}
+           style= {{width:30,height:30}}
+          />
+      </View>
+        {/* <View style={{ alignSelf: 'center', width: w(15) }}>
           <Image source={props.source} style={styles.image}></Image>
-        </View>
-        <View style={{ width: w(60), marginLeft: '2%' }}>
+        </View> */}
+
+        {/* <View style={{ width: w(60), marginLeft: '2%' }}>
           <Text style={styles.title}>{props.merchant}</Text>
           <Text style={styles.small}>{props.text1}</Text>
           <Text style={styles.smaller} numberOfLines={2}>
             {props.text2}
           </Text>
+        </View> */}
+
+        <View>
+
         </View>
       </View>
       <Divider />
@@ -110,6 +132,19 @@ const styles = StyleSheet.create({
     padding: totalSize(0.5),
     alignContent: 'center',
     alignItems: 'center'
+  },
+  cardContent:{
+    padding: '3%',
+    paddingLeft: '5%',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  merchantCard:{
+    flexDirection: 'row'
   }
 });
 export default CardClient;
+
+
+//props: commandecree et offreDePrix faute 
+//soluion : il faut les placer dans un autre component 

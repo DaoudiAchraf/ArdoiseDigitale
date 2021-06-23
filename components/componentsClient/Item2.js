@@ -16,12 +16,12 @@ const Item2 = (props) => {
 
         <View style={{ width: w(87), margin: "4%", marginLeft: "2%" }}>
           <Text
-            style={[styles.title, props.grayed ? styles.grayed : styles.normal]}
+            style={styles.title, props.grayed ? styles.grayed : styles.normal}
           >
             {props.title}
           </Text>
           <Text
-            style={[styles.small, props.grayed ? styles.grayed : styles.normal]}
+            style={styles.small, props.grayed ? styles.grayed : styles.normal}
           >
             {props.small}
           </Text>

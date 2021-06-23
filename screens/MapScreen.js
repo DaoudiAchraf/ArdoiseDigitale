@@ -40,28 +40,28 @@ export default function MapScreen({ navigation }) {
       fetchMerchants();
   },[]);
 
-  const [markers, setMarkers] = useState([
-    {
-      title: "Target Express",
-      latlng: { latitude: 36.865384, longitude: 10.304349 },
-      description: "751 Green Hill Dr. Webster,\nNY 114580",
-    },
-    {
-      title: "marchand 2",
-      latlng: { latitude: 36.870488, longitude: 10.263784 },
-      description: "I am a very good shop",
-    },
-    {
-      title: "marchand 3",
-      latlng: { latitude: 36.850059, longitude: 10.259115 },
-      description: "I am a very good shop",
-    },
-    {
-      title: "marchand 4",
-      latlng: { latitude: 36.846111, longitude: 10.272494 },
-      description: "I am a very good shop",
-    },
-  ]);
+  // const [markers, setMarkers] = useState([
+  //   {
+  //     title: "Target Express",
+  //     latlng: { latitude: 36.865384, longitude: 10.304349 },
+  //     description: "751 Green Hill Dr. Webster,\nNY 114580",
+  //   },
+  //   {
+  //     title: "marchand 2",
+  //     latlng: { latitude: 36.870488, longitude: 10.263784 },
+  //     description: "I am a very good shop",
+  //   },
+  //   {
+  //     title: "marchand 3",
+  //     latlng: { latitude: 36.850059, longitude: 10.259115 },
+  //     description: "I am a very good shop",
+  //   },
+  //   {
+  //     title: "marchand 4",
+  //     latlng: { latitude: 36.846111, longitude: 10.272494 },
+  //     description: "I am a very good shop",
+  //   },
+  // ]);
 
 
   return (
@@ -79,13 +79,13 @@ export default function MapScreen({ navigation }) {
         >
           {merchantsList.map((merchant, index) => (
             <Marker
-              onPress={()=>setCurrentMerchant(merchant)}
+              // onPress={()=>setCurrentMerchant(merchant)}
+              onPress={()=>navigation.navigate('ProfilMarchand', {itemId: 86})}
               key={merchant._id}
               coordinate={{
                 latitude:merchant.address.position.lat,
                 longitude:merchant.address.position.lng
               }}
-  
               tracksViewChanges={false}
             >
               <MarkerSvg />    
@@ -134,6 +134,7 @@ export default function MapScreen({ navigation }) {
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
             action={()=>setCurrentMerchant(null)}
+            item={currentMerchant}
           />
         }
 

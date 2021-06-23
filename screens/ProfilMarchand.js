@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Divider from "react-native-divider";
 import {
@@ -20,8 +20,18 @@ import PlusMinus from "../components/componentsClient/PlusMinus";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import DropDownFiltres from "../components/Client_UI/DropDownFiltres";
 import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
+import clientService from '../services/Clientt';
+import { setAlert } from "../components/Alert";
+import { Context } from '../contexts/Auth.context';
 
 export default function ProfilMarchand(props) {
+
+  useEffect(() => {
+    const { itemId} = props.route.params;
+    console.log(itemId);
+
+  }, [])
+
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
@@ -29,6 +39,27 @@ export default function ProfilMarchand(props) {
   const [isMinus, setIsMinus] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
   const [demandeSent, setDemandeSent] = useState(false);
+
+  const { setArdoise } = useContext(Context);
+
+
+  
+  const sendDemande = async()=>{
+    hideDialog();
+    const response = await clientService.ardoiseDemande({
+      "clientId" : "60c4abf3eead56b27cb75fe5",
+      "merchantId": "60c4abf3eead56b27cb75fe5",
+      "state":"pending"
+  });
+    if(response.ok)
+    {
+      setDemandeSent(true);
+      setArdoise(response.data);
+    }
+      
+    else
+      setAlert('Un problème se produit, veuillez réessayer de nouveau')
+  }
 
   return (
     <Provider>
@@ -117,11 +148,8 @@ export default function ProfilMarchand(props) {
               />
               <GreenBtn
                 myGreenBtn
-                action={() => {
-                  hideDialog();
-                  setDemandeSent(true);
-                }}
-                title="Envoyer une Commande"
+                action={sendDemande}
+                title="Envoyer une demande"
               />
             </Dialog.Content>
           </Dialog>

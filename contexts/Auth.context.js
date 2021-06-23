@@ -9,6 +9,7 @@ export const Context = createContext();
 const AuthContext = ({ children }) => {
 
   const [merchantsList,setMerchantsList] = useState([]);
+  const [ardoise,setArdoise ] = useState(null);
 
   const [user, setUser] = useState();
 
@@ -63,8 +64,9 @@ const AuthContext = ({ children }) => {
        signIn, 
        logout,
        merchantsList,
-       setMerchantsList
-
+       setMerchantsList,
+       ardoise,
+       setArdoise 
        }}>
       {children}
     </Context.Provider>
