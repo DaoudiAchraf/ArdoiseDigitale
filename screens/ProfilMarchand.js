@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Divider from "react-native-divider";
 import {
@@ -20,33 +20,65 @@ import PlusMinus from "../components/componentsClient/PlusMinus";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import DropDownFiltres from "../components/Client_UI/DropDownFiltres";
 import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
+import clientService from '../services/Clientt';
+import { setAlert } from "../components/Alert";
+import { Context } from '../contexts/Auth.context';
 
-export default function ProfilMarchand(props) {
+const ProfilMarchand = (props)=>{
+  //console.log('tbadlet',demandeSent);
+  const { currentMerchant ,setArdoiseList, ardoiseList } = useContext(Context);
+
+  const [ardoise,setArdoise] = useState(null);
+
+  useEffect(() => {
+    const fetchedArdoise =  ardoiseList.find(ardoise => 
+      ardoise.merchant === currentMerchant._id
+    );
+    fetchedArdoise  && setArdoise(fetchedArdoise);
+  }, [ardoiseList])
+ 
+
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
   const [isMinus, setIsMinus] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
-  const [demandeSent, setDemandeSent] = useState(false);
+
+
+  const sendDemande = async()=>{
+    hideDialog();
+    const response = await clientService.ardoiseDemande({
+       merchant: currentMerchant._id,
+  });
+    if(response.ok)
+    {
+      //setDemandeSent(true);
+      setArdoiseList([...ardoiseList,response.data]);
+    }
+    else
+      setAlert('Un problème se produit, veuillez réessayer de nouveau')
+  }
 
   return (
     <Provider>
+
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
         <MyAppbar navigation={props.navigation} title="ProfilMarchand" />
         <FondPageMarchand style={styles.svg} />
         <View style={styles.contentView}>
           <CardClient
             myCard
-            title="Target Express"
-            small="751 Green Hill Dr. Webster,"
-            smaller="NY 14580"
-            merchant="Kristin"
+            title={currentMerchant.firstName+' '+currentMerchant.lastName}
+            small={"Adresse : "+currentMerchant.address.location.label}
+            smaller={"Télephone : "+currentMerchant.phoneNumber}
+            merchant={currentMerchant.firstName+' '+currentMerchant.lastName}
             text1="Livraison disponible."
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
           />
-          {demandeSent ? (
+
+          {ardoise && ardoise.state === 'pending' ? (
             <GreenBtn grayed myGreenBtn title="Votre demande à été envoyée" />
           ) : (
             <GreenBtn
@@ -117,11 +149,8 @@ export default function ProfilMarchand(props) {
               />
               <GreenBtn
                 myGreenBtn
-                action={() => {
-                  hideDialog();
-                  setDemandeSent(true);
-                }}
-                title="Envoyer une Commande"
+                action={sendDemande}
+                title="Envoyer une demande"
               />
             </Dialog.Content>
           </Dialog>
@@ -130,6 +159,8 @@ export default function ProfilMarchand(props) {
     </Provider>
   );
 }
+
+export default ProfilMarchand;
 
 const styles = StyleSheet.create({
   contentView: {

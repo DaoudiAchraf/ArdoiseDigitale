@@ -19,56 +19,58 @@ import CardClient from "../components/componentsClient/CardClient.js";
 
 export default function MapScreen({ navigation }) {
 
-  const { merchantsList, setMerchantsList} = useContext(Context);
+  const { merchantsList, setMerchantsList ,currentMerchant, setCurrentMerchant} = useContext(Context);
 
-  const [currentMerchant , setCurrentMerchant] = useState(null);
 
   const fetchMerchants = async()=>{
     const result = await clientService.getProfiles();
     if(result.ok)
     {
-      console.log(result.data);
-
-      const tab = result.data.filter(item => item._id === "60d0b42971607e928ce4a7bf" || item._id === "60d0b4cc71607e928ce4a7c1" || item._id === "60d0b34e71607e928ce4a7bd");
-      console.log("-------------------",tab);
-      setMerchantsList(tab);
-
+      // const tab = result.data.filter(item => item._id === "60d0b42971607e928ce4a7bf" || item._id === "60d0b4cc71607e928ce4a7c1" || item._id === "60d0b34e71607e928ce4a7bd");
+      setMerchantsList(result);
     }
   }
 
+
   useEffect(()=>{
+
       fetchMerchants();
   },[]);
 
-  const [markers, setMarkers] = useState([
-    {
-      title: "Target Express",
-      latlng: { latitude: 36.865384, longitude: 10.304349 },
-      description: "751 Green Hill Dr. Webster,\nNY 114580",
-    },
-    {
-      title: "marchand 2",
-      latlng: { latitude: 36.870488, longitude: 10.263784 },
-      description: "I am a very good shop",
-    },
-    {
-      title: "marchand 3",
-      latlng: { latitude: 36.850059, longitude: 10.259115 },
-      description: "I am a very good shop",
-    },
-    {
-      title: "marchand 4",
-      latlng: { latitude: 36.846111, longitude: 10.272494 },
-      description: "I am a very good shop",
-    },
-  ]);
+  // const [markers, setMarkers] = useState([
+  //   {
+  //     title: "Target Express",
+  //     latlng: { latitude: 36.865384, longitude: 10.304349 },
+  //     description: "751 Green Hill Dr. Webster,\nNY 114580",
+  //   },
+  //   {
+  //     title: "marchand 2",
+  //     latlng: { latitude: 36.870488, longitude: 10.263784 },
+  //     description: "I am a very good shop",
+  //   },
+  //   {
+  //     title: "marchand 3",
+  //     latlng: { latitude: 36.850059, longitude: 10.259115 },
+  //     description: "I am a very good shop",
+  //   },
+  //   {
+  //     title: "marchand 4",
+  //     latlng: { latitude: 36.846111, longitude: 10.272494 },
+  //     description: "I am a very good shop",
+  //   },
+  // ]);
+
+  const nav = (merchant)=>{
+    setCurrentMerchant(merchant);
+    navigation.navigate('ProfilMarchand')
+  }
 
 
   return (
 
       <View style={styles.container}>
         <MapView
-   
+        
           style={styles.map}
           initialRegion={{
             latitude: 36.87014037882809,
@@ -79,13 +81,12 @@ export default function MapScreen({ navigation }) {
         >
           {merchantsList.map((merchant, index) => (
             <Marker
-              onPress={()=>setCurrentMerchant(merchant)}
+              onPress={()=>nav(merchant)}
               key={merchant._id}
               coordinate={{
                 latitude:merchant.address.position.lat,
                 longitude:merchant.address.position.lng
               }}
-  
               tracksViewChanges={false}
             >
               <MarkerSvg />    
@@ -134,6 +135,7 @@ export default function MapScreen({ navigation }) {
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
             action={()=>setCurrentMerchant(null)}
+            item={currentMerchant}
           />
         }
 
