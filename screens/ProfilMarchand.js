@@ -26,25 +26,26 @@ import { Context } from '../contexts/Auth.context';
 
 const ProfilMarchand = (props)=>{
   //console.log('tbadlet',demandeSent);
-   
+  const { currentMerchant ,setArdoiseList, ardoiseList } = useContext(Context);
+
+  const [ardoise,setArdoise] = useState(null);
 
   useEffect(() => {
-    console.log('tbadlet *3',demandeSent);
-  }, [])
+    const fetchedArdoise =  ardoiseList.find(ardoise => 
+      ardoise.merchant === currentMerchant._id
+    );
+    fetchedArdoise  && setArdoise(fetchedArdoise);
+  }, [ardoiseList])
  
 
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
-  const [demandeSent, setDemandeSent] = useState(false);
+
   const [isMinus, setIsMinus] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
 
 
-  const { currentMerchant ,setArdoise } = useContext(Context);
-
-
-  
   const sendDemande = async()=>{
     hideDialog();
     const response = await clientService.ardoiseDemande({
@@ -52,8 +53,8 @@ const ProfilMarchand = (props)=>{
   });
     if(response.ok)
     {
-      setDemandeSent(true);
-      setArdoise(response.data);
+      //setDemandeSent(true);
+      setArdoiseList([...ardoiseList,response.data]);
     }
     else
       setAlert('Un problème se produit, veuillez réessayer de nouveau')
@@ -77,7 +78,7 @@ const ProfilMarchand = (props)=>{
             source={require("../assets/assets/targetexpress.jpg")}
           />
 
-          {demandeSent ? (
+          {ardoise && ardoise.state === 'pending' ? (
             <GreenBtn grayed myGreenBtn title="Votre demande à été envoyée" />
           ) : (
             <GreenBtn

@@ -1,17 +1,20 @@
 import client from "./Client";
 
 
-const getProfile = () => client.get("/api/merchant/profile");
+const getProfile = () => client.get('/api/merchant/profile');
 
-const getProfiles = () => client.get("/api/merchant/profiles");
+const getProfiles = () => client.get('/api/merchant/profiles');
 
-const ardoiseDemande = (demande) => client.post("/api/ardoise",demande);
+const ardoiseDemande = (demande) => client.post('/api/ardoise',demande);
 
 const getArdoiseByMerchant = (merchant) => client.get(`/api/ardoise/${merchant}`);
+
+const getArdoise = () => client.get('/api/ardoise');
 
 export default {
     getProfile,
     getProfiles,
     ardoiseDemande,
-    getArdoiseByMerchant
+    getArdoiseByMerchant,
+    getArdoise
 };

@@ -26,16 +26,14 @@ export default function MapScreen({ navigation }) {
     const result = await clientService.getProfiles();
     if(result.ok)
     {
-      console.log(result.data);
-
       const tab = result.data.filter(item => item._id === "60d0b42971607e928ce4a7bf" || item._id === "60d0b4cc71607e928ce4a7c1" || item._id === "60d0b34e71607e928ce4a7bd");
-      console.log("-------------------",tab);
       setMerchantsList(tab);
-
     }
   }
 
+
   useEffect(()=>{
+
       fetchMerchants();
   },[]);
 
@@ -62,6 +60,11 @@ export default function MapScreen({ navigation }) {
   //   },
   // ]);
 
+  const nav = (merchant)=>{
+    setCurrentMerchant(merchant);
+    navigation.navigate('ProfilMarchand')
+  }
+
 
   return (
 
@@ -78,8 +81,7 @@ export default function MapScreen({ navigation }) {
         >
           {merchantsList.map((merchant, index) => (
             <Marker
-              // onPress={()=>setCurrentMerchant(merchant)}
-              onPress={()=>{setCurrentMerchant(merchant);navigation.navigate('ProfilMarchand');}}
+              onPress={()=>nav(merchant)}
               key={merchant._id}
               coordinate={{
                 latitude:merchant.address.position.lat,
