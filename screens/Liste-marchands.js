@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Image,
@@ -15,15 +15,27 @@ import PlusMinus from "../components/componentsClient/PlusMinus";
 import Separator from "../components/componentsClient/Separator";
 import { RFValue } from "react-native-responsive-fontsize";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
+import { Context } from "../contexts/Auth.context";
 
 function Listemarchands({ navigation }) {
-  const [isMinus, setIsMinus] = useState(false);
-  const navToConsulterCompteMarchand = () =>
-    navigation.navigate("ConsulterCompteMarchand");
+  const [isMinus, setIsMinus] = useState(true);
+    
   const navToNouvelleCommande = () => navigation.navigate("NouvelleCommande");
   const navToMapScreen = () => navigation.navigate("MapScreen");
 
   const navToClientaccount = () => navigation.navigate("Clientaccount");
+
+  const  { ardoiseList, setCurrentMerchant } = useContext(Context);
+
+  const navToMerchant = (item)=>{
+    setCurrentMerchant(item.merchant);
+    navigation.navigate("ConsulterCompteMarchand");
+  }
+
+  useEffect(() => {
+    console.log("ard--------------");
+      console.log("ard--------------",ardoiseList[0]);
+  }, [])
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
@@ -66,44 +78,19 @@ function Listemarchands({ navigation }) {
         </View>
         {isMinus && (
           <View>
-            <Item2
-              title="Kristen Harper"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/user.png")}
-              navigation={navToConsulterCompteMarchand}
-            />
-            <Item2
-              title="Sam lrving"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/user2.png")}
-              navigation={navToNouvelleCommande}
-            />
-            <Item2
-              title="Kristen Harper"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/user.png")}
-            />
-            <Item2
-              title="Kristen Harper"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/user2.png")}
-            />
-            <Item2
-              title="Kristen Harper"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/user.png")}
-            />
-            <Item2
-              title="Kristen Harper"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/user2.png")}
-            />
+
+            {ardoiseList.map((item)=>
+              <Item2
+                key={item._id}
+                title={item.merchant.firstName+' '+item.merchant.lastName}
+                small="Sam lrving le 12/12/2020 à 10h30"
+                smaller="Appuyez pour voir les détails."
+                source={require("../assets/assets/user.png")}
+                navigation={()=>navToMerchant(item)}
+              />
+            )}
+
+     
             <Separator />
           </View>
         )}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext ,useEffect } from "react";
 import { View, ScrollView, Image, StyleSheet } from "react-native";
 import Item1 from "../components/componentsClient/Item1";
 import Item2 from "../components/componentsClient/Item2";
@@ -7,7 +7,11 @@ import GreenBtn from "../components/componentsClient/GreenBtn";
 import { Context } from "../contexts/Auth.context";
 
 function Clientaccount({ navigation }) {
-  const { clientAccount, setClientAccount } = useContext(Context);
+  const { ardoiseList } = useContext(Context);
+
+  useEffect(() => {
+      console.log(ardoiseList.length)
+  }, [ardoiseList.length])
 
   const navToNotification = () => navigation.navigate("Notification");
   const navToListemarchands = () => navigation.navigate("Listemarchands");
@@ -48,7 +52,7 @@ function Clientaccount({ navigation }) {
           />
           <Item1
             title="Ma liste de marchands"
-            description="Vous avez 5 marchands dans votre liste"
+            description= {`Vous avez ${ardoiseList.length} marchands dans votre liste`}
             img={require("../assets/assets/icons/client-fond-btn-marchands.png")}
             navigation={navToListemarchands}
           />

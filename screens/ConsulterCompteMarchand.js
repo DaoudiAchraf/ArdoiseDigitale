@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useContext, useEffect} from "react";
 import {
   View,
   Image,
@@ -26,6 +26,8 @@ import PlusMinus from "../components/componentsClient/PlusMinus";
 import PlusMinus1 from "../components/componentsClient/PlusMinus1";
 import PlusMinus2 from "../components/componentsClient/PlusMinus2";
 import { RFValue } from "react-native-responsive-fontsize";
+import { Context } from "../contexts/Auth.context";
+import { ProgressBar,ActivityIndicator , Colors } from 'react-native-paper';
 
 function ConsulterCompteMarchand({ navigation }) {
   const [visible, setVisible] = React.useState(false);
@@ -43,6 +45,15 @@ function ConsulterCompteMarchand({ navigation }) {
   const navToProfilMarchand = () => navigation.navigate("ProfilMarchand");
 
   const navToListemarchands = () => navigation.navigate("Listemarchands");
+
+  const { currentMerchant } = useContext(Context);
+
+  useEffect(() => {
+    return () => {
+      effect
+    };
+  }, [])
+
   return (
     <View style={{ flex: 1 }}>
       <Provider>
@@ -64,10 +75,11 @@ function ConsulterCompteMarchand({ navigation }) {
 
           <View style={{ marginTop: "10%" }}>
             <CardClient
-              title="Express"
+              title={currentMerchant.firstName}
+
               small="Green Hill"
               smaller="NY 145230"
-              merchant="Kristin"
+              merchant={currentMerchant.firstName}
               text1="Livraison disponible"
               text2="Accepte le paiement comptant "
               source={require("../assets/assets/user.png")}
@@ -171,7 +183,17 @@ function ConsulterCompteMarchand({ navigation }) {
 
             {isMinus && <View></View>}
           </View>
+          <View style={{  
+                marginTop: "5%",
+                marginBottom: "5%",
+                marginLeft: "30%",
+                marginRight: "37%",}}  >
+                  <ActivityIndicator animating={true} color={Colors.white} />
+       
+          </View>
 
+         
+{/* 
           <View
             style={{
               width: "95%",
@@ -196,10 +218,12 @@ function ConsulterCompteMarchand({ navigation }) {
                 <Text style={{ color: "grey", fontSize: RFValue(13) }}>
                   Un total de 150 MAD à payer le 12/12/2020
                 </Text>
+
+                
               </View>
             </View>
-          </View>
-          <View
+          </View> */}
+          {/* <View
             style={{
               flexDirection: "row",
               margin: "5%",
@@ -222,7 +246,7 @@ function ConsulterCompteMarchand({ navigation }) {
                 action={navToHistoriquePaiements}
               />
             </View>
-          </View>
+          </View> */}
           <View>
             <View
               style={{
