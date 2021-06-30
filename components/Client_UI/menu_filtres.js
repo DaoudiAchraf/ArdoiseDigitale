@@ -1,22 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View } from "react-native";
-import {
-  Button,
-  Text,
-  Menu,
-  Divider,
-  Provider,
-  Portal,
-  Title,
-  Subheading,
-  Headline,
-  Caption,
-} from "react-native-paper";
+import { Button, Menu, Provider, Title, Caption } from "react-native-paper";
 import Filter from "../../assets/svg-icones-client/filter.jsx";
 import DropDownFiltres from "../Client_UI/DropDownFiltres";
-import ModalDropdown from "react-native-modal-dropdown";
 import { h, w } from "../../utils/Size.js";
 import { RFValue } from "react-native-responsive-fontsize";
+import { Context } from "../../contexts/Auth.context";
 
 const MenuFiltres = () => {
   const [visible, setVisible] = React.useState(false);
@@ -25,7 +14,26 @@ const MenuFiltres = () => {
 
   const closeMenu = () => setVisible(false);
 
-  const [selectedItem, setSelectedItem] = useState(0);
+  const { merchantsList, setMerchantsList } = useContext(Context);
+
+  const [filterState, setFilterState] = useState({
+    city: 0,
+    activitySector: 0,
+    paymentType: 0,
+    delivery: 0,
+  });
+  useEffect(() => {
+    const tab = merchantsList.filter(
+      (item) =>
+        item._id === "60d0b42971607e928ce4a7bf" ||
+        item._id === "60d0b4cc71607e928ce4a7c1" ||
+        item._id === "60d0b34e71607e928ce4a7bd"
+    );
+
+    console.log("aaaaaaaa", merchantsList);
+    setMerchantsList([]);
+    console.log("bbbbbbbb", merchantsList);
+  }, [filterState]);
 
   return (
     <Provider>
@@ -61,16 +69,18 @@ const MenuFiltres = () => {
 
           <View>
             <DropDownFiltres
-              selectedItem={selectedItem}
-              handleChange={setSelectedItem}
+              dropdownName="city"
+              selectedItem={filterState}
+              handleChange={setFilterState}
               items={["Tunis", "Ariana", "Marsa", "Mannouba"]}
             />
           </View>
 
           <Caption>Domaine d'activité</Caption>
           <DropDownFiltres
-            selectedItem={selectedItem}
-            handleChange={setSelectedItem}
+            dropdownName="activitySector"
+            selectedItem={filterState}
+            handleChange={setFilterState}
             items={[
               "supermarché",
               "épicerie",
@@ -85,8 +95,9 @@ const MenuFiltres = () => {
           />
           <Caption>Mode de payement</Caption>
           <DropDownFiltres
-            selectedItem={selectedItem}
-            handleChange={setSelectedItem}
+            dropdownName="paymentType"
+            selectedItem={filterState}
+            handleChange={setFilterState}
             items={[
               "à la commande",
               "à la livraison",
@@ -96,8 +107,9 @@ const MenuFiltres = () => {
           />
           <Caption>Livraison</Caption>
           <DropDownFiltres
-            selectedItem={selectedItem}
-            handleChange={setSelectedItem}
+            dropdownName="delivery"
+            selectedItem={filterState}
+            handleChange={setFilterState}
             items={["à récupérer", "à domicile"]}
           />
         </View>

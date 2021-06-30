@@ -5,7 +5,7 @@ import authService from "../services/Auth";
 export const Context = createContext();
 export const phoneId = uuidv4();
 
-const data = new FormData();
+var data = new FormData();
 let initialState = {};
 
 const SignUpContext = (props) => {
@@ -15,6 +15,10 @@ const SignUpContext = (props) => {
   };
 
   const signUp = async (client) => {
+    if (data) {
+      data = new FormData();
+    }
+
     const keys = Object.keys(initialState);
     keys.forEach((key) => data.append(key, initialState[key]));
     // console.log(data);

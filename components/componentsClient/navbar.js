@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Image, View, TouchableOpacity } from "react-native";
 import { w, h } from "../../utils/Size";
+import { Button, Text } from "react-native-paper";
 
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -29,6 +30,8 @@ import MerchantProfilClient from "../../screens/MerchantProfilClient";
 import Listemarchands from "../../screens/Liste-marchands";
 import Clientaccount from "../../screens/Client-account";
 import ListeDesCommandes from "../../screens/ListeDesCommandes";
+
+import { Context } from "../../contexts/Auth.context";
 
 const Stack = createStackNavigator();
 
@@ -61,7 +64,6 @@ const StackNavigatorM = ({ initScr }) => {
         name="MerchantCatalogueModification"
         component={MerchantCatalogueModification}
       />
-
     </Stack.Navigator>
   );
 };
@@ -71,11 +73,9 @@ const StackNavigator = ({ initScr }) => {
       initialRouteName={initScr}
       screenOptions={{ headerShown: false }}
     >
-     
-
       <Stack.Screen name="NouvelleCommande" component={NouvelleCommande} />
       <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
-     
+
       <Stack.Screen name="Listemarchands" component={Listemarchands} />
       <Stack.Screen name="MapScreen" component={MapScreen} />
       <Stack.Screen name="test_components" component={test_components} />
@@ -90,7 +90,7 @@ const StackNavigator = ({ initScr }) => {
         name="ConsulterCompteMarchand"
         component={ConsulterCompteMarchand}
       />
-     
+
       <Stack.Screen
         name="HistoriquePaiements"
         component={HistoriquePaiements}
@@ -159,6 +159,8 @@ const CustomButtonMerchant = ({ onPress }) => {
 };
 
 function navbar({ merchant }) {
+  const { logout } = React.useContext(Context);
+
   return (
     <Tab.Navigator initialRouteName="Account">
       <Tab.Screen
@@ -167,15 +169,13 @@ function navbar({ merchant }) {
           tabBarButton: (props) => <CustomButtonMerchant {...props} />,
         }}
       >
-        {(props) => (merchant ? <StackNavigatorM
-            initScr={"MerchantClientList"}
-            {...props}
-          /> : <StackNavigator
-          initScr={"Listemarchands"}
-          {...props}
-        />)}
-        
-        
+        {(props) =>
+          merchant ? (
+            <StackNavigatorM initScr={"MerchantClientList"} {...props} />
+          ) : (
+            <StackNavigator initScr={"Listemarchands"} {...props} />
+          )
+        }
       </Tab.Screen>
       <Tab.Screen
         name="Account"
@@ -183,14 +183,12 @@ function navbar({ merchant }) {
           tabBarButton: (props) => <CustomButton merchant {...props} />,
         }}
       >
-        {(props) => 
-          (merchant ? <StackNavigatorM
-            initScr={"MerchantAccount"}
-            {...props}
-          /> : <StackNavigator
-          initScr={"Clientaccount"}
-          {...props}
-        />)
+        {(props) =>
+          merchant ? (
+            <StackNavigatorM initScr={"MerchantAccount"} {...props} />
+          ) : (
+            <StackNavigator initScr={"Clientaccount"} {...props} />
+          )
         }
       </Tab.Screen>
 
@@ -200,15 +198,34 @@ function navbar({ merchant }) {
           tabBarButton: (props) => <CustomButtonCommand {...props} />,
         }}
       >
-        {(props) => (merchant ? <StackNavigatorM
-            initScr={"MerchantClientsOrdersList"}
-            {...props}
-          /> : <StackNavigator
-          initScr={"ListeDesCommandes"}
-          {...props}
-        />)}
-        
-        
+        {(props) =>
+          merchant ? (
+            <StackNavigatorM initScr={"MerchantClientsOrdersList"} {...props} />
+          ) : (
+            <StackNavigator initScr={"ListeDesCommandes"} {...props} />
+          )
+        }
+      </Tab.Screen>
+      <Tab.Screen
+        name="Commandd"
+        options={{
+          tabBarButton: (props) => (
+            <Button
+              icon="logout"
+              mode="contained"
+              color="#324B3E"
+              onPress={() => logout()}
+            />
+          ),
+        }}
+      >
+        {(props) =>
+          merchant ? (
+            <StackNavigatorM initScr={"MerchantClientsOrdersList"} {...props} />
+          ) : (
+            <StackNavigator initScr={"ListeDesCommandes"} {...props} />
+          )
+        }
       </Tab.Screen>
     </Tab.Navigator>
   );

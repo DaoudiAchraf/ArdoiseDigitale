@@ -19,7 +19,6 @@ import { Context } from "../contexts/Auth.context";
 
 function Listemarchands({ navigation }) {
   const [isMinus, setIsMinus] = useState(true);
-    
   const navToNouvelleCommande = () => navigation.navigate("NouvelleCommande");
   const navToMapScreen = () => navigation.navigate("MapScreen");
 
