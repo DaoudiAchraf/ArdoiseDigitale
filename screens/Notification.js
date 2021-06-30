@@ -12,12 +12,7 @@ import Item3 from "../components/componentsClient/Item3";
 import Separator from "../components/componentsClient/Separator";
 
 function Notification({ navigation }) {
-  const navCommandePrete = () => navigation.navigate("CommandePrete");
-  const navCommandePayee = () => navigation.navigate("CommandePayee");
-  const navCommandeTerminee = () => navigation.navigate("CommandeTerminee");
   const navOffrePrixCommande = () => navigation.navigate("OffrePrixCommande");
-
-  const navToClientaccount = () => navigation.navigate("Clientaccount");
   return (
     <ScrollView
       style={{
@@ -49,7 +44,7 @@ function Notification({ navigation }) {
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-          navigation={navCommandePrete}
+          navigation={navOffrePrixCommande}
           badged
         />
         <Item2
@@ -57,7 +52,7 @@ function Notification({ navigation }) {
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-          navigation={navCommandePrete}
+          navigation={navOffrePrixCommande}
           badged
         />
         <Item2
@@ -66,7 +61,7 @@ function Notification({ navigation }) {
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-historique.png")}
           grayed
-          navigation={navCommandePayee}
+          navigation={navOffrePrixCommande}
         />
         <Item2
           title="Echéance étendue"
@@ -88,7 +83,7 @@ function Notification({ navigation }) {
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-historique.png")}
           grayed
-          navigation={navCommandeTerminee}
+          navigation={navOffrePrixCommande}
         />
       </View>
       <Separator />

@@ -17,7 +17,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 
 function Listemarchands({ navigation }) {
-  const [isMinus, setIsMinus] = useState(false);
+  const [isMinus, setIsMinus] = useState(true);
   const navToConsulterCompteMarchand = () =>
     navigation.navigate("ConsulterCompteMarchand");
   const navToNouvelleCommande = () => navigation.navigate("NouvelleCommande");

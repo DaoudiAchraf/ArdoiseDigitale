@@ -1,64 +1,65 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View, ImageBackground } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ImageBackground,
+} from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { h, totalSize, w } from "../utils/Size";
-import { RFPercentage,RFValue } from 'react-native-responsive-fontsize';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const SignUp = ({ navigation }) => {
   return (
-    <ImageBackground source={require('../assets/images/BG.png')} style={styles.image} >
-    <View style={styles.signUp_container}>
-      <View style={{ flex: 1 }}>
-        <Image
-          resizeMode="contain"
-          style={{ width: "100%", height: "70%" }}
-          source={require("../assets/images/logo-light.png")}
-        />
-      </View>
-
-      <View style={styles.signUp__Box}>
-        <Text style={styles.topTxt}>Créer votre compte</Text>
-
-        <TouchableOpacity
-          style={{ ...styles.connectBtn, marginBottom: h(1.6) }}
-          onPress={() => navigation.navigate("SignUp_Trader")}
-        >
-          <Entypo
-            name="shop"
-            size={totalSize(3.5)}
-            color="white"
-            style={{ marginRight: w(5) }}
+    <ImageBackground
+      source={require("../assets/images/BG.png")}
+      style={styles.image}
+    >
+      <View style={styles.signUp_container}>
+        <View style={{ flex: 1 }}>
+          <Image
+            resizeMode="contain"
+            style={{ width: "95%", height: "70%" }}
+            source={require("../assets/assets/LogoWhite.png")}
           />
-          <Text style={styles.btnText}>
-            Je suis un marchand
-          </Text>
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
-          style={styles.connectBtn}
-          onPress={() => navigation.navigate("SignUp_Client")}
-        >
-          <AntDesign
-            name="shoppingcart"
-            size={totalSize(3.5)}
-            color="white"
-            style={{ marginRight: w(5) }}
-          />
-          <Text style={styles.btnText}>
-            Je suis un client
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.signUp__Box}>
+          <Text style={styles.topTxt}>Créer votre compte</Text>
 
-       <TouchableOpacity onPress={()=>navigation.navigate('SignIn')}>
-         <Text
-            style={styles.bottomTxt}
+          <TouchableOpacity
+            style={{ ...styles.connectBtn, marginBottom: h(1.6) }}
+            onPress={() => navigation.navigate("SignUp_Trader")}
           >
-             J'ai déja un compte
-      </Text>
-       </TouchableOpacity>
-   
-    </View>
+            <Entypo
+              name="shop"
+              size={totalSize(3.5)}
+              color="white"
+              style={{ marginRight: w(5) }}
+            />
+            <Text style={styles.btnText}>Je suis un marchand</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.connectBtn}
+            onPress={() => navigation.navigate("SignUp_Client")}
+          >
+            <AntDesign
+              name="shoppingcart"
+              size={totalSize(3.5)}
+              color="white"
+              style={{ marginRight: w(5) }}
+            />
+            <Text style={styles.btnText}>Je suis un client</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+          <Text style={styles.bottomTxt}>J'ai déja un compte</Text>
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 };
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     padding: totalSize(1.5),
     backgroundColor: "white",
     marginBottom: h(4),
-    borderRadius:5
+    borderRadius: 5,
   },
   connectBtn: {
     flexDirection: "row",
@@ -100,11 +101,11 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center"
+    justifyContent: "center",
   },
-  btnText:{
+  btnText: {
     color: "white",
     textAlign: "justify",
-    fontSize: RFValue(16.5)
-  }
+    fontSize: RFValue(16.5),
+  },
 });

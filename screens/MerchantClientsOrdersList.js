@@ -15,14 +15,8 @@ const ListeDesCommandes = ({ navigation }) => {
   const [isMinus, setIsMinus] = useState(true);
   const [isMinus1, setIsMinus1] = useState(true);
 
-  const navCommandePrete = () => navigation.navigate("CommandePrete");
-  const navCommandePayee = () => navigation.navigate("CommandePayee");
-  const navCommandePayeeAvis = () => navigation.navigate("CommandePayeeAvis");
-  const navCommandeTerminee = () => navigation.navigate("CommandeTerminee");
   const navMerchantClientOrder = () =>
     navigation.navigate("MerchantClientOrder");
-  const navOffrePrixCommandeAccepted = () =>
-    navigation.navigate("OffrePrixCommandeAccepted");
   /*
         <Image
         style={styles.image}
@@ -77,14 +71,14 @@ const ListeDesCommandes = ({ navigation }) => {
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-              navigation={navOffrePrixCommandeAccepted}
+              navigation={navMerchantClientOrder}
             />
             <Item2
               title="Commande prête"
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-              navigation={navCommandePrete}
+              navigation={navMerchantClientOrder}
             />
           </View>
         )}
@@ -115,7 +109,7 @@ const ListeDesCommandes = ({ navigation }) => {
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/icons/client-fond-btn-historique.png")}
-              navigation={navCommandeTerminee}
+              navigation={navMerchantClientOrder}
               grayed="true"
             />
             <Item2
@@ -123,7 +117,7 @@ const ListeDesCommandes = ({ navigation }) => {
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/icons/client-fond-btn-historique.png")}
-              navigation={navCommandePayee}
+              navigation={navMerchantClientOrder}
               grayed="true"
             />
             <Item2
@@ -131,7 +125,7 @@ const ListeDesCommandes = ({ navigation }) => {
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/icons/client-fond-btn-historique.png")}
-              navigation={navCommandePayeeAvis}
+              navigation={navMerchantClientOrder}
               grayed="true"
             />
 
