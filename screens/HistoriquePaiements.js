@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ScrollView, Image, StyleSheet } from "react-native";
-import Item3 from "../components/componentsClient/Item3";
+import Item4 from "../components/componentsClient/Item4";
 import Item2 from "../components/componentsClient/Item2";
 
 import Myappbar from "../components/componentsClient/Myappbar";
@@ -20,27 +20,26 @@ function HistoriquePaiements({ navigation }) {
           source={require("../assets/assets/icons/fond-page-historique.png")}
         />
         <View style={{ margin: "10%" }}>
-          <Item2
+          <Item4
             title="Payement automatique de crédit"
             small="Pour le compte de Sam lrving le 12/12/2020 à 10h30"
             smaller="Appuyez pour voir les détails."
             source={require("../assets/assets/icons/client-fond-btn-historique.png")}
             navigation={navToDetailsTransaction}
-            grayed
           />
-          <Item3
+          <Item4
             title="Payement mannuel de crédit"
             small="Pour le compte de Sam lrving le 12/12/2020 à 10h30"
             smaller="Appuyez pour voir les détails."
             source={require("../assets/assets/icons//client-fond-btn-historique.png")}
           />
-          <Item3
+          <Item4
             title="Solde insuffisant"
             small="Le 12/12/2020 à 10h30"
             smaller="Appuyez pour voir les détails."
             source={require("../assets/assets/icons//client-fond-btn-historique.png")}
           />
-          <Item3
+          <Item4
             title="Payement au comptant"
             small="Pour le compte de Sam lrving le 12/12/2020 à 10h30"
             smaller="Appuyez pour voir les détails."

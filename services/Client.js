@@ -2,7 +2,7 @@ import { create } from "apisauce";
 import authStorage from "../utils/Storage";
 
 const apiClient = create({
-  baseURL: "http://192.168.1.6:3000",
+  baseURL: "http://161.156.160.146:3000",
 });
 //ssh root@161.156.160.146 -i nftswappersshprivate.key
 
