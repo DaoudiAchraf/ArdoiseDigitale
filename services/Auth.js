@@ -7,9 +7,6 @@ const sendVerficationCode = (id, code) =>
 const merchantRegister = (user) => client.post("/api/merchant/register", user);
 const clientRegister = (user) => client.post("/api/client/register", user);
 
-const getProfile = () => client.get("/api/merchant/profile");
-
-const getProfiles = () => client.get("/api/merchant/profiles");
 
 const signIn = (user) => client.post("/api/login", user);
 

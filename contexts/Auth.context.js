@@ -77,11 +77,13 @@ const AuthContext = ({ children }) => {
       setUser(jwtDecode(token));
     }
   };
-  // Logout
+  
   const logout = () => {
     storage.removeToken();
     setUser();
   };
+  
+  // Logout
   //storage.removeToken();
 
   return (

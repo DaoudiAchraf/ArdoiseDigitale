@@ -18,6 +18,7 @@ const AboutTrader = ({toNextStep}) => {
   const nextStep = ()=>{
     //console.log(traderPhoto);
     addInfos({traderPhoto,storePhoto});
+ 
     toNextStep();
     //navigation.navigate('OpeningTime');
   }

@@ -15,6 +15,8 @@ import { h } from "../../utils/Size";
 import { Formik } from 'formik';
 import ProductAttributes from "./ProductAttributes";
 import ButtonNext from '../ButtonNext';
+import ImagePicker from '../ImagePicker';
+
 
 const ProductForm = ({action,cancel,values}) => {
 
@@ -24,13 +26,16 @@ const ProductForm = ({action,cancel,values}) => {
     unit: '',
     description: '',
     attributes: '',
-    mesure: ''
+    mesure: '',
+    photo: ''
   }
 
   if(values)
     initialValues = values;
 
   const [attributes,setAttributes] = useState([]);
+
+  const [photo,setPhoto] = useState(null);
 
   const onCancel = ()=>{
     cancel();
@@ -39,6 +44,7 @@ const ProductForm = ({action,cancel,values}) => {
   const onSubmit = (values) => {
     const product = {
       ...values,
+      photo,
       attributes
     }
 
@@ -120,7 +126,15 @@ const ProductForm = ({action,cancel,values}) => {
             handleChange={handleChange('description')}
           />
         </View>
+
+        <ImagePicker
+            display
+            image={photo}
+            handleChange={setPhoto}    
+            title="image de produit"
+        />
        
+        <Text style={styles.inputLabel} >Attributes</Text>
        <ProductAttributes
          attributes={attributes}
          setAttributes={setAttributes}

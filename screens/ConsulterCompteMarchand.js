@@ -48,11 +48,11 @@ function ConsulterCompteMarchand({ navigation }) {
 
   const { currentMerchant } = useContext(Context);
 
-  useEffect(() => {
-    return () => {
-      effect
-    };
-  }, [])
+  // useEffect(() => {
+  //   return () => {
+  //     effect
+  //   };
+  // }, [])
 
   return (
     <View style={{ flex: 1 }}>
@@ -125,7 +125,7 @@ function ConsulterCompteMarchand({ navigation }) {
             <View style={{ width: "60%", alignSelf: "center" }}>
               <GreenBtn
                 title=" Passer une commande"
-                onPress={() => navigation.navigate("Notification")}
+                action={() => {console.log("ca marche");navigation.navigate("MerchantCatalog")}}
               />
             </View>
           </View>

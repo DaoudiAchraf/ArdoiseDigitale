@@ -9,6 +9,7 @@ import { Context } from "../contexts/Auth.context";
 import { role } from "../constants/Strings";
 import TraderProfile from "../screens/TraderProfile";
 import Navbar from "../components/componentsClient/navbar";
+import Catalog from "../screens/Catalog"
 
 const Stack = createStackNavigator();
 ///////////////////-----------------------------------
@@ -43,6 +44,8 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      {/* <Catalog/> */}
+
       {user ? (
         user.role === role.PENDING_MERCHANT ? (
           <ProfileBuilder />

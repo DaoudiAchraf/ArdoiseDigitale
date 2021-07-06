@@ -32,6 +32,8 @@ import Clientaccount from "../../screens/Client-account";
 import ListeDesCommandes from "../../screens/ListeDesCommandes";
 
 import { Context } from "../../contexts/Auth.context";
+import Catalog from "../../screens/Catalog";
+import ProductDetails from "../../screens/Client_Catalog/ProductDetails";
 
 const Stack = createStackNavigator();
 
@@ -85,6 +87,10 @@ const StackNavigator = ({ initScr }) => {
       <Stack.Screen name="ListeDesCommandes" component={ListeDesCommandes} />
 
       <Stack.Screen name="OffrePrixCommande" component={OffrePrixCommande} />
+
+      <Stack.Screen name="MerchantCatalog" component={Catalog} />
+      <Stack.Screen name="ProductDetails" component={ProductDetails} />
+      
 
       <Stack.Screen
         name="ConsulterCompteMarchand"
