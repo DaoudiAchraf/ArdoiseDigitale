@@ -12,7 +12,7 @@ import TraderProfile from "../screens/TraderProfile";
 import Navbar from "../components/componentsClient/navbar";
 
 import {GlobalProvider as OrderContext}  from '../contexts/ProductsCatalog.context';
-import LazyHOC from "../screens/LazyHoc";
+import LazyHOC from "../screens/LazyHOC";
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
 //const Stack = createStackNavigator();
