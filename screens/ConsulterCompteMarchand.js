@@ -29,7 +29,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { Context } from "../contexts/Auth.context";
 import { ProgressBar,ActivityIndicator , Colors } from 'react-native-paper';
 
-function ConsulterCompteMarchand({ navigation }) {
+function ConsulterCompteMarchand({ navigation,route }) {
   const [visible, setVisible] = React.useState(false);
 
   const showDialog = () => setVisible(true);
@@ -46,17 +46,12 @@ function ConsulterCompteMarchand({ navigation }) {
 
   const navToListemarchands = () => navigation.navigate("Listemarchands");
 
-  const { currentMerchant } = useContext(Context);
-
-  // useEffect(() => {
-  //   return () => {
-  //     effect
-  //   };
-  // }, [])
+  const { currentMerchant } = route.params;
+  
 
   return (
     <View style={{ flex: 1 }}>
-      <Provider>
+     <Provider>
         <ScrollView
           style={{
             flex: 1,
@@ -125,7 +120,7 @@ function ConsulterCompteMarchand({ navigation }) {
             <View style={{ width: "60%", alignSelf: "center" }}>
               <GreenBtn
                 title=" Passer une commande"
-                action={() => {console.log("ca marche");navigation.navigate("MerchantCatalog")}}
+                action={() => {navigation.navigate("MerchantCatalog",{currentMerchant})}}
               />
             </View>
           </View>

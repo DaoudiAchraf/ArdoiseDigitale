@@ -11,7 +11,7 @@ import {
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import COLORS from './consts/colors';
 import plants from './consts/plants';
-import { Entypo,AntDesign,Feather } from '@expo/vector-icons';
+import { Entypo,FontAwesome } from '@expo/vector-icons';
 import { color } from '../constants/Colors';
 import DropDown from '../components/DropDown';
 import { categories, subCategory } from '../constants/Arrays';
@@ -21,11 +21,14 @@ import ClientService from '../services/Clientt';
 import { setAlert } from '../components/Alert';
 import { Context as SoukiContext} from '../contexts/Auth.context';
 import { URL } from '../services/Client';
+import { Badge } from 'react-native-paper';
 
 const width = Dimensions.get('window').width / 2 - 30;
 
-const HomeScreen = ({navigation}) => {
-  
+const HomeScreen = ({navigation,route}) => {
+
+  console.log('render from catalog----------------------------');
+
   const getItemLayout = (data, index) => (
     { length: 50, offset: 50 * index, index }
   )
@@ -37,7 +40,9 @@ const HomeScreen = ({navigation}) => {
 
   const [products,setProducts] = useState([]);
 
-  const { currentMerchant } = useContext(SoukiContext);
+  //const { currentMerchant } = useContext(SoukiContext);
+
+  const { currentMerchant } = route.params;
 
   useEffect(() => {
 
@@ -55,7 +60,7 @@ const HomeScreen = ({navigation}) => {
     });
 
     
- 
+ //console.log(currentMerchant)
 
    getCatalog();
 
@@ -104,7 +109,9 @@ const HomeScreen = ({navigation}) => {
 
   const Card = ({product}) => {
     return (
+  
       <TouchableOpacity
+        style={{borderWidth:0,flex:1}}
         activeOpacity={0.8}
         onPress={() => navigation.navigate('ProductDetails', product)}>
         <View style={style.card}>
@@ -127,44 +134,37 @@ const HomeScreen = ({navigation}) => {
 
           <View
             style={{
-              borderWidth:1,
-              flex:1,
-          
+              borderBottomWidth:2.5,
+              borderColor: color.lightPrimary,
+              flex: 0.7,
+              paddingTop: '6%',
+              paddingBottom: '4%'
             }}>
             <Image
               source={{
-                uri: URL+"/images/1625571121448.jpg",
+                uri: `${URL}/images/${product.photo}`,
               }}
               style = {{resizeMode:'contain',height: '100%',width:'100%'}}
             />
           </View>
 
-          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10}}>
-            {product.productName}
-          </Text>
           <View
             style={{
-              flexDirection: 'row',
+              flexDirection: 'column',
               justifyContent: 'space-between',
-              marginTop: 5,
+              flex:0.3,
+              paddingTop: '2%',
+              paddingBottom: '2%',
             }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold'}}>
+
+            <Text style={{fontSize: RFValue(15), textAlign: 'center'}}>
+              {product.productName}
+            </Text>
+   
+            <Text style={{fontSize:RFValue(16), fontWeight: 'bold', textAlign: 'center'}}>
               {product.price} DT
             </Text>
-            <View
-              style={{
-                height: 25,
-                width: 25,
-                backgroundColor: COLORS.green,
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{fontSize: 22, color: COLORS.white, fontWeight: 'bold'}}>
-                +
-              </Text>
-            </View>
+
           </View>
         </View>
       </TouchableOpacity>
@@ -172,15 +172,27 @@ const HomeScreen = ({navigation}) => {
   };
   return (
     <SafeAreaView
-      style={{flex: 1, paddingHorizontal: 20, backgroundColor: '#344E41'}}>
+      style={{flex: 1, paddingHorizontal: 20, backgroundColor: color.WHITE}}>
       <View style={style.header}>
-        <View>
-          <Text style={{fontSize: 25, fontWeight: 'bold' ,color: color.WHITE}}>Bienvenue Chez</Text>
-          <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold'}}>
-            abdallah store
+        <View style={{flex:1}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold' ,color: color.Primary}}>Bienvenue Chez</Text>
+          <Text style={{fontSize: 20, color: COLORS.green, fontWeight: 'bold'}}>
+            abdallah store 
           </Text>
         </View>
-        <Entypo name="shop" size={28} color="black" />
+
+        <TouchableOpacity 
+          onPress={()=>navigation.navigate("NouvelleCommande",{ merchantID: currentMerchant.user })}
+          style={{marginTop:'0%'}}>
+          <Badge style={{marginBottom:'-15%'}}>0</Badge>
+          <FontAwesome 
+            name="shopping-cart" 
+            size={totalSize(5)} 
+            style={{marginRight:'6%'}}
+            color={color.Primary} />
+        </TouchableOpacity>
+        
+        
       </View>
       <View style={{marginTop: 30, flexDirection: 'row'}}>
            
@@ -193,17 +205,19 @@ const HomeScreen = ({navigation}) => {
                />
            </View>
       
-        <View style={style.sortBtn}>
+        {/* <View style={style.sortBtn}>
         <Entypo name="shop" size={30} color="black" />
-        </View>
+        </View> */}
       </View>
       <CategoryList />
       <FlatList
         columnWrapperStyle={{justifyContent: 'space-between'}}
         showsVerticalScrollIndicator={false}
+        numColumns={2}
         contentContainerStyle={{
           marginTop: 10,
           paddingBottom: 50,
+          width: '100%'
         }}
         numColumns={2}
         data={products}
@@ -212,6 +226,7 @@ const HomeScreen = ({navigation}) => {
           return <Card product={item} />;
         }}
       />
+   
     </SafeAreaView>
   );
 };
@@ -224,24 +239,28 @@ const style = StyleSheet.create({
   },
   categoryText: {fontSize: RFValue(15), color: 'grey', fontWeight: 'bold'},
   categoryTextSelected: {
-    color: COLORS.green,
+    color: color.Secondary,
     paddingBottom: 5,
     borderBottomWidth: 2,
-    borderColor: COLORS.green,
+    borderColor: color.Secondary,
   },
   card: {
-    height: h(33),
+    width: width,
+    height: 150,
+
+    //borderWidth: 0.5,
+    //borderColor: color.Primary ,
     backgroundColor: COLORS.light,
-    width,
-    marginHorizontal: 2,
+
     borderRadius: 10,
     marginBottom: 20,
-    padding: totalSize(1.7),
+    //padding: totalSize(1.7),
   },
   header: {
-    marginTop: 30,
+    marginTop: '15%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center'
   },
   searchContainer: {
     height: 50,

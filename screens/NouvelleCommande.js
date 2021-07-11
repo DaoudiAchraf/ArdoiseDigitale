@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Divider from "react-native-divider";
 import { Provider } from "react-native-paper";
@@ -10,16 +10,32 @@ import CardClient from "../components/componentsClient/CardClient";
 import GreenBtn from "../components/componentsClient/GreenBtn";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import Item1 from "../components/componentsClient/Item1";
+import OrderItem from "../components/componentsClient/OrderItem";
+import { Context as SoukiContext } from '../contexts/Auth.context';
+import { GlobalContext as OrderContext} from '../contexts/ProductsCatalog.context';
 
-export default function ProfilMarchand({ navigation }) {
+export default function ProfilMarchand({ navigation,route}) {
   const [selectedItem, setSelectedItem] = useState(0);
   const navToListemarchands = () => navigation.navigate("Listemarchands");
 
+  //const {globalState} = useContext(SoukiContext);
+
+  const { products,editproduct,removeproduct } = useContext(OrderContext)
+
+  console.log("ddd",products);
+
+
+
+  const sendOrder = ()=>{
+    console.log('send order')
+  }
+
   return (
-    <Provider>
-      <ScrollView style={{ backgroundColor: "#324B3E" }}>
+    <View style={{ backgroundColor: "#324B3E" ,flex:1}}>
+      
         <MyAppbar title="Nouvelle commande" navigation={navigation} />
         <FondPageMarchand style={styles.svg} />
+        <ScrollView style={{ backgroundColor: "#324B3E" }}>
         <View style={styles.contentView}>
           <CardClient
             myCard
@@ -32,42 +48,53 @@ export default function ProfilMarchand({ navigation }) {
             source={require("../assets/assets/targetexpress.jpg")}
             commandecree="12/12/2020 à 10h30"
           />
-          <GreenBtn grayed myGreenBtn title="Commande passée" />
+         
 
           <View
             style={{
               width: "100%",
               alignSelf: "center",
+              marginTop : '3%'
             }}
           >
             <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(17) }}>Liste des produits</Text>
+              <Text style={{ fontSize: RFValue(15) }}>Liste des produits</Text>
             </Divider>
-            <Item1
-              title="Brit Care Hair & Skin"
-              description="Animaux » chiens"
-              img={require("../assets/assets/icons/client-fond-btn-commande.png")}
-              myItem
-              badged
+            <GreenBtn 
+              myGreenBtn 
+              title="Ajouter des produits"
+              action={()=>console.log(products)}
             />
-            <Item1
-              title="Brit Chicken & Salamon"
-              description="Animaux » chiens"
-              img={require("../assets/assets/icons/client-fond-btn-commande.png")}
-              myItem
-              badged
-            />
+
+            {
+              products.filter(item=> item.owner === route.params.merchantID).map((item)=>
+                <OrderItem
+                  key={item._id}
+                  product={item}
+                  editProduct={editproduct}
+                  removeProduct={removeproduct}
+                />
+              )
+            }
+
+        
             <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(17) }}>
+              <Text style={{ fontSize: RFValue(15) }}>
                 Options de la commande
               </Text>
             </Divider>
             <Item1 title="Mode de payement" description="Crédit total" myItem />
             <Item1 title="Livraison" description="Oui" myItem />
+            <GreenBtn 
+              myGreenBtn 
+              title="Envoyer la commande"
+              style={{marginTop:10}}
+              action={()=>sendOrder()}
+            />
           </View>
         </View>
       </ScrollView>
-    </Provider>
+    </View>
   );
 }
 
@@ -75,7 +102,7 @@ const styles = StyleSheet.create({
   contentView: {
     alignSelf: "center",
     width: w(80),
-    marginTop: h(7),
+    marginTop: h(7),paddingBottom: 50
   },
   svg: {
     position: "absolute",

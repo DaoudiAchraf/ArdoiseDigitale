@@ -6,6 +6,8 @@ import {
   ScrollView,
   Text,
   ImageBackground,
+  TouchableOpacity,
+  Button,
 } from "react-native";
 import Myappbar from "../components/componentsClient/Myappbar";
 import Item2 from "../components/componentsClient/Item2";
@@ -16,6 +18,7 @@ import Separator from "../components/componentsClient/Separator";
 import { RFValue } from "react-native-responsive-fontsize";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import { Context } from "../contexts/Auth.context";
+import PagerView from 'react-native-pager-view';
 
 function Listemarchands({ navigation }) {
   const [isMinus, setIsMinus] = useState(true);
@@ -24,17 +27,16 @@ function Listemarchands({ navigation }) {
 
   const navToClientaccount = () => navigation.navigate("Clientaccount");
 
-  const  { ardoiseList, setCurrentMerchant } = useContext(Context);
+  const  { ardoiseList, setCurrentMerchant,currentMerchant } = useContext(Context);
 
   const navToMerchant = (item)=>{
-    setCurrentMerchant(item.merchant);
-    navigation.navigate("ConsulterCompteMarchand");
+    //setCurrentMerchant(item.merchant);
+    navigation.navigate('ConsulterCompteMarchand',{currentMerchant:item.merchant});
+    //navigation.navigate('Notification');
   }
 
-  useEffect(() => {
-    console.log("ard--------------");
-      console.log("ard--------------",ardoiseList[0]);
-  }, [])
+ // const viewPager = React.createRef();
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
@@ -79,6 +81,9 @@ function Listemarchands({ navigation }) {
           <View>
 
             {ardoiseList.map((item)=>
+            //   <TouchableOpacity key={item._id} onPress={()=>navToMerchant(item)} >
+            //   <Text>SSSS</Text>
+            // </TouchableOpacity>
               <Item2
                 key={item._id}
                 title={item.merchant.firstName+' '+item.merchant.lastName}
@@ -87,6 +92,7 @@ function Listemarchands({ navigation }) {
                 source={require("../assets/assets/user.png")}
                 navigation={()=>navToMerchant(item)}
               />
+            
             )}
 
      
@@ -94,8 +100,8 @@ function Listemarchands({ navigation }) {
           </View>
         )}
       </ScrollView>
-    </View>
-  );
+    </View>)
+
 }
 
 const styles = StyleSheet.create({

@@ -8,14 +8,24 @@ import { role } from "../constants/Strings";
 
 export const Context = createContext();
 
+const globalState ={
+  order:[]
+}
+
 const AuthContext = ({ children }) => {
+
+  //let order= [];
+  console.log("render from context")
+
+
 
   const [merchantsList,setMerchantsList] = useState([]);
   const [currentMerchant , setCurrentMerchant] = useState(null);
   const [ardoiseList,setArdoiseList ] = useState([]);
 
-
   const [user, setUser] = useState();
+  
+  
 
   const restoreToken = async () => {
     const token = await storage.getToken();
@@ -25,35 +35,55 @@ const AuthContext = ({ children }) => {
     if (jwtDecode(token).exp < Date.now() / 1000)
       storage.removeToken();
     else 
-      setUser(jwtDecode(token));
+      { 
+        setUser(jwtDecode(token));
+        return jwtDecode(token);
+      }
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    const getArdoise = async()=>{
-      const response = await clientService.getArdoise();
-      if(response.ok)
-      {
-        console.log('*****************************************************d5alt')
-        response.data && setArdoiseList(response.data);
-        //console.log(response.data);
-      }
-      else 
-       console.log(response.problem)
+  //   const getArdoise = async()=>{
+  //     const response = await clientService.getArdoise();
+  //     if(response.ok)
+  //     {
+  //       console.log('*****************************************************arodoise')
+  //       response.data && setArdoiseList(response.data);
+  //       //console.log(response.data);
+  //     }
+  //     else 
+  //      console.log(response.problem)
         
-     }  
+  //    }  
      
-     user && user.role && getArdoise();
+  //    user && user.role && getArdoise();
 
-     //(user && user.role === role.CLIENT) && getArdoise();
-  }, [user])
+  //    //(user && user.role === role.CLIENT) && getArdoise();
+  // }, [user])
 
   const [isReady, setIsReady] = useState(false);
+
+  const onAppStarting = async()=>{
+
+      const getArdoise = async()=>{
+        const response = await clientService.getArdoise();
+        if(response.ok)
+          response.data && setArdoiseList(response.data);
+          //console.log(response.data);
+        else 
+         console.log(response.problem)
+          
+       }  
+       
+      const user = await restoreToken();
+      (user && user.role === role.CLIENT) && await getArdoise();
+
+  }
 
   if (!isReady)
     return (
       <AppLoading
-        startAsync={restoreToken}
+        startAsync={onAppStarting}
         onError={() => console.warn}
         onFinish={() => setIsReady(true)}
       />
@@ -97,7 +127,8 @@ const AuthContext = ({ children }) => {
        currentMerchant,
        setCurrentMerchant,
        ardoiseList,
-       setArdoiseList
+       setArdoiseList,
+       globalState
        }}>
       {children}
     </Context.Provider>

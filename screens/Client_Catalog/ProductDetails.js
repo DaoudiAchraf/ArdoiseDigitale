@@ -1,30 +1,54 @@
-import React,{useState} from 'react';
-import {View, SafeAreaView, Image, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React,{useContext, useState} from 'react';
+import {View, SafeAreaView, Image, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import COLORS from '../../screens/consts/colors';
 import { color } from '../../constants/Colors';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { AntDesign } from '@expo/vector-icons';
 import { URL } from '../../services/Client';
+import { totalSize } from '../../utils/Size';
+import { Context as SoukiContext } from '../../contexts/Auth.context';
+import { GlobalContext as OrderContext } from '../../contexts/ProductsCatalog.context';
+
 
 const DetailsScreen = ({navigation, route}) => {
   const plant = route.params;
 
-  console.log("product ",route.params);
+  const {_id,productName,photo,price,unit,description,attributes } = route.params;
+  
+  const { products,addproduct,editproduct,removeproduct } = useContext(OrderContext);
 
-  const { productName,photo,price,unit,description,attributes } = route.params;
+  const product = products.find((item => item._id === _id));
 
-  const [quantity,setQuantity] = useState(1);
+  //console.log("render from details" , order)
+
+  const makeOrder = (operator)=>{
+    if(!product)
+      addproduct({...route.params,quantity:1});
+    else if(product.quantity+operator > 0)
+      editproduct({...product,quantity: product.quantity+operator});
+    else
+      removeproduct(_id);
+  }
+
+
 
   return (
+
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: COLORS.white,
+        backgroundColor: color.Primary,
+        paddingBottom: "5%",
       }}>
       <View style={style.header}>
-        {/* <Icon name="arrow-back" size={28}  /> */}
-        <Entypo name="shop" size={28} color="black" onPress={() => navigation.goBack()} />
-        <Entypo name="shop" size={28} color="black" />
+
+        <AntDesign 
+          name="arrowleft" 
+          size={totalSize(4)}
+          color="black"
+          onPress={() => navigation.goBack()} />
+    
       </View>
       <View style={style.imageContainer}>
         <Image source={{uri:URL+'/images/'+photo}} style={style.imageStyle} />
@@ -58,67 +82,101 @@ const DetailsScreen = ({navigation, route}) => {
       
 
         <View style={{paddingHorizontal: 20, marginTop: 10}}>
-          <Text style={{fontSize: RFValue(15), fontWeight: 'bold'}}>
+          <Text style={{fontSize: RFValue(15),color: 'grey'}}>
             {description}
+            dfsfsfsdsdf dsdsfdsfdfsd dfdfdffsf sdfsdfdsf sdfsdsfds
+            sfddfd sdfdsfs dssddsfsfsdf dsfdssdfsdf sdsdfsdf
+            dfsfsfsdsdf dsdsfdsfdfsd dfdfdffsf sdfsdfdsf sdfsdsfds
+
+            
+  
           </Text>
           <Text
             style={{
               color: 'grey',
+              fontWeight: 'bold',
               fontSize: 16,
               lineHeight: 22,
               marginTop: 10,
             }}>
-            {plant.about}
+            {/* Quantité : */}
           </Text>
           <View
             style={{
-              marginTop: 20,
+              marginTop: '1%',
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              justifyContent: 'flex-end',
             }}>
+
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
+                justifyContent: 'center',
+                flex:1
               }}>
-              <TouchableOpacity 
-                style={style.borderBtn}
-                onPress={()=> quantity>1 && setQuantity(quantity-1)}
-              >
-                <Text style={style.borderBtnText}>-</Text>
-              </TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 20,
-                  marginHorizontal: 10,
-                  fontWeight: 'bold',
-                }}>
-                {quantity}
-              </Text>
-              <TouchableOpacity style={style.borderBtn}
-                onPress={()=>setQuantity(quantity+1)}
-              >
-                <Text style={style.borderBtnText}>+</Text>
-              </TouchableOpacity>
+
+            {product ?
+              <View style={{flexDirection: 'row',alignItems:'center'}}>
+
+                <TouchableOpacity 
+                  style={style.borderBtn}
+                  onPress={()=>makeOrder(-1)}
+                >
+                  <Text style={style.operatorStyle}>-</Text>
+                </TouchableOpacity>
+
+                <Text
+                  style={{
+                    fontSize: 20,
+                    marginHorizontal: 10,
+                    fontWeight: 'bold',
+                  }}>
+                  x {product.quantity}
+                </Text>
+
+                <TouchableOpacity 
+                  style={style.borderBtn}
+                  onPress={()=>makeOrder(1)}
+                >
+                  <Text style={style.operatorStyle}>+</Text>
+                </TouchableOpacity>
+
+         
+              </View>
+              :<TouchableHighlight
+                 onPress= {makeOrder}
+                 underlayColor='none'
+               >
+  
+                  <View style={style.buyBtn}>
+                    <Text
+                    style={{color: COLORS.white, fontSize: RFValue(15), fontWeight: 'bold'}}
+                    >
+                    Commander
+                  </Text>
+                  </View>
+               
+              </TouchableHighlight>
+            }
+ 
+        
+
+
             </View>
 
-            <View style={style.buyBtn}>
-              <Text
-                style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>
-                Buy
-              </Text>
-            </View>
           </View>
         </View>
       </View>
     </SafeAreaView>
+    
   );
 };
 
 const style = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
-    marginTop: 20,
+    marginTop: '10%',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -135,13 +193,15 @@ const style = StyleSheet.create({
     borderRadius: 20
   },
   detailsContainer: {
-    flex: 1,
+
     backgroundColor: COLORS.light,
     marginHorizontal: '5%',
-    marginBottom: "3%",
+    marginBottom: "15%",
     borderRadius: 20,
     marginTop: "3%",
     paddingTop: "5%",
+    paddingBottom: "5%"
+  
 
   },
   line: {
@@ -152,22 +212,23 @@ const style = StyleSheet.create({
     marginRight: 3,
   },
   borderBtn: {
-    borderColor: 'grey',
-    borderWidth: 1,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 60,
-    height: 40,
-  },
-  borderBtnText: {fontWeight: 'bold', fontSize: 28},
-  buyBtn: {
-    width: 130,
-    height: 50,
+    width: totalSize(5),
+    height: totalSize(5),
+    borderRadius: totalSize(10),
     backgroundColor: color.Primary,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 30,
+    
+  },
+  borderBtnText: {fontWeight: 'bold', fontSize: 28},
+  buyBtn: {
+    width: totalSize(20),
+    height: totalSize(5),
+    backgroundColor: color.Primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: totalSize(3),
+
   },
   priceTag: {
     backgroundColor: color.Secondary,
@@ -177,6 +238,11 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderBottomLeftRadius: 25,
   },
+  operatorStyle:{
+    fontWeight: 'bold',
+    color: color.WHITE,
+    fontSize: RFValue(18)
+  }
 });
 
 export default DetailsScreen;

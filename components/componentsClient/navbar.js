@@ -35,7 +35,11 @@ import { Context } from "../../contexts/Auth.context";
 import Catalog from "../../screens/Catalog";
 import ProductDetails from "../../screens/Client_Catalog/ProductDetails";
 
-const Stack = createStackNavigator();
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+
+//const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const StackNavigatorM = ({ initScr }) => {
   return (
@@ -69,11 +73,26 @@ const StackNavigatorM = ({ initScr }) => {
     </Stack.Navigator>
   );
 };
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  }}
 const StackNavigator = ({ initScr }) => {
+
   return (
+
     <Stack.Navigator
       initialRouteName={initScr}
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: false,
+      
+       }}
+  
     >
       <Stack.Screen name="NouvelleCommande" component={NouvelleCommande} />
       <Stack.Screen name="ProfilMarchand" component={ProfilMarchand} />
@@ -90,6 +109,8 @@ const StackNavigator = ({ initScr }) => {
 
       <Stack.Screen name="MerchantCatalog" component={Catalog} />
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
+ 
+  
       
 
       <Stack.Screen
@@ -168,6 +189,8 @@ function navbar({ merchant }) {
   const { logout } = React.useContext(Context);
 
   return (
+    //<StackNavigator/>
+    
     <Tab.Navigator initialRouteName="Account">
       <Tab.Screen
         name="Merchant"
@@ -234,6 +257,7 @@ function navbar({ merchant }) {
         }
       </Tab.Screen>
     </Tab.Navigator>
+   
   );
 }
 export default navbar;

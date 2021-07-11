@@ -4,7 +4,7 @@ export default (state, action) => {
       return {
         ...state,
         products: state.products.filter(product => {
-          return product.id !== action.payload;
+          return product._id !== action.payload;
         })
       }
     case 'ADD_product':
@@ -16,7 +16,7 @@ export default (state, action) => {
       const updateproduct = action.payload;
 
       const updateproducts = state.products.map(product => {
-        if (product.id === updateproduct.id) {
+        if (product._id === updateproduct._id) {
           return updateproduct;
         }
         return product;

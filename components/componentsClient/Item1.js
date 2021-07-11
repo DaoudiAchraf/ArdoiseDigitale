@@ -1,17 +1,18 @@
 import * as React from "react";
 import { List, Badge } from "react-native-paper";
-import { Image, View, StyleSheet } from "react-native";
+import { Image, View, StyleSheet, Text } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { h, w } from "../../utils/Size";
 
+
 const Item1 = (props) => (
-  <View>
+  <View >
     <List.Item
       style={[
         props.myItem
           ? [
               {
-                paddingRight: "0%",
+              
                 backgroundColor: "white",
                 width: w(82),
                 borderRadius: 3,
@@ -26,13 +27,13 @@ const Item1 = (props) => (
               borderRadius: 3,
               alignSelf: "center",
               marginBottom: "3%",
-            },
+            },66
       ]}
       titleStyle={[
         props.myItem
           ? {
               color: "#485c54",
-              fontSize: RFValue(17),
+              fontSize: RFValue(13.5),
               marginBottom: "1%",
               fontWeight: "bold",
             }
@@ -54,12 +55,14 @@ const Item1 = (props) => (
         <Image source={props.img} style={{ width: "15%", height: "100%" }} />
       )}
       onPress={() => props.navigation && props.navigation()}
+      
     />
     {props.badged && (
       <Badge size={25} style={styles.badge}>
         x 3
       </Badge>
     )}
+ 
   </View>
 );
 

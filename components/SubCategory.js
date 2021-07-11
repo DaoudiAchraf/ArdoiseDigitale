@@ -27,7 +27,7 @@ export default function SubCategory({name,categ,subCateg}) {
 
       addproduct({
         ...product,
-        id: uuidv4(),
+        _id: uuidv4(),
         category: categ,
         subCategory: subCateg,
       });
@@ -74,7 +74,7 @@ export default function SubCategory({name,categ,subCateg}) {
         {itemExpanded && 
          products.filter(product => product.subCategory === subCateg).map((item,index) =>
             <ProductCard 
-               key={item.id}
+               key={item._id}
                product={item}
             />     
         )} 
