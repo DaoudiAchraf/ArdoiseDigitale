@@ -30,8 +30,10 @@ function Listemarchands({ navigation }) {
   const  { ardoiseList, setCurrentMerchant,currentMerchant } = useContext(Context);
 
   const navToMerchant = (item)=>{
-    //setCurrentMerchant(item.merchant);
-    navigation.navigate('ConsulterCompteMarchand',{currentMerchant:item.merchant});
+
+      console.log(item);
+      navigation.navigate('ConsulterCompteMarchand',{ardoise:item});
+
     //navigation.navigate('Notification');
   }
 
@@ -51,6 +53,8 @@ function Listemarchands({ navigation }) {
             navigation={navToMapScreen}
           />
         </View>
+
+        
 
         <View
           style={{

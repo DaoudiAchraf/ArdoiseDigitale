@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Divider from "react-native-divider";
-import { Provider } from "react-native-paper";
 
 import { RFValue } from "react-native-responsive-fontsize";
 import MyAppbar from "../components/componentsClient/Myappbar";
@@ -11,8 +10,10 @@ import GreenBtn from "../components/componentsClient/GreenBtn";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import Item1 from "../components/componentsClient/Item1";
 import OrderItem from "../components/componentsClient/OrderItem";
-import { Context as SoukiContext } from '../contexts/Auth.context';
+import clientService from '../services/Clientt';
 import { GlobalContext as OrderContext} from '../contexts/ProductsCatalog.context';
+import { color } from "../constants/Colors";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 export default function ProfilMarchand({ navigation,route}) {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -22,13 +23,45 @@ export default function ProfilMarchand({ navigation,route}) {
 
   const { products,editproduct,removeproduct } = useContext(OrderContext)
 
-  console.log("ddd",products);
+  const { currentMerchant,ardoiseId } = route.params;
 
+ 
 
+  const sendOrder = async()=>{
 
-  const sendOrder = ()=>{
+    //navigation.pop();
+    //navigation.pop();
+    
+    navigation.replace('Notification');
+
     console.log('send order')
+
+    // const result = await clientService.sendOrder({products,ardoise: ardoiseId});
+    // if(result.ok)
+    //   console.log(result.data);
+ 
+    //   console.log(result)
+   // console.log(products);
   }
+
+  let total=0;
+
+  const myOrder = products.filter(item=> {
+
+    if(item.owner === currentMerchant.user)
+    {
+      total+=+item.price*item.quantity;
+      return true;
+    }
+  });
+   
+    
+
+  // useEffect(()=>{
+  //    console.log("mosaique, myOrder.length ",myOrder)
+  // }
+   
+  //   ,[myOrder.length])
 
   return (
     <View style={{ backgroundColor: "#324B3E" ,flex:1}}>
@@ -63,11 +96,18 @@ export default function ProfilMarchand({ navigation,route}) {
             <GreenBtn 
               myGreenBtn 
               title="Ajouter des produits"
-              action={()=>console.log(products)}
+              action={()=>navigation.pop()}
             />
 
+          {myOrder.length === 0 &&
+            <View style={{alignItems: 'center'}}>
+              <MaterialCommunityIcons name="cart-remove" size={100} color={color.INFO_TEXT} />
+              <Text style={styles.emptycart}>Votre panier de commmande est vide </Text>
+            </View>
+          }   
+            
             {
-              products.filter(item=> item.owner === route.params.merchantID).map((item)=>
+             myOrder.map((item)=>
                 <OrderItem
                   key={item._id}
                   product={item}
@@ -77,20 +117,34 @@ export default function ProfilMarchand({ navigation,route}) {
               )
             }
 
-        
-            <Divider borderColor="#fff" color="#fff" orientation="center">
+              <View style={styles.divider}/>
+            {/* <Divider borderColor="#fff" color="#fff" orientation="center">
               <Text style={{ fontSize: RFValue(15) }}>
                 Options de la commande
               </Text>
-            </Divider>
-            <Item1 title="Mode de payement" description="Crédit total" myItem />
-            <Item1 title="Livraison" description="Oui" myItem />
-            <GreenBtn 
+            </Divider> */}
+            {/* <Item1 title="Mode de payement" description="Crédit total" myItem />
+            <Item1 title="Livraison" description="Oui" myItem /> */}
+            {myOrder.length !== 0 &&
+            <View style={styles.orderSettings}>
+              <View style={styles.orderPrice}>
+                <Text style={{...styles.totalpriceTxt,fontSize:RFValue(19)}}>
+                  Totale   :
+                </Text>
+                <Text style={styles.totalpriceTxt}>{total} DT</Text>
+              </View>
+              <GreenBtn 
               myGreenBtn 
               title="Envoyer la commande"
-              style={{marginTop:10}}
+              style={{marginTop:'5%'}}
               action={()=>sendOrder()}
+              grayed={myOrder.length === 0}
+
             />
+            </View>
+            }
+
+      
           </View>
         </View>
       </ScrollView>
@@ -108,4 +162,32 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "flex-end",
   },
+  orderPrice:{
+   
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',opacity:0.7
+
+  },
+  orderSettings:{
+    backgroundColor: color.WHITE,
+    padding: '5%',
+    paddingBottom: '1%'
+  },
+  totalpriceTxt:{
+    fontSize: RFValue(17),
+    fontWeight: 'bold',
+    color: color.Primary
+  },
+  emptycart:{
+    color: color.INFO_TEXT,
+    fontSize: RFValue(15)
+  },
+  divider:{
+    borderWidth:0.5,
+    width:'100%',
+    borderColor:color.WHITE,
+    marginTop: '5%',
+    marginBottom: '5%',
+  }
 });

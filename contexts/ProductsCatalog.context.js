@@ -4,7 +4,7 @@ import AppReducer from './reducers/catalogReducer';
 
 // Initial State
 const initialState = {
-  products: []
+  products: [],
 }
 
 // Create Context

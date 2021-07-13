@@ -17,11 +17,12 @@ const AuthContext = ({ children }) => {
   //let order= [];
   console.log("render from context")
 
-
+  
 
   const [merchantsList,setMerchantsList] = useState([]);
   const [currentMerchant , setCurrentMerchant] = useState(null);
   const [ardoiseList,setArdoiseList ] = useState([]);
+
 
   const [user, setUser] = useState();
   

@@ -42,7 +42,8 @@ const HomeScreen = ({navigation,route}) => {
 
   //const { currentMerchant } = useContext(SoukiContext);
 
-  const { currentMerchant } = route.params;
+  const { currentMerchant, ardoiseId } = route.params;
+
 
   useEffect(() => {
 
@@ -182,7 +183,7 @@ const HomeScreen = ({navigation,route}) => {
         </View>
 
         <TouchableOpacity 
-          onPress={()=>navigation.navigate("NouvelleCommande",{ merchantID: currentMerchant.user })}
+          onPress={()=>navigation.navigate("NouvelleCommande",{currentMerchant,ardoiseId})}
           style={{marginTop:'0%'}}>
           <Badge style={{marginBottom:'-15%'}}>0</Badge>
           <FontAwesome 

@@ -25,6 +25,7 @@ export default (state, action) => {
         ...state,
         products: updateproducts
       }
+    
 
     default:
       return state;

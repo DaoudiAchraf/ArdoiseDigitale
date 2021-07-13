@@ -13,6 +13,8 @@ const OrderItem = ({product,editProduct,removeProduct}) => {
   const {productName,quantity,category,subCategory,price,_id} = product;
 
   const editQuantity =(operator)=>{
+    if(operator<0 && product.quantity+operator === 0)
+    return;
     product.quantity=product.quantity+operator;
     editProduct(product);
   }
