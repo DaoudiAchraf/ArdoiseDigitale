@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Platform } from "react-native";
+import { Image, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Button } from "react-native-paper";
-import {h} from '../utils/Size';
+import {h, w} from '../utils/Size';
+import PropTypes from "prop-types";
 
-export default function ImagePickerExample({handleChange,image,error}) {
+const ImagePickerC = ({handleChange,image,error,title,display}) => {
  // const [image, setImage] = useState(null);
 
   const setImage =(img)=>{
@@ -48,6 +49,7 @@ export default function ImagePickerExample({handleChange,image,error}) {
   };
 
   return (
+    <>
     <Button
       icon=  {image ? "check" : "camera-plus" }
       mode="outlined"
@@ -60,9 +62,21 @@ export default function ImagePickerExample({handleChange,image,error}) {
         
       }}
     >
-      Photo de la CIN 
+
+      {image ? "changer photo" : title}
     </Button>
 
-    /* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */
+    {display && image && <Image source={{ uri: image.uri }} style={{alignSelf:'center' ,width: w(40), height: w(30),marginBottom:h(1) }} />} 
+    </>
   );
+}
+
+export default ImagePickerC;
+
+ImagePickerC.propTypes = {
+  title: PropTypes.string,
+}
+
+ImagePickerC.defaultProps = {
+  title: 'Photo de la CIN',
 }

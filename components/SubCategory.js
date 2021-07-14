@@ -42,6 +42,12 @@ export default function SubCategory({ name, categ, subCateg }) {
     products.splice(index, 1);
     setProducts([...products]);
   };
+      addproduct({
+        ...product,
+        _id: uuidv4(),
+        category: categ,
+        subCategory: subCateg,
+      });
 
   return (
     <>
@@ -55,6 +61,33 @@ export default function SubCategory({ name, categ, subCateg }) {
           <View style={styles.txtContainer}>
             <Text style={styles.txt2}>{name}</Text>
           </View>
+          <View style={styles.itemContainer}>
+              {categories[0].icon(styles.icon)}
+          
+            <View style={styles.txtContainer}>
+              <Text style={styles.txt2}>{name}</Text>
+            </View>
+            
+            <TouchableOpacity
+              style={styles.iconContainer}
+              onPress={()=>setPopupVisible(true)}
+            >
+                <MaterialIcons
+                  name="playlist-add"
+                  size={totalSize(3.5)}
+                  color="black"
+                />
+            </TouchableOpacity>
+          </View>
+    </View>
+      
+        {itemExpanded && 
+         products.filter(product => product.subCategory === subCateg).map((item,index) =>
+            <ProductCard 
+               key={item._id}
+               product={item}
+            />     
+        )} 
 
           <TouchableOpacity
             style={styles.iconContainer}

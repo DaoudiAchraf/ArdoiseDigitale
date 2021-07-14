@@ -5,6 +5,7 @@ import client from './Client';
 const traderCompleteProfile = (profile) =>client.patch('/api/merchant/profile',profile);
 
 
+
 export default
 {
     //getProfile,

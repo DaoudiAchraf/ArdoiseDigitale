@@ -25,20 +25,39 @@ const  ProfileContext  = (props) => {
       currentState = {
         ...currentState,
         ...infos};
-        console.log('curr',currentState);
+        //console.log('curr',currentState);
     }
 
   const submitProfile= async()=>{
+    const data = new FormData();
+
+    const keys = Object.keys(currentState);
+    keys.forEach((key) => {
+
+      if(key == 'calender' )
+         data.append('calender',JSON.stringify(currentState[key])); 
+      else if(key == 'products')
+        {
+          for (const item of currentState[key]) {
+            item.photo && data.append("productsIMG",{...item.photo,name:item._id} );
+         }
+
+         data.append(key,JSON.stringify(currentState[key]));
+        }
+      else
+      if(key!="categories" && key!= "catalog" && key!= "products" && key!= "calender" )
+        data.append(key, currentState[key]);
+    }) 
 
 
-    const response = await traderService.traderCompleteProfile(currentState);
+    const response = await traderService.traderCompleteProfile(data);
+    console.log(response);
     if(response.ok)
     {
       const { token } = response.data.refreshToken;
       refreshToken(token);
     }
-  
-     
+ 
       
    }
   

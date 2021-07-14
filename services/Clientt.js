@@ -11,10 +11,20 @@ const getArdoiseByMerchant = (merchant) => client.get(`/api/ardoise/${merchant}`
 
 const getArdoise = () => client.get('/api/ardoise');
 
+const getMerchantCatalog = (merchant,category,subCategory) =>
+client.get(`/api/products/${merchant}/${category}/${subCategory}`);
+
+const getOrders = () => client.get(`/api/orders/${ardoiseId}`);
+
+const sendOrder = (order) => client.post('/api/orders/',order);
+
 export default {
     getProfile,
     getProfiles,
     ardoiseDemande,
     getArdoiseByMerchant,
-    getArdoise
-};
+    getArdoise,
+    getMerchantCatalog,
+    getOrders,
+    sendOrder
+}

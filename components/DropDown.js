@@ -1,12 +1,13 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import PropTypes from "prop-types";
+import PropTypes, { object } from "prop-types";
 import { h } from "../utils/Size";
 
 const DropDown = ({ items, selectedItem, handleChange, mode }) => {
   return (
-    <View style={mode === 'boxed' ? styles.boxedContainer: styles.container}>
+    <View 
+      style={mode === 'boxed' ? styles.boxedContainer: mode === 'rounded'? styles.roundedContainer : styles.container}>
       <Picker
         style={mode === 'boxed' && {height: h(7)}}
         selectedValue={selectedItem}
@@ -14,11 +15,14 @@ const DropDown = ({ items, selectedItem, handleChange, mode }) => {
         
       >
         {items.map((item, index) => {
+          
           return <Picker.Item color="grey" 
                     itemStyle={{ color: "grey"}}
                     key={index}
-                    label={item}
-                    value={item}
+                    // label={item}
+                    // value={item}
+                    label={typeof(item) === String ? item : item.name}
+                    value={typeof(item) === String ? item : {index:index}}
                     
                  />;
         })}
@@ -51,7 +55,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#BDBDBD',
     backgroundColor: 'transparent',
-
+  },
+  roundedContainer:{
+    borderWidth: 1,
+    borderColor: '#FFFFFF' ,
+    borderRadius: 9,
+    backgroundColor: '#FFFFFF',
   }
 
 });

@@ -8,7 +8,14 @@ import { role } from "../constants/Strings";
 
 export const Context = createContext();
 
+const globalState = {
+  order: [],
+};
+
 const AuthContext = ({ children }) => {
+  //let order= [];
+  console.log("render from context");
+
   const [merchantsList, setMerchantsList] = useState([]);
   const [currentMerchant, setCurrentMerchant] = useState(null);
   const [ardoiseList, setArdoiseList] = useState([]);
@@ -21,30 +28,50 @@ const AuthContext = ({ children }) => {
     if (!token) return;
 
     if (jwtDecode(token).exp < Date.now() / 1000) storage.removeToken();
-    else setUser(jwtDecode(token));
+    else {
+      setUser(jwtDecode(token));
+      return jwtDecode(token);
+    }
   };
 
-  useEffect(() => {
-    const getArdoise = async () => {
-      const response = await clientService.getArdoise();
-      if (response.ok) {
-        console.log("logged");
-        response.data && setArdoiseList(response.data);
-        //console.log(response.data);
-      } else console.log(response.problem);
-    };
+  // useEffect(() => {
 
-    user && user.role && getArdoise();
+  //   const getArdoise = async()=>{
+  //     const response = await clientService.getArdoise();
+  //     if(response.ok)
+  //     {
+  //       console.log('*****************************************************arodoise')
+  //       response.data && setArdoiseList(response.data);
+  //       //console.log(response.data);
+  //     }
+  //     else
+  //      console.log(response.problem)
 
-    //(user && user.role === role.CLIENT) && getArdoise();
-  }, [user]);
+  //    }
+
+  //    user && user.role && getArdoise();
+
+  //    //(user && user.role === role.CLIENT) && getArdoise();
+  // }, [user])
 
   const [isReady, setIsReady] = useState(false);
+
+  const onAppStarting = async () => {
+    const getArdoise = async () => {
+      const response = await clientService.getArdoise();
+      if (response.ok) response.data && setArdoiseList(response.data);
+      //console.log(response.data);
+      else console.log(response.problem);
+    };
+
+    const user = await restoreToken();
+    user && user.role === role.CLIENT && (await getArdoise());
+  };
 
   if (!isReady)
     return (
       <AppLoading
-        startAsync={restoreToken}
+        startAsync={onAppStarting}
         onError={() => console.warn}
         onFinish={() => setIsReady(true)}
       />
@@ -68,12 +95,14 @@ const AuthContext = ({ children }) => {
       setUser(jwtDecode(token));
     }
   };
-  // Logout
+
   const logout = () => {
     storage.removeToken();
     setUser();
   };
-  storage.removeToken();
+
+  // Logout
+  //storage.removeToken();
 
   return (
     <Context.Provider
@@ -88,6 +117,7 @@ const AuthContext = ({ children }) => {
         setCurrentMerchant,
         ardoiseList,
         setArdoiseList,
+        globalState,
       }}
     >
       {children}

@@ -4,16 +4,20 @@ import SignUp_Trader from "../screens/SignUp_Trader";
 import SignUp_Client from "../screens/SignUp_Client";
 import SignUp from "../screens/SignUp";
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
+//import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from '@react-navigation/native';
 import { Context } from "../contexts/Auth.context";
 import { role } from "../constants/Strings";
 import TraderProfile from "../screens/TraderProfile";
 import Navbar from "../components/componentsClient/navbar";
 
-const Stack = createStackNavigator();
-///////////////////-----------------------------------
+import {GlobalProvider as OrderContext}  from '../contexts/ProductsCatalog.context';
+import LazyHOC from "../screens/LazyHOC";
+import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
-///////------------------------------------------
+//const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
+
 
 const AuthNavigator = () => (
   <Stack.Navigator
@@ -42,18 +46,29 @@ export default function App() {
   console.log("---- :::", user);
 
   return (
-    <NavigationContainer>
+    // <LazyHOC>
+
+
+    <NavigationContainer >
+      {/* <Catalog/> */}
+
       {user ? (
         user.role === role.PENDING_MERCHANT ? (
           <ProfileBuilder />
         ) : user.role === role.MERCHANT ? (
           <Navbar merchant />
         ) : (
-          <Navbar />
+
+          <OrderContext>
+             <Navbar />
+          </OrderContext>
+         
         )
       ) : (
         <AuthNavigator />
       )}
     </NavigationContainer>
+
+    // </LazyHOC>
   );
 }

@@ -34,7 +34,8 @@ export default function MapScreen({ navigation }) {
 
   const fetchMerchants = async () => {
     const result = await clientService.getProfiles();
-    if (result.ok) {
+    if(result.ok)
+    {
       //const tab = result.data.filter(item => item._id === "60d0b42971607e928ce4a7bf" || item._id === "60d0b4cc71607e928ce4a7c1" || item._id === "60d0b34e71607e928ce4a7bd");
       setMerchantsList(result.data);
     }

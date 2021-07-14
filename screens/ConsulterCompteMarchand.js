@@ -6,6 +6,8 @@ import {
   ScrollView,
   ImageBackground,
   Text,
+  TouchableOpacity,
+  FlatList,
 } from "react-native";
 import Myappbar from "../components/componentsClient/Myappbar";
 import CardClient from "../components/componentsClient/CardClient";
@@ -16,7 +18,7 @@ import {
   Portal,
   Paragraph,
 } from "react-native-paper";
-import { w } from "../utils/Size";
+import { totalSize, w } from "../utils/Size";
 import CalloutCard from "../components/Client_UI/CalloutCard";
 
 import GreenBtn from "../components/componentsClient/GreenBtn";
@@ -28,8 +30,14 @@ import PlusMinus2 from "../components/componentsClient/PlusMinus2";
 import { RFValue } from "react-native-responsive-fontsize";
 import { Context } from "../contexts/Auth.context";
 import { ProgressBar, ActivityIndicator, Colors } from "react-native-paper";
+import Item2 from "../components/componentsClient/Item2";
+import { color } from "../constants/Colors";
+import CommonServices from "../services/Common";
+import OrderCardViewer from "../components/OrderCardViewer";
+import { AntDesign } from '@expo/vector-icons'; 
+import PaymentSVG from "../assets/svgr/Credit"; 
 
-function ConsulterCompteMarchand({ navigation }) {
+function ConsulterCompteMarchand({ navigation,route }) {
   const [visible, setVisible] = React.useState(false);
 
   const showDialog = () => setVisible(true);
@@ -46,17 +54,30 @@ function ConsulterCompteMarchand({ navigation }) {
 
   const navToListemarchands = () => navigation.navigate("Listemarchands");
 
-  const { currentMerchant } = useContext(Context);
+  const { ardoise } = route.params;
+  
+  const currentMerchant = ardoise.merchant;
 
-  // useEffect(() => {
-  //   return () => {
-  //     effect;
-  //   };
-  // }, []);
+
+  const [orders,setOrders] = useState([]);
+
+
+  useEffect(()=>{
+
+   const fetchOrders = async ()=>{
+   const result = await CommonServices.getOrders(ardoise._id);
+   if(result.ok && result.data.length>0)
+      setOrders(result.data);
+      console.log("get orders",result.data);
+  }
+
+  fetchOrders();
+
+  },[])
 
   return (
     <View style={{ flex: 1 }}>
-      <Provider>
+     <Provider>
         <ScrollView
           style={{
             flex: 1,
@@ -121,13 +142,21 @@ function ConsulterCompteMarchand({ navigation }) {
                 </Dialog>
               </Portal>
             </View>
+
+        
             <View style={{ width: "60%", alignSelf: "center" }}>
               <GreenBtn
                 title=" Passer une commande"
-                onPress={() => navigation.navigate("Notification")}
+                action={
+                  () => {navigation.navigate("MerchantCatalog",{
+                    currentMerchant,
+                    ardoiseId: ardoise._id
+                  })}
+                }
               />
             </View>
           </View>
+
 
           <View>
             <View
@@ -135,16 +164,18 @@ function ConsulterCompteMarchand({ navigation }) {
                 flexDirection: "row",
                 marginLeft: "10%",
                 marginRight: "10%",
+                marginBottom: '2.5%'
               }}
             >
               <View
                 style={{
                   width: "90%",
                   alignSelf: "center",
+                 
                 }}
               >
-                <Divider borderColor="#fff" color="#fff" orientation="center">
-                  <Text style={{ fontSize: RFValue(17) }}> Mes commandes</Text>
+                <Divider  borderColor="#fff" color="#fff" orientation="center">
+                  <Text style={{ fontSize: RFValue(15.5) }}> Mes commandes ({orders.length})</Text>
                 </Divider>
               </View>
 
@@ -152,8 +183,22 @@ function ConsulterCompteMarchand({ navigation }) {
                 <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
               </View>
             </View>
-
-            {isMinus && <View></View>}
+            {isMinus && 
+                <FlatList
+                  numColumns={1}
+                  contentContainerStyle={{
+                  width:'100%',
+                  paddingLeft:'10%',
+                  paddingRight:'12%',
+                  alignSelf:'center'
+                  }}
+                  data={orders}
+                  keyExtractor={(item) => item._id}
+                  renderItem={({item}) => {
+                    return <OrderCardViewer order={item} />;
+                  }}
+                />
+            }
           </View>
 
           <View>
@@ -200,11 +245,13 @@ function ConsulterCompteMarchand({ navigation }) {
             <View
               style={{
                 backgroundColor: "white",
-                height: 40,
+            
                 alignItems: "center",
                 alignSelf: "center",
                 width: "83%",
                 borderRadius: 3,
+                backgroundColor: '#F5F5F5',
+                borderWidth: 2
               }}
             >
               <View
@@ -212,10 +259,37 @@ function ConsulterCompteMarchand({ navigation }) {
                   padding: "5%",
                 }}
               >
+                <View style={{flexDirection: 'row',alignItems: 'center'}}>
+                  <AntDesign
+                     name="profile" 
+                     size={24} 
+                     color="black" 
+                     style={{marginRight: '3%'}}
+                  />
+                  <Text style={{ color: "grey", fontSize: RFValue(13) }}>
+                 Mes anciens
+                </Text>
+                </View>
+                
                 <Text style={{ color: "grey", fontSize: RFValue(13) }}>
                   Un total de 150 MAD à payer le 12/12/2020
                 </Text>
               </View>
+    
+
+              <TouchableOpacity>
+              <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                padding: '2%',
+                borderColor:color.Primary,
+                borderWidth:0.8,borderRadius:50}}>
+                <PaymentSVG width={30} height={30}/>
+                 <Text style={{fontSize:RFValue(13),fontWeight:'bold'}} >Payer </Text>
+              </View>
+                
+              </TouchableOpacity>
+              
             </View>
           </View>
           <View
