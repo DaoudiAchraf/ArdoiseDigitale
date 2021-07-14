@@ -3,17 +3,15 @@ import authService from "../services/Auth";
 import jwtDecode from "jwt-decode";
 import storage from "../utils/Storage";
 import AppLoading from "expo-app-loading";
-import clientService from '../services/Clientt';
+import clientService from "../services/Clientt";
 import { role } from "../constants/Strings";
 
 export const Context = createContext();
 
 const AuthContext = ({ children }) => {
-
-  const [merchantsList,setMerchantsList] = useState([]);
-  const [currentMerchant , setCurrentMerchant] = useState(null);
-  const [ardoiseList,setArdoiseList ] = useState([]);
-
+  const [merchantsList, setMerchantsList] = useState([]);
+  const [currentMerchant, setCurrentMerchant] = useState(null);
+  const [ardoiseList, setArdoiseList] = useState([]);
 
   const [user, setUser] = useState();
 
@@ -22,31 +20,24 @@ const AuthContext = ({ children }) => {
 
     if (!token) return;
 
-    if (jwtDecode(token).exp < Date.now() / 1000)
-      storage.removeToken();
-    else 
-      setUser(jwtDecode(token));
+    if (jwtDecode(token).exp < Date.now() / 1000) storage.removeToken();
+    else setUser(jwtDecode(token));
   };
 
   useEffect(() => {
-    
-    const getArdoise = async()=>{
+    const getArdoise = async () => {
       const response = await clientService.getArdoise();
-      if(response.ok)
-      {
-        console.log('*****************************************************d5alt')
+      if (response.ok) {
+        console.log("logged");
         response.data && setArdoiseList(response.data);
         //console.log(response.data);
-      }
-      else 
-       console.log(response.problem)
-        
-     }  
-     
-     user && user.role && getArdoise();
+      } else console.log(response.problem);
+    };
 
-     //(user && user.role === role.CLIENT) && getArdoise();
-  }, [user])
+    user && user.role && getArdoise();
+
+    //(user && user.role === role.CLIENT) && getArdoise();
+  }, [user]);
 
   const [isReady, setIsReady] = useState(false);
 
@@ -82,21 +73,23 @@ const AuthContext = ({ children }) => {
     storage.removeToken();
     setUser();
   };
-  //storage.removeToken();
+  storage.removeToken();
 
   return (
-    <Context.Provider value={{
-       user,
-       refreshToken, 
-       signIn, 
-       logout,
-       merchantsList,
-       setMerchantsList,
-       currentMerchant,
-       setCurrentMerchant,
-       ardoiseList,
-       setArdoiseList
-       }}>
+    <Context.Provider
+      value={{
+        user,
+        refreshToken,
+        signIn,
+        logout,
+        merchantsList,
+        setMerchantsList,
+        currentMerchant,
+        setCurrentMerchant,
+        ardoiseList,
+        setArdoiseList,
+      }}
+    >
       {children}
     </Context.Provider>
   );
