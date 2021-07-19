@@ -31,7 +31,7 @@ const ProductsCategory = ({ toNextStep }) => {
 
       <ScrollView>
         {selectedCategories.map((item, categIndex) => (
-          <Category key={categIndex} item={item} categIndex={categIndex} />
+          <Category key={categIndex} categIndex={item} subCategIndex={item} />
         ))}
       </ScrollView>
 

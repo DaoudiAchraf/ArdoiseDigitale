@@ -35,7 +35,7 @@ const Catalog = ({item,categIndex,subCategIndex}) => {
         </View>
         </View>
       </TouchableRipple>
-
+{/* //selecting the subcategory table and mapping it */}
       { expanded && 
 
         subCategory[subCategIndex].map((subItem,subCategIndex)=>
