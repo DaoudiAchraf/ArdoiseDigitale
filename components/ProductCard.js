@@ -20,7 +20,7 @@ export default function ProductCard({product}) {
   }
 
   const remove = ()=>{
-    removeproduct(product.id);
+    removeproduct(product._id);
   }
 
     return (

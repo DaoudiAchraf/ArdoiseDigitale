@@ -8,6 +8,7 @@ export const role = {
 
 export const txt = {
   ACCOUNT_CREATED: `Votre Compte a bien été créé.${newLine}Nous avons besoin de quelques informations complémentaires afin de commencer à bien votre opération.${newLine}Appuyez sur le bouton ci-dessous pour commencer`,
+  ACCOUNT_FINISHED: `Votre compte est prêt pour l'utilisation.\nVous pouvez modifier ces informations à tout moment via le menu "paramètres".\nAppuyer sur le bouton ci-dessous pour vers votre tableau de bord.`,
   SELECT_CATEGORY:
     "Sélectionner les Catégories de produits que votre commerce offre.",
   SMS_VERIFICATION_CODE: `Nous avons besoin de verifier votre numéro de téléphone vous allez reçevoir un code de verification par SMS.${newLine}Veuillez entrer ce code dans le champs ci-dessous.`,

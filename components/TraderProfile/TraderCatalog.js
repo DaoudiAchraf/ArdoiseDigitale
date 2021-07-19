@@ -22,8 +22,8 @@ const ProductsCategory = ({ toNextStep }) => {
     console.log(products);
     addInfos({ products });
 
-    submitProfile();
-    //toNextStep();
+    
+    toNextStep();
   };
   return (
     <View style={styles.stepsContainer}>

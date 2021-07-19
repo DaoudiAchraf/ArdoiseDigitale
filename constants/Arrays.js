@@ -364,14 +364,8 @@ const subCateg9 = [
   },
 ];
 
-const subCateg10 = [
-  {
-    name: "Frites, légumes et fruits",
-    icon: MarcheFruitsEtLegumes,
-  },
-];
 
-const subCateg11 = [
+const subCateg10 = [
   {
     name: "Fruits et légumes",
     icon: MarcheFruitsEtLegumes,
@@ -397,5 +391,4 @@ export const subCategory = [
   subCateg8,
   subCateg9,
   subCateg10,
-  subCateg11,
 ];
