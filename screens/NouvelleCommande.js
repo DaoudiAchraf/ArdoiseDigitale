@@ -21,27 +21,34 @@ export default function ProfilMarchand({ navigation,route}) {
 
   //const {globalState} = useContext(SoukiContext);
 
-  const { products,editproduct,removeproduct } = useContext(OrderContext)
+  const { products,editproduct,removeproduct,newOrder} = useContext(OrderContext)
 
   const { currentMerchant,ardoiseId } = route.params;
 
  
 
   const sendOrder = async()=>{
-
-    //navigation.pop();
-    //navigation.pop();
     
-    navigation.replace('Notification');
+    newOrder({
+         products,
+         ardoise: ardoiseId,
+         merchant: currentMerchant._id,
+         date: '2021-07-15T14:56:23.022Z'
+       });
 
-    console.log('send order')
+    navigation.pop();
+    navigation.pop();   
 
-    // const result = await clientService.sendOrder({products,ardoise: ardoiseId});
+   //navigation.replace('ConsulterCompteMarchand',products);
+
+    // const result = await clientService.sendOrder({
+    //   products,
+    //   ardoise: ardoiseId,
+    //   merchant: currentMerchant._id
+    // });
     // if(result.ok)
     //   console.log(result.data);
- 
-    //   console.log(result)
-   // console.log(products);
+
   }
 
   let total=0;
@@ -113,6 +120,7 @@ export default function ProfilMarchand({ navigation,route}) {
                   product={item}
                   editProduct={editproduct}
                   removeProduct={removeproduct}
+                  navToDetail={()=>navigation.navigate('ProductDetails',item)}
                 />
               )
             }
@@ -181,7 +189,8 @@ const styles = StyleSheet.create({
   },
   emptycart:{
     color: color.INFO_TEXT,
-    fontSize: RFValue(15)
+    fontSize: RFValue(15),
+    marginBottom: '5%'
   },
   divider:{
     borderWidth:0.5,

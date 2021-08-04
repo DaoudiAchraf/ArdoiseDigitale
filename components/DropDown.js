@@ -19,10 +19,10 @@ const DropDown = ({ items, selectedItem, handleChange, mode }) => {
           return <Picker.Item color="grey" 
                     itemStyle={{ color: "grey"}}
                     key={index}
-                    // label={item}
-                    // value={item}
-                    label={typeof(item) === String ? item : item.name}
-                    value={typeof(item) === String ? item : {index:index}}
+                    label={item}
+                    value={item}
+                    // label={typeof(item) === String ? item : item.name}
+                    // value={typeof(item) === String ? item : {index:index}}
                     
                  />;
         })}

@@ -8,41 +8,48 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity} from 'react-native-gesture-handler';
 import COLORS from './consts/colors';
-import plants from './consts/plants';
-import { Entypo,FontAwesome } from '@expo/vector-icons';
+import { Entypo,FontAwesome,AntDesign } from '@expo/vector-icons';
 import { color } from '../constants/Colors';
-import DropDown from '../components/DropDown';
+import Dialog from '../components/Dialog';
 import { categories, subCategory } from '../constants/Arrays';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { h, totalSize, w } from '../utils/Size';
+import { totalSize, w } from '../utils/Size';
 import ClientService from '../services/Clientt';
 import { setAlert } from '../components/Alert';
-import { Context as SoukiContext} from '../contexts/Auth.context';
 import { URL } from '../services/Client';
 import { Badge } from 'react-native-paper';
+import { Provider } from 'react-native-paper';
+import CategorySelector from './Client_Catalog/CategorySelector';
+import Filter from "../assets/svg-icones-client/filter.jsx";
+import { GlobalContext as OrderContext } from '../contexts/ProductsCatalog.context';
 
 const width = Dimensions.get('window').width / 2 - 30;
 
 const HomeScreen = ({navigation,route}) => {
 
-  console.log('render from catalog----------------------------');
+  //console.log('render from catalog----------------------------');
 
   const getItemLayout = (data, index) => (
-    { length: 50, offset: 50 * index, index }
+    { length: 100, offset: 100 * index, index }
   )
 
   const [subCategoryIndex, setSubCategoryIndex] = useState(0);
 
-  const [category,setcategory] = useState({index:0});
+  const [category,setcategory] = useState({array:categories,index:0});
+
   const flatListRef = useRef();
 
   const [products,setProducts] = useState([]);
 
-  //const { currentMerchant } = useContext(SoukiContext);
+  const [visible, setVisible] = useState(false);
+
+  const cart = useContext(OrderContext);
 
   const { currentMerchant, ardoiseId } = route.params;
+
+
 
 
   useEffect(() => {
@@ -59,11 +66,8 @@ const HomeScreen = ({navigation,route}) => {
       animated: false,
       index: subCategoryIndex ,
     });
-
     
- //console.log(currentMerchant)
-
-   getCatalog();
+    getCatalog();
 
   }, [subCategoryIndex]);
 
@@ -172,6 +176,7 @@ const HomeScreen = ({navigation,route}) => {
     );
   };
   return (
+    <Provider>
     <SafeAreaView
       style={{flex: 1, paddingHorizontal: 20, backgroundColor: color.WHITE}}>
       <View style={style.header}>
@@ -185,7 +190,12 @@ const HomeScreen = ({navigation,route}) => {
         <TouchableOpacity 
           onPress={()=>navigation.navigate("NouvelleCommande",{currentMerchant,ardoiseId})}
           style={{marginTop:'0%'}}>
-          <Badge style={{marginBottom:'-15%'}}>0</Badge>
+          <Badge style={{marginBottom:'-15%'}}>
+            <Text style={{fontWeight:'bold',fontSize: RFValue(14)}}>
+              {cart.products.filter(item=>item.owner === currentMerchant.user).length}
+            </Text>
+            
+          </Badge>
           <FontAwesome 
             name="shopping-cart" 
             size={totalSize(5)} 
@@ -195,16 +205,41 @@ const HomeScreen = ({navigation,route}) => {
         
         
       </View>
-      <View style={{marginTop: 30, flexDirection: 'row'}}>
-           
-           <View style={{flex:1}}>
-               <DropDown
-                 mode="rounded"
-                 items={categories}
-                 selectedItem={category}
-                 handleChange={setcategory}
-               />
+      <View style={{marginTop: 30}}>
+           <View style={{flexDirection: 'row',alignItems: 'center'}}>
+              <Filter color={color.Primary} width={RFValue(15)} height={RFValue(15)} />
+              <Text style={{...style.categTxt,fontWeight:'bold'}}>Catégorie :</Text> 
+          
            </View>
+           
+           <TouchableOpacity style={style.dropDown} onPress={()=>setVisible(true)}>
+       
+                <View style={{borderWidth:0,flexDirection: 'row',alignItems: 'center'}}>
+
+                  <View style={{flexDirection: 'row',alignItems:'center'}}>
+                    {categories[category.index].icon(style.icon)}
+                    <Text style={{fontSize: RFValue(15)}}>
+                      {categories[category.index].name}
+                    </Text>
+                  </View>
+
+                    
+                </View>
+                
+                <Entypo name="chevron-down" size={RFValue(20)} color="black" />
+                {visible &&
+                <Dialog visible={visible} setVisible={setVisible}>
+                  <CategorySelector
+                    categories= {categories}
+                    category ={category}
+                    setCategory ={setcategory}
+                    setVisible={setVisible}
+                  />
+               </Dialog>}
+
+
+
+           </TouchableOpacity>
       
         {/* <View style={style.sortBtn}>
         <Entypo name="shop" size={30} color="black" />
@@ -229,6 +264,7 @@ const HomeScreen = ({navigation,route}) => {
       />
    
     </SafeAreaView>
+    </Provider>
   );
 };
 
@@ -237,6 +273,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 30,
     marginBottom: 20,
+    
   },
   categoryText: {fontSize: RFValue(15), color: 'grey', fontWeight: 'bold'},
   categoryTextSelected: {
@@ -277,6 +314,14 @@ const style = StyleSheet.create({
     flex: 1,
     color: COLORS.dark,
   },
+  dropDown:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    borderWidth:1,
+    padding:10,
+    borderRadius:10,
+    marginTop: '2.5%'
+  },
   sortBtn: {
     marginLeft: 10,
     height: 50,
@@ -286,5 +331,15 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  categTxt:{
+    fontSize: RFValue(15),
+    color: color.Primary,
+    marginLeft: '3%'
+  },
+  icon:{
+    width: totalSize(3.3),
+    height:  totalSize(3.3),
+    marginRight: '5%'
+  }
 });
 export default HomeScreen;

@@ -5,6 +5,7 @@ import AppReducer from './reducers/catalogReducer';
 // Initial State
 const initialState = {
   products: [],
+  newOrders: null
 }
 
 // Create Context
@@ -36,12 +37,21 @@ export const GlobalProvider = ({ children }) => {
     })
   }
 
+  const newOrder = (order) => {
+    dispatch({
+      type: 'NEW_order',
+      payload: order
+    })
+  }
+
   return (
     <GlobalContext.Provider value={{
       products: state.products,
       removeproduct,
       addproduct,
-      editproduct
+      editproduct,
+      newOrders: state.newOrders,
+      newOrder
     }}>
       {children}
     </GlobalContext.Provider>

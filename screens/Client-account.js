@@ -51,7 +51,7 @@ function Clientaccount({ navigation }) {
             navigation={navToMapScreen}
           />
           <Item1
-            title="Mes Ardoises"
+            title="Mes marchands"
             description= {`Vous avez ${ardoiseList.length} ardoises ouverte`}
             img={require("../assets/assets/icons/client-fond-btn-marchands.png")}
             navigation={navToListemarchands}

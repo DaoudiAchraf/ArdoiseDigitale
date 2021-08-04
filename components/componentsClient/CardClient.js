@@ -1,62 +1,110 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native';
-import { Card, Divider, Surface } from 'react-native-paper';
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { Card, Divider, Surface,Provider,Portal,Modal } from 'react-native-paper';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { w, h, totalSize } from '../../utils/Size';
 import { Feather } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
+import CalenderViewer from '../CalenderViewer'; 
+import { days } from '../../constants/Arrays';
+import { URL } from '../../services/Client';
+import { Rating } from 'react-native-ratings';
 
 const CardClient = (props) => {
+
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {backgroundColor: 'white', padding: 20}
+
+  console.log(props.calender)
+
+  console.log(props.merchantImage);
   return (
+ 
+
     <Card style={[props.myCard ? styles.myCard : styles.card]}>
-      
+
+      {! props.callout &&
+            <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <Text>Horaire d'ouverture</Text>
+          <CalenderViewer calender={props.calender} setCalender={()=>console.log('noo')}/>
+        </Modal>
+      </Portal>
+      }
       <Card.Cover
 
         style={{ height: h(15) }}
-        source={require('../../assets/assets/targetexpress.jpg')}
+        source={
+          props.storeImage ?
+          {uri:URL+'/images/'+props.storeImage}:
+          require('../../assets/assets/targetexpress.jpg')
+        }
       />
       
+      {props.callout &&
       <TouchableOpacity onPress={props.action} style={styles.exitContainer}>
         <Feather name="x" size={totalSize(3)} color="black"/>
-      </TouchableOpacity>
+      </TouchableOpacity>}
+
       
       <Card.Content style={styles.cardContent}>
         
         <View>
           <Text style={styles.title}>{props.title}</Text>
+
           <Text style={styles.smallTxt}>{props.small}</Text>
-          <Text style={styles.smallTxt}>{props.smaller}</Text>
+          {/* <Text style={styles.smallTxt}>{props.smaller}</Text> */}
         </View>
 
-        
-        <TouchableOpacity onPress={props.action}>
-        <AntDesign name="calendar" size={24} color="black" />
-      </TouchableOpacity>
- 
+      {! props.callout &&
+        <TouchableOpacity onPress={showModal}>
+          <AntDesign name="calendar" size={24} color="black" />
+        </TouchableOpacity>
+      }
     
       </Card.Content>
       <Divider />
       <View style={{ flexDirection: 'row', margin: '3%' }}>
 
       <View style={styles.merchantCard}>
-          <Image
-           source={require('../../assets/assets/targetexpress.jpg')}
-           style= {{width:30,height:30}}
-          />
-      </View>
+
+
         {/* <View style={{ alignSelf: 'center', width: w(15) }}>
           <Image source={props.source} style={styles.image}></Image>
         </View> */}
 
-        {/* <View style={{ width: w(60), marginLeft: '2%' }}>
-          <Text style={styles.title}>{props.merchant}</Text>
-          <Text style={styles.small}>{props.text1}</Text>
-          <Text style={styles.smaller} numberOfLines={2}>
-            {props.text2}
-          </Text>
-        </View> */}
+   
+        <Image
+           source={
+            props.merchantImage ?
+            {uri:URL+'/images/'+props.merchantImage}:
+            require('../../assets/assets/targetexpress.jpg')
 
-        <View>
+           }
+           style= {{width:RFValue(60),height:RFValue(60)}}
+          />
+
+        <View style={{ width: w(60), marginLeft: '2%' }}>
+          <View>
+            <Rating 
+             startingValue={props.rate}
+             style={{marginLeft:'-55%'}}
+             onFinishRating={(rate)=>console.log(rate)}
+            ratingCount={5} imageSize={20} />
+          </View>
+        
+          <Text style={styles.title}>{props.title}</Text>
+          <Text style={styles.attributes} numberOfLines={2}>
+           Livraison Disponible 
+          </Text>
+          <Text style={styles.attributes} numberOfLines={2}>
+           accepete le payment au comptant
+          </Text>
+        </View>
+
 
         </View>
       </View>
@@ -89,6 +137,7 @@ const CardClient = (props) => {
         )}
       </View>
     </Card>
+
   );
 };
 const styles = StyleSheet.create({
@@ -134,7 +183,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   merchantCard:{
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems:'center'
+  },
+  attributes:{
+    color: "grey",
+    textAlign: "left",
+    alignSelf: "stretch",
+    fontSize: RFValue(11),
   }
 });
 export default CardClient;
