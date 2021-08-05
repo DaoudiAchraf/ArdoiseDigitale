@@ -12,7 +12,7 @@ import ProductForm from './ProductForm/ProductForm';
 import { GlobalContext } from "../contexts/ProductsCatalog.context";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function SubCategory({name,categ,subCateg}) {
+export default function SubCategory({name,categ,subCateg,sub}) {
 
     //console.log("render from categ:subCateg ",categ ,':',subCateg);
 
@@ -22,6 +22,7 @@ export default function SubCategory({name,categ,subCateg}) {
     const [itemExpanded ,setItemExpanded] = useState(false);
     //const [products,setProducts] = useState([]);
     const [popupVisible,setPopupVisible] = useState(false);
+    const [popupVisible1,setPopupVisible1] = useState(false);
 
     const createProduct = (product)=>{
 
@@ -43,6 +44,7 @@ export default function SubCategory({name,categ,subCateg}) {
       products.splice(index, 1);
       setProducts([...products]);
     }
+   // console.log("555555555555555555",name,categ,subCateg,sub);
 
     return (
         
@@ -52,7 +54,7 @@ export default function SubCategory({name,categ,subCateg}) {
             <View style={styles.treeLine}/>
           </View>
           <View style={styles.itemContainer}>
-              {categories[0].icon(styles.icon)}
+              {sub.icon(styles.icon)}
           
             <View style={styles.txtContainer}>
               <Text style={styles.txt2}>{name}</Text>
@@ -72,7 +74,7 @@ export default function SubCategory({name,categ,subCateg}) {
     </View>
       
         {itemExpanded && 
-         products.filter(product => product.subCategory === subCateg).map((item,index) =>
+         products.filter(product => (product.subCategory === subCateg)&&(product.category === categ)).map((item,index) =>
             <ProductCard 
                key={item._id}
                product={item}

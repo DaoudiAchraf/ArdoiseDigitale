@@ -39,6 +39,7 @@ import { AntDesign,FontAwesome5,Fontisto } from '@expo/vector-icons';
 import PaymentSVG from "../assets/svgr/Credit"; 
 import moment from "moment";
 import Review from "../components/Review";
+import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
 
 
 function ConsulterCompteMarchand({ navigation,route }) {
@@ -72,6 +73,11 @@ function ConsulterCompteMarchand({ navigation,route }) {
   const [orders,setOrders] = useState([]);
 
   const { newOrders } = useContext(OrderContext);
+
+
+  const getReviews = async()=>{
+    
+  }
 
   useEffect(()=>{
     
@@ -269,7 +275,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
               
             </View>
 
-            {isMinus && <View></View>}
+            {/* {isMinus && <View></View>} */}
           </View>
           {/* <View style={{  
                 marginTop: "5%",
@@ -432,7 +438,20 @@ function ConsulterCompteMarchand({ navigation,route }) {
               </View>
             </View>
 
-            {isMinus && <View></View>}
+            {isMinus && 
+            <View style={{
+              marginLeft: "10%",
+              marginRight: "10%"
+            }}>
+            
+              <ClientReviewItem
+                 name="Sam Irving"
+                 date="12/12/2020 à 10h30"
+                 img={require("../assets/SamIrving.png")}
+                 text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in tortor vitae erat sollicitudin fringilla ac id felis."
+              />
+            </View>
+            }
           </View>
         </ScrollView>
       </Provider>

@@ -7,12 +7,13 @@ export const role = {
 };
 
 export const txt = {
-  ACCOUNT_CREATED: `Votre Compte a bien etait crée.${newLine}Nous avons besoin de quelques informations complémentaire afin de commencer à bien votre opération.${newLine}Appuyez sur le bouton ci-dessous pour commencer`,
+  ACCOUNT_CREATED: `Votre Compte a bien été créé.${newLine}Nous avons besoin de quelques informations complémentaires afin de commencer à bien votre opération.${newLine}Appuyez sur le bouton ci-dessous pour commencer`,
+  ACCOUNT_FINISHED: `Votre compte est prêt pour l'utilisation.\nVous pouvez modifier ces informations à tout moment via le menu "paramètres".\nAppuyer sur le bouton ci-dessous pour vers votre tableau de bord.`,
   SELECT_CATEGORY:
     "Sélectionner les Catégories de produits que votre commerce offre.",
-  SMS_VERIFICATION_CODE: `Nous avons besoin de verifier votre numero de telephone vous allez recevoir un code de verification par SMS.${newLine}Veuillez entrer ce code dans le champs ci-dessous.`,
+  SMS_VERIFICATION_CODE: `Nous avons besoin de verifier votre numéro de téléphone vous allez reçevoir un code de verification par SMS.${newLine}Veuillez entrer ce code dans le champs ci-dessous.`,
   SIGNUP_FINAL_STEP:
-    'Nous avons toutes les informations nécessaires pour la création de votre compte. En appuyant sur le bouton "Envoyer", vos informations seront envoyées pour la vérification. Une fois la vérification passée, vous recevrez un SMS contenant les information de connexion.',
+    'Nous avons toutes les informations nécessaires pour la création de votre compte. En appuyant sur le bouton "Envoyer", vos informations seront envoyées pour la vérification. Une fois la vérification passée, vous reçevrez un SMS contenant les information de connexion.',
 };
 
 export const TEXT_ERROR = {

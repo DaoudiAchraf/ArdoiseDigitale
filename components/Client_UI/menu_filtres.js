@@ -93,7 +93,7 @@ const MenuFiltres = () => {
               "épicerie fine",
             ]}
           />
-          <Caption>Mode de payement</Caption>
+          <Caption>Mode de paiement</Caption>
           <DropDownFiltres
             dropdownName="paymentType"
             selectedItem={filterState}

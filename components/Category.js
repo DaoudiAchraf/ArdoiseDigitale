@@ -5,12 +5,10 @@ import {w,h,totalSize} from '../utils/Size';
 import { AntDesign } from '@expo/vector-icons'; 
 import { TouchableRipple } from "react-native-paper";
 import { Primary } from '../constants/Colors';
-import { categories } from "../constants/Arrays";
+import { categories, subCategory } from "../constants/Arrays";
 import SubCategory from './SubCategory';
 
-import { subCategory} from '../constants/Arrays';
-
-const Catalog = ({item,categIndex}) => {
+const Catalog = ({item,categIndex,subCategIndex}) => {
 
     //console.log('categ render');
 
@@ -23,9 +21,9 @@ const Catalog = ({item,categIndex}) => {
     <View  style={{marginBottom: h(1)}}>
       <TouchableRipple style={styles.rippleStyle} onPress={handlePress}>
         <View style={styles.cardContainer}>
-        {categories[item].icon(styles.icon)}
+        {categories[categIndex].icon(styles.icon)}
         <View style={styles.txtContainer}>
-          <Text style={styles.txt1}>{categories[item].name}</Text>
+          <Text style={styles.txt1}>{categories[categIndex].name}</Text>
         </View>
         
         <View style={styles.iconContainer} >
@@ -37,13 +35,14 @@ const Catalog = ({item,categIndex}) => {
         </View>
         </View>
       </TouchableRipple>
-
+{/* //selecting the subcategory table and mapping it */}
       { expanded && 
 
-        subCategory[item].map((subItem,subCategIndex)=>
+        subCategory[subCategIndex].map((subItem,subCategIndex)=>
             <SubCategory 
              key={subCategIndex}
              name={subItem.name}
+             sub={subItem}
              categ={categIndex}
              subCateg={subCategIndex}
             />)

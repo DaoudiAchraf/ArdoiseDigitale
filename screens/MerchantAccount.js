@@ -49,13 +49,13 @@ function MerchantAccount({ navigation }) {
           <Item1
             title="Ma Liste des clients"
             description="Vous avez 3 nouvelles notifications"
-            img={require("../assets/assets/icons/client-fond-btn-notification.png")}
+            img={require("../assets/assets/icons/client-fond-btn-marchands.png")}
             navigation={navToMerchantClientList}
           />
           <Item1
             title="Mon Catalogue"
             description="Appuyez pour afficher la carte."
-            img={require("../assets/assets/icons/client-fond-btn-carte.png")}
+            img={require("../assets/assets/icons/marchand-fond-btn-catalogue.png")}
             navigation={navToMerchantCatalogueModification}
           />
 

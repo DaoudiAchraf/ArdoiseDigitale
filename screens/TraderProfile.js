@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import StepIndicator from "react-native-step-indicator";
 import indicatorStyle from "../styles/StepIndicator";
-import FinalStep from "../components/FinalStep";
 
 import logo from "../assets/images/logo-dark.png";
 
@@ -21,6 +20,8 @@ import OpeningTime from "../components/TraderProfile/OpeningTime";
 import ProductsCategory from "../components/TraderProfile/ProductsCategory";
 import TraderCatalog from "../components/TraderProfile/TraderCatalog";
 import TraderFirstConnection from "../components/TraderProfile/TraderFirstConnection";
+import TraderLastStep from "../components/TraderProfile/TraderLastStep";
+
 import { totalSize } from "../utils/Size";
 import { GlobalProvider } from "../contexts/ProductsCatalog.context";
 import { Button } from "react-native-paper";
@@ -78,7 +79,7 @@ const App = ({ navigation }) => {
   };
 
   useEffect(() => {
-    // switchStepTitle();
+    switchStepTitle();
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction
@@ -104,7 +105,7 @@ const App = ({ navigation }) => {
           </GlobalProvider>
         );
       case 4:
-        return <FinalStep toNextStep={toNextStep} />;
+        return <TraderLastStep toNextStep={toNextStep} />;
       default:
         break;
     }
@@ -123,7 +124,7 @@ const App = ({ navigation }) => {
         <Image resizeMode="contain" style={styles.logoStyle} source={logo} />
 
         <View style={styles.stepsContainer}>
-          {/* <Text style={styles.headerTxt}>{stepTitle}</Text> */}
+          <Text style={styles.headerTxt}>{stepTitle}</Text>
           <StepIndicator
             stepCount={5}
             customStyles={indicatorStyle}
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: 200,
     height: 200,
+    marginBottom:'10%'
   },
   scrollContent: {
     flexGrow: 1,

@@ -7,9 +7,12 @@ const refreshPushToken = (token) => client.patch('/api/login',token);
 
 const postReview = (review) => client.post('api/review',review);
 
+const getUserReviews = (user) => client.get('api/review',user);
+
 export default {
     getOrdersByArdoise,
     getOrders,
     refreshPushToken,
-    postReview
+    postReview,
+    getUserReviews
 }

@@ -12,10 +12,10 @@ export const traderAcitvity = [
 ];
 
 export const legalStatus = [
- "En Nom Propre",
- "Entreprise Individuelle",
- "S A R L",
- "S A",
+  "En Nom Propre",
+  "Entreprise Individuelle",
+  "S A R L",
+  "S A",
 ];
 
 export const days = [
@@ -63,49 +63,98 @@ export const days = [
   },
 ];
 
-
-import Animaux from "../assets/images/cataloge-icons/Animaux";
-import Bebe from "../assets/images/cataloge-icons/Bebe";
+import Animaux from "../assets/svgr/Catalogue/Animaux";
+import AnimauxChats from "../assets/svgr/Catalogue/AnimauxChats";
+import AnimauxChiens from "../assets/svgr/Catalogue/AnimauxChiens";
+import Bebe from "../assets/svgr/Catalogue/Bebe";
+import BebeAlimentation from "../assets/svgr/Catalogue/BebeAlimentation";
+import BebeCouchesEtLingettes from "../assets/svgr/Catalogue/BebeCouchesEtLingettes";
+import BebeSoin from "../assets/svgr/Catalogue/BebeSoin";
+import Bio from "../assets/svgr/Catalogue/Bio";
+import Boissons from "../assets/svgr/Catalogue/Boissons";
+import BoissonsEaux from "../assets/svgr/Catalogue/BoissonsEaux";
+import BoissonsGazeuses from "../assets/svgr/Catalogue/BoissonsGazeuses";
+import BoissonsJus from "../assets/svgr/Catalogue/BoissonsJus";
+import BoissonsThesGlaces from "../assets/svgr/Catalogue/BoissonsThesGlaces";
+import EpicerieSalee from "../assets/svgr/Catalogue/EpicerieSalee";
+import EpicerieSaleeChipsEtAperitifs from "../assets/svgr/Catalogue/EpicerieSaleeChipsEtAperitifs";
+import EpicerieSaleeCondimentsDivers from "../assets/svgr/Catalogue/EpicerieSaleeCondimentsDivers";
+import EpicerieSaleeConserves from "../assets/svgr/Catalogue/EpicerieSaleeConserves";
+import EpicerieSaleeEpicesEtCondiments from "../assets/svgr/Catalogue/EpicerieSaleeEpicesEtCondiments";
+import EpicerieSaleeHuilesVinaigresEtSauces from "../assets/svgr/Catalogue/EpicerieSaleeHuilesVinaigresEtSauces";
+import EpicerieSaleePatesCouscousEtRiz from "../assets/svgr/Catalogue/EpicerieSaleePatesCouscousEtRiz";
+import EpicerieSucree from "../assets/svgr/Catalogue/EpicerieSucree";
+import EpicerieSucreeBiscuitsEtMiniGateaux from "../assets/svgr/Catalogue/EpicerieSucreeBiscuitsEtMiniGateaux";
+import EpicerieSucreeCafeEtChocolatEnPoudre from "../assets/svgr/Catalogue/EpicerieSucreeCafeEtChocolatEnPoudre";
+import EpicerieSucreeChocolatsEtConfiseries from "../assets/svgr/Catalogue/EpicerieSucreeChocolatsEtConfiseries";
+import EpicerieSucreePetitDejeuner from "../assets/svgr/Catalogue/EpicerieSucreePetitDejeuner";
+import EpicerieSucreePreparationsEtFarine from "../assets/svgr/Catalogue/EpicerieSucreePreparationsEtFarine";
+import EpicerieSucreeThesEtInfusions from "../assets/svgr/Catalogue/EpicerieSucreeThesEtInfusions";
+import Hygiene from "../assets/svgr/Catalogue/Hygiene";
+import HygieneDentaire from "../assets/svgr/Catalogue/HygieneDentaire";
+import HygieneFemmes from "../assets/svgr/Catalogue/HygieneFemmes";
+import HygieneHommes from "../assets/svgr/Catalogue/HygieneHommes";
+import HygieneParapharmacie from "../assets/svgr/Catalogue/HygieneParapharmacie";
+import HygieneSavonsEtCotontiges from "../assets/svgr/Catalogue/HygieneSavonsEtCotontiges";
+import Maison from "../assets/svgr/Catalogue/Maison";
+import MaisonAccessoiresMenagers from "../assets/svgr/Catalogue/MaisonAccessoiresMenagers";
+import MaisonNettoyantsMaison from "../assets/svgr/Catalogue/MaisonNettoyantsMaison";
+import MaisonPapiersEtVaisselleJetable from "../assets/svgr/Catalogue/MaisonPapiersEtVaisselleJetable";
+import MaisonSoinDuLinge from "../assets/svgr/Catalogue/MaisonSoinDuLinge";
+import MaisonVaisselle from "../assets/svgr/Catalogue/MaisonVaisselle";
+import Marche from "../assets/svgr/Catalogue/Marche";
+import MarcheEpices from "../assets/svgr/Catalogue/MarcheEpices";
+import MarcheFruitsEtLegumes from "../assets/svgr/Catalogue/MarcheFruitsEtLegumes";
+import MarcheViandes from "../assets/svgr/Catalogue/MarcheViandes";
+import ProduitsLaitiers from "../assets/svgr/Catalogue/ProduitsLaitiers";
+import ProduitsLaitiersBeurresEtMargarines from "../assets/svgr/Catalogue/ProduitsLaitiersBeurresEtMargarines";
+import ProduitsLaitiersFromages from "../assets/svgr/Catalogue/ProduitsLaitiersFromages";
+import ProduitsLaitiersLaitEtCremes from "../assets/svgr/Catalogue/ProduitsLaitiersLaitEtCremes";
+import ProduitsLaitiersOeufs from "../assets/svgr/Catalogue/ProduitsLaitiersOeufs";
+import ProduitsLaitiersYaourts from "../assets/svgr/Catalogue/ProduitsLaitiersYaourts";
+import Surgeles from "../assets/svgr/Catalogue/Surgeles";
+import SurgelesFritesLegumesEtFruits from "../assets/svgr/Catalogue/SurgelesFritesLegumesEtFruits";
+import SurgelesPatesEtGlaces from "../assets/svgr/Catalogue/SurgelesPatesEtGlaces";
 
 export const categories = [
   {
     name: "Produits Laitier",
-    icon: Animaux,
+    icon: ProduitsLaitiers,
     isChecked: false,
   },
   {
     name: "Epicerie Surcrée",
-    icon: Animaux,
+    icon: EpicerieSucree,
     isChecked: false,
   },
   {
     name: "Epicerie Salée",
-    icon: Bebe,
+    icon: EpicerieSalee,
     isChecked: false,
   },
   {
     name: "Boissons",
-    icon: Bebe,
+    icon: Boissons,
     isChecked: false,
   },
   {
     name: "Hygiène",
-    icon: Animaux,
+    icon: Hygiene,
     isChecked: false,
   },
   {
     name: "Maison",
-    icon: Animaux,
+    icon: Maison,
     isChecked: false,
   },
   {
     name: "Bébé",
-    icon: Animaux,
+    icon: Bebe,
     isChecked: false,
   },
   {
     name: "Bio",
-    icon: Animaux,
+    icon: Bio,
     isChecked: false,
   },
   {
@@ -115,274 +164,222 @@ export const categories = [
   },
   {
     name: "Surgelés",
-    icon: Animaux,
+    icon: Surgeles,
     isChecked: false,
   },
   {
     name: "Marché",
-    icon: Animaux,
+    icon: Marche,
     isChecked: false,
   },
 ];
 
-
-const  subCateg0 = [
+const subCateg0 = [
   {
-     name : "Beurres et margarines",
-     icon : require("../assets/images/Animaux-Chiens.png"),
+    name: "Beurres et margarines",
+    icon: ProduitsLaitiersBeurresEtMargarines,
   },
   {
-    name : "Yaourts",
-    icon : require("../assets/images/Animaux-Chiens.png"),
- },
- {
-  name : "Lait et crèmes",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Oeufs",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Fromages",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-},
-]
-
+    name: "Yaourts",
+    icon: ProduitsLaitiersYaourts,
+  },
+  {
+    name: "Lait et crèmes",
+    icon: ProduitsLaitiersLaitEtCremes,
+  },
+  {
+    name: "Oeufs",
+    icon: ProduitsLaitiersOeufs,
+  },
+  {
+    name: "Fromages",
+    icon: ProduitsLaitiersFromages,
+  },
+];
 
 const subCateg1 = [
   {
-    name : "Café et chocolat en poudre",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Café et chocolat en poudre",
+    icon: EpicerieSucreeCafeEtChocolatEnPoudre,
   },
   {
-    name : "Petit déjeuner",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- },
- {
-  name : "Thés et infusions",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Biscuits et mini-gâteaux",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Chocolats et confiseries",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-]
+    name: "Petit déjeuner",
+    icon: EpicerieSucreePetitDejeuner,
+  },
+  {
+    name: "Thés et infusions",
+    icon: EpicerieSucreeThesEtInfusions,
+  },
+  {
+    name: "Biscuits et mini-gâteaux",
+    icon: EpicerieSucreeBiscuitsEtMiniGateaux,
+  },
+  {
+    name: "Chocolats et confiseries",
+    icon: EpicerieSucreeChocolatsEtConfiseries,
+  },
+];
 
 const subCateg2 = [
   {
-    name : "Pâtes, couscous et riz",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Pâtes, couscous et riz",
+    icon: EpicerieSaleePatesCouscousEtRiz,
   },
   {
-    name : "Conserves",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- },
- {
-  name : "Huiles, vinaigres et sauces",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Condiments divers",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Epices et condiments",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Chips et apéritifs",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-]
-
+    name: "Conserves",
+    icon: EpicerieSaleeConserves,
+  },
+  {
+    name: "Huiles, vinaigres et sauces",
+    icon: EpicerieSaleeHuilesVinaigresEtSauces,
+  },
+  {
+    name: "Condiments divers",
+    icon: EpicerieSaleeCondimentsDivers,
+  },
+  {
+    name: "Epices et condiments",
+    icon: EpicerieSaleeEpicesEtCondiments,
+  },
+  {
+    name: "Chips et apéritifs",
+    icon: EpicerieSaleeChipsEtAperitifs,
+  },
+];
 
 const subCateg3 = [
   {
-    name : "Eaux",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Eaux",
+    icon: BoissonsEaux,
   },
   {
-    name : "Thés glâcés",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- },
- {
-  name : "Boissons gazeuses",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Jus",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-]
+    name: "Thés glâcés",
+    icon: BoissonsThesGlaces,
+  },
+  {
+    name: "Boissons gazeuses",
+    icon: BoissonsGazeuses,
+  },
+  {
+    name: "Jus",
+    icon: BoissonsJus,
+  },
+];
 
 const subCateg4 = [
   {
-    name : "Hygiène dentaire",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Hygiène dentaire",
+    icon: HygieneDentaire,
   },
   {
-    name : "Femmes",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- },
- {
-  name : "Hommes",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Savons et coton-tiges",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Parapharmacie",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-]
+    name: "Femmes",
+    icon: HygieneFemmes,
+  },
+  {
+    name: "Hommes",
+    icon: HygieneHommes,
+  },
+  {
+    name: "Savons et coton-tiges",
+    icon: HygieneSavonsEtCotontiges,
+  },
+  {
+    name: "Parapharmacie",
+    icon: HygieneParapharmacie,
+  },
+];
 
 const subCateg5 = [
   {
-    name : "Soin du linge",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Soin du linge",
+    icon: MaisonSoinDuLinge,
   },
   {
-    name : "Vaisselle",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- },
- {
-  name : "Nettoyants maison",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Papiers et vaisselle jetable",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-{
-  name : "Accessoires ménagers",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-
-},
-]
-
+    name: "Vaisselle",
+    icon: MaisonVaisselle,
+  },
+  {
+    name: "Nettoyants maison",
+    icon: MaisonNettoyantsMaison,
+  },
+  {
+    name: "Papiers et vaisselle jetable",
+    icon: MaisonPapiersEtVaisselleJetable,
+  },
+  {
+    name: "Accessoires ménagers",
+    icon: MaisonAccessoiresMenagers,
+  },
+];
 
 const subCateg6 = [
   {
-    name : "Soin",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Soin",
+    icon: BebeSoin,
   },
   {
-    name : "Alimentation",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- },
- {
-  name : "Couches et lingettes",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-}
-]
+    name: "Alimentation",
+    icon: BebeAlimentation,
+  },
+  {
+    name: "Couches et lingettes",
+    icon: BebeCouchesEtLingettes,
+  },
+];
 
 const subCateg7 = [
   {
-    name : "Sucré",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Sucré",
+    icon: EpicerieSucree,
   },
   {
-    name : "Salé",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- },
- {
-  name : "Boissons",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-}
-]
-
+    name: "Salé",
+    icon: EpicerieSalee,
+  },
+  {
+    name: "Boissons",
+    icon: Boissons,
+  },
+];
 
 const subCateg8 = [
   {
-    name : "Chiens",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Chiens",
+    icon: AnimauxChiens,
   },
   {
-    name : "Chats",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- }
-]
+    name: "Chats",
+    icon: AnimauxChats,
+  },
+];
 
 const subCateg9 = [
   {
-    name : "Frites, légumes et fruits",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Frites, légumes et fruits",
+    icon: SurgelesFritesLegumesEtFruits,
   },
   {
-    name : "Pâtes et glaces",
-    icon : require("../assets/images/Animaux-Chiens.png"),
+    name: "Pâtes et glaces",
+    icon: SurgelesPatesEtGlaces,
+  },
+];
 
- }
-]
 
 const subCateg10 = [
   {
-    name : "Frites, légumes et fruits",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
+    name: "Fruits et légumes",
+    icon: MarcheFruitsEtLegumes,
   },
   {
-    name : "Pâtes et glaces",
-    icon : require("../assets/images/Animaux-Chiens.png"),
-
- }
-]
-
-const subCateg11 = [
-  {
-    name : "Fruits et légumes",
-    icon : require("../assets/images/Animaux-Chiens.png"),
+    name: "Epices",
+    icon: MarcheEpices,
   },
   {
-    name : "Epices",
-    icon : require("../assets/images/Animaux-Chiens.png"),
- },
- {
-  name : "Viandes",
-  icon : require("../assets/images/Animaux-Chiens.png"),
-  }
-]
-export const subCategory =[
+    name: "Viandes",
+    icon: MarcheViandes,
+  },
+];
+export const subCategory = [
   subCateg0,
   subCateg1,
   subCateg2,
@@ -394,6 +391,4 @@ export const subCategory =[
   subCateg8,
   subCateg9,
   subCateg10,
-  subCateg11
-]
-  
+];

@@ -1,5 +1,5 @@
 import React, { useState,useContext } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { h, totalSize, w } from '../utils/Size';
 import { Primary, Secondary ,Catalog_SubIcon ,color } from '../constants/Colors';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -20,7 +20,7 @@ export default function ProductCard({product}) {
   }
 
   const remove = ()=>{
-    removeproduct(product.id);
+    removeproduct(product._id);
   }
 
     return (
@@ -30,6 +30,14 @@ export default function ProductCard({product}) {
           <View style={styles.treeLine}/>
         </View>
         <View style={styles.subItemContainer}>
+
+
+
+
+      <Image source={{uri: product.photo.uri}} style={styles.img}/>
+
+
+        
       
         <View style={styles.txtContainer}>
             <Text style={styles.txt3}>{product.productName}</Text>
@@ -67,7 +75,7 @@ const styles = StyleSheet.create({
     subItemContainer: {
         marginTop: h(2),
         flex: 1,
-        height: w(10),
+      
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
@@ -110,5 +118,11 @@ const styles = StyleSheet.create({
         fontSize: RFPercentage(2.7),
         color: color.WHITE
       },
+      img:{
+        width: w(15),
+        height: w(15),
+
+
+      }
 
 })

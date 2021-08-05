@@ -48,6 +48,7 @@ const ProductForm = ({action,cancel,values}) => {
       attributes
     }
 
+    //console.log(product);
     action(product);
     cancel();
     
@@ -108,12 +109,12 @@ const ProductForm = ({action,cancel,values}) => {
          </View>
 
           <View style={{flex:1.2,justifyContent:'flex-end'}}>
-              {/* <DropDown
+              <DropDown
                 mode='boxed'
             
                 items={['Kg','Litre','Inch']}
          
-              /> */}
+              />
           </View>
         </View>
 
@@ -135,10 +136,10 @@ const ProductForm = ({action,cancel,values}) => {
         />
        
         <Text style={styles.inputLabel} >Attributes</Text>
-       {/* <ProductAttributes
+       <ProductAttributes
          attributes={attributes}
          setAttributes={setAttributes}
-       /> */}
+       />
 
         <View style={styles.btnContainer}>
           <ButtonNext style={styles.cancelBtnStyle} title="Annuler" onPress={onCancel} />

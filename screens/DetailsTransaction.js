@@ -25,7 +25,7 @@ function DetailsTransaction({ navigation }) {
             content="Contenu de la commande"
             content1="3 x BRIT Care Chiken et Salmon"
             content2="3 x BRIT Care Skin et Hair"
-            method="Méthode de payement choisie"
+            method="Méthode de paiement choisie"
             meth="PAiement au comptant"
           />
         </View>

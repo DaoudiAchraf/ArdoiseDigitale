@@ -6,13 +6,19 @@ import { h } from "../utils/Size";
 
 const DropDown = ({ items, selectedItem, handleChange, mode }) => {
   return (
-    <View 
-      style={mode === 'boxed' ? styles.boxedContainer: mode === 'rounded'? styles.roundedContainer : styles.container}>
+    <View
+      style={
+        mode === "boxed"
+          ? styles.boxedContainer
+          : mode === "rounded"
+          ? styles.roundedContainer
+          : styles.container
+      }
+    >
       <Picker
-        style={mode === 'boxed' && {height: h(7)}}
+        style={mode === "boxed" && { height: h(7) }}
         selectedValue={selectedItem}
         onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
-        
       >
         {items.map((item, index) => {
           
@@ -23,7 +29,6 @@ const DropDown = ({ items, selectedItem, handleChange, mode }) => {
                     value={item}
                     // label={typeof(item) === String ? item : item.name}
                     // value={typeof(item) === String ? item : {index:index}}
-                    
                  />;
         })}
       </Picker>
@@ -33,34 +38,32 @@ const DropDown = ({ items, selectedItem, handleChange, mode }) => {
 
 export default DropDown;
 
-
 DropDown.propTypes = {
-  mode : PropTypes.string,
+  mode: PropTypes.string,
 };
 
 DropDown.defaultProps = {
-  mode: 'flat'
+  mode: "flat",
 };
 
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
-    borderColor: '#BDBDBD',
+    borderColor: "#BDBDBD",
     marginBottom: 5,
     marginTop: 5,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
 
   boxedContainer: {
     borderWidth: 1,
-    borderColor: '#BDBDBD',
-    backgroundColor: 'transparent',
+    borderColor: "#BDBDBD",
+    backgroundColor: "transparent",
   },
-  roundedContainer:{
+  roundedContainer: {
     borderWidth: 1,
-    borderColor: '#FFFFFF' ,
+    borderColor: "#FFFFFF",
     borderRadius: 9,
-    backgroundColor: '#FFFFFF',
-  }
-
+    backgroundColor: "#FFFFFF",
+  },
 });

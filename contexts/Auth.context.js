@@ -3,47 +3,39 @@ import authService from "../services/Auth";
 import jwtDecode from "jwt-decode";
 import storage from "../utils/Storage";
 import AppLoading from "expo-app-loading";
-import clientService from '../services/Clientt';
+import clientService from "../services/Clientt";
 import { role } from "../constants/Strings";
 
 export const Context = createContext();
 
-const globalState ={
-  order:[]
-}
+const globalState = {
+  order: [],
+};
 
 const AuthContext = ({ children }) => {
-
   //let order= [];
-  console.log("render from context")
+  console.log("render from context");
 
-  
-
-  const [merchantsList,setMerchantsList] = useState([]);
-  const [currentMerchant , setCurrentMerchant] = useState(null);
-  const [ardoiseList,setArdoiseList ] = useState([]);
-
+  const [merchantsList, setMerchantsList] = useState([]);
+  const [currentMerchant, setCurrentMerchant] = useState(null);
+  const [ardoiseList, setArdoiseList] = useState([]);
 
   const [user, setUser] = useState();
-  
-  
 
   const restoreToken = async () => {
     const token = await storage.getToken();
 
     if (!token) return;
 
-    if (jwtDecode(token).exp < Date.now() / 1000)
-      storage.removeToken();
-    else 
-      { 
-        setUser(jwtDecode(token));
-        return jwtDecode(token);
-      }
+    if (jwtDecode(token).exp < Date.now() / 1000) storage.removeToken();
+    else {
+      setUser(jwtDecode(token));
+      return jwtDecode(token);
+    }
   };
 
   // useEffect(() => {
-    
+
   //   const getArdoise = async()=>{
   //     const response = await clientService.getArdoise();
   //     if(response.ok)
@@ -52,11 +44,11 @@ const AuthContext = ({ children }) => {
   //       response.data && setArdoiseList(response.data);
   //       //console.log(response.data);
   //     }
-  //     else 
+  //     else
   //      console.log(response.problem)
-        
-  //    }  
-     
+
+  //    }
+
   //    user && user.role && getArdoise();
 
   //    //(user && user.role === role.CLIENT) && getArdoise();
@@ -64,22 +56,17 @@ const AuthContext = ({ children }) => {
 
   const [isReady, setIsReady] = useState(false);
 
-  const onAppStarting = async()=>{
+  const onAppStarting = async () => {
+    const getArdoise = async () => {
+      const response = await clientService.getArdoise();
+      if (response.ok) response.data && setArdoiseList(response.data);
+      //console.log(response.data);
+      else console.log(response.problem);
+    };
 
-      const getArdoise = async()=>{
-        const response = await clientService.getArdoise();
-        if(response.ok)
-          response.data && setArdoiseList(response.data);
-          //console.log(response.data);
-        else 
-         console.log(response.problem)
-          
-       }  
-       
-      const user = await restoreToken();
-      (user && user.role === role.CLIENT) && await getArdoise();
-
-  }
+    const user = await restoreToken();
+    user && user.role === role.CLIENT && (await getArdoise());
+  };
 
   if (!isReady)
     return (
@@ -108,29 +95,31 @@ const AuthContext = ({ children }) => {
       setUser(jwtDecode(token));
     }
   };
-  
+
   const logout = () => {
     storage.removeToken();
     setUser();
   };
-  
+
   // Logout
   //storage.removeToken();
 
   return (
-    <Context.Provider value={{
-       user,
-       refreshToken, 
-       signIn, 
-       logout,
-       merchantsList,
-       setMerchantsList,
-       currentMerchant,
-       setCurrentMerchant,
-       ardoiseList,
-       setArdoiseList,
-       globalState
-       }}>
+    <Context.Provider
+      value={{
+        user,
+        refreshToken,
+        signIn,
+        logout,
+        merchantsList,
+        setMerchantsList,
+        currentMerchant,
+        setCurrentMerchant,
+        ardoiseList,
+        setArdoiseList,
+        globalState,
+      }}
+    >
       {children}
     </Context.Provider>
   );
