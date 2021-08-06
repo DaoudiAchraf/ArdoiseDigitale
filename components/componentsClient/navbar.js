@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, View, TouchableOpacity } from "react-native";
+import { Image, View, TouchableOpacity} from "react-native";
 import { w, h } from "../../utils/Size";
 import { Button, Text } from "react-native-paper";
 
@@ -34,9 +34,20 @@ import ListeDesCommandes from "../../screens/ListeDesCommandes";
 import { Context } from "../../contexts/Auth.context";
 import Catalog from "../../screens/Catalog";
 import ProductDetails from "../../screens/Client_Catalog/ProductDetails";
+import OrderDetails from "../../screens/OrderDetails";
 
-import { NavigationContainer } from '@react-navigation/native';
+//import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+
+import Cart from '../../assets/svgr/Cart';
+import Group from '../../assets/svgr/group';
+import NotificationSVG from '../../assets/svgr/Notification';
+import Map from '../../assets/svgr/Map';
+
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+import commonService from '../../services/Common';
+import { RFValue } from "react-native-responsive-fontsize";
 
 //const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -110,7 +121,8 @@ const StackNavigator = ({ initScr }) => {
       <Stack.Screen name="MerchantCatalog" component={Catalog} />
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
  
-  
+      <Stack.Screen name="OrderDetails" component={OrderDetails} />
+ 
       
 
       <Stack.Screen
@@ -160,27 +172,60 @@ const CustomButton = ({ onPress, merchant }) => {
 const CustomButtonCommand = ({ onPress }) => {
   return (
     <TouchableOpacity
-      style={{ alignSelf: "center", margin: "14%" }}
+      style={{ alignSelf: "center", margin: "10%" }}
       onPress={onPress}
     >
-      <Image
-        source={require("../../assets/assets/icons/client-control-btn-commandes.png")}
-        style={{ height: h(6), width: w(12) }}
+      <Cart
+        width={w(7.3)}
+        height={w(7.3)}
       />
+
     </TouchableOpacity>
   );
 };
 
+
+const  CustomButtonNotification = ({ onPress }) => {
+  return (
+    <TouchableOpacity
+      style={{ alignSelf: "center", marginLeft: '5%' }}
+      onPress={onPress}
+    >
+      <NotificationSVG
+        width={w(7)}
+        height={w(7)}
+      />
+
+    </TouchableOpacity>
+  );
+}; 
+
+const  CustomButtonMap = ({ onPress }) => {
+  return (
+    <TouchableOpacity
+      style={{ alignSelf: "center",marginLeft: '10%' }}
+      onPress={onPress}
+    >
+      <Map
+        width={w(7)}
+        height={w(7)}
+      />
+
+    </TouchableOpacity>
+  );
+}; 
+
 const CustomButtonMerchant = ({ onPress }) => {
   return (
     <TouchableOpacity
-      style={{ alignSelf: "center", margin: "14%" }}
+      style={{ alignSelf: "center", margin: "10%" }}
       onPress={onPress}
     >
-      <Image
-        source={require("../../assets/assets/icons/client-control-btn-marchands.png")}
-        style={{ height: h(6), width: w(12) }}
+      <Group
+        width={w(7)}
+        height={w(7)}
       />
+
     </TouchableOpacity>
   );
 };
@@ -188,10 +233,46 @@ const CustomButtonMerchant = ({ onPress }) => {
 function navbar({ merchant }) {
   const { logout } = React.useContext(Context);
 
+  const registerForPushNotificationsAsync =async() =>{
+
+    try{
+      const permission = await Notifications.getPermissionsAsync();
+      if(!permission.granted)  return;
+
+      const expoToken = await Notifications.getExpoPushTokenAsync();
+
+      commonService.refreshPushToken(expoToken);
+    
+    }
+    catch(error){
+      console.log('error getting push notification',error);
+    }
+
+  }
+
+  React.useEffect(()=>{
+    registerForPushNotificationsAsync();
+  },[])
+
   return (
     //<StackNavigator/>
     
     <Tab.Navigator initialRouteName="Account">
+      <Tab.Screen
+        name="Notification"
+        options={{
+          tabBarButton: (props) => <CustomButtonNotification {...props} />,
+        }}
+      >
+        {(props) =>
+          merchant ? (
+            <StackNavigatorM initScr={"MerchantClientsOrdersList"} {...props} />
+          ) : (
+            <StackNavigator initScr={"ListeDesCommandes"} {...props} />
+          )
+        }
+      </Tab.Screen>
+
       <Tab.Screen
         name="Merchant"
         options={{
@@ -206,6 +287,9 @@ function navbar({ merchant }) {
           )
         }
       </Tab.Screen>
+
+
+
       <Tab.Screen
         name="Account"
         options={{
@@ -217,6 +301,22 @@ function navbar({ merchant }) {
             <StackNavigatorM initScr={"MerchantAccount"} {...props} />
           ) : (
             <StackNavigator initScr={"Clientaccount"} {...props} />
+          )
+        }
+      </Tab.Screen>
+      
+
+      <Tab.Screen
+        name="Map"
+        options={{
+          tabBarButton: (props) => <CustomButtonMap {...props} />,
+        }}
+      >
+        {(props) =>
+          merchant ? (
+            <StackNavigatorM initScr={"MerchantClientsOrdersList"} {...props} />
+          ) : (
+            <StackNavigator initScr={"MapScreen"} {...props} />
           )
         }
       </Tab.Screen>
@@ -235,7 +335,10 @@ function navbar({ merchant }) {
           )
         }
       </Tab.Screen>
-      <Tab.Screen
+
+
+
+      {/* <Tab.Screen
         name="Commandd"
         options={{
           tabBarButton: (props) => (
@@ -255,7 +358,7 @@ function navbar({ merchant }) {
             <StackNavigator initScr={"ListeDesCommandes"} {...props} />
           )
         }
-      </Tab.Screen>
+      </Tab.Screen> */}
     </Tab.Navigator>
    
   );

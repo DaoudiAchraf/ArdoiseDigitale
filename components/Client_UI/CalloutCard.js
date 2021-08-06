@@ -20,7 +20,7 @@ const CalloutCard = ({ commande }) => {
         <View style={{ alignSelf: "center", width: w(15) }}>
           <Image source={commande.merchant.img} style={styles.image} />
         </View>
-        <View style={{ width: w(60), marginLeft: "2%" }}>
+        <View style={{ width: w(60), marginLeft: "5%" }}>
           <Text style={styles.title}>{commande.merchant.name}</Text>
           {commande.merchant.delivery && (
             <Text style={styles.small}>
@@ -46,7 +46,7 @@ const CalloutCard = ({ commande }) => {
           )}
         </View>
       </View>
-      <Divider />
+      <View style={{borderWidth:0.5,borderColor: 'grey'}}/>
       <View style={{ padding: "3%" }}>
         {commande.dateOfCreation && (
           <Text
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     color: "#545353",
     textAlign: "left",
     alignSelf: "stretch",
-    fontSize: RFValue(16),
+    fontSize: RFValue(14.5),
     fontWeight: "bold",
     paddingBottom: "1%",
   },
@@ -170,12 +170,12 @@ const styles = StyleSheet.create({
     color: "grey",
     textAlign: "left",
     alignSelf: "stretch",
-    fontSize: RFValue(12),
+    fontSize: RFValue(11),
   },
 
   image: {
-    height: h(8),
-    width: w(15),
+    height: RFValue(60),
+    width: RFValue(60),
   },
 });
 export default CalloutCard;

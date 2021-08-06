@@ -47,7 +47,8 @@ const ProductAttributes = ({attributes,setAttributes})=>{
               />
           </View>
 
-          <TouchableIcon onPress={addItem} style={{borderWidth:0.5}}>
+          <TouchableIcon onPress={addItem} 
+            style={{borderWidth:0.5,width:totalSize(6),height:totalSize(6.5)}}>
             <AntDesign name="plus" size={totalSize(3)} color="black" />
           </TouchableIcon>
 

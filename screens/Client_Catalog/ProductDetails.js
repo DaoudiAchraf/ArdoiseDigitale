@@ -10,9 +10,9 @@ import { totalSize } from '../../utils/Size';
 import { Context as SoukiContext } from '../../contexts/Auth.context';
 import { GlobalContext as OrderContext } from '../../contexts/ProductsCatalog.context';
 
+import Myappbar from "../../components/componentsClient/Myappbar";
 
 const DetailsScreen = ({navigation, route}) => {
-  const plant = route.params;
 
   const {_id,productName,photo,price,unit,description,attributes } = route.params;
   
@@ -38,7 +38,7 @@ const DetailsScreen = ({navigation, route}) => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: color.Primary,
+        backgroundColor: color.WHITE,
         paddingBottom: "5%",
       }}>
       <View style={style.header}>
@@ -48,6 +48,8 @@ const DetailsScreen = ({navigation, route}) => {
           size={totalSize(4)}
           color="black"
           onPress={() => navigation.goBack()} />
+{/* 
+         <Myappbar navigation={navigation} title="Historique des paiements" /> */}
     
       </View>
       <View style={style.imageContainer}>
@@ -74,7 +76,7 @@ const DetailsScreen = ({navigation, route}) => {
                 fontWeight: 'bold',
                 fontSize: 16,
               }}>
-              ${plant.price}
+              {price} DT
             </Text>
           </View>
         </View>
@@ -87,20 +89,23 @@ const DetailsScreen = ({navigation, route}) => {
             dfsfsfsdsdf dsdsfdsfdfsd dfdfdffsf sdfsdfdsf sdfsdsfds
             sfddfd sdfdsfs dssddsfsfsdf dsfdssdfsdf sdsdfsdf
             dfsfsfsdsdf dsdsfdsfdfsd dfdfdffsf sdfsdfdsf sdfsdsfds
+          </Text>
+          
+          { route.params.ViewOnly && 
+              <Text
+              style={{
+                color: 'grey',
+                fontWeight: 'bold',
+                fontSize: RFValue(17),
+                lineHeight: 22,
+                marginTop: 10,
+                marginBottom: '5%'
+              }}>
+              Quantité :  x {route.params.quantity}
+            </Text>
+          }
 
-            
-  
-          </Text>
-          <Text
-            style={{
-              color: 'grey',
-              fontWeight: 'bold',
-              fontSize: 16,
-              lineHeight: 22,
-              marginTop: 10,
-            }}>
-            {/* Quantité : */}
-          </Text>
+
           <View
             style={{
               marginTop: '1%',
@@ -116,8 +121,9 @@ const DetailsScreen = ({navigation, route}) => {
                 flex:1
               }}>
 
-            {product ?
-              <View style={{flexDirection: 'row',alignItems:'center'}}>
+            {!route.params.ViewOnly ? (
+              product ?
+              <View style={{flexDirection: 'row',alignItems:'center',marginTop:'5.5%'}}>
 
                 <TouchableOpacity 
                   style={style.borderBtn}
@@ -147,6 +153,7 @@ const DetailsScreen = ({navigation, route}) => {
               :<TouchableHighlight
                  onPress= {makeOrder}
                  underlayColor='none'
+                 style={{marginTop:'5.5%'}}
                >
   
                   <View style={style.buyBtn}>
@@ -157,7 +164,39 @@ const DetailsScreen = ({navigation, route}) => {
                   </Text>
                   </View>
                
-              </TouchableHighlight>
+              </TouchableHighlight>)
+              : 
+              <View style={{flexDirection: 'row',flex:1,justifyContent:'flex-end'}}>
+                <View style={{borderColor: color.Secondary,padding:'4%',borderRadius:5,borderWidth:0}}>
+
+
+              <View style={{borderWidth:2,borderColor:color.INFO_TEXT,flex:1,marginTop:'2.5%',marginBottom:'2.5%'}} />
+              <View style={{flexDirection: 'row',alignItems:'center'}}>
+                <Text
+                  style={{
+                    fontSize: RFValue(16.5),
+                    marginHorizontal: 10,
+                    fontWeight: 'bold',
+                    color: color.lightPrimary
+                  }}>
+                    {'Totale      :'}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: RFValue(17),
+                    marginHorizontal: 10,
+                    fontWeight: 'bold',
+                    color: color.lightPrimary,
+                  }}>
+                   {`${route.params.quantity*price} DT`}
+                </Text>
+                <View>
+                
+                </View>
+              </View>
+              </View>
+              </View>
+
             }
  
         
@@ -190,7 +229,7 @@ const style = StyleSheet.create({
     resizeMode: 'contain',
     width: '100%',
     height: '100%',
-    borderRadius: 20
+    borderRadius: 5
   },
   detailsContainer: {
 
@@ -198,9 +237,11 @@ const style = StyleSheet.create({
     marginHorizontal: '5%',
     marginBottom: "15%",
     borderRadius: 20,
-    marginTop: "3%",
+    marginTop: "0%",
     paddingTop: "5%",
-    paddingBottom: "5%"
+    paddingBottom: "5%",
+    borderWidth: 3,
+    borderColor: color.Primary
   
 
   },

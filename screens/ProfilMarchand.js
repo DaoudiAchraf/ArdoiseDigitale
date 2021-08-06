@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import Divider from "react-native-divider";
 import {
   Provider,
@@ -12,7 +12,7 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 import CalloutCard from "../components/Client_UI/CalloutCard";
 import MyAppbar from "../components/componentsClient/Myappbar";
-import { w, h } from "../utils/Size";
+import { w, h, totalSize } from "../utils/Size";
 import ItemInCallout from "../components/Client_UI/ClientReviewItem";
 import CardClient from "../components/componentsClient/CardClient";
 import GreenBtn from "../components/componentsClient/GreenBtn";
@@ -23,8 +23,10 @@ import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
 import clientService from '../services/Clientt';
 import { setAlert } from "../components/Alert";
 import { Context } from '../contexts/Auth.context';
+import { Entypo } from '@expo/vector-icons'; 
+import { color } from "../constants/Colors";
 
-const ProfilMarchand = (props)=>{
+const ProfilMarchand = ({navigation})=>{
   //console.log('tbadlet',demandeSent);
   const { currentMerchant ,setArdoiseList, ardoiseList } = useContext(Context);
 
@@ -64,7 +66,7 @@ const ProfilMarchand = (props)=>{
     <Provider>
 
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <MyAppbar navigation={props.navigation} title="ProfilMarchand" />
+        <MyAppbar navigation={navigation} title="ProfilMarchand" />
         <FondPageMarchand style={styles.svg} />
         <View style={styles.contentView}>
           <CardClient
@@ -73,11 +75,19 @@ const ProfilMarchand = (props)=>{
             small={"Adresse : "+currentMerchant.address.location.label}
             smaller={"Télephone : "+currentMerchant.phoneNumber}
             merchant={currentMerchant.firstName+' '+currentMerchant.lastName}
+            calender= {currentMerchant.availability}
             text1="Livraison disponible."
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
           />
 
+            <TouchableOpacity 
+              style={styles.BtnCatalog} 
+              onPress={()=>navigation.navigate('MerchantCatalog',{currentMerchant})}
+            >
+            <Entypo name="shop" size={totalSize(3.5)} color={color.Primary} />
+              <Text style={{marginLeft:'5%',fontSize:RFValue(15)}} >Consulter catalogue</Text>
+            </TouchableOpacity>
           {ardoise && ardoise.state === 'pending' ? (
             <GreenBtn grayed myGreenBtn title="Votre demande à été envoyée" />
           ) : (
@@ -87,6 +97,7 @@ const ProfilMarchand = (props)=>{
               title="Ouvrir une ardoise avec ce marchand"
             />
           )}
+
 
           <View
             style={{
@@ -172,4 +183,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "flex-end",
   },
+  BtnCatalog:{
+    borderWidth:1,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:'1.5%',
+    padding:'2%',
+    backgroundColor: '#F2F2F2',
+    flexDirection: 'row',
+  }
 });

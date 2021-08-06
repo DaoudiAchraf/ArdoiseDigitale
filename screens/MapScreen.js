@@ -177,6 +177,7 @@ export default function MapScreen({ navigation }) {
       <View style={styles.callout}>
         {currentMerchant && (
           <CardClient
+            callout
             myCard
             title="Target Express"
             small="751 Green Hill Dr. Webster,"

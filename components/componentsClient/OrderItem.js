@@ -8,7 +8,7 @@ import { color } from "../../constants/Colors";
 import {categories,subCategory as subCategories} from '../../constants/Arrays';
 import { setAlert } from "../Alert";
 
-const OrderItem = ({product,editProduct,removeProduct}) => {
+const OrderItem = ({product,editProduct,removeProduct,navToDetail}) => {
 
   const {productName,quantity,category,subCategory,price,_id} = product;
 
@@ -33,7 +33,10 @@ const OrderItem = ({product,editProduct,removeProduct}) => {
   }
   return(
   <View style={styles.container}>
-    <View style={styles.header} >
+    <TouchableOpacity 
+      style={styles.header} 
+      onPress={navToDetail}
+     >
         <View style={{padding:'2%',paddingLeft:'4%'}}>
             <Text style={styles.titleTxt}>{productName}</Text>
             <Text style={styles.CategoryTxt}>
@@ -43,7 +46,7 @@ const OrderItem = ({product,editProduct,removeProduct}) => {
 
         <Text style={{padding:'3%'}}>{price} DT</Text>
        
-    </View>
+    </TouchableOpacity>
     <Divider  style={{borderWidth:0.3,borderColor: color.INFO_TEXT}} />
     <View style={styles.footer}>
         <View style={{flexDirection: 'row',alignItems:'center'}}>

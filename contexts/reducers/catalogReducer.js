@@ -26,7 +26,11 @@ export default (state, action) => {
         products: updateproducts
       }
     
-
+    case 'NEW_order':
+        return {
+          ...state,
+          newOrders: action.payload
+        }
     default:
       return state;
   }

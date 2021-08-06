@@ -1,26 +1,34 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView, FlatList } from "react-native";
 import Myappbar from "../components/componentsClient/Myappbar";
-import Item2 from "../components/componentsClient/Item2";
+import Item2 from "../components/OrderList_Item";
 import Separator from "../components/componentsClient/Separator";
 import Divider from "react-native-divider";
 import { RFValue } from "react-native-responsive-fontsize";
 import PlusMinus from "../components/componentsClient/PlusMinus";
 import PlusMinus1 from "../components/componentsClient/PlusMinus1";
 import FondPageCommandes from "../assets/svg-icones-client/fond-page-commandes";
+import CommonServices from '../services/Common';
 
 const ListeDesCommandes = ({ navigation }) => {
   const [isMinus, setIsMinus] = useState(true);
-  const [isMinus1, setIsMinus1] = useState(true);
+  const [isMinus1, setIsMinus1] = useState(false);
 
-  const navOffrePrixCommande = () => navigation.navigate("OffrePrixCommande");
+  const navTo_OrderDetails = (item) => 
+    navigation.navigate('OrderDetails',item);
 
-  /*
-        <Image
-        style={styles.image}
-        source={require('../assets/assets/icons/fond-page-notifications.png')}
-        />
-      */
+  const [orders,setOrders] = useState();
+
+  useEffect(()=>{
+    const fetchUserOrders = async()=>{
+      const response = await CommonServices.getOrders();
+      response.ok && setOrders(response.data);
+    }
+    fetchUserOrders();
+
+  },[]);
+
+
   return (
     <ScrollView
       style={{
@@ -56,29 +64,18 @@ const ListeDesCommandes = ({ navigation }) => {
           </View>
         </View>
         {isMinus && (
-          <View style={{ margin: "8%" }}>
-            <Item2
-              title="Offre de prix reçue"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-              navigation={navOffrePrixCommande}
+
+          <FlatList
+            contentContainerStyle={{ margin: "0%" }}
+            data={orders}
+            keyExtractor={item => item._id}     
+            renderItem={({item})=>(
+              <Item2
+                navigation={()=>navTo_OrderDetails(item)}
+                infos ={item}
             />
-            <Item2
-              title="Offre de prix accepté"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-              navigation={navOffrePrixCommande}
-            />
-            <Item2
-              title="Commande prête"
-              small="Sam lrving le 12/12/2020 à 10h30"
-              smaller="Appuyez pour voir les détails."
-              source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-              navigation={navOffrePrixCommande}
-            />
-          </View>
+            )}
+          />
         )}
 
         <View
@@ -107,7 +104,7 @@ const ListeDesCommandes = ({ navigation }) => {
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/icons/client-fond-btn-historique.png")}
-              navigation={navOffrePrixCommande}
+              navigation={navTo_OrderDetails}
               grayed="true"
             />
             <Item2
@@ -115,7 +112,7 @@ const ListeDesCommandes = ({ navigation }) => {
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/icons/client-fond-btn-historique.png")}
-              navigation={navOffrePrixCommande}
+              navigation={navTo_OrderDetails}
               grayed="true"
             />
             <Item2
@@ -123,7 +120,7 @@ const ListeDesCommandes = ({ navigation }) => {
               small="Sam lrving le 12/12/2020 à 10h30"
               smaller="Appuyez pour voir les détails."
               source={require("../assets/assets/icons/client-fond-btn-historique.png")}
-              navigation={navOffrePrixCommande}
+              navigation={navTo_OrderDetails}
               grayed="true"
             />
 

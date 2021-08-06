@@ -44,7 +44,7 @@ export default function SubCategory({name,categ,subCateg,sub}) {
       products.splice(index, 1);
       setProducts([...products]);
     }
-    console.log("555555555555555555",name,categ,subCateg,sub);
+   // console.log("555555555555555555",name,categ,subCateg,sub);
 
     return (
         
@@ -74,7 +74,7 @@ export default function SubCategory({name,categ,subCateg,sub}) {
     </View>
       
         {itemExpanded && 
-         products.filter(product => product.subCategory === subCateg).map((item,index) =>
+         products.filter(product => (product.subCategory === subCateg)&&(product.category === categ)).map((item,index) =>
             <ProductCard 
                key={item._id}
                product={item}
