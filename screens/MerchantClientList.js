@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Image,
@@ -18,6 +18,8 @@ import { RFValue } from "react-native-responsive-fontsize";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import PlusMinus1 from "../components/componentsClient/PlusMinus1";
 import { h, w } from "../utils/Size";
+import {Context} from '../contexts/Auth.context'
+import clienttService from '../services/Clientt'
 
 function MerchantClientList({ navigation }) {
   const [isMinus, setIsMinus] = useState(true);
@@ -27,6 +29,23 @@ function MerchantClientList({ navigation }) {
 
   const navToMerchantProfilClient = () =>
     navigation.navigate("MerchantProfilClient");
+
+  const {ardoiseListMerchant, setArdoiseListMerchant} = useContext(Context)
+
+  useEffect(() => {
+    const getArdoiseList = async () => {
+      const response =  await clienttService.getArdoise();
+      if (response.ok) 
+        console.log(response.data); 
+        else console.log(response.problem);
+
+        return response.data;
+    }
+    const ardoises = getArdoiseList();
+    console.log('sayaaaaaaaaaaaaaaaaabna',ardoises);
+    setArdoiseListMerchant(ardoises);
+
+  }, [])  
 
   const DATA = [
     {

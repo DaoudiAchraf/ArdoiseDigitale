@@ -9,7 +9,17 @@ import { Context } from "../../contexts/Auth.context";
 
 const MenuFiltres = () => {
   const [visible, setVisible] = React.useState(false);
-
+  const activityDomainTab = [
+    "supermarché",
+    "épicerie",
+    "droguerie",
+    "parfumerie",
+    "boucherie",
+    "boulangerie",
+    "patisserie",
+    "buraliste",
+    "épicerie fine",
+  ]
   const openMenu = () => setVisible(true);
 
   const closeMenu = () => setVisible(false);
@@ -18,21 +28,19 @@ const MenuFiltres = () => {
 
   const [filterState, setFilterState] = useState({
     city: 0,
-    activitySector: 0,
+    activityDomain: 0,
     paymentType: 0,
     delivery: 0,
   });
   useEffect(() => {
+    console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", merchantsList);
     const tab = merchantsList.filter(
       (item) =>
-        item._id === "60d0b42971607e928ce4a7bf" ||
-        item._id === "60d0b4cc71607e928ce4a7c1" ||
-        item._id === "60d0b34e71607e928ce4a7bd"
+        item.activityDomain === activityDomainTab[filterState.activityDomain]
     );
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",activityDomainTab[filterState.activityDomain], tab);
 
-    console.log("aaaaaaaa", merchantsList);
-    setMerchantsList([]);
-    console.log("bbbbbbbb", merchantsList);
+    setMerchantsList(tab);
   }, [filterState]);
 
   return (
@@ -78,20 +86,10 @@ const MenuFiltres = () => {
 
           <Caption>Domaine d'activité</Caption>
           <DropDownFiltres
-            dropdownName="activitySector"
+            dropdownName="activityDomain"
             selectedItem={filterState}
             handleChange={setFilterState}
-            items={[
-              "supermarché",
-              "épicerie",
-              "droguerie",
-              "parfumerie",
-              "boucherie",
-              "boulangerie",
-              "patisserie",
-              "buraliste",
-              "épicerie fine",
-            ]}
+            items={activityDomainTab}
           />
           <Caption>Mode de paiement</Caption>
           <DropDownFiltres

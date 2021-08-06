@@ -5,6 +5,7 @@ import storage from "../utils/Storage";
 import AppLoading from "expo-app-loading";
 import clientService from "../services/Clientt";
 import { role } from "../constants/Strings";
+import commonService from '../services/Common'
 
 export const Context = createContext();
 
@@ -19,6 +20,25 @@ const AuthContext = ({ children }) => {
   const [merchantsList, setMerchantsList] = useState([]);
   const [currentMerchant, setCurrentMerchant] = useState(null);
   const [ardoiseList, setArdoiseList] = useState([]);
+  const [ardoiseListMerchant, setArdoiseListMerchant] = useState([])
+  const [order,setOrder] = useState("kfssqqqqqqqlkfdsqklflkjfqdsjlkqfdsjlkfdsq");
+
+  const getOrdersByArdoiseId = async (ardoiseId) => {
+    const response = await commonService.getOrders(ardoiseId);
+    if (response.ok) 
+      console.log(response.data); 
+      else console.log(response.problem);
+    };
+  
+    const getOrdersByState = async (state) => {
+      const response = await commonService.getOrdersByState(state);
+      if (response.ok) 
+        console.log(response.data); 
+        else console.log(response.problem);
+
+        return response.data;
+      };
+    
 
   const [user, setUser] = useState();
 
@@ -118,6 +138,10 @@ const AuthContext = ({ children }) => {
         ardoiseList,
         setArdoiseList,
         globalState,
+        getOrdersByArdoiseId,
+        getOrdersByState,
+        ardoiseListMerchant,
+        setArdoiseListMerchant
       }}
     >
       {children}

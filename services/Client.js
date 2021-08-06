@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 import authStorage from "../utils/Storage";
 
-export const URL = "http://161.156.160.146:3000";
+export const URL = "http://192.168.1.4:3000";
 const apiClient = create({
   //baseURL: "http://192.168.1.4:3000",
   baseURL: URL,

@@ -12,7 +12,7 @@ const Step4 = ({ toNextStep }) => {
   const {initialState,addInfos} = useContext(Context);
  // console.log("55",initialState);
   //-------------------States-----------------------------
-  const [activitySector, setActivitySector] = useState(initialState['activitySector']);
+  const [activityDomain, setActivityDomain] = useState(initialState['activityDomain']);
   const [address ,setAddress] = useState(initialState['address']);
   
   const [errors,setErrors] = useState({
@@ -35,7 +35,7 @@ const Step4 = ({ toNextStep }) => {
       console.log("string",k);
       console.log("parsed",JSON.parse(k));
       console.log("--------------------------");
-      addInfos({activitySector,address:JSON.stringify(address)});
+      addInfos({activityDomain,address:JSON.stringify(address)});
       toNextStep();
     }
   };
@@ -45,8 +45,8 @@ const Step4 = ({ toNextStep }) => {
       <View style={styles.inputsContainer}>  
         <DropDown
           items={traderAcitvity}
-          selectedItem={activitySector}
-          handleChange={setActivitySector}
+          selectedItem={activityDomain}
+          handleChange={setActivityDomain}
         />
 
        <Geo_autocomplete 
