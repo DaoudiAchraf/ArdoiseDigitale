@@ -8,12 +8,15 @@ import {
   Dimensions,
   ScrollView,
   Image,
+  TouchableOpacity
 } from "react-native";
 import MarkerSvg from "../assets/svg-icones-client/marker.jsx";
 import Filter from "../assets/svg-icones-client/filter.jsx";
 import BackSvg from "../assets/svg-icones-client/back.jsx";
 import Recherche from "../assets/assets/svgricons/recherche.jsx";
 import { h, w } from "../utils/Size";
+import Geo from '../services/Geo';
+
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import { Button, TextInput, Portal, Searchbar } from "react-native-paper";
@@ -73,16 +76,47 @@ export default function MapScreen({ navigation }) {
     navigation.navigate("ProfilMarchand");
   };
 
+  const [address, setAddress] = useState({
+    latitude: 36.87014037882809,
+    longitude: 10.237451295943895,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  })
+
+  const [value, setValue] = useState();
+
+  const [suggestions,setSuggestions] = useState([]);
+
+  const handleChange = (txt)=>{
+    setValue(txt);
+    txt.length >0 ?
+    (Geo.getSuggestions(txt).then(res=>setSuggestions(res.data.items))):setSuggestions([]);
+  }
+
+  const pickSuggest = (item)=>{
+    console.log('place----------',item);
+    //console.log(item);
+    console.log(item.title);
+    setValue(item.title);
+    setAddress({
+      latitude: item.position.lat,
+      longitude: item.position.lng,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+    setSuggestions([]);
+  }
+  const onRegionChange = (region) => {
+    setAddress({ region });
+  }
+
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: 36.87014037882809,
-          longitude: 10.237451295943895,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        initialRegion={address}
+        region={address}
+        onRegionChange={onRegionChange}
       >
         {merchantsList.map((merchant, index) => (
           <Marker
@@ -110,19 +144,36 @@ export default function MapScreen({ navigation }) {
         />
 
         <MenuFiltres />
-
+        <View>   
         <Searchbar
           icon={Recherche}
           placeholder={"Recherche.."}
-          onChangeText={(text) => console.log(text)}
+          value={value}
+          onChangeText={(text) => handleChange(text)}
           onIconPress={(text) => {
             console.log(text);
           }}
           inputStyle={{ fontSize: RFValue(12) }}
           style={{ width: w(47), height: h(5.5) }}
         />
+        {suggestions.length !== 0 && (<ScrollView  >
+         <View style={styles.autocompleteContainer}>
+          {suggestions.map((item,index)=>(
+            <TouchableOpacity key={index} 
+               style={styles.itemStyle}
+              onPress={()=>pickSuggest(item)}
+            >
+              <Text key={index} style={styles.itemTxt}>{item.title}</Text>
+            </TouchableOpacity>
+           
+         )
+         )}
+         </View>
+      </ScrollView>)}
+        
+        </View> 
       </View>
-
+              
       <View style={styles.callout}>
         {currentMerchant && (
           <CardClient
@@ -177,4 +228,14 @@ const styles = StyleSheet.create({
     padding: 20,
     width: "100%",
   },
+  autocompleteContainer:{
+    borderWidth: 0.5,
+    borderTopWidth: 0,
+  },
+  itemStyle:{
+    fontSize: RFPercentage(2)
+ },
+ itemTxt:{
+    fontSize: RFPercentage(3)
+ }
 });

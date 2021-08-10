@@ -4,7 +4,7 @@
     "slug": "Souki",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/assets/output-onlinepngtools.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
+        "foregroundImage": "./assets/assets/output-onlinepngtools.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.souki.k2lis",

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Divider from "react-native-divider";
 import {
@@ -23,13 +23,14 @@ import moment from "moment";
 import CalloutCard from "../components/Client_UI/CalloutCard";
 import ClientItem from "../components/MerchantComponents/ClientItem";
 
-export default function OffrePrixCommande({ navigation }) {
+export default function OffrePrixCommande({ route, navigation }) {
+  const { ardoise, _id, date } = route.params;
   const [commande, setCommande] = useState({
-    ref: "HM-123456789",
-    dateOfCreation: moment(new Date()).format("DD/MM/YYYY [à] hh[h]mm"),
+    ref: 'Ref: '+ _id,
+    dateOfCreation: moment(date).format("DD/MM/YYYY [à] hh[h]mm"),
     price: "0 MAD",
     client: {
-      name: "Kristen Harper",
+      name: ardoise.merchant.lastName,
       address: "987 University St.Roselle,\nIL 60172",
       img: require("../assets/UserOrange.png"),
       history: "Ce client a une ardoise de 150 MAD à payer le 12/12/2020",
@@ -68,10 +69,11 @@ export default function OffrePrixCommande({ navigation }) {
   const [visible1, setVisible1] = useState(false);
   const showDialog1 = () => setVisible1(true);
   const hideDialog1 = () => setVisible1(false);
+
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <MyAppbar navigation={navigation} title="Commande" />
+        <MyAppbar navigation={navigation} title="Commande" subtitle={commande.ref} />
         <FondPageCommandes style={styles.svg} />
         <View style={styles.contentView}>
           <ClientItem commande={commande} />
