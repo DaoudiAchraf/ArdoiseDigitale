@@ -3,7 +3,7 @@ import authService from "../services/Auth";
 import jwtDecode from "jwt-decode";
 import storage from "../utils/Storage";
 import AppLoading from "expo-app-loading";
-import clientService from "../services/Clientt";
+import commonService from "../services/Common";
 import { role } from "../constants/Strings";
 
 export const Context = createContext();
@@ -58,14 +58,14 @@ const AuthContext = ({ children }) => {
 
   const onAppStarting = async () => {
     const getArdoise = async () => {
-      const response = await clientService.getArdoise();
+      const response = await commonService.getArdoise();
       if (response.ok) response.data && setArdoiseList(response.data);
       //console.log(response.data);
       else console.log(response.problem);
     };
 
     const user = await restoreToken();
-    user && user.role === role.CLIENT && (await getArdoise());
+    user && (user.role === role.CLIENT || user.role === role.MERCHANT )&& (await getArdoise());
   };
 
   if (!isReady)

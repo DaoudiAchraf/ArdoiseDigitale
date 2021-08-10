@@ -4,6 +4,7 @@ import client from './Client';
 
 const traderCompleteProfile = (profile) =>client.patch('/api/merchant/profile',profile);
 
+const getArdoiseByMerchant = (merchant) => client.get(`/api/ardoise/${merchant}`);
 
 
 export default

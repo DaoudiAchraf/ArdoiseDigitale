@@ -9,10 +9,13 @@ const postReview = (review) => client.post('api/review',review);
 
 const getUserReviews = (user) => client.get('api/review',user);
 
+const getArdoise = () => client.get('/api/ardoise');
+
 export default {
     getOrdersByArdoise,
     getOrders,
     refreshPushToken,
     postReview,
-    getUserReviews
+    getUserReviews,
+    getArdoise
 }
