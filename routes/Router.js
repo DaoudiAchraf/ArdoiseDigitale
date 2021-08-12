@@ -54,9 +54,14 @@ export default function App() {
 
       {user ? (
         user.role === role.PENDING_MERCHANT ? (
+
           <ProfileBuilder />
+          
         ) : user.role === role.MERCHANT ? (
+          <OrderContext>
           <Navbar merchant />
+          </OrderContext>
+
         ) : (
 
           <OrderContext>

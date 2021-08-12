@@ -3,10 +3,11 @@ import * as React from "react";
 import { Appbar } from "react-native-paper";
 
 const Myappbar = (props) => {
+  
   return (
     <Appbar.Header style={{ backgroundColor: "transparent", marginTop: "10%" }}>
       <Appbar.BackAction
-        onPress={() => props.navigation && props.navigation.goBack()}
+        onPress={() => props.popup == false ? props.setPopup(true) : (props.navigation && props.navigation.goBack())}
         color="#FFFFFF"
       />
       <Appbar.Content

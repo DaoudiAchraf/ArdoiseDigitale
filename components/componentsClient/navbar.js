@@ -186,10 +186,12 @@ const CustomButtonCommand = ({ onPress }) => {
 
 
 const  CustomButtonNotification = ({ onPress }) => {
+  const { logout } = React.useContext(Context);
+
   return (
     <TouchableOpacity
       style={{ alignSelf: "center", marginLeft: '5%' }}
-      onPress={onPress}
+      onPress={() => logout()}
     >
       <NotificationSVG
         width={w(7)}
@@ -231,7 +233,6 @@ const CustomButtonMerchant = ({ onPress }) => {
 };
 
 function navbar({ merchant }) {
-  const { logout } = React.useContext(Context);
 
   const registerForPushNotificationsAsync =async() =>{
 

@@ -7,19 +7,32 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 import Popup from './Popup';
 import ProductForm from './ProductForm/ProductForm';
 import { GlobalContext } from '../contexts/ProductsCatalog.context';
+import { URL } from '../services/Client';
 
-export default function ProductCard({product}) {
+export default function ProductCard({product, modif}) {
 
   const [popupVisible,setPopupVisible] = useState(false);
 
-  const {editproduct,removeproduct} = useContext(GlobalContext);
+  const {editproduct,removeproduct,  modifiedProds, setModifiedProds, deletedProds, setDeletedProds} = useContext(GlobalContext);
 
   const editProduct = (productToEdit)=>{
+    
       editproduct(productToEdit);
+
+      if (modif) {
+        setModifiedProds([...modifiedProds, productToEdit])
+        console.log('MODIFIED PRODS', modifiedProds);
+
+      }
+
       setPopupVisible(false);
   }
 
   const remove = ()=>{
+    if (modif) {
+      setDeletedProds([...deletedProds, product])
+      console.log('DELETED PRODS', deletedProds);
+    }
     removeproduct(product._id);
   }
 
@@ -33,8 +46,7 @@ export default function ProductCard({product}) {
 
 
 
-
-      <Image source={{uri: product.photo.uri}} style={styles.img}/>
+      <Image source={{uri: URL+'/images/'+product.photo}} style={styles.img}/>
 
 
         

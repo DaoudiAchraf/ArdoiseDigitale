@@ -83,6 +83,7 @@ export default function MapScreen({ navigation }) {
     longitudeDelta: 0.0421,
   })
 
+
   const [value, setValue] = useState();
 
   const [suggestions,setSuggestions] = useState([]);
@@ -107,14 +108,13 @@ export default function MapScreen({ navigation }) {
     setSuggestions([]);
   }
   const onRegionChange = (region) => {
-    setAddress({ region });
+    setAddress({region});
   }
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={address}
         region={address}
         onRegionChange={onRegionChange}
       >
