@@ -24,6 +24,7 @@ import { Provider } from 'react-native-paper';
 import CategorySelector from './Client_Catalog/CategorySelector';
 import Filter from "../assets/svg-icones-client/filter.jsx";
 import { GlobalContext as OrderContext } from '../contexts/ProductsCatalog.context';
+import Myappbar from '../components/componentsClient/Myappbar';
 
 const width = Dimensions.get('window').width / 2 - 30;
 
@@ -177,9 +178,26 @@ const HomeScreen = ({navigation,route}) => {
   };
   return (
     <Provider>
+
+      <View style={{backgroundColor:color.Secondary}}>
+      <Myappbar
+            title="Catalogue"
+            // subtitle="Vous avez 3 nouvelles notifications"
+            navigation={navigation}
+       
+          />
+      </View>
+
+
+          
     <SafeAreaView
       style={{flex: 1, paddingHorizontal: 20, backgroundColor: color.WHITE}}>
+             
+
+   
       <View style={style.header}>
+
+
         <View style={{flex:1}}>
           <Text style={{fontSize: 20, fontWeight: 'bold' ,color: color.Primary}}>Bienvenue Chez</Text>
           <Text style={{fontSize: 20, color: COLORS.green, fontWeight: 'bold'}}>
@@ -295,7 +313,8 @@ const style = StyleSheet.create({
     //padding: totalSize(1.7),
   },
   header: {
-    marginTop: '15%',
+    borderTopWidth:0,paddingTop:'4%',
+    marginTop: '0%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'

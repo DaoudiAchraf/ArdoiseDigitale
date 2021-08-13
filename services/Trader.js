@@ -6,9 +6,11 @@ const traderCompleteProfile = (profile) =>client.patch('/api/merchant/profile',p
 
 const getArdoiseByMerchant = (merchant) => client.get(`/api/ardoise/${merchant}`);
 
+const changeArdoiseState = (ardoiseId,state) => client.patch('/api/ardoise/changeState',{ardoiseId,state});
 
 export default
 {
     //getProfile,
-    traderCompleteProfile
+    traderCompleteProfile,
+    changeArdoiseState,
 }

@@ -25,6 +25,11 @@ import MerchantClientOrder from "../../screens/MerchantClientOrder";
 import MerchantClientsOrdersList from "../../screens/MerchantClientsOrdersList";
 import MerchantNotifications from "../../screens/MerchantNotifications";
 import MerchantCatalogueModification from "../../screens/MerchantCatalogueModification";
+
+import MerchantCharts from "../../screens/MerchantCharts";
+
+import EditAccount from "../../screens/EditAccount";
+
 import MerchantProfilClient from "../../screens/MerchantProfilClient";
 
 import Listemarchands from "../../screens/Liste-marchands";
@@ -48,6 +53,7 @@ import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import commonService from '../../services/Common';
 import { RFValue } from "react-native-responsive-fontsize";
+import ProfileScreen from "../../screens/ProfileScreen";
 
 //const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -81,6 +87,22 @@ const StackNavigatorM = ({ initScr }) => {
         name="MerchantCatalogueModification"
         component={MerchantCatalogueModification}
       />
+
+      <Stack.Screen
+        name="EditAccount"
+        component={EditAccount}
+      />
+      
+      <Stack.Screen
+        name="MerchantCharts"
+        component={MerchantCharts}
+      />
+      <Stack.Screen
+        name="myAccount"
+        component={ProfileScreen}
+      />
+
+
     </Stack.Navigator>
   );
 };
@@ -122,8 +144,6 @@ const StackNavigator = ({ initScr }) => {
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
  
       <Stack.Screen name="OrderDetails" component={OrderDetails} />
- 
-      
 
       <Stack.Screen
         name="ConsulterCompteMarchand"
@@ -140,6 +160,16 @@ const StackNavigator = ({ initScr }) => {
         name="ConsulterArdoiseFermee"
         component={ConsulterArdoiseFermee}
       />
+
+      <Stack.Screen
+        name="EditAccount"
+        component={EditAccount}
+      />
+
+      <Stack.Screen
+        name="myAccount"
+        component={ProfileScreen}
+      />
     </Stack.Navigator>
   );
 };
@@ -147,7 +177,8 @@ const Tab = createBottomTabNavigator();
 
 const CustomButton = ({ onPress, merchant }) => {
   return (
-    <TouchableOpacity style={{ top: -40 }} onPress={onPress}>
+    <View style={{flexDirection: 'column'}}>
+    <TouchableOpacity style={{ position: 'absolute',left:w(40),bottom:'40%'}} onPress={onPress}>
       <View
         style={{
           height: 70,
@@ -166,13 +197,14 @@ const CustomButton = ({ onPress, merchant }) => {
         />
       </View>
     </TouchableOpacity>
+    </View>
   );
 };
 
 const CustomButtonCommand = ({ onPress }) => {
   return (
     <TouchableOpacity
-      style={{ alignSelf: "center", margin: "10%" }}
+      style={{ position: 'absolute',bottom:13,right:'7%',alignSelf:'center' }}
       onPress={onPress}
     >
       <Cart
@@ -188,7 +220,7 @@ const CustomButtonCommand = ({ onPress }) => {
 const  CustomButtonNotification = ({ onPress }) => {
   return (
     <TouchableOpacity
-      style={{ alignSelf: "center", marginLeft: '5%' }}
+      style={{ position: 'absolute',bottom:13,left:'7%',alignSelf:'center' }}
       onPress={onPress}
     >
       <NotificationSVG
@@ -203,7 +235,7 @@ const  CustomButtonNotification = ({ onPress }) => {
 const  CustomButtonMap = ({ onPress }) => {
   return (
     <TouchableOpacity
-      style={{ alignSelf: "center",marginLeft: '10%' }}
+      style={{ position: 'absolute',bottom:13,right:'25%',alignSelf:'center' }}
       onPress={onPress}
     >
       <Map
@@ -215,10 +247,27 @@ const  CustomButtonMap = ({ onPress }) => {
   );
 }; 
 
+const CustomButtonCatalog = ({ onPress }) => {
+  return (
+    <TouchableOpacity
+      style={{ position: 'absolute',bottom:13,left:'25%',alignSelf:'center'  }}
+      onPress={onPress}
+    >
+        <Image
+         source={require("../../assets/assets/icons/marchand-fond-btn-catalogue.png")}
+         width={50}
+         height={50}
+        />
+
+    </TouchableOpacity>
+  );
+};
+
+
 const CustomButtonMerchant = ({ onPress }) => {
   return (
     <TouchableOpacity
-      style={{ alignSelf: "center", margin: "10%" }}
+      style={{ position: 'absolute',bottom:13,left:'25%',alignSelf:'center'  }}
       onPress={onPress}
     >
       <Group
@@ -309,7 +358,7 @@ function navbar({ merchant }) {
       <Tab.Screen
         name="Map"
         options={{
-          tabBarButton: (props) => <CustomButtonMap {...props} />,
+          tabBarButton: (props) => merchant ? (<CustomButtonMap {...props} />):(<CustomButtonCatalog/>),
         }}
       >
         {(props) =>

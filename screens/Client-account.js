@@ -9,14 +9,16 @@ import { Context } from "../contexts/Auth.context";
 function Clientaccount({ navigation }) {
   const { ardoiseList } = useContext(Context);
 
-  useEffect(() => {
-      console.log(ardoiseList.length)
-  }, [ardoiseList.length])
+  // useEffect(() => {
+  //     console.log(ardoiseList.length)
+  // }, [ardoiseList.length])
 
   const navToNotification = () => navigation.navigate("Notification");
   const navToListemarchands = () => navigation.navigate("Listemarchands");
   const navToMapScreen = () => navigation.navigate("MapScreen");
   const navToListeDesCommandes = () => navigation.navigate("ListeDesCommandes");
+  const navToEditAccount = () => navigation.navigate("myAccount");
+
   return (
     <View style={{ flex: 1, backgroundColor: "#324B3E" }}>
       <View style={{ height: "17%" }}>
@@ -34,9 +36,10 @@ function Clientaccount({ navigation }) {
       <ScrollView style={{ top: "6%", marginBottom: "15%" }}>
         <View style={{ padding: "2%" }}>
           <Item1
-            title="Mon solde"
+            title="Mon compte"
             description="12 000 MAD"
             img={require("../assets/assets/icons/client-fond-btn-historique.png")}
+            navigation={navToEditAccount}
           />
           <Item1
             title="Mes notifications"

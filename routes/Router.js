@@ -14,6 +14,7 @@ import Navbar from "../components/componentsClient/navbar";
 import {GlobalProvider as OrderContext}  from '../contexts/ProductsCatalog.context';
 import LazyHOC from "../screens/LazyHOC";
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import MapMarker from '../components/SignUp_Trader/MapMarker';
 
 //const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ const AuthNavigator = () => (
     <Stack.Screen name="SignIn" component={SignIn} />
     <Stack.Screen name="SignUp" component={SignUp} />
     <Stack.Screen name="SignUp_Trader" component={SignUp_Trader} />
+    <Stack.Screen name="MapMarker" component={MapMarker} />
     <Stack.Screen name="SignUp_Client" component={SignUp_Client} />
   </Stack.Navigator>
 );

@@ -1,17 +1,30 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { Entypo } from '@expo/vector-icons'; 
 import { h, w } from "../../utils/Size";
+import { color } from "../../constants/Colors";
+import {Linking} from 'react-native'
 
-const ClientReviewItem = ({ name, date, img, text, commande }) => {
+const ClientReviewItem = ({ name, date, img, text, commande ,call}) => {
   return (
-    <TouchableOpacity style={styles.item}>
+
+    <TouchableOpacity style={styles.item} onPress={()=>Linking.openURL(`tel:${93990607}`)}>
       <View style={{ marginBottom: "3%", flexDirection: "row" }}>
         <Image style={styles.img} source={img || commande.client.img} />
-        <View style={{ marginLeft: "3%" }}>
+        <View style={{ marginLeft: "3%" ,flex:1}}>
           <Text style={styles.name}>{name || commande.client.name}</Text>
           <Text style={styles.date}>{date || commande.client.img}</Text>
         </View>
+
+        {call &&
+              <View style={{alignItems:"center",justifyContent:"center"}}>
+                <Entypo name="phone" size={RFValue(25)} color={color.lightPrimary} />
+                <Text style={{fontSize:RFValue(10)}} >contacter</Text>
+              </View>
+        }
+
+        
       </View>
 
       {commande && (

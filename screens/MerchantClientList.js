@@ -20,6 +20,7 @@ import PlusMinus1 from "../components/componentsClient/PlusMinus1";
 import { h, w } from "../utils/Size";
 import {Context} from '../contexts/Auth.context'
 import clienttService from '../services/Clientt'
+import moment from "moment";
 
 function MerchantClientList({ navigation }) {
   const [isMinus, setIsMinus] = useState(true);
@@ -27,119 +28,21 @@ function MerchantClientList({ navigation }) {
 
   const [scroll, setScroll] = useState(true);
 
-  const navToMerchantProfilClient = () =>
-    navigation.navigate("MerchantProfilClient");
+  const navToMerchantProfilClient = (client) =>
+    navigation.navigate("MerchantProfilClient",client);
 
-  const {ardoiseListMerchant, setArdoiseListMerchant} = useContext(Context)
+  const {ardoiseList} = useContext(Context)
 
-  useEffect(() => {
-    const getArdoiseList = async () => {
-      const response =  await clienttService.getArdoise();
-      if (response.ok) 
-        console.log(response.data); 
-        else console.log(response.problem);
 
-        return response.data;
-    }
-    const ardoises = getArdoiseList();
-    console.log('sayaaaaaaaaaaaaaaaaabna',ardoises);
-    setArdoiseListMerchant(ardoises);
 
-  }, [])  
+  const pendingArdoiseList = ardoiseList.filter(ardoise => ardoise.state === 'pending' && ardoise.client );
+  const openedArdoiseList = ardoiseList.filter(ardoise => ardoise.state === 'accepted');
 
-  const DATA = [
-    {
-      id: "0",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "1",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user2.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "2",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "3",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "5",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user2.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "6",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user.png"),
-      navigate: navToMerchantProfilClient,
-    },
-  ];
+  // console.log("pendinggggg");
+  // console.log(pendingArdoiseList);
 
   const DATA1 = [
     {
-      id: "0",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "1",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user2.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "2",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "3",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
-      id: "5",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user2.png"),
-      navigate: navToMerchantProfilClient,
-    },
-    {
       id: "6",
       title: "Kristen Harper",
       small: "Sam lrving le 12/12/2020 à 10h30",
@@ -149,14 +52,35 @@ function MerchantClientList({ navigation }) {
     },
   ];
 
-  const renderItem = ({ item }) => {
+  const renderItem_NewClients = ({item}) => {
+    const {firstName,lastName} = item.client;
+    const {creationDay} = item.creationDay;
+
     return (
+      // <Text>h1</Text>
       <Item2
-        title={item.title}
-        small={item.small}
-        smaller={item.smaller}
-        source={item.source}
-        navigation={item.navigate}
+        title = {`${firstName} ${lastName}`}
+        small = {`${moment(creationDay).format('DD/MM/YYYY')} à ${moment(creationDay).format('hh:mm')}` }
+        smaller= "Appuyez pour voir les détails."
+        source = {require("../assets/assets/user.png")}
+        navigation = {()=>navToMerchantProfilClient({ardoiseId:item._id, client:item.client})}
+      />
+    );
+  };
+
+  const renderItem_Myclients = ({item}) => {
+    const {firstName,lastName} = item.client;
+
+    // nbr de commande 
+
+    return (
+      // <Text>h1</Text>
+      <Item2
+        title = {`${firstName} ${lastName}`}
+        small = {'2 commandes'}
+        smaller= "Appuyez pour voir les détails."
+        source = {require("../assets/assets/user.png")}
+        navigation = {navToMerchantProfilClient}
       />
     );
   };
@@ -200,9 +124,9 @@ function MerchantClientList({ navigation }) {
             style={{ height: h(35) }}
           >
             <FlatList
-              data={DATA}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
+              data={pendingArdoiseList}
+              renderItem={renderItem_NewClients}
+              keyExtractor={(item) => item._id}
               ListFooterComponent={<Separator />}
             />
           </View>
@@ -241,9 +165,9 @@ function MerchantClientList({ navigation }) {
             style={{ height: h(35), marginBottom: "10%" }}
           >
             <FlatList
-              data={DATA1}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
+              data={openedArdoiseList}
+              renderItem={renderItem_Myclients}
+              keyExtractor={(item) => item._id}
               ListFooterComponent={<Separator />}
             />
           </View>

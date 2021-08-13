@@ -1,13 +1,14 @@
 import React, { useState,useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DropDown from "../DropDown";
 import { traderAcitvity } from "../../constants/Arrays";
 import Geo_autocomplete from '../Geo_autocomplete';
 import ButtonNext from '../ButtonNext';
 import { Context } from '../../contexts/SignUp.context';
 import { isValid } from '../Alert';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
-const Step4 = ({ toNextStep }) => {
+const Step4 = ({ toNextStep ,navigation}) => {
 
   const {initialState,addInfos} = useContext(Context);
  // console.log("55",initialState);
@@ -49,11 +50,21 @@ const Step4 = ({ toNextStep }) => {
           handleChange={setActivityDomain}
         />
 
-       <Geo_autocomplete 
+    <View style={{flexDirection: 'row',alignItems:'center'}}>
+      <View style={{flex:1}}>
+      <Geo_autocomplete 
          setAddress={setAddress}
          error={errors.address}
          setErrors={setErrors}
        />
+      </View>
+
+        <TouchableOpacity onPress={()=>navigation.navigate('MapMarker')}>
+          <MaterialCommunityIcons name="map-marker-plus-outline" size={24} color="black" />
+        </TouchableOpacity>
+       
+    </View>
+
       </View>
        <ButtonNext onPress={onSubmit} />
       

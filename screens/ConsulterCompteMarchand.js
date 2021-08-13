@@ -65,6 +65,8 @@ function ConsulterCompteMarchand({ navigation,route }) {
 
   const { ardoise } = route.params;
 
+  console.log('ardoisssssssssssssssssssssssssssssssssssssse',ardoise)
+
   
   const currentMerchant = ardoise.merchant;
 
@@ -75,9 +77,19 @@ function ConsulterCompteMarchand({ navigation,route }) {
   const { newOrders } = useContext(OrderContext);
 
 
+  const c=  newOrders && currentMerchant._id === newOrders.merchant ;
+  
+
+
+  
   const getReviews = async()=>{
     
   }
+
+  useEffect(()=>{
+    setIsMinus(true);
+  },[c])
+
 
   useEffect(()=>{
     
@@ -190,7 +202,8 @@ function ConsulterCompteMarchand({ navigation,route }) {
                 action={
                   () => {navigation.navigate("MerchantCatalog",{
                     currentMerchant,
-                    ardoiseId: ardoise._id
+                    ardoiseId: ardoise._id,
+            
                   })}
                 }
               />
@@ -224,7 +237,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
             </View>
             <>
               { 
-                isMinus && newOrders &&
+                isMinus && newOrders && currentMerchant._id === newOrders.merchant &&
                   <View style={styles.orderContainer}>
                     <OrderCardViewer 
                       newOrder

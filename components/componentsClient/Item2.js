@@ -4,6 +4,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import NotificationBackground from "../../assets/assets/svgricons/notificationBackground";
 import { w, h } from "../../utils/Size";
 import { Badge } from "react-native-paper";
+import { color } from "../../constants/Colors";
 
 const Item2 = (props) => {
   return (
@@ -15,19 +16,44 @@ const Item2 = (props) => {
         {props.badged && <Badge size={10} style={styles.badge} />}
 
         <View style={{ width: w(87), margin: "4%", marginLeft: "2%" }}>
+        {props.ardoise ?
           <Text
-            style={styles.title, props.grayed ? styles.grayed : styles.normal}
+            style={{...styles.title,color:"#485c54",fontSize:RFValue(16),marginBottom:'0.5%'}}
           >
             {props.title}
           </Text>
+          :         
+        <Text
+          style={styles.title, props.grayed ? styles.grayed : styles.normal}
+        >
+          {props.title}
+        </Text>
+          }
+          {props.ardoise ?
+          <View style={{flexDirection: 'row'}}>
+          <Text
+            style={{...styles.small,fontWeight:"bold",fontSize: RFValue(13)}}
+          >
+            {props.small} 
+          </Text>
+
+          <Text
+            style={{...styles.small,color:color.INFO_TEXT,fontSize: RFValue(13)}}
+          >
+             commandes
+          </Text>
+          </View>
+          :
           <Text
             style={styles.small, props.grayed ? styles.grayed : styles.normal}
           >
             {props.small}
           </Text>
+          }
+
           <Text style={styles.smaller}>{props.smaller}</Text>
         </View>
-        <View style={{ width: w(15), marginLeft: "-21%" }}>
+        <View style={{ width: w(15), marginLeft: "-23%",marginTop: '3%' }}>
           <Image source={props.source} style={styles.image}></Image>
         </View>
       </View>

@@ -18,6 +18,9 @@ import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import { Context } from "../contexts/Auth.context";
 import PagerView from 'react-native-pager-view';
 import { color } from "../constants/Colors";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { totalSize } from "../utils/Size";
+import { ColorAndroid } from "react-native/Libraries/StyleSheet/PlatformColorValueTypesAndroid";
 
 function Listemarchands({ navigation }) {
   const [isMinus, setIsMinus] = useState(true);
@@ -27,7 +30,7 @@ function Listemarchands({ navigation }) {
   const [ArdoiseFilter, setArdoiseFilter] = useState({
     accepted : true,
     closed : false,
-    pending: false
+    pending: true
   });
 
   const setFilter = (filter)=>{
@@ -105,6 +108,7 @@ function Listemarchands({ navigation }) {
             <Text style={{...styles.textFilter}}>filtrer par ardoise :</Text>
             </View> */}
             
+            {ardoiseList.length> 0 &&
             <View style={styles.filterLayout}>
               <View style={styles.filterContainer} >
                   <View>
@@ -143,9 +147,18 @@ function Listemarchands({ navigation }) {
                     onValueChange={()=>setFilter('closed')}  
                   />
               </View>
-
-
             </View>
+            }
+
+            {(ardoiseList && ardoiseList.length === 0) && <View style={{alignSelf: 'center'}}>
+              <MaterialCommunityIcons 
+                name="database-remove"
+                size={totalSize(30)} 
+                color={color.INFO_TEXT} 
+              />
+              <Text style={{textAlign:"center",color:color.INFO_TEXT,fontSize:RFValue(18)}}>Aucune ardoise Trouvée </Text>
+              </View>}
+           
             {/* <View style={{...styles.filterContainer,alignSelf:'center',marginTop:0}} >
                   <View>
                   <Text style={styles.textFilter}>En attente</Text>
@@ -169,7 +182,8 @@ function Listemarchands({ navigation }) {
               <Item2
                 key={item._id}
                 title={item.merchant.firstName+' '+item.merchant.lastName}
-                small="Sam lrving le 12/12/2020 à 10h30"
+                ardoise
+                small={` ${item.ordersCount} `}
                 smaller="Appuyez pour voir les détails."
                 source={require("../assets/assets/user.png")}
                 navigation={()=>navToMerchant(item)}

@@ -10,8 +10,8 @@ const ProductCard_item = (props) => {
 
   const {_id,quantity} = props.product;
 
-  console.log('procCARDDDDDDD')
-  console.log(props.product)
+  // console.log('procCARDDDDDDD')
+  // console.log(props.product)
 
   const navTo_productDetails = ()=>{
     if(typeof(_id)=== 'object')

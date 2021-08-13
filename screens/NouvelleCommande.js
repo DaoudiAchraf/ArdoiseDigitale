@@ -14,6 +14,7 @@ import clientService from '../services/Clientt';
 import { GlobalContext as OrderContext} from '../contexts/ProductsCatalog.context';
 import { color } from "../constants/Colors";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Provider } from 'react-native-paper';
 
 export default function ProfilMarchand({ navigation,route}) {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -28,6 +29,8 @@ export default function ProfilMarchand({ navigation,route}) {
  
 
   const sendOrder = async()=>{
+
+    console.log('enterrr')
     
     newOrder({
          products,
@@ -37,17 +40,17 @@ export default function ProfilMarchand({ navigation,route}) {
        });
 
     navigation.pop();
-    navigation.pop();   
+   navigation.pop();   
 
-   //navigation.replace('ConsulterCompteMarchand',products);
+     //navigation.replace('ConsulterCompteMarchand',products);
 
-    // const result = await clientService.sendOrder({
-    //   products,
-    //   ardoise: ardoiseId,
-    //   merchant: currentMerchant._id
-    // });
-    // if(result.ok)
-    //   console.log(result.data);
+    const result = await clientService.sendOrder({
+      products,
+      ardoise: ardoiseId,
+      merchant: currentMerchant._id
+    });
+    if(result.ok)
+      console.log(result.data);
 
   }
 
@@ -71,6 +74,7 @@ export default function ProfilMarchand({ navigation,route}) {
   //   ,[myOrder.length])
 
   return (
+    <Provider>
     <View style={{ backgroundColor: "#324B3E" ,flex:1}}>
       
         <MyAppbar title="Nouvelle commande" navigation={navigation} />
@@ -157,6 +161,7 @@ export default function ProfilMarchand({ navigation,route}) {
         </View>
       </ScrollView>
     </View>
+    </Provider>
   );
 }
 

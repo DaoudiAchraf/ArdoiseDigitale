@@ -11,13 +11,20 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { NavigationContainer } from "@react-navigation/native";
 
 function MerchantAccount({ navigation }) {
-  const navToNotifications = () => navigation.navigate("MerchantNotifications");
+  const navToNotifications = () =>
+   navigation.navigate("MerchantNotifications");
   const navToMerchantClientList = () =>
     navigation.navigate("MerchantClientList");
   const navToMerchantClientsOrdersList = () =>
     navigation.navigate("MerchantClientsOrdersList");
   const navToMerchantCatalogueModification = () =>
     navigation.navigate("MerchantCatalogueModification");
+  const navToCharts = () =>
+    navigation.navigate("MerchantCharts");
+  const navToAccountEdit = () =>
+    navigation.navigate("myAccount");
+
+
   return (
     <View style={{ flex: 1, backgroundColor: "#324B3E" }}>
       <View style={{ height: "17%" }}>
@@ -35,10 +42,16 @@ function MerchantAccount({ navigation }) {
 
       <ScrollView style={{ top: "6%", marginBottom: "15%" }}>
         <View style={{ padding: "2%", width: w(80), alignSelf: "center" }}>
-          <Item1
+          {/* <Item1
             title="Mon solde"
             description="12 000 MAD"
             img={require("../assets/assets/icons/client-fond-btn-historique.png")}
+          /> */}
+         <Item1
+            title="Mon Compte"
+            description="Appuyez pour accéder à votre compte"
+            img={require("../assets/assets/icons/client-fond-btn-historique.png")}
+            navigation={navToAccountEdit}
           />
           <Item1
             title="Notifications"
@@ -48,15 +61,22 @@ function MerchantAccount({ navigation }) {
           />
           <Item1
             title="Ma Liste des clients"
-            description="Vous avez 3 nouvelles notifications"
+            description="Appuyez pour afficher la liste des clients"
             img={require("../assets/assets/icons/client-fond-btn-marchands.png")}
             navigation={navToMerchantClientList}
           />
           <Item1
             title="Mon Catalogue"
-            description="Appuyez pour afficher la carte."
+            description="Appuyez pour afficher le catalogue"
             img={require("../assets/assets/icons/marchand-fond-btn-catalogue.png")}
             navigation={navToMerchantCatalogueModification}
+          />
+
+          <Item1
+            title="Mes Courbes"
+            description="Appuyez pour afficher les courbes"
+            img={require("../assets/assets/icons/marchand-fond-btn-catalogue.png")}
+            navigation={navToCharts}
           />
 
           <Divider borderColor="#fff" color="#fff" orientation="center">

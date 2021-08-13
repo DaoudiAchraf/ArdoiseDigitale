@@ -34,7 +34,7 @@ const Step4 = ({ toNextStep }) => {
   return (
     <View style={styles.stepTwo_container}>
       <View>
-        <Text style={{ marginBottom: 5 }}>Adresse *</Text>
+
         <Geo_autocomplete
           setAddress={setAddress}
           error={errors.address}

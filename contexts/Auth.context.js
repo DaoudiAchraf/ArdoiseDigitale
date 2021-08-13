@@ -5,7 +5,10 @@ import storage from "../utils/Storage";
 import AppLoading from "expo-app-loading";
 import commonService from "../services/Common";
 import { role } from "../constants/Strings";
-import commonService from '../services/Common'
+
+
+  // Logout
+  //storage.removeToken();
 
 export const Context = createContext();
 
@@ -74,15 +77,22 @@ const AuthContext = ({ children }) => {
   //    //(user && user.role === role.CLIENT) && getArdoise();
   // }, [user])
 
+  const getArdoise = async () => {
+    const response = await commonService.getArdoise();
+    if (response.ok) response.data && setArdoiseList(response.data);
+    //console.log(response.data);
+    else console.log(response.problem);
+  };
+
+  useEffect(()=>{
+    if(user)
+      getArdoise();
+  }
+  ,[user])
+
   const [isReady, setIsReady] = useState(false);
 
   const onAppStarting = async () => {
-    const getArdoise = async () => {
-      const response = await commonService.getArdoise();
-      if (response.ok) response.data && setArdoiseList(response.data);
-      //console.log(response.data);
-      else console.log(response.problem);
-    };
 
     const user = await restoreToken();
     user && (user.role === role.CLIENT || user.role === role.MERCHANT )&& (await getArdoise());
@@ -121,8 +131,7 @@ const AuthContext = ({ children }) => {
     setUser();
   };
 
-  // Logout
-  //storage.removeToken();
+
 
   return (
     <Context.Provider

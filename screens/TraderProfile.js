@@ -25,6 +25,8 @@ import TraderLastStep from "../components/TraderProfile/TraderLastStep";
 import { totalSize } from "../utils/Size";
 import { GlobalProvider } from "../contexts/ProductsCatalog.context";
 import { Button } from "react-native-paper";
+import { AntDesign } from '@expo/vector-icons'; 
+import { color } from "../constants/Colors";
 
 const App = ({ navigation }) => {
   const [currentPosition, setcurrentPosition] = useState(-1);
@@ -114,13 +116,24 @@ const App = ({ navigation }) => {
   return (
     <TraderProfileContext>
       <View style={styles.container}>
-        <Button
+        {/* <Button
           style={styles.logoutBtn}
           icon="logout"
           mode="contained"
           color="#324B3E"
           onPress={() => logout()}
-        />
+        /> */}
+        <View  style={styles.logoutBtn} >
+           <AntDesign 
+              name="logout"
+              size={28} 
+              color={color.Primary}
+              onPress={() => logout()}
+            />
+   
+        </View>
+
+       
         <Image resizeMode="contain" style={styles.logoStyle} source={logo} />
 
         <View style={styles.stepsContainer}>
@@ -180,7 +193,7 @@ const styles = StyleSheet.create({
   },
   logoutBtn: {
     position: "absolute",
-    right: "1%",
-    top: "3%",
+    right: "5%",
+    top: "5%",
   },
 });

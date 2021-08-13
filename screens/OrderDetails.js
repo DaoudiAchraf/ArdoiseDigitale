@@ -22,14 +22,16 @@ import ItemPrix from "../components/componentsClient/ItemPrix";
 import moment from "moment";
 import CalloutCard from "../components/Client_UI/CalloutCard";
 import { URL } from "../services/Client";
+import { color } from "../constants/Colors";
 
 export default function OffrePrixCommande({ navigation,route }) {
 
    
    const { products,merchant } = route.params;
-  
-    console.log('pppppppppppppppppppppppppp')
-    console.log('ppp',merchant)
+
+    let total= 0;
+    products.forEach(item=>total+=item._id.price*item.quantity);
+
 
   const [commande, setCommande] = useState({
     ref: "HM-123456789",
@@ -160,13 +162,39 @@ export default function OffrePrixCommande({ navigation,route }) {
                                   Détails de la commande
                                 </Text>
                               </Divider>
-                              <ItemPrix
+
+                            <View style={{backgroundColor:color.WHITE,padding:15,alignSelf:'center',elevation:20,borderWidth:5,borderColor:color.Primary}}>
+                              <View style={{flexDirection: 'row',alignSelf:'center',alignItems:'center'}}>
+                                  <Text style={{...styles.orderDetailTXT,fontWeight:'bold',fontSize: RFValue(15)}}>Total des achats : </Text>
+                                  <Text style={{...styles.orderDetailTXT,fontSize: RFValue(15),color:color.Primary}}>
+                                    {total} DT
+                                  </Text>
+                              </View>
+
+                              <View style={{flexDirection:'row',marginTop: '3%'}}>
+                                  <Text style={{...styles.orderDetailTXT,fontWeight:'bold'}} >02/08/2021</Text> 
+                                  <Text  style={styles.orderDetailTXT}> à </Text> 
+                                  <Text  style={{...styles.orderDetailTXT,fontWeight:'bold'}}>02/08/2021</Text>
+                                  <Text  style={styles.orderDetailTXT}>: Commande créée</Text>
+                                </View>
+
+                                <View style={{flexDirection:'row'}}>
+                                  <Text style={{...styles.orderDetailTXT,fontWeight:'bold'}} >02/08/2021</Text> 
+                                  <Text  style={styles.orderDetailTXT}> à </Text> 
+                                  <Text  style={{...styles.orderDetailTXT,fontWeight:'bold'}}>02/08/2021</Text>
+                                  <Text  style={styles.orderDetailTXT}>: Commande prête</Text>
+                                </View>
+                            </View>
+
+                            
+
+                              {/* <ItemPrix
                                 key="7"
                                 title="150 MAD"
                                 small="Prix proposé"
-                              />
+                              /> */}
 
-                              <View
+                              {/* <View
                                 key="8"
                                 style={{
                                   flexDirection: "row",
@@ -218,7 +246,7 @@ export default function OffrePrixCommande({ navigation,route }) {
                                     }
                                   />
                                 </View>
-                              </View>
+                              </View> */}
                             </View>
                           ) : (
                             [
@@ -372,4 +400,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
 
   },
+  orderDetailTXT:{
+    color: "#545353",
+    fontSize: RFValue(12)
+  }
 });

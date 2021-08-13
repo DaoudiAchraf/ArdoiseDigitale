@@ -73,7 +73,7 @@ const App = ({ navigation }) => {
       case 2:
         return <Step3 toNextStep={toNextStep} />;
       case 3:
-        return <Step4 toNextStep={toNextStep} />;
+        return <Step4 navigation={navigation} toNextStep={toNextStep} />;
       case 4:
         return <Step5 toNextStep={toNextStep} />;
       case 5:

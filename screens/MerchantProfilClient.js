@@ -32,8 +32,11 @@ import ClientItem from "../components/MerchantComponents/ClientItem";
 import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
 
 import ClientFondBtnMarchand from "../assets/svgr/ClientFondBtnMarchands.jsx";
+import merchantService from "../services/Trader";
+import { Feather } from '@expo/vector-icons'; 
 
-function MerchantProfilClient({ navigation }) {
+function MerchantProfilClient({ navigation,route }) {
+
   const [accepted, setAccepted] = useState(false);
 
   const [visible, setVisible] = useState(false);
@@ -43,6 +46,26 @@ function MerchantProfilClient({ navigation }) {
   const [isMinus, setIsMinus] = useState(true);
   const [isMinus1, setIsMinus1] = useState(true);
   const [isMinus2, setIsMinus2] = useState(true);
+
+  const {client, ardoiseId}= route.params;
+
+  const acceptArdoise = ()=>{
+    setAccepted(true);
+    merchantService.changeArdoiseState(ardoiseId,'accepted').then(result=>{
+      console.log(result);
+    });
+  }
+
+
+  const declineArdoise = ()=>{
+
+    hideDialog();
+
+    setAccepted(false);
+    merchantService.changeArdoiseState(ardoiseId,'refused').then(result=>{
+      console.log(result);
+    });
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -63,10 +86,11 @@ function MerchantProfilClient({ navigation }) {
           </View>
           <View style={{ marginTop: "10%", width: "93%", alignSelf: "center" }}>
             <ClientItem
-              name="Express"
+              name= {`${client.firstName} ${client.lastName}`}
               date="Green Hill"
               smaller="NY 145230"
               img={require("../assets/assets/user.png")}
+              call
             />
           </View>
           {!accepted && (
@@ -84,24 +108,29 @@ function MerchantProfilClient({ navigation }) {
                 <Portal>
                   <Dialog visible={visible} onDismiss={hideDialog}>
                     <Dialog.Title>
-                      <Text style={{ color: "#324B3E", fontSize: RFValue(25) }}>
+                   
+                      <Feather name="info" size={RFValue(25)} style={{marginRight:'15%'}} color="#324B3E" />
+                      <Text style={{ color: "#324B3E", fontSize: RFValue(24)}}>
                         Refus de client
                       </Text>
+                   
                     </Dialog.Title>
                     <Dialog.Content>
                       <Paragraph
                         style={{ fontSize: RFValue(13), color: "grey" }}
                       >
-                        Etes-vous surs de vouloir refuser ouvrir ardoise avec
+                        Etes-vous sur de vouloir refuser l'ouverture d'ardoise avec
                         Kristen Harper?
                       </Paragraph>
                     </Dialog.Content>
                     <Dialog.Actions>
+
                       <RedBtn
                         myRedBtn
-                        title="Fermer l'ardoise"
-                        action={hideDialog}
+                        title="Réfuser l'ardoise"
+                        action={declineArdoise}
                       />
+
                     </Dialog.Actions>
                   </Dialog>
                 </Portal>
@@ -110,7 +139,7 @@ function MerchantProfilClient({ navigation }) {
                 <GreenBtn
                   myGreenBtn
                   title="Accepter"
-                  action={() => setAccepted(true)}
+                  action={acceptArdoise}
                 />
               </View>
             </View>

@@ -31,13 +31,9 @@ export default function ProductCard({product}) {
         </View>
         <View style={styles.subItemContainer}>
 
-
-
-
-      <Image source={{uri: product.photo.uri}} style={styles.img}/>
-
-
-        
+        {product.photo && 
+          <Image source={{uri: product.photo.uri}} style={styles.img}/>
+        }
       
         <View style={styles.txtContainer}>
             <Text style={styles.txt3}>{product.productName}</Text>
