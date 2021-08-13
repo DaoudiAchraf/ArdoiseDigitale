@@ -12,11 +12,11 @@ import ProductForm from './ProductForm/ProductForm';
 import { GlobalContext } from "../contexts/ProductsCatalog.context";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function SubCategory({name,categ,subCateg,sub}) {
+export default function SubCategory({name,categ,subCateg,sub,modif}) {
 
     //console.log("render from categ:subCateg ",categ ,':',subCateg);
 
-    const { addproduct,products } = useContext(GlobalContext);
+    const { addproduct,products, addedProds, setAddedProds } = useContext(GlobalContext);
   
 
     const [itemExpanded ,setItemExpanded] = useState(false);
@@ -25,6 +25,12 @@ export default function SubCategory({name,categ,subCateg,sub}) {
     const [popupVisible1,setPopupVisible1] = useState(false);
 
     const createProduct = (product)=>{
+
+      if(modif)
+      {
+        setAddedProds([...addedProds, {...product, category: categ, subCategory: subCateg }]);
+        console.log('ADDED PRODS', addedProds);
+      }
 
       addproduct({
         ...product,
@@ -44,7 +50,7 @@ export default function SubCategory({name,categ,subCateg,sub}) {
       products.splice(index, 1);
       setProducts([...products]);
     }
-   // console.log("555555555555555555",name,categ,subCateg,sub);
+    console.log("555555555555555555",products);
 
     return (
         
@@ -73,11 +79,12 @@ export default function SubCategory({name,categ,subCateg,sub}) {
           </View>
     </View>
       
-        {itemExpanded && 
+        {(itemExpanded || modif) && 
          products.filter(product => (product.subCategory === subCateg)&&(product.category === categ)).map((item,index) =>
             <ProductCard 
                key={item._id}
                product={item}
+               modif={modif}
             />     
         )} 
 

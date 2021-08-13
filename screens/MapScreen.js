@@ -74,21 +74,47 @@ export default function MapScreen({ navigation }) {
     //console.log("thus MErchan",merchant);
   };
 
-  const navToMerchant =()=>{
-    console.log("hrzrzrzrzrzrzrzrrzr")
-    //navigation.navigate("ProfilMarchand");
+  const [address, setAddress] = useState({
+    latitude: 36.87014037882809,
+    longitude: 10.237451295943895,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  })
+
+
+  const [value, setValue] = useState();
+
+  const [suggestions,setSuggestions] = useState([]);
+
+  const handleChange = (txt)=>{
+    setValue(txt);
+    txt.length >0 ?
+    (Geo.getSuggestions(txt).then(res=>setSuggestions(res.data.items))):setSuggestions([]);
+  }
+
+  const pickSuggest = (item)=>{
+    console.log('place----------',item);
+    //console.log(item);
+    console.log(item.title);
+    setValue(item.title);
+    setAddress({
+      latitude: item.position.lat,
+      longitude: item.position.lng,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+    setSuggestions([]);
+  }
+  const onRegionChange = (region) => {
+    setAddress({region});
   }
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: 36.87014037882809,
-          longitude: 10.237451295943895,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        region={address}
+        onRegionChange={onRegionChange}
       >
         {merchantsList.map((merchant, index) => (
           <Marker

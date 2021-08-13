@@ -8,14 +8,12 @@ import { Primary } from '../constants/Colors';
 import { categories, subCategory } from "../constants/Arrays";
 import SubCategory from './SubCategory';
 
-const Catalog = ({item,categIndex,subCategIndex}) => {
+const Catalog = ({item,categIndex,subCategIndex,modif}) => {
 
     //console.log('categ render');
 
     const [expanded, setExpanded] = useState(false);
     const handlePress = () => setExpanded(!expanded);
-
-
 
   return (
     <View  style={{marginBottom: h(1)}}>
@@ -45,6 +43,7 @@ const Catalog = ({item,categIndex,subCategIndex}) => {
              sub={subItem}
              categ={categIndex}
              subCateg={subCategIndex}
+             modif={modif}
             />)
       } 
     </View>
@@ -105,3 +104,7 @@ const styles = StyleSheet.create({
 
   },
 });
+
+
+//        category:1            category:0
+//        subcategory: 0,1,3    subcategory: 2,1,0

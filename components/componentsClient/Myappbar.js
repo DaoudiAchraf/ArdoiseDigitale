@@ -6,11 +6,13 @@ import { AntDesign } from '@expo/vector-icons';
 import { Text } from "react-native";
 
 const Myappbar = (props) => {
+  
   return (
     <Appbar.Header style={{ backgroundColor: "transparent", marginTop: "8%" }}>
       <Appbar.BackAction
-        onPress={() => props.navigation && props.navigation.goBack()}
         color={props.whiteMode ?color.Primary :"#FFFFFF"}
+        onPress={() => props.popup == false ? props.setPopup(true) : (props.navigation && props.navigation.goBack())}
+        color="#FFFFFF"
       />
       <Appbar.Content
         title={props.title}

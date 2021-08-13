@@ -31,6 +31,11 @@ export default (state, action) => {
           ...state,
           newOrders: action.payload
         }
+        case 'SET_products':
+          return {
+            ...state,
+            products: action.payload
+          }
     default:
       return state;
   }

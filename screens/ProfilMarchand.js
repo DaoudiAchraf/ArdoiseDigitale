@@ -47,6 +47,10 @@ const ProfilMarchand = ({navigation})=>{
   const [isMinus, setIsMinus] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
 
+  const [filterState, setFilterState] = useState({
+    paymentType: 0,
+    delivery: 0,
+  });
 
   const sendDemande = async()=>{
     hideDialog();
@@ -143,8 +147,9 @@ const ProfilMarchand = ({navigation})=>{
             <Dialog.Content>
               <Paragraph>Mode de payement préféré</Paragraph>
               <DropDownFiltres
-                selectedItem={selectedItem}
-                handleChange={setSelectedItem}
+                dropdownName='paymentType'
+                selectedItem={filterState}
+                handleChange={setFilterState}
                 items={[
                   "à la commande",
                   "à la livraison",
@@ -152,10 +157,11 @@ const ProfilMarchand = ({navigation})=>{
                   "en 3 fois (chaque mois)",
                 ]}
               />
-              <Paragraph>Mode de payement préféré</Paragraph>
+              <Paragraph>Livraison</Paragraph>
               <DropDownFiltres
-                selectedItem={selectedItem}
-                handleChange={setSelectedItem}
+                dropdownName='delivery'
+                selectedItem={filterState}
+                handleChange={setFilterState}
                 items={["à récupérer", "à domicile"]}
               />
               <GreenBtn
