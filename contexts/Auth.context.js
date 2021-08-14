@@ -33,8 +33,8 @@ const AuthContext = ({ children }) => {
       else console.log(response.problem);
     };
   
-    const getOrdersByState = async (state) => {
-      const response = await commonService.getOrdersByState(state);
+    const getOrdersByUserr = async () => {
+      const response = await commonService.getOrdersByUserr();
       if (response.ok) 
         console.log(response.data); 
         else console.log(response.problem);
@@ -148,7 +148,7 @@ const AuthContext = ({ children }) => {
         setArdoiseList,
         globalState,
         getOrdersByArdoiseId,
-        getOrdersByState,
+        getOrdersByUserr,
         ardoiseListMerchant,
         setArdoiseListMerchant
       }}

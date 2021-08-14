@@ -223,7 +223,7 @@ const  CustomButtonNotification = ({ onPress }) => {
   return (
     <TouchableOpacity
       style={{ position: 'absolute',bottom:13,left:'7%',alignSelf:'center' }}
-      onPress={onPress}
+      onPress={() => logout()}
     >
       <NotificationSVG
         width={w(7)}

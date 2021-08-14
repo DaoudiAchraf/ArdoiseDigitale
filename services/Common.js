@@ -1,6 +1,6 @@
 import client from "./Client";
 
-const getOrdersByState = (state) => client.post(`/api/orders/state`, state);
+const getOrdersByUserr = () => client.get(`/api/orders/userr`);
 const getArdoises = () => client.get('/api/ardoise');
 const getOrdersByArdoise = (ardoiseId) => client.get(`/api/orders/${ardoiseId}`);
 const getOrders = () => client.get('/api/orders');
@@ -16,7 +16,7 @@ const getArdoise = () => client.get('/api/ardoise');
 export default {
     getOrdersByArdoise,
     getOrders,
-    getOrdersByState,
+    getOrdersByUserr,
     getArdoises,
     refreshPushToken,
     postReview,

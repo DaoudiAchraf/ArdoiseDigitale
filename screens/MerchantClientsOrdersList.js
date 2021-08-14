@@ -15,22 +15,22 @@ import { h } from "../utils/Size";
 //Todo: this needs flatlists like merchant clientList
 
 const ListeDesCommandes = ({ navigation }) => {
-  const { getOrdersByState } = useContext(Context);
+  const { getOrdersByUserr } = useContext(Context);
   const [orders, setOrders] = useState([])
   const [data, setData] = useState([])
   
   useEffect(() => {
     const getOrders = async () => {
-      const orderss = await getOrdersByState({state:"60f147c13b377eb95c7a2a82"});
+      const orderss = await getOrdersByUserr();
       setOrders(orderss)};
     getOrders();
    }, [])
 
    useEffect(() => {
-    console.log('lkqlkqflkjfdqslkjfdsqlkjfqdslkjqfslkjqfdskqfdslkjqflkfqkjfqdslkj',orders);
+    console.log('orders : ',orders);
     dataa = orders.map((item) => ({id: item._id, title: item.ardoise.merchant.lastName, small: "aaa",smaller:"aaaa",
     source: require("../assets/assets/icons/client-fond-btn-commande.png"),navigate:() => navigation.navigate("MerchantClientOrder",item)}))
-    console.log('hanaaaaaaane',dataa);
+    console.log('flatlist data : ',dataa);
     setData(dataa)
    }, [orders])
 
