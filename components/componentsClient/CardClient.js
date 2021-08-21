@@ -38,7 +38,7 @@ const CardClient = (props) => {
 
         style={{ height: h(15) }}
         source={
-          props.storeImage ?
+          !props.storeImage ?
           {uri:URL+'/images/'+props.storeImage}:
           require('../../assets/assets/targetexpress.jpg')
         }
@@ -80,7 +80,7 @@ const CardClient = (props) => {
         <Image
            source={
             props.merchantImage ?
-            {uri:URL+'/images/'+props.merchantImage}:
+            {uri:URL+'/images/'+'1629086825192.jpg'}:
             require('../../assets/assets/targetexpress.jpg')
 
            }

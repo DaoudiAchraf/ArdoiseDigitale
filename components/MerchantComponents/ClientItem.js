@@ -6,15 +6,15 @@ import { h, w } from "../../utils/Size";
 import { color } from "../../constants/Colors";
 import {Linking} from 'react-native'
 
-const ClientReviewItem = ({ name, date, img, text, commande ,call}) => {
+const ClientReviewItem = ({ name, address, img, text, commande ,call,phone}) => {
   return (
 
-    <TouchableOpacity style={styles.item} onPress={()=>Linking.openURL(`tel:${93990607}`)}>
+    <TouchableOpacity style={styles.item} onPress={()=>Linking.openURL(`tel:${phone}`)}>
       <View style={{ marginBottom: "3%", flexDirection: "row" }}>
         <Image style={styles.img} source={img || commande.client.img} />
         <View style={{ marginLeft: "3%" ,flex:1}}>
           <Text style={styles.name}>{name || commande.client.name}</Text>
-          <Text style={styles.date}>{date || commande.client.img}</Text>
+          <Text style={styles.date}>{address || commande.client.address}</Text>
         </View>
 
         {call &&
@@ -29,18 +29,19 @@ const ClientReviewItem = ({ name, date, img, text, commande ,call}) => {
 
       {commande && (
         <View>
-          <View style={{ marginBottom: "3%" }}>
+          {/* <View style={{ marginBottom: "3%" }}>
             <Text style={styles.date}>{commande.client.history}</Text>
-          </View>
+          </View> */}
+          <View style={{borderWidth:1,marginTop:'2%'}}/>
           {commande.dateOfCreation && (
             <Text style={styles.date}>
               <Text style={{ fontWeight: "bold" }}>
                 {commande.dateOfCreation}
               </Text>
-              {" : Commande crée par "}
-              <Text key="9" style={{ fontWeight: "bold" }}>
+              {" : Commande crée "}
+              {/* <Text key="9" style={{ fontWeight: "bold" }}>
                 {commande.client.name}
-              </Text>
+              </Text> */}
             </Text>
           )}
           {!commande.offer.onHold && [

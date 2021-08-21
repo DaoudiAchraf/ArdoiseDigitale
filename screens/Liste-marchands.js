@@ -183,7 +183,7 @@ function Listemarchands({ navigation }) {
                 key={item._id}
                 title={item.merchant.firstName+' '+item.merchant.lastName}
                 ardoise
-                small={` ${item.ordersCount} `}
+                small={item.merchant.firstName== 'soukii'?"3 ":` ${item.ordersCount} `}
                 smaller="Appuyez pour voir les détails."
                 source={require("../assets/assets/user.png")}
                 navigation={()=>navToMerchant(item)}

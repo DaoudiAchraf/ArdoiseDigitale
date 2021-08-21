@@ -3,13 +3,13 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-const NextButton = ({ title, action, myRedBtn }) => {
+const NextButton = ({ title, action, myRedBtn,style }) => {
   return (
     <TouchableOpacity
       onPress={action}
       style={[myRedBtn ? styles.myRedBtn : styles.btnStyle]}
     >
-      <Text style={{ color: "white", fontSize: RFValue(10) }}>{title}</Text>
+      <Text style={{ color: "white", fontSize: RFValue(10),...style }}>{title}</Text>
     </TouchableOpacity>
   );
 };

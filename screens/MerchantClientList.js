@@ -29,7 +29,9 @@ function MerchantClientList({ navigation }) {
   const [scroll, setScroll] = useState(true);
 
   const navToMerchantProfilClient = (client) =>
-    navigation.navigate("MerchantProfilClient",client);
+  navigation.navigate("MerchantProfilClient",client);
+    //navigation.navigate('MyClientProfil',client);
+    
 
   const {ardoiseList} = useContext(Context)
 
@@ -58,6 +60,7 @@ function MerchantClientList({ navigation }) {
 
     return (
       // <Text>h1</Text>
+      
       <Item2
         title = {`${firstName} ${lastName}`}
         small = {`${moment(creationDay).format('DD/MM/YYYY')} à ${moment(creationDay).format('hh:mm')}` }
@@ -65,23 +68,31 @@ function MerchantClientList({ navigation }) {
         source = {require("../assets/assets/user.png")}
         navigation = {()=>navToMerchantProfilClient({ardoiseId:item._id, client:item.client})}
       />
+
     );
   };
 
   const renderItem_Myclients = ({item}) => {
+   
     const {firstName,lastName} = item.client;
 
     // nbr de commande 
 
     return (
       // <Text>h1</Text>
+  
       <Item2
         title = {`${firstName} ${lastName}`}
         small = {'2 commandes'}
         smaller= "Appuyez pour voir les détails."
         source = {require("../assets/assets/user.png")}
-        navigation = {navToMerchantProfilClient}
+        //navigation = {()=>navToMerchantProfilClient({ardoiseId:item._id, client:item.client})}
+        navigation = {()=>navigation.navigate("MyClient",{ardoiseId:item._id, client:item.client})}
       />
+
+
+
+
     );
   };
 
@@ -90,7 +101,6 @@ function MerchantClientList({ navigation }) {
       <Myappbar navigation={navigation} title="Mes clients" />
 
       <FondPageMarchand style={styles.svg} />
-      <ScrollView scrollEnabled={scroll} style={{ marginTop: "10%" }}>
         <View
           onStartShouldSetResponderCapture={() => setScroll(true)}
           style={{
@@ -172,7 +182,7 @@ function MerchantClientList({ navigation }) {
             />
           </View>
         )}
-      </ScrollView>
+
     </View>
   );
 }

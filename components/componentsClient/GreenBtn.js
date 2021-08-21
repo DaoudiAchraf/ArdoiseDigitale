@@ -11,7 +11,7 @@ const NextButton = ({
   grayed,
   myGreenBtn,
   myGreenBtn2,
-  style
+  style,textSize
 }) => {
   return (
     <TouchableOpacity
@@ -33,8 +33,8 @@ const NextButton = ({
       <Text
         style={[
           grayed
-            ? { color: "#808080", fontSize: RFValue(12) }
-            : { color: "white", fontSize: RFValue(12) },
+            ? { color: "#808080", fontSize: RFValue(12),...textSize }
+            : { color: "white", fontSize: RFValue(12),...textSize },
         ]}
       >
         {title}

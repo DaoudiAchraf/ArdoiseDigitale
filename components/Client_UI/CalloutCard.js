@@ -46,7 +46,10 @@ const CalloutCard = ({ commande }) => {
           )}
         </View>
       </View>
-      <View style={{borderWidth:0.5,borderColor: 'grey'}}/>
+
+
+
+      {/* <View style={{borderWidth:0.5,borderColor: 'grey'}}/>
       <View style={{ padding: "3%" }}>
         {commande.dateOfCreation && (
           <Text
@@ -144,7 +147,7 @@ const CalloutCard = ({ commande }) => {
             Commande payée
           </Text>
         )}
-      </View>
+      </View> */}
     </Card>
   );
 };

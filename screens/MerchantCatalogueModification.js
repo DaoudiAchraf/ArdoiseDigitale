@@ -13,6 +13,7 @@ import { GlobalContext } from "../contexts/ProductsCatalog.context";
 
 
 import Category from "../components/Category";
+import { color } from "../constants/Colors";
 
 
 const SaveDialog = ({popup, setPopup, navigation}) => {
@@ -134,10 +135,13 @@ const MerchantCatalogueModification = ({navigation}) => {
       <Text style={styles.footerTxt}>
         {`Vous pouvez modifier votre cataloge à tout moment.\nIl est recommendé de le garder à jour pour garantir une meilleure expérience à vos clients`}
       </Text>
+      <View style={{backgroundColor:'white',padding:1,borderWidth:4,borderColor:color.INFO_TEXT}}>
+
+      
         {categories.map(item => <Category key={item} categIndex={item} subCategIndex={item} modif={true} />)}
         {/* {products.map((item) => (
           <Category key={item._id} item={item} categIndex={item.category} subCategIndex={item.subCategory} />
-        ))} */}
+        ))} */}</View>
       </SafeAreaView>
 
       {popup && <SaveDialog navigation={navigation} popup={popup} setPopup={setPopup} />}

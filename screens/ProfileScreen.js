@@ -53,9 +53,9 @@ const ProfileScreen = ({navigation}) => {
                  <Title style={[styles.title, {
                    marginTop:15,
                    marginBottom: 5,
-                  }]}>John Doe</Title>
+                  }]}>Souki Ahmed</Title>
                
-               <Caption style={styles.caption}>@j_doe</Caption>
+               <Caption style={styles.caption}>@edjd454MyhdF</Caption>
               </View>
             
             <TouchableOpacity onPress={()=>navigation.navigate('EditAccount')} >
@@ -70,16 +70,16 @@ const ProfileScreen = ({navigation}) => {
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
           <Icon name="map-marker-radius" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>Kolkata, India</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>Tunisie,Tunis,Aryana</Text>
         </View>
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>+91-900000009</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>+216 23950337</Text>
         </View>
-        <View style={styles.row}>
+        {/* <View style={styles.row}>
           <Icon name="email" color="#777777" size={20}/>
           <Text style={{color:"#777777", marginLeft: 20}}>john_doe@email.com</Text>
-        </View>
+        </View> */}
       </View>
 
       <View style={styles.infoBoxWrapper}>
@@ -96,7 +96,7 @@ const ProfileScreen = ({navigation}) => {
           </View>
       </View>
 
-      <View style={styles.menuWrapper}>
+      {/* <View style={styles.menuWrapper}>
 
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
@@ -112,7 +112,7 @@ const ProfileScreen = ({navigation}) => {
           </View>
         </TouchableRipple>
 
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

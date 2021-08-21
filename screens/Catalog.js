@@ -48,7 +48,7 @@ const HomeScreen = ({navigation,route}) => {
 
   const cart = useContext(OrderContext);
 
-  const { currentMerchant, ardoiseId } = route.params;
+  const { currentMerchant, ardoiseId,client } = route.params;
 
 
 
@@ -201,12 +201,12 @@ const HomeScreen = ({navigation,route}) => {
         <View style={{flex:1}}>
           <Text style={{fontSize: 20, fontWeight: 'bold' ,color: color.Primary}}>Bienvenue Chez</Text>
           <Text style={{fontSize: 20, color: COLORS.green, fontWeight: 'bold'}}>
-            abdallah store 
+            Ahmed store 
           </Text>
         </View>
 
         <TouchableOpacity 
-          onPress={()=>navigation.navigate("NouvelleCommande",{currentMerchant,ardoiseId})}
+          onPress={()=>navigation.navigate("NouvelleCommande",{currentMerchant,ardoiseId,client})}
           style={{marginTop:'0%'}}>
           <Badge style={{marginBottom:'-15%'}}>
             <Text style={{fontWeight:'bold',fontSize: RFValue(14)}}>

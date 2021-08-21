@@ -15,7 +15,7 @@ const ListeDesCommandes = ({ navigation }) => {
   const [isMinus1, setIsMinus1] = useState(false);
 
   const navTo_OrderDetails = (item) => 
-    navigation.navigate('OrderDetails',item);
+    navigation.navigate('OrderDetails',{products: item.products,ardoise:item.ardoise});
 
   const [orders,setOrders] = useState();
 
@@ -70,10 +70,11 @@ const ListeDesCommandes = ({ navigation }) => {
             data={orders}
             keyExtractor={item => item._id}     
             renderItem={({item})=>(
+              
               <Item2
                 navigation={()=>navTo_OrderDetails(item)}
                 infos ={item}
-            />
+             />
             )}
           />
         )}

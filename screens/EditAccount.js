@@ -18,6 +18,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 
 import ImagePicker from 'react-native-image-crop-picker';
+import { color } from '../constants/Colors';
 
 const EditProfileScreen = () => {
 
@@ -53,19 +54,19 @@ const EditProfileScreen = () => {
   renderInner = () => (
     <View style={styles.panel}>
       <View style={{alignItems: 'center'}}>
-        <Text style={styles.panelTitle}>Upload Photo</Text>
-        <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
+        <Text style={styles.panelTitle}>Changer votre photo</Text>
+        <Text style={styles.panelSubtitle}>Choisir votre image de profil</Text>
       </View>
       <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
-        <Text style={styles.panelButtonTitle}>Take Photo</Text>
+        <Text style={styles.panelButtonTitle}>Prendre une Photo</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
-        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+        <Text style={styles.panelButtonTitle}>Choisir une photo de Gallerie</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.panelButton}
         onPress={() => this.bs.current.snapTo(1)}>
-        <Text style={styles.panelButtonTitle}>Cancel</Text>
+        <Text style={styles.panelButtonTitle}>Annuler</Text>
       </TouchableOpacity>
     </View>
   );
@@ -120,7 +121,7 @@ const EditProfileScreen = () => {
                   <Icon
                     name="camera"
                     size={35}
-                    color="#fff"
+                    color={color.Primary}
                     style={{
                       opacity: 0.7,
                       alignItems: 'center',
@@ -135,7 +136,7 @@ const EditProfileScreen = () => {
             </View>
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
-            John Doe
+            Ahmed Souki
           </Text>
         </View>
 
@@ -226,7 +227,7 @@ const EditProfileScreen = () => {
           />
         </View>
         <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
-          <Text style={styles.panelButtonTitle}>Submit</Text>
+          <Text style={styles.panelButtonTitle}>Valider</Text>
         </TouchableOpacity>
       </Animated.View>
     </View>
@@ -291,7 +292,7 @@ const styles = StyleSheet.create({
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: '#FF6347',
+    backgroundColor: color.Primary,
     alignItems: 'center',
     marginVertical: 7,
   },

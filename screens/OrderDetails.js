@@ -24,10 +24,15 @@ import CalloutCard from "../components/Client_UI/CalloutCard";
 import { URL } from "../services/Client";
 import { color } from "../constants/Colors";
 
-export default function OffrePrixCommande({ navigation,route }) {
+export default function OrderDetails({ navigation,route }) {
 
    
-   const { products,merchant } = route.params;
+   const { products} = route.params;
+   
+   const  {merchant} = route.params.ardoise;
+
+  //  console.log('_______________________');
+  //  console.log(products);
 
     let total= 0;
     products.forEach(item=>total+=item._id.price*item.quantity);
@@ -85,7 +90,7 @@ export default function OffrePrixCommande({ navigation,route }) {
         <ScrollView style={{ backgroundColor: "#324B3E" }}>
 
         <View style={styles.content}>
-          <CalloutCard commande={commande} />
+          <CalloutCard commande={commande} order/>
           {commande.review.reviewed ? (
             <GreenBtn
               grayed
@@ -182,7 +187,7 @@ export default function OffrePrixCommande({ navigation,route }) {
                                   <Text style={{...styles.orderDetailTXT,fontWeight:'bold'}} >02/08/2021</Text> 
                                   <Text  style={styles.orderDetailTXT}> à </Text> 
                                   <Text  style={{...styles.orderDetailTXT,fontWeight:'bold'}}>02/08/2021</Text>
-                                  <Text  style={styles.orderDetailTXT}>: Commande prête</Text>
+                                  <Text  style={styles.orderDetailTXT}>: Commande accepté</Text>
                                 </View>
                             </View>
 

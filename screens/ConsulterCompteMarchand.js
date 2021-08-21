@@ -44,6 +44,8 @@ import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
 
 function ConsulterCompteMarchand({ navigation,route }) {
 
+
+
   const [reviewVisible, setReviewVisible] = useState(false);
 
 
@@ -65,7 +67,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
 
   const { ardoise } = route.params;
 
-  console.log('ardoisssssssssssssssssssssssssssssssssssssse',ardoise)
+  //console.log('ardoisssssssssssssssssssssssssssssssssssssse',ardoise.client)
 
   
   const currentMerchant = ardoise.merchant;
@@ -73,6 +75,8 @@ function ConsulterCompteMarchand({ navigation,route }) {
   console.log("ttttEX",currentMerchant);
 
   const [orders,setOrders] = useState([]);
+
+
 
   const { newOrders } = useContext(OrderContext);
 
@@ -87,7 +91,8 @@ function ConsulterCompteMarchand({ navigation,route }) {
   }
 
   useEffect(()=>{
-    setIsMinus(true);
+    if(c)
+      setIsMinus(true);
   },[c])
 
 
@@ -99,8 +104,8 @@ function ConsulterCompteMarchand({ navigation,route }) {
     const fetchOrders = async ()=>{
         const result = await CommonServices.getOrdersByArdoise(ardoise._id);
         if(result.ok && result.data.length>0)
-            setOrders([...orders,...result.data]);
-            //console.log("get orders",result.data);
+            {setOrders([...orders,...result.data]);
+            console.log("get ordersssssssssssssssssssssssss",result.data);}
     }
 
     fetchOrders();
@@ -203,6 +208,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
                   () => {navigation.navigate("MerchantCatalog",{
                     currentMerchant,
                     ardoiseId: ardoise._id,
+                    client: ardoise.client
             
                   })}
                 }
@@ -227,7 +233,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
                 }}
               >
                 <Divider  borderColor="#fff" color="#fff" orientation="center">
-                  <Text style={{ fontSize: RFValue(16) }}> Mes commandes ({orders.length})</Text>
+                  <Text style={{ fontSize: RFValue(16) }}> Mes commandes </Text>
                 </Divider>
               </View>
 
@@ -254,8 +260,8 @@ function ConsulterCompteMarchand({ navigation,route }) {
                   keyExtractor={(item) => item._id}
                   renderItem={({item}) => {
                     return <OrderCardViewer 
-                              order={item}
-                              merchant= {ardoise.merchant}
+                              order = {item}
+                              merchant = {ardoise.merchant}
                               navigation={navigation}
                             />;
                   }}

@@ -1,15 +1,17 @@
 import React, { useState,useContext } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View,CheckBox } from 'react-native'
 import { h, totalSize, w } from '../utils/Size';
 import { Primary, Secondary ,Catalog_SubIcon ,color } from '../constants/Colors';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { AntDesign, Feather } from '@expo/vector-icons'; 
 import Popup from './Popup';
 import ProductForm from './ProductForm/ProductForm';
 import { GlobalContext } from '../contexts/ProductsCatalog.context';
 import { URL } from '../services/Client';
 
-export default function ProductCard({product, modif}) {
+export default function ProductCard({product, modif,checkable}) {
+
+  const [isSelected, setSelection] = useState(false);
 
   const [popupVisible,setPopupVisible] = useState(false);
 
@@ -39,14 +41,27 @@ export default function ProductCard({product, modif}) {
     return (
       <>
         <View style={{flexDirection:'row'}}>
-        <View style={styles.subLineContainer}>
-          <View style={styles.treeLine}/>
-        </View>
+          
+        { checkable ? null: 
+          <View style={styles.subLineContainer}>
+            <View style={styles.treeLine}/>
+          </View> 
+        }
         <View style={styles.subItemContainer}>
 
 
 
-      <Image source={{uri: URL+'/images/'+product.photo}} style={styles.img}/>
+      { modif || checkable ? 
+      <Image 
+       source={{uri: URL+'/images/'+product.photo}}
+       style={ checkable? styles.img4Check:styles.img}
+      />:
+      <Image 
+      source={{uri:product.photo.uri}}
+      style={ checkable? styles.img4Check:styles.img}
+     />
+      }
+
 
 
         
@@ -55,16 +70,34 @@ export default function ProductCard({product, modif}) {
             <Text style={styles.txt3}>{product.productName}</Text>
         </View>
           
-          <TouchableOpacity onPress={()=>setPopupVisible(true)}  style={styles.SubItemIcon} >
-            <Feather name="edit" size={totalSize(2)} color = {Catalog_SubIcon}/>
+          <TouchableOpacity onPress={()=>setPopupVisible(true)}
+            style={ styles.SubItemIcon} >
+          { checkable ? 
+            <Text style={{fontSize:RFValue(12),color:color.WHITE,fontWeight:'bold'}}>x 3</Text>
+            :<Feather name="edit" size={totalSize(2)} color = {Catalog_SubIcon}/>
+          }
           </TouchableOpacity>
             
-          <TouchableOpacity onPress={remove} style={styles.SubItemIcon}>
-            <AntDesign 
-              name="delete"
-              size={totalSize(2)}
-              color = {Catalog_SubIcon}
-           />
+          <TouchableOpacity onPress={remove} 
+          
+          style={ checkable ? {...styles.SubItemIcon,backgroundColor:color.WHITE} :styles.SubItemIcon}
+          >
+            { checkable ?
+                    <CheckBox
+                      value={isSelected}
+                      onValueChange={setSelection}
+                      style={styles.checkbox}
+                    />
+                    :
+                    <AntDesign 
+                      name="delete"
+                      size={totalSize(2)}
+                      color = {Catalog_SubIcon}
+                   />
+            }
+
+
+
           </TouchableOpacity>
 
         </View>
@@ -132,9 +165,11 @@ const styles = StyleSheet.create({
       },
       img:{
         width: w(15),
-        height: w(15),
-
-
+        height: w(15)
+      },
+      img4Check:{
+        width: w(12),
+        height: w(12)
       }
 
 })

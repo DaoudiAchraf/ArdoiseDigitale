@@ -54,6 +54,7 @@ import * as Permissions from 'expo-permissions';
 import commonService from '../../services/Common';
 import { RFValue } from "react-native-responsive-fontsize";
 import ProfileScreen from "../../screens/ProfileScreen";
+import MyClient from "../../screens/MyClient";
 
 //const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -87,6 +88,9 @@ const StackNavigatorM = ({ initScr }) => {
         name="MerchantCatalogueModification"
         component={MerchantCatalogueModification}
       />
+      <Stack.Screen name="ProductDetails" component={ProductDetails} />
+
+      <Stack.Screen name="ListeDesCommandes" component={ListeDesCommandes} />
 
       <Stack.Screen
         name="EditAccount"
@@ -102,6 +106,14 @@ const StackNavigatorM = ({ initScr }) => {
         component={ProfileScreen}
       />
 
+      <Stack.Screen
+        name="MyClientProfil"
+        component={ConsulterArdoiseFermee}
+      />
+      <Stack.Screen
+        name="MyClient"
+        component={MyClient}
+      />
 
     </Stack.Navigator>
   );
@@ -252,13 +264,14 @@ const  CustomButtonMap = ({ onPress }) => {
 const CustomButtonCatalog = ({ onPress }) => {
   return (
     <TouchableOpacity
-      style={{ position: 'absolute',bottom:13,left:'25%',alignSelf:'center'  }}
+      style={{ position: 'absolute',top:0  }}
       onPress={onPress}
     >
         <Image
          source={require("../../assets/assets/icons/marchand-fond-btn-catalogue.png")}
-         width={50}
-         height={50}
+         width={w(7)}
+         height={w(7)}
+         style={{width:w(7),height:w(7)}}
         />
 
     </TouchableOpacity>
@@ -289,9 +302,9 @@ function navbar({ merchant }) {
       const permission = await Notifications.getPermissionsAsync();
       if(!permission.granted)  return;
 
-      const expoToken = await Notifications.getExpoPushTokenAsync();
+      // const expoToken = await Notifications.getExpoPushTokenAsync();
 
-      commonService.refreshPushToken(expoToken);
+      // commonService.refreshPushToken(expoToken);
     
     }
     catch(error){
@@ -316,9 +329,10 @@ function navbar({ merchant }) {
       >
         {(props) =>
           merchant ? (
-            <StackNavigatorM initScr={"MerchantClientsOrdersList"} {...props} />
+            <StackNavigatorM initScr={"MerchantNotifications"} {...props} />
+            // <StackNavigatorM initScr={"MerchantClientsOrdersList"} {...props} />
           ) : (
-            <StackNavigator initScr={"ListeDesCommandes"} {...props} />
+            <StackNavigator initScr={"Notification"} {...props} />
           )
         }
       </Tab.Screen>
@@ -359,7 +373,7 @@ function navbar({ merchant }) {
       <Tab.Screen
         name="Map"
         options={{
-          tabBarButton: (props) => merchant ? (<CustomButtonMap {...props} />):(<CustomButtonCatalog/>),
+          tabBarButton: (props) => merchant ? (<CustomButtonMap {...props} />):(<CustomButtonMap {...props} />),
         }}
       >
         {(props) =>

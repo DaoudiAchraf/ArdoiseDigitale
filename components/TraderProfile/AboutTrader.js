@@ -29,7 +29,7 @@ const AboutTrader = ({toNextStep}) => {
           <Text style={styles.text}>Photo du Commerce :</Text>
           <ImagePicker
               image={storePhoto}
-
+              title='photo'
               handleChange={setStorePhoto}
               onFocus={()=>setErrors({...errors,photo:false})}
           />
@@ -37,7 +37,7 @@ const AboutTrader = ({toNextStep}) => {
           <Text style={styles.text}>Votre Photo :</Text>
           <ImagePicker
               image={traderPhoto}
-   
+              title='photo'
               handleChange={setTraderPhoto}
               onFocus={()=>setErrors({...errors,photo:false})}
           />

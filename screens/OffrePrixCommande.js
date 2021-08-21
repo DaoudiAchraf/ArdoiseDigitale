@@ -21,6 +21,7 @@ import Item3 from "../components/componentsClient/Item3";
 import ItemPrix from "../components/componentsClient/ItemPrix";
 import moment from "moment";
 import CalloutCard from "../components/Client_UI/CalloutCard";
+import { URL } from "../services/Client";
 
 export default function OffrePrixCommande({ navigation }) {
   const [commande, setCommande] = useState({
@@ -30,8 +31,9 @@ export default function OffrePrixCommande({ navigation }) {
     shopDescription: "751 Green Hill Dr.Webster,\nNY 14580",
     details: { paymentType: "Crédit Total", Livraison: true },
     merchant: {
-      name: "Kristen Harper",
-      img: require("../assets/UserOrange.png"),
+      name: "Souki Ahmed",
+      img: {uri: URL+'/images/'+'1629086825192.jpg'},
+      // img: require("../assets/UserOrange.png"),
       delivery: true,
       paymentType: ["comptant", "crédit total"],
     },
@@ -220,7 +222,8 @@ export default function OffrePrixCommande({ navigation }) {
                                 <GreenBtn
                                   key="14"
                                   myGreenBtn
-                                  title="Commande refusée"
+                                  title="Offre refusée"
+                                  grayed
                                   action={() =>
                                     setCommande({
                                       ...commande,
@@ -298,7 +301,7 @@ export default function OffrePrixCommande({ navigation }) {
               <Text style={{ fontSize: RFValue(17) }}>Liste des produits</Text>
             </Divider>
             <Item3
-              title="Brit Chicken & Salamon"
+              title="Lait Delice"
               small="Animaux » chiens"
               badged
             />

@@ -1,12 +1,24 @@
+import { object } from "prop-types";
 import React from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { color } from "../constants/Colors";
 import {URL  } from "../services/Client";
 import { w, h } from "../utils/Size";
 
 const Item2 = (props) => {
 
- const { merchant } = props.infos;
+ const { merchant } = props.infos.ardoise;
+
+ console.log('____________________');
+ console.log(props.infos.ardoise);
+//  console.log(merchant);
+
+  //console.log(props.infos);
+
+  
+  
+  const order = props.infos;
 
   return (
     <TouchableOpacity
@@ -17,11 +29,51 @@ const Item2 = (props) => {
 
 
         <View style={{ width: w(87), margin: "4%", marginLeft: "2%" }}>
+          <View style={styles.orderState}>
+          <Text
+            style={{...styles.title,color:color.INFO_TEXT,fontSize:RFValue(12)}}
+          >
+            {"Le 02/03/2021"}
+  
+          </Text>
+
           <Text
             style={styles.title}
           >
-            {"Commande Accepté"}
+            Commande acceptée
+          {/* {
+              typeof(merchant) === object ?
+              
+              order.currentState === 'pending' ? 
+              'Commande en attente' 
+            :(   
+            order.currentState === 'response' ?
+              (order.status.res ? 'Commande Accepté': 'Commande refusé') 
+            :(order.currentState === 'ready' ? 'Commande prete ':null)
+            
+           )
+              :
+
+              order.currentState === 'pending' ? 
+              'Nouvelle commande' 
+            :(   
+            order.currentState === 'response' ?
+              (order.status.res ? 'Commande Accepté': 'Commande refusé') 
+            :(order.currentState === 'ready' ? 'Commande prete ':
+            
+            order.currentState === 'offre' ? 'Offre envoyé':null)
+            
+           )
+          } */}
+            
           </Text>
+          </View>
+
+                    <View style={styles.orderState}>
+  
+
+          </View>
+
 
           <View style={{flexDirection: 'row',alignItems: 'center'}}> 
             <View style={styles.imgContainer}>
@@ -38,7 +90,12 @@ const Item2 = (props) => {
                <Text
                     style={styles.small, props.grayed ? styles.grayed : styles.normal}
                >
-                {`${merchant.firstName} ${merchant.lastName} `}
+                  Samer Ltifi 
+                {/* { typeof(merchant) === object ?
+                    `${merchant.firstName} ${merchant.lastName} `
+                  : props.infos.ardoise.client ? 
+                  `${props.infos.ardoise.client.firstName} ${props.infos.ardoise.client.lastName} ` : 'Mohamed Ghorbel'
+                } */}
                </Text>
 
                <Text style={styles.smaller}>
@@ -58,20 +115,16 @@ const Item2 = (props) => {
 };
 
 const styles = StyleSheet.create({
-  badge: {
-    position: "absolute",
-    right: "101.7%",
-    top: "1.7%",
-    backgroundColor: "#DC2C23",
-  },
+
   button: {
     backgroundColor: "#FFFFFF",
     padding: "3%",
     borderRadius: 3,
     marginTop: "5%",
-    height: h(9.5),
+    height: h(10.3),
     width: w(92),
     alignSelf: "center",
+    borderRadius:8
   },
   grayed: {
     color: "#B0AEAE",
@@ -89,7 +142,7 @@ const styles = StyleSheet.create({
   small: {
     textAlign: "left",
     alignSelf: "stretch",
-    fontSize: RFValue(11),
+    fontSize: RFValue(11),fontWeight:'bold'
   },
   smaller: {
     color: "#B0AEAE",
@@ -107,6 +160,13 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
   },
+  orderState:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    marginRight:'3%',
+    marginBottom:'1%',
+    alignItems: 'center'
+  }
 });
 
 export default Item2;

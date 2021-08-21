@@ -24,7 +24,7 @@ export default function ProfilMarchand({ navigation,route}) {
 
   const { products,editproduct,removeproduct,newOrder} = useContext(OrderContext)
 
-  const { currentMerchant,ardoiseId } = route.params;
+  const { currentMerchant,ardoiseId,client } = route.params;
 
  
 
@@ -39,7 +39,7 @@ export default function ProfilMarchand({ navigation,route}) {
          date: '2021-07-15T14:56:23.022Z'
        });
 
-    navigation.pop();
+   navigation.pop();
    navigation.pop();   
 
      //navigation.replace('ConsulterCompteMarchand',products);
@@ -47,7 +47,8 @@ export default function ProfilMarchand({ navigation,route}) {
     const result = await clientService.sendOrder({
       products,
       ardoise: ardoiseId,
-      merchant: currentMerchant._id
+      merchant: currentMerchant._id,
+      client: client
     });
     if(result.ok)
       console.log(result.data);
@@ -81,7 +82,7 @@ export default function ProfilMarchand({ navigation,route}) {
         <FondPageMarchand style={styles.svg} />
         <ScrollView style={{ backgroundColor: "#324B3E" }}>
         <View style={styles.contentView}>
-          <CardClient
+          {/* <CardClient
             myCard
             title="Target Express"
             small="751 Green Hill Dr. Webster,"
@@ -91,7 +92,7 @@ export default function ProfilMarchand({ navigation,route}) {
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
             commandecree="12/12/2020 à 10h30"
-          />
+          /> */}
          
 
           <View

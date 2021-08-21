@@ -6,11 +6,19 @@ import CartSVG from "../assets/svgr/Cart";
 import { h, totalSize } from '../utils/Size';
 import { Foundation } from '@expo/vector-icons'; 
 import moment from "moment";
+import { color } from '../constants/Colors';
 
 const MyComponent = ({navigation,order,merchant,newOrder}) => {
 
   const navTo_OrderDetails = ()=>{
-    navigation.navigate('OrderDetails',{products: order.products,merchant:merchant});
+    //console.log(order.products);
+    if(order.currentState === 'offre')
+    navigation.navigate('OffrePrixCommande');
+    //console.log(merchant)
+    else if (order.currentState === 'response')
+     navigation.navigate('OrderDetails',{products: order.products,ardoise:{merchant}});
+    else
+     navigation.navigate('OrderDetails',{products: order.products,ardoise:{merchant}});
   }
 
   
@@ -37,7 +45,17 @@ const MyComponent = ({navigation,order,merchant,newOrder}) => {
                 <View style={{flexDirection: 'row'}}>
                   <Text>Statut : </Text>
                   <Text style={{fontSize:RFValue(14),color: '#ED1C24',fontWeight:'bold'}}>
-                    En attente
+                   {order.currentState === 'pending' ? 
+                            'en Attente' 
+                          :(   
+                          order.currentState === 'response' ?
+                            (order.status.response.res ? 'Accepté': ' Refusé') 
+                          :(order.currentState === 'ready' ? 'Prete '
+                          : order.currentState === 'offre' ? 'Offre'  :'nouvelle Commande')
+                          
+                        )
+
+                    }
                   </Text>
                 </View>
          
@@ -69,6 +87,32 @@ const styles = StyleSheet.create({
         marginBottom: '3.5%',
       
     },
+    statusPending:{
+      fontSize:RFValue(14),
+      color: '#FD6531',
+      fontWeight:'bold'
+    },
+    statusAccepted:{
+      fontSize:RFValue(14),
+      color: '#4FA031',
+      fontWeight:'bold'
+    },
+    statusRefused:{
+      fontSize:RFValue(14),
+      color: '#ED1C24',
+      fontWeight:'bold'
+    },
+    statusPrete:{
+      fontSize:RFValue(14),
+      color: color.Secondary,
+      fontWeight:'bold'
+    },
+    statusReçu:{
+      fontSize:RFValue(14),
+      color: '#ED1C24',
+      fontWeight:'bold'
+    },
+    
 });
 
 export default MyComponent;
