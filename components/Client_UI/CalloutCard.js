@@ -49,9 +49,9 @@ const CalloutCard = ({ commande }) => {
 
 
 
-      {/* <View style={{borderWidth:0.5,borderColor: 'grey'}}/>
+      <View style={{borderWidth:0.5,borderColor: 'grey'}}/>
       <View style={{ padding: "3%" }}>
-        {commande.dateOfCreation && (
+        { commande.dateOfCreation && (
           <Text
             style={{
               color: "#545353",
@@ -65,8 +65,9 @@ const CalloutCard = ({ commande }) => {
             : Commande créée
           </Text>
         )}
-        {commande.offer.date && (
-          <Text
+        {!commande.offer.onHold && (
+          commande.offer.sent ?
+          (<Text
             style={{
               color: "#545353",
               textAlign: "left",
@@ -76,10 +77,22 @@ const CalloutCard = ({ commande }) => {
             <Text style={{ fontWeight: "bold" }}>{commande.offer.date}</Text>:
             Offre de prix envoyée par{" "}
             <Text style={{ fontWeight: "bold" }}>{commande.merchant.name}</Text>
-          </Text>
+          </Text>):
+          (<Text
+            style={{
+              color: "#545353",
+              textAlign: "left",
+              fontSize: RFValue(11),
+            }}
+          >
+            <Text style={{ fontWeight: "bold" }}>{commande.offer.date}</Text>:
+            Commande refusé par{" "}
+            <Text style={{ fontWeight: "bold" }}>{commande.merchant.name}</Text>
+          </Text>)
         )}
-        {!commande.offer.onHold && [
-          commande.offer.accepted ? (
+
+        {commande.response.sent && (
+          commande.response.res ? (
             <Text
               key="1"
               style={{
@@ -89,7 +102,7 @@ const CalloutCard = ({ commande }) => {
               }}
             >
               <Text key="2" style={{ fontWeight: "bold" }}>
-                {commande.offer.dateOfResponse}
+                {commande.offer.date}
               </Text>
               : Offre de prix acceptée
             </Text>
@@ -103,12 +116,12 @@ const CalloutCard = ({ commande }) => {
               }}
             >
               <Text key="4" style={{ fontWeight: "bold" }}>
-                {commande.offer.dateOfResponse}
+                {commande.offer.date}
               </Text>
               : Offre de prix refusée
             </Text>
-          ),
-        ]}
+          )
+        )}
 
         {commande.ready.ready && (
           <Text
@@ -119,7 +132,7 @@ const CalloutCard = ({ commande }) => {
             }}
           >
             <Text style={{ fontWeight: "bold" }}>{commande.ready.date}</Text>:
-            Commande préparée par{" "}
+            : Commande préparée par{" "}
             <Text style={{ fontWeight: "bold" }}>{commande.merchant.name}</Text>
           </Text>
         )}
@@ -144,10 +157,10 @@ const CalloutCard = ({ commande }) => {
             }}
           >
             <Text style={{ fontWeight: "bold" }}>{commande.payment.date}</Text>:
-            Commande payée
+            : Commande payée
           </Text>
         )}
-      </View> */}
+      </View>
     </Card>
   );
 };

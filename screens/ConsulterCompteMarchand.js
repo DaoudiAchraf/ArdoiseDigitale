@@ -112,7 +112,16 @@ function ConsulterCompteMarchand({ navigation,route }) {
 
   },[])
 
-
+  const closeArdoise = async () => {
+    const ardoiseData = {
+      ardoiseId: ardoise._id,
+      state:'closed'
+    }
+    const result = await CommonServices.changeArdoiseState(ardoiseData)
+    if (result.ok) {
+      console.log(result.data);
+    }
+  }
 
   return (
     <View style={{ flex: 1,backgroundColor: "#324B3E",paddingBottom:'10%'}}>
@@ -186,6 +195,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
                           //con
                           hideDialog()
                           setReviewVisible(true);
+                          closeArdoise()
                          // navToConsulterArdoiseFermee()
                         }
                         }
@@ -453,11 +463,11 @@ function ConsulterCompteMarchand({ navigation,route }) {
               </View>
 
               <View style={{ width: "10%", alignSelf: "center" }}>
-                <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
+                <PlusMinus isMinus={isMinus1} setIsMinus={setIsMinus1} />
               </View>
             </View>
 
-            {isMinus && 
+            {isMinus1 && 
             <View style={{
               marginLeft: "10%",
               marginRight: "10%"

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import {
   View,
   Image,
@@ -36,13 +36,14 @@ import ClientFondBtnMarchand from "../assets/svgr/ClientFondBtnMarchands.jsx";
 import merchantService from "../services/Trader";
 import { Feather } from '@expo/vector-icons'; 
 import CommonService from "../services/Common";
+import { Context } from "../contexts/Auth.context";
 
 function MerchantProfilClient({ navigation,route }) {
 
  // const {ardoiseId} = route.params;
   const {client, ardoiseId}= route.params;
 
-  const [orders,setOrders] = useState([]);
+  const {orders,setOrders} = useContext(Context);
   
   const fetchOrders = async()=>{
     const response = await CommonService.getOrdersByArdoise(ardoiseId);
@@ -70,6 +71,7 @@ function MerchantProfilClient({ navigation,route }) {
   
 
   console.log('ccccccccccccccccccc',client);
+  console.log("jarzlkkjlzearkjearz",orders);
 
   const changeState = ()=>{
     console.log('state Changed')  }
@@ -91,12 +93,8 @@ function MerchantProfilClient({ navigation,route }) {
 
   const renderClientOrderDetail = ({item})=>{
    // console.log("iteemmmmmmmmmmmm",item);
-   
-
   const {currentState} = item;
-
   let orderState;
-
   //  currentState === 'pending' ? 
   //  orderState = 'Commande crée' 
   //   :(   
@@ -119,10 +117,8 @@ function MerchantProfilClient({ navigation,route }) {
           orderState ='Commande prête'
         break;
     }
-
     console.log("yuyuyuyuyuyuyu");
     console.log(orderState);
- 
     return(
     <ClientProfilOrders
     title={orderState}
@@ -133,6 +129,8 @@ function MerchantProfilClient({ navigation,route }) {
     navigation={()=>navTo_NewOrder(item)}
   />)
   }
+
+
   return (
     <View style={{ flex: 1 }}>
       <Provider>

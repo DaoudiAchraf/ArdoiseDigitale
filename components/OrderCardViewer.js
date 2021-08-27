@@ -11,14 +11,16 @@ import { color } from '../constants/Colors';
 const MyComponent = ({navigation,order,merchant,newOrder}) => {
 
   const navTo_OrderDetails = ()=>{
-    //console.log(order.products);
-    if(order.currentState === 'offre')
-    navigation.navigate('OffrePrixCommande');
-    //console.log(merchant)
-    else if (order.currentState === 'response')
-     navigation.navigate('OrderDetails',{products: order.products,ardoise:{merchant}});
-    else
-     navigation.navigate('OrderDetails',{products: order.products,ardoise:{merchant}});
+    navigation.navigate('OffrePrixCommande',{order: order, merchant: merchant});
+
+    // //console.log(order.products);
+    // if(order.currentState === 'offre')
+    // navigation.navigate('OffrePrixCommande');
+    // //console.log(merchant)
+    // else if (order.currentState === 'response')
+    //  navigation.navigate('OrderDetails',{products: order.products,ardoise:{merchant}});
+    // else
+    //  navigation.navigate('OrderDetails',{products: order.products,ardoise:{merchant}});
   }
 
   
@@ -36,7 +38,7 @@ const MyComponent = ({navigation,order,merchant,newOrder}) => {
                 </Text>
                 <Text style={{fontSize:RFValue(15)}}> à </Text>
                 <Text style={{fontSize:RFValue(15)}}>
-                  {moment(order.date).format('hh:mm')} 
+                  {moment(order.date).format('HH:mm')} 
                 </Text>
                 </View>
                 
@@ -45,17 +47,7 @@ const MyComponent = ({navigation,order,merchant,newOrder}) => {
                 <View style={{flexDirection: 'row'}}>
                   <Text>Statut : </Text>
                   <Text style={{fontSize:RFValue(14),color: '#ED1C24',fontWeight:'bold'}}>
-                   {order.currentState === 'pending' ? 
-                            'en Attente' 
-                          :(   
-                          order.currentState === 'response' ?
-                            (order.status.response.res ? 'Accepté': ' Refusé') 
-                          :(order.currentState === 'ready' ? 'Prete '
-                          : order.currentState === 'offre' ? 'Offre'  :'nouvelle Commande')
-                          
-                        )
-
-                    }
+                  {order.status.payment.payed ? 'Commande payé' : (order.status.recieved.recieved ? 'Commande servie' : (order.status.ready.ready ? 'Commande prêt' : (order.status.response.sent ? (order.status.response.res ? 'Offre de prix accepté' : 'Offre de prix refusé'): (order.status.offer.onHold ?  'en Attente':( order.status.offer.sent ? 'Offre de prix reçu' : 'commande refusé' ) ) ) )) }
                   </Text>
                 </View>
          

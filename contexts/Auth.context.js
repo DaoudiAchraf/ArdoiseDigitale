@@ -24,7 +24,7 @@ const AuthContext = ({ children }) => {
   const [currentMerchant, setCurrentMerchant] = useState(null);
   const [ardoiseList, setArdoiseList] = useState([]);
   const [ardoiseListMerchant, setArdoiseListMerchant] = useState([])
-  //const [order,setOrder] = useState("kfssqqqqqqqlkfdsqklflkjfqdsjlkqfdsjlkfdsq");
+  const [orders,setOrders] = useState([]);
 
   const getOrdersByArdoiseId = async (ardoiseId) => {
     const response = await commonService.getOrders(ardoiseId);
@@ -150,7 +150,8 @@ const AuthContext = ({ children }) => {
         getOrdersByArdoiseId,
         getOrdersByUserr,
         ardoiseListMerchant,
-        setArdoiseListMerchant
+        setArdoiseListMerchant,
+        orders, setOrders
       }}
     >
       {children}

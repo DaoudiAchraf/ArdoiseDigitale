@@ -10,7 +10,7 @@ const ProductCard_item = (props) => {
 
   const {_id,quantity} = props.product;
 
-  // console.log('procCARDDDDDDD')
+   console.log('procCARDDDDDDD', props.product)
   // console.log(props.product)
 
   const navTo_productDetails = ()=>{
@@ -32,6 +32,7 @@ const ProductCard_item = (props) => {
           </Text>
           <Text style={styles.small}>
             <Text style={styles.smaller}>
+                {props.indisponible && ( <Text style={styles.smaller, {color: 'red'}}>Indisponible </Text> )}
                 {( (_id && typeof(_id)==='object' )&&`${categories[_id.category].name} » ${subCategory[_id.category][_id.subCategory].name}`)
                   || `${categories[props.product.category].name} » ${subCategory[props.product.category][props.product.subCategory].name}`
                 }
@@ -47,7 +48,7 @@ const ProductCard_item = (props) => {
         { categories[0].icon({width:totalSize(3.5),height:totalSize(5) ,position: 'absolute', left: '88%',bottom:'-20%'}) }
         {props.badged && (
           <Badge size={25} style={styles.badge}>
-            x 3
+            {`x ${quantity}`}
           </Badge>
         )}
       </View>

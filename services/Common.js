@@ -12,6 +12,9 @@ const postReview = (review) => client.post('api/review',review);
 const getUserReviews = (user) => client.get('api/review',user);
 
 const getArdoise = () => client.get('/api/ardoise');
+const changeArdoiseState = (state) => client.patch('api/ardoise/changeState', state)
+
+const patchOrder = (orderId,order) => client.patch(`/api/orders/${orderId}`,order)
 
 export default {
     getOrdersByArdoise,
@@ -21,5 +24,7 @@ export default {
     refreshPushToken,
     postReview,
     getUserReviews,
-    getArdoise
+    getArdoise,
+    patchOrder,
+    changeArdoiseState
 }
