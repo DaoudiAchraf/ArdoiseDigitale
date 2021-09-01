@@ -18,8 +18,8 @@ import { RFValue } from "react-native-responsive-fontsize";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import PlusMinus1 from "../components/componentsClient/PlusMinus1";
 import { h, w } from "../utils/Size";
-import {Context} from '../contexts/Auth.context'
-import clienttService from '../services/Clientt'
+import { Context } from "../contexts/Auth.context";
+import clienttService from "../services/Clientt";
 import moment from "moment";
 
 function MerchantClientList({ navigation }) {
@@ -29,70 +29,65 @@ function MerchantClientList({ navigation }) {
   const [scroll, setScroll] = useState(true);
 
   const navToMerchantProfilClient = (client) =>
-  navigation.navigate("MerchantProfilClient",client);
-    //navigation.navigate('MyClientProfil',client);
-    
+    navigation.navigate("MerchantProfilClient", client);
+  //navigation.navigate('MyClientProfil',client);
 
-  const {ardoiseList} = useContext(Context)
+  const { ardoiseList } = useContext(Context);
 
-
-
-  const pendingArdoiseList = ardoiseList.filter(ardoise => ardoise.state === 'pending' && ardoise.client );
-  const openedArdoiseList = ardoiseList.filter(ardoise => ardoise.state === 'accepted');
+  const pendingArdoiseList = ardoiseList.filter(
+    (ardoise) => ardoise.state === "pending" && ardoise.client
+  );
+  const openedArdoiseList = ardoiseList.filter(
+    (ardoise) => ardoise.state === "accepted"
+  );
 
   // console.log("pendinggggg");
   // console.log(pendingArdoiseList);
 
-  const DATA1 = [
-    {
-      id: "6",
-      title: "Kristen Harper",
-      small: "Sam lrving le 12/12/2020 à 10h30",
-      smaller: "Appuyez pour voir les détails.",
-      source: require("../assets/assets/user.png"),
-      navigate: navToMerchantProfilClient,
-    },
-  ];
-
-  const renderItem_NewClients = ({item}) => {
-    const {firstName,lastName} = item.client;
-    const {creationDay} = item.creationDay;
+  const renderItem_NewClients = ({ item }) => {
+    const { firstName, lastName } = item.client;
+    const { creationDay } = item;
 
     return (
       // <Text>h1</Text>
-      
-      <Item2
-        title = {`${firstName} ${lastName}`}
-        small = {`${moment(creationDay).format('DD/MM/YYYY')} à ${moment(creationDay).format('hh:mm')}` }
-        smaller= "Appuyez pour voir les détails."
-        source = {require("../assets/assets/user.png")}
-        navigation = {()=>navToMerchantProfilClient({ardoiseId:item._id, client:item.client})}
-      />
 
+      <Item2
+        title={`${firstName} ${lastName}`}
+        small={moment(creationDay).format("DD/MM/YYYY [à] HH[h]mm")}
+        smaller="Appuyez pour voir les détails."
+        source={require("../assets/assets/user.png")}
+        navigation={() =>
+          navToMerchantProfilClient({
+            ardoiseId: item._id,
+            client: item.client,
+          })
+        }
+      />
     );
   };
 
-  const renderItem_Myclients = ({item}) => {
-   
-    const {firstName,lastName} = item.client;
+  const renderItem_Myclients = ({ item }) => {
+    const { firstName, lastName } = item.client;
+    const { ordersCount } = item;
 
-    // nbr de commande 
+    // nbr de commande
 
     return (
       // <Text>h1</Text>
-  
+
       <Item2
-        title = {`${firstName} ${lastName}`}
-        small = {'2 commandes'}
-        smaller= "Appuyez pour voir les détails."
-        source = {require("../assets/assets/user.png")}
-        //navigation = {()=>navToMerchantProfilClient({ardoiseId:item._id, client:item.client})}
-        navigation = {()=>navigation.navigate("MyClient",{ardoiseId:item._id, client:item.client})}
+        title={`${firstName} ${lastName}`}
+        small={`${ordersCount} commandes`}
+        smaller="Appuyez pour voir les détails."
+        source={require("../assets/assets/user.png")}
+        //navigation={() =>navToMerchantProfilClient({ardoiseId: item._id,client: item.client,})}
+        navigation={() =>
+          navigation.navigate("MyClient", {
+            ardoiseId: item._id,
+            client: item.client,
+          })
+        }
       />
-
-
-
-
     );
   };
 
@@ -101,88 +96,87 @@ function MerchantClientList({ navigation }) {
       <Myappbar navigation={navigation} title="Mes clients" />
 
       <FondPageMarchand style={styles.svg} />
+      <View
+        onStartShouldSetResponderCapture={() => setScroll(true)}
+        style={{
+          flexDirection: "row",
+          marginHorizontal: "10%",
+          marginBottom: "3%",
+        }}
+      >
         <View
-          onStartShouldSetResponderCapture={() => setScroll(true)}
           style={{
-            flexDirection: "row",
-            marginHorizontal: "10%",
-            marginBottom: "3%",
+            width: "90%",
+            alignSelf: "center",
           }}
         >
-          <View
-            style={{
-              width: "90%",
-              alignSelf: "center",
-            }}
-          >
-            <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(17) }}>Nouveaux clients</Text>
-            </Divider>
-          </View>
-          <View
-            style={{
-              width: "10%",
-              alignSelf: "center",
-            }}
-          >
-            <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
-          </View>
+          <Divider borderColor="#fff" color="#fff" orientation="center">
+            <Text style={{ fontSize: RFValue(17) }}>Nouveaux clients</Text>
+          </Divider>
         </View>
-        {isMinus && (
-          <View
-            onStartShouldSetResponderCapture={() => setScroll(false)}
-            style={{ height: h(35) }}
-          >
-            <FlatList
-              data={pendingArdoiseList}
-              renderItem={renderItem_NewClients}
-              keyExtractor={(item) => item._id}
-              ListFooterComponent={<Separator />}
-            />
-          </View>
-        )}
-
         <View
-          onStartShouldSetResponderCapture={() => setScroll(true)}
           style={{
-            flexDirection: "row",
-            marginHorizontal: "10%",
-            marginVertical: "5%",
+            width: "10%",
+            alignSelf: "center",
           }}
         >
-          <View
-            style={{
-              width: "90%",
-              alignSelf: "center",
-            }}
-          >
-            <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(17) }}>Mes clients</Text>
-            </Divider>
-          </View>
-          <View
-            style={{
-              width: "10%",
-              alignSelf: "center",
-            }}
-          >
-            <PlusMinus1 isMinus1={isMinus1} setIsMinus1={setIsMinus1} />
-          </View>
+          <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
         </View>
-        {isMinus1 && (
-          <View
-            onStartShouldSetResponderCapture={() => setScroll(false)}
-            style={{ height: h(35), marginBottom: "10%" }}
-          >
-            <FlatList
-              data={openedArdoiseList}
-              renderItem={renderItem_Myclients}
-              keyExtractor={(item) => item._id}
-              ListFooterComponent={<Separator />}
-            />
-          </View>
-        )}
+      </View>
+      {isMinus && (
+        <View
+          onStartShouldSetResponderCapture={() => setScroll(false)}
+          style={{ height: h(35) }}
+        >
+          <FlatList
+            data={pendingArdoiseList}
+            renderItem={renderItem_NewClients}
+            keyExtractor={(item) => item._id}
+            ListFooterComponent={<Separator />}
+          />
+        </View>
+      )}
 
+      <View
+        onStartShouldSetResponderCapture={() => setScroll(true)}
+        style={{
+          flexDirection: "row",
+          marginHorizontal: "10%",
+          marginVertical: "5%",
+        }}
+      >
+        <View
+          style={{
+            width: "90%",
+            alignSelf: "center",
+          }}
+        >
+          <Divider borderColor="#fff" color="#fff" orientation="center">
+            <Text style={{ fontSize: RFValue(17) }}>Mes clients</Text>
+          </Divider>
+        </View>
+        <View
+          style={{
+            width: "10%",
+            alignSelf: "center",
+          }}
+        >
+          <PlusMinus1 isMinus1={isMinus1} setIsMinus1={setIsMinus1} />
+        </View>
+      </View>
+      {isMinus1 && (
+        <View
+          onStartShouldSetResponderCapture={() => setScroll(false)}
+          style={{ height: h(35), marginBottom: "10%" }}
+        >
+          <FlatList
+            data={openedArdoiseList}
+            renderItem={renderItem_Myclients}
+            keyExtractor={(item) => item._id}
+            ListFooterComponent={<Separator />}
+          />
+        </View>
+      )}
     </View>
   );
 }

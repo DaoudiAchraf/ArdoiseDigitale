@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Image,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   ImageBackground,
   Text,
+  FlatList,
 } from "react-native";
 import Myappbar from "../components/componentsClient/Myappbar";
 import CardClient from "../components/componentsClient/CardClient";
@@ -33,10 +34,12 @@ import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
 
 import ClientFondBtnMarchand from "../assets/svgr/ClientFondBtnMarchands.jsx";
 import merchantService from "../services/Trader";
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from "@expo/vector-icons";
 
-function MerchantProfilClient({ navigation,route }) {
+import { Context } from "../contexts/Auth.context";
+import EmptyList from "../components/EmptyList";
 
+function MerchantProfilClient({ navigation, route }) {
   const [accepted, setAccepted] = useState(false);
 
   const [visible, setVisible] = useState(false);
@@ -47,25 +50,24 @@ function MerchantProfilClient({ navigation,route }) {
   const [isMinus1, setIsMinus1] = useState(true);
   const [isMinus2, setIsMinus2] = useState(true);
 
-  const {client, ardoiseId}= route.params;
+  const { client, ardoiseId } = route.params;
 
-  const acceptArdoise = ()=>{
+  const acceptArdoise = () => {
     setAccepted(true);
-    merchantService.changeArdoiseState(ardoiseId,'accepted').then(result=>{
+    merchantService.changeArdoiseState(ardoiseId, "accepted").then((result) => {
       console.log(result);
     });
-  }
+    navigation.navigate("MerchantClientList");
+  };
 
-
-  const declineArdoise = ()=>{
-
+  const declineArdoise = () => {
     hideDialog();
 
     setAccepted(false);
-    merchantService.changeArdoiseState(ardoiseId,'refused').then(result=>{
+    merchantService.changeArdoiseState(ardoiseId, "refused").then((result) => {
       console.log(result);
     });
-  }
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -76,18 +78,15 @@ function MerchantProfilClient({ navigation,route }) {
             backgroundColor: "#324B3E",
           }}
         >
-          <Myappbar
-            navigation={navigation}
-            title="Profil client"
-          />
+          <Myappbar navigation={navigation} title="Profil client" />
           <View style={{ position: "absolute", right: "-5%" }}>
             <ClientFondBtnMarchand />
           </View>
           <View style={{ marginTop: "10%", width: "93%", alignSelf: "center" }}>
             <ClientItem
-              name= {`${client.firstName} ${client.lastName}`}
-              address="Green Hill"
-              smaller="NY 145230"
+              name={`${client.firstName} ${client.lastName}`}
+              address={client.address.location.label}
+              smaller={client.address.location.countryName}
               img={require("../assets/assets/user.png")}
               call
             />
@@ -107,135 +106,37 @@ function MerchantProfilClient({ navigation,route }) {
                 <Portal>
                   <Dialog visible={visible} onDismiss={hideDialog}>
                     <Dialog.Title>
-                   
-                      <Feather name="info" size={RFValue(25)} style={{marginRight:'15%'}} color="#324B3E" />
-                      <Text style={{ color: "#324B3E", fontSize: RFValue(24)}}>
+                      <Feather
+                        name="info"
+                        size={RFValue(25)}
+                        style={{ marginRight: "15%" }}
+                        color="#324B3E"
+                      />
+                      <Text style={{ color: "#324B3E", fontSize: RFValue(24) }}>
                         Refus de client
                       </Text>
-                   
                     </Dialog.Title>
                     <Dialog.Content>
                       <Paragraph
                         style={{ fontSize: RFValue(13), color: "grey" }}
                       >
-                        Etes-vous sur de vouloir refuser l'ouverture d'ardoise avec
-                        Kristen Harper?
+                        Etes-vous sur de vouloir refuser l'ouverture d'ardoise
+                        avec Kristen Harper?
                       </Paragraph>
                     </Dialog.Content>
                     <Dialog.Actions>
-
                       <RedBtn
                         myRedBtn
                         title="Réfuser l'ardoise"
                         action={declineArdoise}
                       />
-
                     </Dialog.Actions>
                   </Dialog>
                 </Portal>
               </View>
               <View style={{ width: "42%" }}>
-                <GreenBtn
-                  myGreenBtn
-                  title="Accepter"
-                  action={acceptArdoise}
-                />
+                <GreenBtn myGreenBtn title="Accepter" action={acceptArdoise} />
               </View>
-            </View>
-          )}
-
-          {accepted && (
-            <View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginHorizontal: "10%",
-                }}
-              >
-                <View
-                  style={{
-                    width: "90%",
-                    alignSelf: "center",
-                  }}
-                >
-                  <Divider borderColor="#fff" color="#fff" orientation="center">
-                    <Text style={{ fontSize: RFValue(17) }}>Commandes</Text>
-                  </Divider>
-                </View>
-
-                <View style={{ width: "10%", alignSelf: "center" }}>
-                  <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
-                </View>
-              </View>
-
-              {isMinus && (
-                <View>
-                  <ClientProfilOrders
-                    title="Nouvelle commande"
-                    small="le 12/12/2020 à 10h30"
-                    smaller="Appuyez pour voir les détails."
-                    source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-                    ardoise
-                  />
-                  <ClientProfilOrders
-                    title="Commande active"
-                    small="le 12/12/2020 à 10h30"
-                    smaller="Appuyez pour voir les détails."
-                    source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-                    ardoise
-                  />
-                  <ClientProfilOrders
-                    title="Commande terminée"
-                    small="le 12/12/2020 à 10h30"
-                    smaller="Appuyez pour voir les détails."
-                    source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-                    grayed
-                  />
-                </View>
-              )}
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginHorizontal: "10%",
-                  marginVertical: "3%",
-                }}
-              >
-                <View
-                  style={{
-                    width: "90%",
-                    alignSelf: "center",
-                  }}
-                >
-                  <Divider borderColor="#fff" color="#fff" orientation="center">
-                    <Text style={{ fontSize: RFValue(17) }}>Ardoise</Text>
-                  </Divider>
-                </View>
-
-                <View style={{ width: "10%", alignSelf: "center" }}>
-                  <PlusMinus1 isMinus1={isMinus1} setIsMinus1={setIsMinus1} />
-                </View>
-              </View>
-
-              {isMinus1 && (
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    elevation: 4,
-                    borderRadius: 3,
-                    alignSelf: "center",
-                    width: "93%",
-                    alignItems: "center",
-                    padding: "3%",
-                  }}
-                >
-                  <Text style={{ color: "grey", fontSize: RFValue(13) }}>
-                    Un total de{" "}
-                    <Text style={{ fontWeight: "bold" }}>150 MAD</Text> à payer{" "}
-                    <Text style={{ fontWeight: "bold" }}>le 12/12/2020</Text>
-                  </Text>
-                </View>
-              )}
             </View>
           )}
 

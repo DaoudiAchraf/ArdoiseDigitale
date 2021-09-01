@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Image,
@@ -34,102 +34,83 @@ import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
 
 import ClientFondBtnMarchand from "../assets/svgr/ClientFondBtnMarchands.jsx";
 import merchantService from "../services/Trader";
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from "@expo/vector-icons";
 import CommonService from "../services/Common";
 import { Context } from "../contexts/Auth.context";
+import EmptyList from "../components/EmptyList";
+import moment from "moment";
 
-function MerchantProfilClient({ navigation,route }) {
+function MerchantProfilClient({ navigation, route }) {
+  const { client, ardoiseId } = route.params;
+  const { orders, getOrders } = useContext(Context);
 
- // const {ardoiseId} = route.params;
-  const {client, ardoiseId}= route.params;
+  const [ardoiseOrders, setArdoiseOrders] = useState([]);
 
-  const {orders,setOrders} = useContext(Context);
-  
-  const fetchOrders = async()=>{
-    const response = await CommonService.getOrdersByArdoise(ardoiseId);
-    {
-      console.log(response.data);setOrders(response.data);
-    }
-      
-  }
+  useEffect(() => {
+    getOrders();
+  }, []);
 
-  useEffect(()=>{
-      fetchOrders();
-  },[])
-  
+  const fetchOrders = () => {
+    const ardoiseOrderss = orders.filter(
+      (order) => order.ardoise._id === ardoiseId
+    );
+    setArdoiseOrders(ardoiseOrderss);
+  };
 
-  const [accepted, setAccepted] = useState(false);
+  const calculateArdoiseTotal = () => {
+    let tot = 0;
+    ardoiseOrders.forEach((element) => {
+      tot += element.totalPrice;
+    });
+    return tot;
+  };
 
-  const [visible, setVisible] = useState(false);
-  const showDialog = () => setVisible(true);
-  const hideDialog = () => setVisible(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const [isMinus, setIsMinus] = useState(true);
   const [isMinus1, setIsMinus1] = useState(true);
   const [isMinus2, setIsMinus2] = useState(true);
 
-  
+  const navTo_NewOrder = (item) => {
+    navigation.navigate("MerchantClientOrder", { ...item, client: client });
+  };
 
-  console.log('ccccccccccccccccccc',client);
-  console.log("jarzlkkjlzearkjearz",orders);
+  const renderClientOrderDetail = (order) => {
+    let orderState = order.status.payment.payed
+      ? "Commande payée"
+      : order.status.recieved.recieved
+      ? "Commande servie"
+      : order.status.ready.ready
+      ? "Commande prête"
+      : order.status.response.sent
+      ? order.status.response.res
+        ? "Offre de prix acceptée"
+        : "Offre de prix refusée"
+      : order.status.offer.onHold
+      ? "En Attente"
+      : order.status.offer.sent
+      ? "Offre de prix envoyée"
+      : "Commande refusée";
 
-  const changeState = ()=>{
-    console.log('state Changed')  }
-
-  //{ ardoise, _id, date:2021-08-11T14:33:08.944+00:00 }
-  const navTo_NewOrder =(item)=>{
-    
-    navigation.navigate('MerchantClientOrder',
-    {...item,client:client,setOrders:setOrders })
-  }
-
-  const navTo_activeOrder = ()=>{
-    navigation.navigate('MerchantClientOrder')
-  }
-
-  const navTo_finishedOrder = ()=>{
-    navigation.navigate('MerchantClientOrder')
-  }
-
-  const renderClientOrderDetail = ({item})=>{
-   // console.log("iteemmmmmmmmmmmm",item);
-  const {currentState} = item;
-  let orderState;
-  //  currentState === 'pending' ? 
-  //  orderState = 'Commande crée' 
-  //   :(   
-  //    currentState === 'response' ?
-  //     (item.status.res ? orderState ='Offre de prix envoyé': 'Commande refusé') 
-  //     :(currentState === 'ready' ? 'Commande prête ':null)
-  //   )
-  console.log('sssssss',currentState);
-    switch(currentState) {
-      case 'pending':
-          orderState = 'Nouvelle commande' 
-        break;
-      case 'response':
-          (item.status.res ? orderState ='Commande accepté': 'Commande refusé')
-        break;
-      case 'offre':
-          orderState = 'Offre de prix envoyé'
-        break;
-      case 'ready':
-          orderState ='Commande prête'
-        break;
-    }
-    console.log("yuyuyuyuyuyuyu");
-    console.log(orderState);
-    return(
-    <ClientProfilOrders
-    title={orderState}
-    small="le 12/12/2020 à 10h30"
-    smaller="Appuyez pour voir les détails."
-    source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-    ardoise
-    navigation={()=>navTo_NewOrder(item)}
-  />)
-  }
-
+    return (
+      <ClientProfilOrders
+        title={orderState}
+        small={`Crée le ${moment(order.date).format("DD/MM/YYYY [à] HH[h]mm")}`}
+        smaller="Appuyez pour voir les détails."
+        source={require("../assets/assets/icons/client-fond-btn-commande.png")}
+        ardoise
+        numberOfProd={order.products.length}
+        grayed={
+          order.status.recieved.recieved ||
+          order.status.payment.payed ||
+          (order.status.offer.onHold && !order.status.offer.sent)
+            ? true
+            : false
+        }
+        navigation={() => navTo_NewOrder(order)}
+      />
+    );
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -140,120 +121,121 @@ function MerchantProfilClient({ navigation,route }) {
             backgroundColor: "#324B3E",
           }}
         >
-          <Myappbar
-            navigation={navigation}
-            title="Profil client"
-          />
+          <Myappbar navigation={navigation} title="Profil client" />
           <View style={{ position: "absolute", right: "-5%" }}>
             <ClientFondBtnMarchand />
           </View>
           <View style={{ marginTop: "10%", width: "93%", alignSelf: "center" }}>
             <ClientItem
-              name= {`${client.firstName} ${client.lastName}`}
+              name={`${client.firstName} ${client.lastName}`}
               address={client.address.location.label}
               phone={client.phoneNumber}
               img={require("../assets/assets/user.png")}
               call
             />
           </View>
- 
 
-         
-            <View>
+          <View>
+            <View
+              style={{
+                flexDirection: "row",
+                marginHorizontal: "10%",
+              }}
+            >
               <View
                 style={{
-                  flexDirection: "row",
-                  marginHorizontal: "10%",
+                  width: "90%",
+                  alignSelf: "center",
                 }}
               >
-                <View
-                  style={{
-                    width: "90%",
-                    alignSelf: "center",
-                  }}
-                >
-                  <Divider borderColor="#fff" color="#fff" orientation="center">
-                    <Text style={{ fontSize: RFValue(17) }}>Commandes</Text>
-                  </Divider>
-                </View>
-
-                <View style={{ width: "10%", alignSelf: "center" }}>
-                  <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
-                </View>
+                <Divider borderColor="#fff" color="#fff" orientation="center">
+                  <Text style={{ fontSize: RFValue(17) }}>Commandes</Text>
+                </Divider>
               </View>
 
-              {isMinus && (
-                <View>
-
-
-                <FlatList
-                  numColumns={1}
-                  contentContainerStyle={styles.orderContainer}
-                  data={orders}
-                  keyExtractor={(item) => item._id}
-                  renderItem={renderClientOrderDetail}
-                />  
-                  <ClientProfilOrders
-                    title="Commande prête"
-                    small="le 12/12/2020 à 10h30"
-                    smaller="Appuyez pour voir les détails."
-                    source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-                    ardoise
-                  />
-                  <ClientProfilOrders
-                    title="Commande terminée"
-                    small="le 12/12/2020 à 10h30"
-                    smaller="Appuyez pour voir les détails."
-                    source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-                    grayed
-                  />
-                </View>
-              )}
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginHorizontal: "10%",
-                  marginVertical: "3%",
-                }}
-              >
-                <View
-                  style={{
-                    width: "90%",
-                    alignSelf: "center",
-                  }}
-                >
-                  <Divider borderColor="#fff" color="#fff" orientation="center">
-                    <Text style={{ fontSize: RFValue(17) }}>Ardoise</Text>
-                  </Divider>
-                </View>
-
-                <View style={{ width: "10%", alignSelf: "center" }}>
-                  <PlusMinus1 isMinus1={isMinus1} setIsMinus1={setIsMinus1} />
-                </View>
+              <View style={{ width: "10%", alignSelf: "center" }}>
+                <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
               </View>
-
-              {isMinus1 && (
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    elevation: 4,
-                    borderRadius: 3,
-                    alignSelf: "center",
-                    width: "93%",
-                    alignItems: "center",
-                    padding: "3%",
-                  }}
-                >
-                  <Text style={{ color: "grey", fontSize: RFValue(13) }}>
-                    Un total de{" "}
-                    <Text style={{ fontWeight: "bold" }}>150 MAD</Text> à payer{" "}
-                    <Text style={{ fontWeight: "bold" }}>le 12/12/2020</Text>
-                  </Text>
-                </View>
-              )}
             </View>
-     
+
+            {isMinus && (
+              <View>
+                <FlatList
+                  contentContainerStyle={styles.orderContainer}
+                  data={ardoiseOrders}
+                  onRefresh={() => {
+                    setRefreshing(true);
+                    fetchOrders();
+                    setRefreshing(false);
+                  }}
+                  refreshing={refreshing}
+                  keyExtractor={(item) => item._id}
+                  renderItem={({ item }) => renderClientOrderDetail(item)}
+                  ListEmptyComponent={EmptyList}
+                />
+                {/* <ClientProfilOrders
+                  title="Commande prête"
+                  small="le 12/12/2020 à 10h30"
+                  smaller="Appuyez pour voir les détails."
+                  source={require("../assets/assets/icons/client-fond-btn-commande.png")}
+                  ardoise
+                />
+                <ClientProfilOrders
+                  title="Commande terminée"
+                  small="le 12/12/2020 à 10h30"
+                  smaller="Appuyez pour voir les détails."
+                  source={require("../assets/assets/icons/client-fond-btn-commande.png")}
+                  grayed
+                /> */}
+              </View>
+            )}
+
+            <View
+              style={{
+                flexDirection: "row",
+                marginHorizontal: "10%",
+                marginVertical: "3%",
+              }}
+            >
+              <View
+                style={{
+                  width: "90%",
+                  alignSelf: "center",
+                }}
+              >
+                <Divider borderColor="#fff" color="#fff" orientation="center">
+                  <Text style={{ fontSize: RFValue(17) }}>Ardoise</Text>
+                </Divider>
+              </View>
+
+              <View style={{ width: "10%", alignSelf: "center" }}>
+                <PlusMinus1 isMinus1={isMinus1} setIsMinus1={setIsMinus1} />
+              </View>
+            </View>
+
+            {isMinus1 && (
+              <View
+                style={{
+                  backgroundColor: "white",
+                  elevation: 4,
+                  borderRadius: 3,
+                  alignSelf: "center",
+                  width: "93%",
+                  alignItems: "center",
+                  padding: "3%",
+                }}
+              >
+                <Text style={{ color: "grey", fontSize: RFValue(13) }}>
+                  Un total de{" "}
+                  <Text
+                    style={{ fontWeight: "bold" }}
+                  >{`${calculateArdoiseTotal()}`}</Text>{" "}
+                  à payer{" "}
+                  <Text style={{ fontWeight: "bold" }}>le 12/12/2020</Text>
+                </Text>
+              </View>
+            )}
+          </View>
 
           <View>
             <View

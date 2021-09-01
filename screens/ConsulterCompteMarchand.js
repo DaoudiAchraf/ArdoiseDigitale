@@ -28,35 +28,32 @@ import PlusMinus from "../components/componentsClient/PlusMinus";
 import PlusMinus1 from "../components/componentsClient/PlusMinus1";
 import PlusMinus2 from "../components/componentsClient/PlusMinus2";
 import { RFValue } from "react-native-responsive-fontsize";
-import { LogBox } from 'react-native';
+import { LogBox } from "react-native";
 import { GlobalContext as OrderContext } from "../contexts/ProductsCatalog.context";
 import { ProgressBar, ActivityIndicator, Colors } from "react-native-paper";
 import Item2 from "../components/componentsClient/Item2";
 import { color } from "../constants/Colors";
 import CommonServices from "../services/Common";
 import OrderCardViewer from "../components/OrderCardViewer";
-import { AntDesign,FontAwesome5,Fontisto } from '@expo/vector-icons'; 
-import PaymentSVG from "../assets/svgr/Credit"; 
+import { AntDesign, FontAwesome5, Fontisto } from "@expo/vector-icons";
+import PaymentSVG from "../assets/svgr/Credit";
 import moment from "moment";
 import Review from "../components/Review";
 import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
+import EmptyList from "../components/EmptyList";
 
-
-function ConsulterCompteMarchand({ navigation,route }) {
-
-
-
+function ConsulterCompteMarchand({ navigation, route }) {
   const [reviewVisible, setReviewVisible] = useState(false);
-
-
+  const [refreshing, setRefreshing] = useState(false);
   const [visible, setVisible] = React.useState(false);
 
   const showDialog = () => setVisible(true);
-
   const hideDialog = () => setVisible(false);
+
   const [isMinus, setIsMinus] = useState(false);
   const [isMinus1, setIsMinus1] = useState(false);
   const [isMinus2, setIsMinus2] = useState(false);
+
   const navToHistoriquePaiements = () =>
     navigation.navigate("HistoriquePaiements");
   const navToConsulterArdoiseFermee = () =>
@@ -67,79 +64,69 @@ function ConsulterCompteMarchand({ navigation,route }) {
 
   const { ardoise } = route.params;
 
-  //console.log('ardoisssssssssssssssssssssssssssssssssssssse',ardoise.client)
-
-  
   const currentMerchant = ardoise.merchant;
 
-  console.log("ttttEX",currentMerchant);
+  console.log("ttttEX", currentMerchant);
 
-  const [orders,setOrders] = useState([]);
-
-
+  const [orders, setOrders] = useState([]);
 
   const { newOrders } = useContext(OrderContext);
 
+  const c = newOrders && currentMerchant._id === newOrders.merchant;
 
-  const c=  newOrders && currentMerchant._id === newOrders.merchant ;
-  
+  const getReviews = async () => {};
 
+  useEffect(() => {
+    if (c) setIsMinus(true);
+  }, [c]);
 
-  
-  const getReviews = async()=>{
-    
-  }
-
-  useEffect(()=>{
-    if(c)
-      setIsMinus(true);
-  },[c])
-
-
-  useEffect(()=>{
-    
-    //LogBox.ignoreAllLogs();
-    console.log('newOrder : ',newOrders);
-
-    const fetchOrders = async ()=>{
-        const result = await CommonServices.getOrdersByArdoise(ardoise._id);
-        if(result.ok && result.data.length>0)
-            {setOrders([...orders,...result.data]);
-            console.log("get ordersssssssssssssssssssssssss",result.data);}
+  const fetchOrders = async () => {
+    const result = await CommonServices.getOrdersByArdoise(ardoise._id);
+    if (result.ok && result.data.length > 0) {
+      setOrders(result.data);
     }
+  };
+
+  useEffect(() => {
+    //LogBox.ignoreAllLogs();
+    console.log("newOrder : ", newOrders);
 
     fetchOrders();
-
-  },[])
+  }, []);
 
   const closeArdoise = async () => {
     const ardoiseData = {
       ardoiseId: ardoise._id,
-      state:'closed'
-    }
-    const result = await CommonServices.changeArdoiseState(ardoiseData)
+      state: "closed",
+      closingDay: Date.now(),
+    };
+    const result = await CommonServices.changeArdoiseState(ardoiseData);
     if (result.ok) {
-      console.log(result.data);
+      console.log("ardoise closed ::::", result);
+      navigation.navigate("ConsulterArdoiseFermee", {
+        ardoise: ardoise,
+        orders: orders,
+      });
     }
-  }
+  };
 
   return (
-    <View style={{ flex: 1,backgroundColor: "#324B3E",paddingBottom:'10%'}}>
-          <Myappbar
-            title="Profil marchand"
-            // subtitle="Vous avez 3 nouvelles notifications"
-            navigation={navigation}
-          />
-     <Provider>
+    <Provider>
+      <View
+        style={{ flex: 1, backgroundColor: "#324B3E", paddingBottom: "10%" }}
+      >
+        <Myappbar
+          title="Profil marchand"
+          // subtitle="Vous avez 3 nouvelles notifications"
+          navigation={navigation}
+        />
         <ScrollView
           style={{
             flex: 1,
-            
-         
-            paddingBottom: '20%'
+
+            paddingBottom: "20%",
           }}
         >
-
           <Image
             style={styles.image}
             source={require("../assets/assets/icons/client-fond-btn-marchands.png")}
@@ -147,13 +134,12 @@ function ConsulterCompteMarchand({ navigation,route }) {
 
           <View style={{ marginTop: "10%" }}>
             <CardClient
-
               title={`${currentMerchant.firstName} ${currentMerchant.lastName}`}
               small={currentMerchant.address.location.label}
               storeImage={currentMerchant.storeImage}
               merchantImage={currentMerchant.merchantImage}
+              calender={currentMerchant.availability}
               rate={currentMerchant.rate ? currentMerchant.rate : 0}
-
               text1="Livraison disponible"
               text2="Accepte le paiement comptant "
               source={require("../assets/assets/user.png")}
@@ -190,42 +176,37 @@ function ConsulterCompteMarchand({ navigation,route }) {
                   <Dialog.Actions>
                     <RedBtn
                       title="Fermer l'ardoise"
-                      action={
-                        ()=>{
-                          //con
-                          hideDialog()
-                          setReviewVisible(true);
-                          closeArdoise()
-                         // navToConsulterArdoiseFermee()
-                        }
-                        }
-                    ></RedBtn>
+                      action={() => {
+                        //con
+                        hideDialog();
+                        setReviewVisible(true);
+                        closeArdoise();
+                      }}
+                    />
                   </Dialog.Actions>
                 </Dialog>
               </Portal>
             </View>
-            
-            <Review 
+
+            <Review
               visible={reviewVisible}
               setVisible={setReviewVisible}
               user={currentMerchant.user}
             />
-        
+
             <View style={{ width: "60%", alignSelf: "center" }}>
               <GreenBtn
                 title=" Passer une commande"
-                action={
-                  () => {navigation.navigate("MerchantCatalog",{
+                action={() => {
+                  navigation.navigate("MerchantCatalog", {
                     currentMerchant,
                     ardoiseId: ardoise._id,
-                    client: ardoise.client
-            
-                  })}
-                }
+                    client: ardoise.client,
+                  });
+                }}
               />
             </View>
           </View>
-
 
           <View>
             <View
@@ -233,7 +214,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
                 flexDirection: "row",
                 marginLeft: "10%",
                 marginRight: "10%",
-                marginBottom: '2.5%'
+                marginBottom: "2.5%",
               }}
             >
               <View
@@ -242,7 +223,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
                   alignSelf: "center",
                 }}
               >
-                <Divider  borderColor="#fff" color="#fff" orientation="center">
+                <Divider borderColor="#fff" color="#fff" orientation="center">
                   <Text style={{ fontSize: RFValue(16) }}> Mes commandes </Text>
                 </Divider>
               </View>
@@ -252,32 +233,42 @@ function ConsulterCompteMarchand({ navigation,route }) {
               </View>
             </View>
             <>
-              { 
-                isMinus && newOrders && currentMerchant._id === newOrders.merchant &&
+              {isMinus &&
+                newOrders &&
+                currentMerchant._id === newOrders.merchant && (
                   <View style={styles.orderContainer}>
-                    <OrderCardViewer 
+                    <OrderCardViewer
                       newOrder
                       order={newOrders}
-                      navigation={navigation}/> 
+                      navigation={navigation}
+                    />
                   </View>
-              }
+                )}
 
-              {isMinus && 
+              {isMinus && (
                 <FlatList
                   numColumns={1}
                   contentContainerStyle={styles.orderContainer}
                   data={orders}
+                  onRefresh={() => {
+                    setRefreshing(true);
+                    fetchOrders();
+                    setRefreshing(false);
+                  }}
+                  refreshing={refreshing}
+                  ListEmptyComponent={EmptyList}
                   keyExtractor={(item) => item._id}
-                  renderItem={({item}) => {
-                    return <OrderCardViewer 
-                              order = {item}
-                              merchant = {ardoise.merchant}
-                              navigation={navigation}
-                            />;
+                  renderItem={({ item }) => {
+                    return (
+                      <OrderCardViewer
+                        order={item}
+                        merchant={ardoise.merchant}
+                        navigation={navigation}
+                      />
+                    );
                   }}
                 />
-              }
-           
+              )}
             </>
           </View>
 
@@ -287,7 +278,7 @@ function ConsulterCompteMarchand({ navigation,route }) {
                 flexDirection: "row",
                 marginLeft: "10%",
                 marginRight: "10%",
-                marginBottom : '2.5%'
+                marginBottom: "2.5%",
               }}
             >
               <View
@@ -300,8 +291,6 @@ function ConsulterCompteMarchand({ navigation,route }) {
                   <Text style={{ fontSize: RFValue(17) }}> Ardoise</Text>
                 </Divider>
               </View>
-
-              
             </View>
 
             {/* {isMinus && <View></View>} */}
@@ -324,12 +313,12 @@ function ConsulterCompteMarchand({ navigation,route }) {
             <View
               style={{
                 backgroundColor: "white",
-            
+
                 alignSelf: "center",
                 width: "83%",
                 borderRadius: 3,
-                backgroundColor: '#F5F5F5',
-                borderWidth: 0
+                backgroundColor: "#F5F5F5",
+                borderWidth: 0,
               }}
             >
               <View
@@ -337,85 +326,94 @@ function ConsulterCompteMarchand({ navigation,route }) {
                   paddingBottom: "5%",
                 }}
               >
-                <View style={{
-                  backgroundColor: "#324B3E",
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  width: '60%',
-                  borderTopRightRadius: 10,
-                  borderBottomRightRadius : 10,
-                  paddingBottom: '2%'
-                  }}>
+                <View
+                  style={{
+                    backgroundColor: "#324B3E",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    width: "60%",
+                    borderTopRightRadius: 10,
+                    borderBottomRightRadius: 10,
+                    paddingBottom: "2%",
+                  }}
+                >
                   <AntDesign
-                     name="profile" 
-                     size={24} 
-                     color="white" 
-                     style={{marginRight: '3%'}}
+                    name="profile"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: "3%" }}
                   />
-                  <Text style={{ color: "white", fontWeight:'bold', fontSize: RFValue(13) }}>
-                      Mes anciens ardoise
-                </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      fontWeight: "bold",
+                      fontSize: RFValue(13),
+                    }}
+                  >
+                    Mes anciens ardoise
+                  </Text>
                 </View>
 
-              <View>
-              <Fontisto style={{padding: '5%',paddingBottom:0}} name="pinboard" size={RFValue(20)} color='#DC143C' />
-                
-                <Text style={styles.ardoiseMainText}>
-                  Un total de 150 MAD à payer le 12/12/2020
-                </Text>
-              </View>
+                <View>
+                  <Fontisto
+                    style={{ padding: "5%", paddingBottom: 0 }}
+                    name="pinboard"
+                    size={RFValue(20)}
+                    color="#DC143C"
+                  />
 
+                  <Text style={styles.ardoiseMainText}>
+                    Un total de 150 MAD à payer le 12/12/2020
+                  </Text>
+                </View>
 
                 <View style={styles.ardoiseItemContainer}>
-                  <Text style={styles.ardoiseItemTxt}>
-                    Livraison :
-                  </Text>
-                  { !ardoise.delivery ? 
-                     <FontAwesome5 name="check" size={20} color='#84F783' />
-                    : <Text 
+                  <Text style={styles.ardoiseItemTxt}>Livraison :</Text>
+                  {!ardoise.delivery ? (
+                    <FontAwesome5 name="check" size={20} color="#84F783" />
+                  ) : (
+                    <Text
                       style={{
                         fontSize: RFValue(20),
-                        fontWeight: 'bold',
-                        color: 'red',
-                        paddingBottom: '1%'
-                      }}>x</Text>
-                 }
-                  
+                        fontWeight: "bold",
+                        color: "red",
+                        paddingBottom: "1%",
+                      }}
+                    >
+                      x
+                    </Text>
+                  )}
                 </View>
 
                 <View style={styles.ardoiseItemContainer}>
-                  <Text style={styles.ardoiseItemTxt}>
-                    Date d'ouverture :
-                  </Text>
+                  <Text style={styles.ardoiseItemTxt}>Date d'ouverture :</Text>
                   <Text style={styles.dataValueText}>
-                   {moment(ardoise.creationDay).format('DD-MM-YYYY')}
+                    {moment(ardoise.creationDay).format("DD-MM-YYYY")}
                   </Text>
                 </View>
-
               </View>
-    
 
-              <View style={{flexDirection:'row-reverse' }}>
-                  
-
-                <View style={{backgroundColor: color.Primary}}>
-                 <TouchableOpacity 
-                  style={styles.paymentCard}
-                  onPress={navToHistoriquePaiements}
+              <View style={{ flexDirection: "row-reverse" }}>
+                <View style={{ backgroundColor: color.Primary }}>
+                  <TouchableOpacity
+                    style={styles.paymentCard}
+                    onPress={navToHistoriquePaiements}
                   >
-                  <PaymentSVG width={30} height={30}/>
-                 <Text style={styles.paymentText} >Payer </Text>
-                </TouchableOpacity>
+                    <PaymentSVG width={30} height={30} />
+                    <Text style={styles.paymentText}>Payer </Text>
+                  </TouchableOpacity>
                 </View>
 
-                
-                <View  style={{backgroundColor:color.Primary,borderWidth:0,flex:1}} />
-
-                
+                <View
+                  style={{
+                    backgroundColor: color.Primary,
+                    borderWidth: 0,
+                    flex: 1,
+                  }}
+                />
               </View>
-              
             </View>
-          </View>          
+          </View>
           {/* <View
             style={{
               flexDirection: "row",
@@ -456,7 +454,6 @@ function ConsulterCompteMarchand({ navigation,route }) {
               >
                 <Divider borderColor="#fff" color="#fff" orientation="center">
                   <Text style={{ fontSize: RFValue(17) }}>
-           
                     Avis des clients
                   </Text>
                 </Divider>
@@ -467,24 +464,25 @@ function ConsulterCompteMarchand({ navigation,route }) {
               </View>
             </View>
 
-            {isMinus1 && 
-            <View style={{
-              marginLeft: "10%",
-              marginRight: "10%"
-            }}>
-            
-              <ClientReviewItem
-                 name="Sam Irving"
-                 date="12/12/2020 à 10h30"
-                 img={require("../assets/SamIrving.png")}
-                 text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in tortor vitae erat sollicitudin fringilla ac id felis."
-              />
-            </View>
-            }
+            {isMinus1 && (
+              <View
+                style={{
+                  marginLeft: "10%",
+                  marginRight: "10%",
+                }}
+              >
+                <ClientReviewItem
+                  name="Sam Irving"
+                  date="12/12/2020 à 10h30"
+                  img={require("../assets/SamIrving.png")}
+                  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in tortor vitae erat sollicitudin fringilla ac id felis."
+                />
+              </View>
+            )}
           </View>
         </ScrollView>
-      </Provider>
-    </View>
+      </View>
+    </Provider>
   );
 }
 const styles = StyleSheet.create({
@@ -496,55 +494,56 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: "-10%",
   },
-  paymentCard:{
-    backgroundColor: 'white',
-    flexDirection:'row',
-    alignItems: 'center',
+  paymentCard: {
+    backgroundColor: "white",
+    flexDirection: "row",
+    alignItems: "center",
     borderColor: color.Primary,
     borderTopRightRadius: w(0),
     borderBottomLeftRadius: 10,
-    borderTopWidth: 2,borderLeftWidth: 2,
-    padding: '1%',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    padding: "1%",
     width: w(30),
-    marginRight: '0%',
-    marginBottom: '0%',
-    justifyContent: 'center'
+    marginRight: "0%",
+    marginBottom: "0%",
+    justifyContent: "center",
   },
-  paymentText:{
-    fontSize:RFValue(16),
-    fontWeight:'bold',
-    marginLeft: '3%',
-    color: color.Secondary
+  paymentText: {
+    fontSize: RFValue(16),
+    fontWeight: "bold",
+    marginLeft: "3%",
+    color: color.Secondary,
   },
-  ardoiseItemContainer:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: '5%',
+  ardoiseItemContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: "5%",
   },
-  ardoiseItemTxt:{
-    fontWeight: 'bold',
+  ardoiseItemTxt: {
+    fontWeight: "bold",
     color: color.Secondary,
     fontSize: RFValue(16),
-    marginRight: '2%'
+    marginRight: "2%",
   },
-  dataValueText:{
-    fontWeight: 'bold',
+  dataValueText: {
+    fontWeight: "bold",
     fontSize: RFValue(14),
     color: color.INFO_TEXT,
   },
-  ardoiseMainText:{
-    fontWeight: 'bold',
+  ardoiseMainText: {
+    fontWeight: "bold",
     color: color.INFO_TEXT,
     fontSize: RFValue(15),
-    paddingLeft: '14%',
-    marginBottom: '3.5%'
+    paddingLeft: "14%",
+    marginBottom: "3.5%",
   },
-  orderContainer:{
-    width:'100%',
-    paddingLeft:'10%',
-    paddingRight:'12%',
-    alignSelf:'center'
-  }
+  orderContainer: {
+    width: "100%",
+    paddingLeft: "10%",
+    paddingRight: "12%",
+    alignSelf: "center",
+  },
 });
 
 export default ConsulterCompteMarchand;

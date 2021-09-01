@@ -16,11 +16,15 @@ import { TEXT_ERROR } from "../constants/Strings";
 import authService from "../services/Auth";
 
 import { Context } from "../contexts/Auth.context";
+import { Button, Switch } from "react-native-paper";
 
 const SignIn = ({ navigation }) => {
   //----------------------------
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   const [errors, setErrors] = useState({
     username: false,
@@ -86,7 +90,34 @@ const SignIn = ({ navigation }) => {
         </View>
 
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text style={styles.account_Txt}>Créer un compte</Text>
+          <Text style={styles.account_Txt}>
+            Créer un compte{" "}
+            <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+          </Text>
+          {isSwitchOn && (
+            <View>
+              <Button
+                mode="outlined"
+                color="white"
+                onPress={() => {
+                  setUsername("SO609");
+                  setPassword("cUASYTct1K");
+                }}
+              >
+                client
+              </Button>
+              <Button
+                mode="outlined"
+                color="white"
+                onPress={() => {
+                  setUsername("RO152");
+                  setPassword("sWNVfKuAI3");
+                }}
+              >
+                merchant
+              </Button>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
     </ImageBackground>

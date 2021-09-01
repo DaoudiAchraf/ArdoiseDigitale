@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, ScrollView,FlatList } from "react-native";
+import { View, Text, StyleSheet, ScrollView, FlatList } from "react-native";
 import Divider from "react-native-divider";
 import {
   Dialog,
@@ -17,7 +17,6 @@ import GreenBtn from "../components/componentsClient/GreenBtn";
 import RedBtn from "../components/componentsClient/RedBtn";
 import ProductCard_Item from "../components/ProductCard_Item";
 
-
 import FondPageCommandes from "../assets/svg-icones-client/fond-page-commandes.jsx";
 import Item3 from "../components/componentsClient/Item3";
 import ItemPrix from "../components/componentsClient/ItemPrix";
@@ -25,14 +24,10 @@ import moment from "moment";
 import CalloutCard from "../components/Client_UI/CalloutCard";
 import { URL } from "../services/Client";
 
-import commonService from '../services/Common'
+import commonService from "../services/Common";
 
-
-export default function OffrePrixCommande({ navigation,route }) {
-
+export default function OffrePrixCommande({ navigation, route }) {
   const { order, merchant } = route.params;
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa route params :',route.params)
-
 
   //const sendUpdate = useRef(false)
 
@@ -49,11 +44,15 @@ export default function OffrePrixCommande({ navigation,route }) {
     ref: `Ref: ${order._id}`,
     dateOfCreation: moment(order.date).format("DD/MM/YYYY [à] HH[h]mm"),
     shopTitle: "Target Express",
-    shopDescription: merchant.address ? `${merchant.address.location.label}`: "751 Green Hill Dr.Webster,\nNY 14580",
+    shopDescription: merchant.address
+      ? `${merchant.address.location.label}`
+      : "751 Green Hill Dr.Webster,\nNY 14580",
     details: { paymentType: "Crédit Total", Livraison: true },
     merchant: {
       name: merchant.firstName + " " + merchant.lastName,
-      img: merchant.merchantImage ? {uri:URL+'/images/'+merchant.merchantImage}:require("../assets/UserOrange.png"),
+      img: merchant.merchantImage
+        ? { uri: URL + "/images/" + merchant.merchantImage }
+        : require("../assets/UserOrange.png"),
       delivery: true,
       paymentType: ["comptant", "crédit total"],
     },
@@ -71,7 +70,6 @@ export default function OffrePrixCommande({ navigation,route }) {
     listOf_RefusedProducts: order.listOf_RefusedProducts,
   });
 
-  
   const updateOrder = () => {
     const updates = {
       totalPrice: commande.price,
@@ -82,31 +80,30 @@ export default function OffrePrixCommande({ navigation,route }) {
         ready: commande.ready,
         payment: commande.payment,
       },
-      listOf_RefusedProducts: commande.listOf_RefusedProducts
-    }
-    const patchOrder = async() => {
-      const response = await commonService.patchOrder(order._id, updates)
+      listOf_RefusedProducts: commande.listOf_RefusedProducts,
+    };
+    const patchOrder = async () => {
+      const response = await commonService.patchOrder(order._id, updates);
       if (response.ok) {
         console.log(response.data);
       } else {
         console.log("error");
       }
-    }
+    };
     try {
-      console.log('UPPDATESSSSSSS:                 STATESSSSSS                  ',updates);
-      patchOrder()
+      console.log(
+        "UPPDATESSSSSSS:                 STATESSSSSS                  ",
+        updates
+      );
+      patchOrder();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    
-    updateOrder()
-   
-  }, [commande])
-
-
+    updateOrder();
+  }, [commande]);
 
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
@@ -143,9 +140,9 @@ export default function OffrePrixCommande({ navigation,route }) {
                         myGreenBtn2
                         title={
                           "Le paiement sera prélevé le " +
-                          moment(new Date()).add(1,'months').format(
-                                "DD/MM/YYYY [à] HH[h]mm"
-                              )
+                          moment(new Date())
+                            .add(1, "months")
+                            .format("DD/MM/YYYY [à] HH[h]mm")
                         }
                       />
                       <GreenBtn
@@ -186,98 +183,100 @@ export default function OffrePrixCommande({ navigation,route }) {
                             })
                           }
                         />
-                      ) : (commande.response.sent ? (commande.response.res ? (
-                        <GreenBtn
-                          key="51"
-                          myGreenBtn
-                          title={`Offre de prix accepté en attente de préparation par '${commande.merchant.name}'`}
-                          grayed
-                        />
-                      ):(
-                        <GreenBtn
-                          key="52"
-                          myGreenBtn
-                          title={"Offre de prix refusé commande echoué " + commande.merchant.name}
-                          grayed
-                        />
-                      )) :
-                      (
-                        
-                        commande.offer.onHold ? ( 
+                      ) : commande.response.sent ? (
+                        commande.response.res ? (
                           <GreenBtn
+                            key="51"
+                            myGreenBtn
+                            title={`Offre de prix accepté en attente de préparation par '${commande.merchant.name}'`}
+                            grayed
+                          />
+                        ) : (
+                          <GreenBtn
+                            key="52"
+                            myGreenBtn
+                            title={
+                              "Offre de prix refusé commande echoué " +
+                              commande.merchant.name
+                            }
+                            grayed
+                          />
+                        )
+                      ) : commande.offer.onHold ? (
+                        <GreenBtn
                           key="53"
                           myGreenBtn
-                          title={"Offre de prix refusé commande echoué " + commande.merchant.name}
+                          title={
+                            "Offre de prix refusé commande echoué " +
+                            commande.merchant.name
+                          }
                           grayed
-                          /> 
-                          ) : 
-                        (commande.offer.sent ? 
+                        />
+                      ) : commande.offer.sent ? (
+                        <View key="6">
+                          <ItemPrix
+                            key="7"
+                            title={`${commande.price} DT`}
+                            small="Prix proposé"
+                          />
 
-                          (<View key="6">
-                            <ItemPrix
-                              key="7"
-                              title={`${commande.price} DT`}
-                              small="Prix proposé"
-                            />
-
+                          <View
+                            key="8"
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
                             <View
-                              key="8"
+                              key="9"
                               style={{
-                                flexDirection: "row",
-                                justifyContent: "space-between",
+                                width: "47.5%",
                               }}
                             >
-                              <View
-                                key="9"
-                                style={{
-                                  width: "47.5%",
-                                }}
-                              >
-                                <RedBtn
-                                  key="10"
-                                  action={() =>
-                                    setCommande({
-                                      ...commande,
-                                      response: {
-                                        ...commande.response,
-                                        sent: true,
-                                        res: false,
-                                        dateOfResponse: moment(
-                                          new Date()
-                                        ).format("DD/MM/YYYY [à] HH[h]mm"),
-                                      },
-                                    })
-                                  }
-                                  myRedBtn
-                                  title="Refuser l'offre"
-                                />
-                              </View>
-                              <View key="11" style={{ width: "47.5%" }}>
-                                <GreenBtn
-                                  key="12"
-                                  myGreenBtn
-                                  title="Accepter l'offre"
-                                  action={() =>
-                                    setCommande({
-                                      ...commande,
-                                      response: {
-                                        ...commande.response,
-                                        sent:true,
-                                        res: true,
-                                        date: moment(
-                                          new Date()
-                                        ).format("DD/MM/YYYY [à] HH[h]mm"),
-                                      },
-                                    })
-                                  }
-                                />
-                              </View>
+                              <RedBtn
+                                key="10"
+                                action={() =>
+                                  setCommande({
+                                    ...commande,
+                                    response: {
+                                      ...commande.response,
+                                      sent: true,
+                                      res: false,
+                                      dateOfResponse: moment(new Date()).format(
+                                        "DD/MM/YYYY [à] HH[h]mm"
+                                      ),
+                                    },
+                                  })
+                                }
+                                myRedBtn
+                                title="Refuser l'offre"
+                              />
                             </View>
-                          </View>):(<Text>Commande Refusé par le marchand</Text>)
-                        ) 
-                      
-                        )
-                      ) 
+                            <View key="11" style={{ width: "47.5%" }}>
+                              <GreenBtn
+                                key="12"
+                                myGreenBtn
+                                title="Accepter l'offre"
+                                action={() =>
+                                  setCommande({
+                                    ...commande,
+                                    response: {
+                                      ...commande.response,
+                                      sent: true,
+                                      res: true,
+                                      date: moment(new Date()).format(
+                                        "DD/MM/YYYY [à] HH[h]mm"
+                                      ),
+                                    },
+                                  })
+                                }
+                              />
+                            </View>
+                          </View>
+                        </View>
+                      ) : (
+                        <Text>Commande Refusé par le marchand</Text>
+                      ),
                     ]
                   ),
                 ]
@@ -343,31 +342,32 @@ export default function OffrePrixCommande({ navigation,route }) {
               <Text style={{ fontSize: RFValue(17) }}>Liste des produits</Text>
             </Divider>
 
-
             <FlatList
-                numColumns={1}
-                data={order.products} 
-                contentContainerStyle={{marginTop: '5%'}}
-                renderItem={({item,index}) => {
-                    if(order.listOf_RefusedProducts.indexOf(item._id._id) < 0)
-                    {
-                      return <ProductCard_Item  
-                              key={index}
-                              product={item}
-                              navigation={navigation}
-                              badged
-                            />;
-                    }else {
-                      return <ProductCard_Item  
-                              key={index}
-                              product={item}
-                              navigation={navigation}
-                              badged
-                              indisponible
-                            />;
-                    }
-                    
-                }}
+              numColumns={1}
+              data={order.products}
+              contentContainerStyle={{ marginTop: "5%" }}
+              renderItem={({ item, index }) => {
+                if (order.listOf_RefusedProducts.indexOf(item._id._id) < 0) {
+                  return (
+                    <ProductCard_Item
+                      key={index}
+                      product={item}
+                      navigation={navigation}
+                      badged
+                    />
+                  );
+                } else {
+                  return (
+                    <ProductCard_Item
+                      key={index}
+                      product={item}
+                      navigation={navigation}
+                      badged
+                      indisponible
+                    />
+                  );
+                }
+              }}
             />
             {/* <Item3
               title="Lait Delice"
@@ -390,8 +390,14 @@ export default function OffrePrixCommande({ navigation,route }) {
             {!commande.offer.onHold && (
               <ItemPrix title={`${commande.price} DT`} small="Prix proposé" />
             )}
-            <ItemPrix title={commande.merchant.paymentType[0]} small="Mode de payement" />
-            <ItemPrix title={commande.merchant.delivery? 'Oui':'Non'} small="Livraison" />
+            <ItemPrix
+              title={commande.merchant.paymentType[0]}
+              small="Mode de payement"
+            />
+            <ItemPrix
+              title={commande.merchant.delivery ? "Oui" : "Non"}
+              small="Livraison"
+            />
           </View>
         </View>
       </ScrollView>
@@ -409,4 +415,4 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "flex-end",
   },
-})
+});

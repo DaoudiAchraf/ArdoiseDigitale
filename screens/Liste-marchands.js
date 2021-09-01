@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   Text,
-  CheckBox
+  CheckBox,
 } from "react-native";
 import Myappbar from "../components/componentsClient/Myappbar";
 import Item2 from "../components/componentsClient/Item2";
@@ -16,59 +16,57 @@ import Separator from "../components/componentsClient/Separator";
 import { RFValue } from "react-native-responsive-fontsize";
 import FondPageMarchand from "../assets/svg-icones-client/fond-page-marchands";
 import { Context } from "../contexts/Auth.context";
-import PagerView from 'react-native-pager-view';
+import PagerView from "react-native-pager-view";
 import { color } from "../constants/Colors";
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { totalSize } from "../utils/Size";
 import { ColorAndroid } from "react-native/Libraries/StyleSheet/PlatformColorValueTypesAndroid";
 
 function Listemarchands({ navigation }) {
   const [isMinus, setIsMinus] = useState(true);
 
-  
-
   const [ArdoiseFilter, setArdoiseFilter] = useState({
-    accepted : true,
-    closed : false,
-    pending: true
+    accepted: true,
+    closed: false,
+    pending: true,
   });
 
-  const setFilter = (filter)=>{
-    if(filter === 'accepted')
+  const setFilter = (filter) => {
+    if (filter === "accepted")
       setArdoiseFilter({
         ...ArdoiseFilter,
-        accepted : !ArdoiseFilter.accepted
-      })
-    else if(filter === 'closed')
+        accepted: !ArdoiseFilter.accepted,
+      });
+    else if (filter === "closed")
       setArdoiseFilter({
         ...ArdoiseFilter,
-        closed : !ArdoiseFilter.closed
-      })
-    else if(filter === 'pending')
+        closed: !ArdoiseFilter.closed,
+      });
+    else if (filter === "pending")
       setArdoiseFilter({
         ...ArdoiseFilter,
-        pending : !ArdoiseFilter.pending
-      })
-  }
+        pending: !ArdoiseFilter.pending,
+      });
+  };
 
   const navToNouvelleCommande = () => navigation.navigate("NouvelleCommande");
   const navToMapScreen = () => navigation.navigate("MapScreen");
 
   const navToClientaccount = () => navigation.navigate("Clientaccount");
 
-  const  { ardoiseList, setCurrentMerchant,currentMerchant } = useContext(Context);
+  const { ardoiseList, setCurrentMerchant, currentMerchant } =
+    useContext(Context);
 
-  console.log(ardoiseList)
+  console.log(ardoiseList);
 
-  const navToMerchant = (item)=>{
-
-      console.log(item);
-      navigation.navigate('ConsulterCompteMarchand',{ardoise:item});
+  const navToMerchant = (item) => {
+    console.log(item);
+    navigation.navigate("ConsulterCompteMarchand", { ardoise: item });
 
     //navigation.navigate('Notification');
-  }
+  };
 
- // const viewPager = React.createRef();
+  // const viewPager = React.createRef();
 
   return (
     <View style={{ flex: 1 }}>
@@ -84,8 +82,6 @@ function Listemarchands({ navigation }) {
             navigation={navToMapScreen}
           />
         </View>
-
-        
 
         <View
           style={{
@@ -107,58 +103,65 @@ function Listemarchands({ navigation }) {
             {/* <View >
             <Text style={{...styles.textFilter}}>filtrer par ardoise :</Text>
             </View> */}
-            
-            {ardoiseList.length> 0 &&
-            <View style={styles.filterLayout}>
-              <View style={styles.filterContainer} >
+
+            {ardoiseList.length > 0 && (
+              <View style={styles.filterLayout}>
+                <View style={styles.filterContainer}>
                   <View>
-                  
-                  <Text style={styles.textFilter}>Ouverte</Text>
+                    <Text style={styles.textFilter}>Ouverte</Text>
                   </View>
 
-                 <CheckBox
+                  <CheckBox
                     value={ArdoiseFilter.accepted}
                     style={styles.checkbox}
-                    onValueChange={()=>setFilter('accepted')}
+                    onValueChange={() => setFilter("accepted")}
                   />
-              </View>
-              
-
-              <View style={styles.filterContainer} >
-                <View>
-                  <Text style={styles.textFilter}>En attente</Text>
                 </View>
 
-                 <CheckBox
-                    value={ArdoiseFilter.pending}
-                    onValueChange={()=>setFilter('pending')}  
-                  />
-              </View>
-
-              <View style={styles.filterContainer} >
+                <View style={styles.filterContainer}>
                   <View>
-                  <Text style={styles.textFilter}>Fermée</Text>
-                  
+                    <Text style={styles.textFilter}>En attente</Text>
                   </View>
 
-                 <CheckBox
+                  <CheckBox
+                    value={ArdoiseFilter.pending}
+                    onValueChange={() => setFilter("pending")}
+                  />
+                </View>
+
+                <View style={styles.filterContainer}>
+                  <View>
+                    <Text style={styles.textFilter}>Fermée</Text>
+                  </View>
+
+                  <CheckBox
                     value={ArdoiseFilter.closed}
                     style={styles.checkbox}
-                    onValueChange={()=>setFilter('closed')}  
+                    onValueChange={() => setFilter("closed")}
                   />
+                </View>
               </View>
-            </View>
-            }
+            )}
 
-            {(ardoiseList && ardoiseList.length === 0) && <View style={{alignSelf: 'center'}}>
-              <MaterialCommunityIcons 
-                name="database-remove"
-                size={totalSize(30)} 
-                color={color.INFO_TEXT} 
-              />
-              <Text style={{textAlign:"center",color:color.INFO_TEXT,fontSize:RFValue(18)}}>Aucune ardoise Trouvée </Text>
-              </View>}
-           
+            {ardoiseList && ardoiseList.length === 0 && (
+              <View style={{ alignSelf: "center" }}>
+                <MaterialCommunityIcons
+                  name="database-remove"
+                  size={totalSize(30)}
+                  color={color.INFO_TEXT}
+                />
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: color.INFO_TEXT,
+                    fontSize: RFValue(18),
+                  }}
+                >
+                  Aucune ardoise Trouvée{" "}
+                </Text>
+              </View>
+            )}
+
             {/* <View style={{...styles.filterContainer,alignSelf:'center',marginTop:0}} >
                   <View>
                   <Text style={styles.textFilter}>En attente</Text>
@@ -171,33 +174,29 @@ function Listemarchands({ navigation }) {
                   />
               </View> */}
           </View>
-
         </View>
-  
-          <View>
 
-            {ardoiseList.map((item)=>
-              
-              ArdoiseFilter[item.state] &&
-              <Item2
-                key={item._id}
-                title={item.merchant.firstName+' '+item.merchant.lastName}
-                ardoise
-                small={item.merchant.firstName== 'soukii'?"3 ":` ${item.ordersCount} `}
-                smaller="Appuyez pour voir les détails."
-                source={require("../assets/assets/user.png")}
-                navigation={()=>navToMerchant(item)}
-              />
-            
-            )}
+        <View>
+          {ardoiseList.map(
+            (item) =>
+              ArdoiseFilter[item.state] && (
+                <Item2
+                  key={item._id}
+                  title={item.merchant.firstName + " " + item.merchant.lastName}
+                  ardoise
+                  small={` ${item.ordersCount} `}
+                  smaller="Appuyez pour voir les détails."
+                  source={require("../assets/assets/user.png")}
+                  navigation={() => navToMerchant(item)}
+                />
+              )
+          )}
 
-     
-            <Separator />
-          </View>
- 
+          <Separator />
+        </View>
       </ScrollView>
-    </View>)
-
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -220,30 +219,29 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "flex-end",
   },
-  filterLayout:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor:'white',
-    alignItems:'center',
-    paddingLeft: '2%',paddingRight: '2%',
+  filterLayout: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "white",
+    alignItems: "center",
+    paddingLeft: "2%",
+    paddingRight: "2%",
     borderRadius: 3,
-    marginTop: '2%'
+    marginTop: "2%",
   },
-  filterContainer:{
-    flexDirection: 'row-reverse',
-    alignItems:'center',
-    marginTop: '0%',
-
+  filterContainer: {
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    marginTop: "0%",
   },
-  textFilter:{
-    fontWeight: 'bold',
+  textFilter: {
+    fontWeight: "bold",
     fontSize: RFValue(15),
-    color: color.Secondary
+    color: color.Secondary,
   },
-  checkbox:{
-
-    marginLeft: '-2%',
-  }
+  checkbox: {
+    marginLeft: "-2%",
+  },
 });
 
 export default Listemarchands;

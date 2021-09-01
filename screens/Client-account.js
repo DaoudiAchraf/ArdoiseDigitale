@@ -1,17 +1,81 @@
-import React, { useContext ,useEffect } from "react";
-import { View, ScrollView, Image, StyleSheet } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { View, ScrollView, Image, StyleSheet, FlatList } from "react-native";
 import Item1 from "../components/componentsClient/Item1";
 import Item2 from "../components/componentsClient/Item2";
 import Divider from "react-native-divider";
 import GreenBtn from "../components/componentsClient/GreenBtn";
 import { Context } from "../contexts/Auth.context";
+import OrderCardViewer from "../components/OrderCardViewer";
+import ClientProfilOrders from "../components/componentsClient/ClientProfilOrders";
+import EmptyList from "../components/EmptyList";
+import moment from "moment";
 
 function Clientaccount({ navigation }) {
-  const { ardoiseList } = useContext(Context);
+  const { ardoiseList, orders, getOrders } = useContext(Context);
+  const [activeOrders, setActiveOrders] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  // useEffect(() => {
-  //     console.log(ardoiseList.length)
-  // }, [ardoiseList.length])
+  const fetchOrders = () => {
+    const activeOrderss = orders.filter(
+      (order) => !(order.status.recieved.recieved && order.status.payment.payed)
+    );
+    setActiveOrders(activeOrderss);
+  };
+
+  useEffect(() => {
+    getOrders();
+    fetchOrders();
+  }, []);
+
+  const navTo_NewOrder = (item) => {
+    navigation.navigate("OffrePrixCommande", {
+      ...item,
+      merchant: item.ardoise.merchant,
+    });
+  };
+
+  const renderClientOrderDetail = (order) => {
+    if (order) {
+      var orderState = order.status.payment.payed
+        ? "Commande payée"
+        : order.status.recieved.recieved
+        ? "Commande servie"
+        : order.status.ready.ready
+        ? "Commande prête"
+        : order.status.response.sent
+        ? order.status.response.res
+          ? "Offre de prix acceptée"
+          : "Offre de prix refusée"
+        : order.status.offer.onHold
+        ? "En Attente"
+        : order.status.offer.sent
+        ? "Offre de prix reçue"
+        : "Commande refusée";
+
+      return (
+        <ClientProfilOrders
+          title={orderState}
+          small={`Crée le ${moment(order.date).format(
+            "DD/MM/YYYY [à] HH[h]mm"
+          )}`}
+          smaller="Appuyez pour voir les détails."
+          source={require("../assets/assets/icons/client-fond-btn-commande.png")}
+          ardoise
+          numberOfProd={order.products.length}
+          grayed={
+            order.status.recieved.recieved ||
+            order.status.payment.payed ||
+            (order.status.offer.onHold && !order.status.offer.sent)
+              ? true
+              : false
+          }
+          navigation={() => navTo_NewOrder(order)}
+        />
+      );
+    } else {
+      console.log("non");
+    }
+  };
 
   const navToNotification = () => navigation.navigate("Notification");
   const navToListemarchands = () => navigation.navigate("Listemarchands");
@@ -33,7 +97,10 @@ function Clientaccount({ navigation }) {
           source={require("../assets/assets/LogoWhite.png")}
         />
       </View>
-      <ScrollView style={{ top: "6%", marginBottom: "15%" }}>
+      <ScrollView
+        nestedScrollEnabled={true}
+        style={{ top: "6%", marginBottom: "15%" }}
+      >
         <View style={{ padding: "2%" }}>
           <Item1
             title="Mon compte"
@@ -55,7 +122,7 @@ function Clientaccount({ navigation }) {
           />
           <Item1
             title="Mes marchands"
-            description= {`Vous avez ${ardoiseList.length} ardoises ouverte`}
+            description={`Vous avez ${ardoiseList.length} ardoises ouverte`}
             img={require("../assets/assets/icons/client-fond-btn-marchands.png")}
             navigation={navToListemarchands}
           />
@@ -63,23 +130,18 @@ function Clientaccount({ navigation }) {
             Mes commandes actives
           </Divider>
 
-          <Item2
-            title="Offre de prix reçue"
-            small="Sam lrving le 12/12/2020 à 10h30"
-            smaller="Appuyez pour voir les détails."
-            source={require("../assets/assets/icons/fond-page-commandes.png")}
-          />
-          <Item2
-            title="Commande prete"
-            small="Sam lrving le 12/12/2020 à 10h30"
-            smaller="Appuyez pour voir les détails."
-            source={require("../assets/assets/icons/fond-page-commandes.png")}
-          />
-          <Item2
-            title="Commande servie"
-            small="Sam lrving le 12/12/2020 à 10h30"
-            smaller="Appuyez pour voir les détails."
-            source={require("../assets/assets/icons/fond-page-commandes.png")}
+          <FlatList
+            contentContainerStyle={styles.orderContainer}
+            data={activeOrders}
+            onRefresh={() => {
+              setRefreshing(true);
+              fetchOrders();
+              setRefreshing(false);
+            }}
+            refreshing={refreshing}
+            keyExtractor={(item) => item._id}
+            ListEmptyComponent={<EmptyList client />}
+            renderItem={({ item }) => renderClientOrderDetail(item)}
           />
         </View>
         <GreenBtn
@@ -90,5 +152,14 @@ function Clientaccount({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  orderContainer: {
+    width: "100%",
+    paddingLeft: "10%",
+    paddingRight: "12%",
+    alignSelf: "center",
+  },
+});
 
 export default Clientaccount;

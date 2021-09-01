@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef} from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, FlatList } from "react-native";
 import Divider from "react-native-divider";
 import {
@@ -8,7 +8,6 @@ import {
   Portal,
   Provider,
   TextInput,
-  
 } from "react-native-paper";
 
 import { RFValue } from "react-native-responsive-fontsize";
@@ -28,29 +27,35 @@ import ProductCard from "../components/ProductCard";
 import Input from "../components/Input";
 import { color } from "../constants/Colors";
 
-
-import { LogBox } from 'react-native';
+import { LogBox } from "react-native";
 import ProductCard_item from "../components/ProductCard_Item";
 
-import commonService from '../services/Common'
+import commonService from "../services/Common";
 
 LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
+  "Non-serializable values were found in the navigation state",
 ]);
 
 export default function OffrePrixCommande({ route, navigation }) {
-  const { ardoise, _id, client, date ,products,status,listOf_RefusedProducts,totalPrice} = route.params;
-  
-  const sendUpdate = useRef(false)
-  
-  console.log('_____________________________', products);
-  // console.log(currentState);
-  console.log(route.params)
+  const {
+    ardoise,
+    _id,
+    client,
+    date,
+    products,
+    status,
+    listOf_RefusedProducts,
+    totalPrice,
+  } = route.params;
 
-  
+  const sendUpdate = useRef(false);
+
+  console.log("_____________________________", products);
+  // console.log(currentState);
+  console.log(route.params);
 
   const [commande, setCommande] = useState({
-    ref: 'Ref: '+ _id,
+    ref: "Ref: " + _id,
     dateOfCreation: moment(date).format("DD/MM/YYYY [à] HH[h]mm"),
     price: totalPrice,
     client: {
@@ -72,19 +77,27 @@ export default function OffrePrixCommande({ route, navigation }) {
   });
 
   const calculateInitialPrice = () => {
-    var price=0;
+    var price = 0;
     if (listOf_RefusedProducts) {
-      const filteredProducts = products.filter(element => commande.listOf_RefusedProducts.indexOf(element._id._id) < 0)
-      console.log('filtered productssssssssssssssssssssssssss : ', filteredProducts);
-      console.log('list of refused productsssssssssssssssssss : ', commande.listOf_RefusedProducts);
+      const filteredProducts = products.filter(
+        (element) =>
+          commande.listOf_RefusedProducts.indexOf(element._id._id) < 0
+      );
+      console.log(
+        "filtered productssssssssssssssssssssssssss : ",
+        filteredProducts
+      );
+      console.log(
+        "list of refused productsssssssssssssssssss : ",
+        commande.listOf_RefusedProducts
+      );
 
-    filteredProducts.forEach(element => {
-      price += element._id.price*element.quantity
-    });
+      filteredProducts.forEach((element) => {
+        price += element._id.price * element.quantity;
+      });
     }
-    setCommande({...commande, price: `${price}` }) ;
-  }
-
+    setCommande({ ...commande, price: `${price}` });
+  };
 
   const updateOrder = () => {
     const updates = {
@@ -95,33 +108,35 @@ export default function OffrePrixCommande({ route, navigation }) {
         ready: commande.ready,
         payment: commande.payment,
       },
-      listOf_RefusedProducts: commande.listOf_RefusedProducts
-    }
-    const patchOrder = async() => {
-      const response = await commonService.patchOrder(_id, updates)
+      listOf_RefusedProducts: commande.listOf_RefusedProducts,
+    };
+    const patchOrder = async () => {
+      const response = await commonService.patchOrder(_id, updates);
       if (response.ok) {
         console.log(response.data);
       } else {
         console.log("error");
       }
-    }
+    };
     try {
-      console.log('UPPDATESSSSSSS:                                          ',updates);
-      patchOrder()
+      console.log(
+        "UPPDATESSSSSSS:                                          ",
+        updates
+      );
+      patchOrder();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (!sendUpdate.current) {
-      return
-    }else {
-    updateOrder()
-    sendUpdate.current = false
+      return;
+    } else {
+      updateOrder();
+      sendUpdate.current = false;
     }
-  }, [commande])
-
+  }, [commande]);
 
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
@@ -134,30 +149,34 @@ export default function OffrePrixCommande({ route, navigation }) {
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <MyAppbar navigation={navigation} title="Commande" subtitle={commande.ref} />
+        <MyAppbar
+          navigation={navigation}
+          title="Commande"
+          subtitle={commande.ref}
+        />
         <FondPageCommandes style={styles.svg} />
         <View style={styles.contentView}>
           <ClientItem call commande={commande} />
           {!commande.payment.payed && [
-              commande.ready.ready ? (
-                <GreenBtn
-                  key="1"
-                  myGreenBtn
-                  title="Le client a été informé que sa commande est prête"
-                  grayed
-                />
-              ) : (
-                [
-                  commande.response.sent ? (commande.response.res ?
-                    (<GreenBtn
+            commande.ready.ready ? (
+              <GreenBtn
+                key="1"
+                myGreenBtn
+                title="Le client a été informé que sa commande est prête"
+                grayed
+              />
+            ) : (
+              [
+                commande.response.sent ? (
+                  commande.response.res ? (
+                    <GreenBtn
                       key="2"
                       myGreenBtn
                       title="Marquer la commande comme prête"
-                      textSize={{fontSize:RFValue(13),fontWeight:'bold'}}
-                      action={() =>
-                        {
-                          sendUpdate.current = true;
-                          setCommande({
+                      textSize={{ fontSize: RFValue(13), fontWeight: "bold" }}
+                      action={() => {
+                        sendUpdate.current = true;
+                        setCommande({
                           ...commande,
                           ready: {
                             ...commande.ready,
@@ -166,83 +185,90 @@ export default function OffrePrixCommande({ route, navigation }) {
                               "DD/MM/YYYY [à] HH[h]mm"
                             ),
                           },
-                        })}
-                      }
-                    />): (<Text>Offre refusé par le client</Text>)
+                        });
+                      }}
+                    />
                   ) : (
-                    [
-                      commande.offer.onHold ? (
+                    <Text>Offre refusé par le client</Text>
+                  )
+                ) : (
+                  [
+                    commande.offer.onHold ? (
+                      <View
+                        key="3"
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
+                      >
                         <View
-                          key="3"
+                          key="4"
                           style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
+                            width: "47.5%",
                           }}
                         >
-                          <View
-                            key="4"
-                            style={{
-                              width: "47.5%",
+                          <RedBtn
+                            style={{ fontSize: RFValue(11.5) }}
+                            key="5"
+                            action={() => {
+                              sendUpdate.current = true;
+                              setCommande({
+                                ...commande,
+                                offer: {
+                                  ...commande.offer,
+                                  sent: false,
+                                  onHold: false,
+                                  date: moment(new Date()).format(
+                                    "DD/MM/YYYY [à] HH[h]mm"
+                                  ),
+                                },
+                              });
                             }}
-                          >
-                            <RedBtn
-                              style={{fontSize:RFValue(11.5)}}
-                              key="5"
-                              action={() =>
-                                { sendUpdate.current = true;
-                                  setCommande({
-                                    ...commande,
-                                    offer: {
-                                      ...commande.offer,
-                                      sent: false,
-                                      onHold: false,
-                                      date: moment(new Date()).format(
-                                        "DD/MM/YYYY [à] HH[h]mm"
-                                      ),
-                                    },
-                                  })
-                                }
-                              }
-                              myRedBtn
-                              title="Refuser commande"
-                            />
-                          </View>
-                          <View key="6" style={{ width: "47.5%" }}>
-                            <GreenBtn
-                              key="7"
-                              myGreenBtn
-                              title="Accepter commande"
-                              action={showDialog1}
-                            />
-                          </View>
+                            myRedBtn
+                            title="Refuser commande"
+                          />
                         </View>
-                      ) : (
-                        [
-                          commande.offer.sent ? (
-                            <GreenBtn
-                              key="8"
-                              myGreenBtn
-                              textSize={{fontSize:RFValue(15),fontWeight:'bold'}}
-                              grayed
-                              title="L'offre de prix a été envoyée au client"
-                              
-                            />
-                          ) : (
-                            <GreenBtn
-                              key="9"
-                              myGreenBtn
-                              title="La commande a été refusée"
-                              textSize={{fontSize:RFValue(15),fontWeight:'bold'}}
-                              grayed
-                            />
-                          ),
-                        ]
-                      ),
-                    ]
-                  ),
-                ]
-              ),
-            ]}
+                        <View key="6" style={{ width: "47.5%" }}>
+                          <GreenBtn
+                            key="7"
+                            myGreenBtn
+                            title="Accepter commande"
+                            action={showDialog1}
+                          />
+                        </View>
+                      </View>
+                    ) : (
+                      [
+                        commande.offer.sent ? (
+                          <GreenBtn
+                            key="8"
+                            myGreenBtn
+                            textSize={{
+                              fontSize: RFValue(15),
+                              fontWeight: "bold",
+                            }}
+                            grayed
+                            title="L'offre de prix a été envoyée au client"
+                          />
+                        ) : (
+                          <GreenBtn
+                            key="9"
+                            myGreenBtn
+                            title="La commande a été refusée"
+                            textSize={{
+                              fontSize: RFValue(15),
+                              fontWeight: "bold",
+                            }}
+                            grayed
+                          />
+                        ),
+                      ]
+                    ),
+                  ]
+                ),
+              ]
+            ),
+          ]}
 
           {commande.review.reviewed ? (
             <GreenBtn
@@ -276,26 +302,20 @@ export default function OffrePrixCommande({ route, navigation }) {
             </Divider>
 
             <FlatList
-                numColumns={1}
-                data={products} 
-                contentContainerStyle={{marginTop: '5%'}}
-                renderItem={({item,index}) => {
-                    return <ProductCard_item
-                              key={index}
-                              product={item}
-                              navigation={navigation}
-                              badged
-                            />;
-                }}
+              numColumns={1}
+              data={products}
+              contentContainerStyle={{ marginTop: "5%" }}
+              renderItem={({ item, index }) => {
+                return (
+                  <ProductCard_item
+                    key={index}
+                    product={item}
+                    navigation={navigation}
+                    badged
+                  />
+                );
+              }}
             />
-            <Item3
-              title="Beure"
-              small="Produit Laitier » Beures et margarines"
-              badged
-            />
-
-
-        
 
             <Divider borderColor="#fff" color="#fff" orientation="center">
               <Text style={{ fontSize: RFValue(17) }}>
@@ -326,47 +346,82 @@ export default function OffrePrixCommande({ route, navigation }) {
             <View>
               <FlatList
                 numColumns={1}
-                data={products} 
-                contentContainerStyle={{marginTop: '5%'}}
-                renderItem={({item,index}) => {
-                  return <ProductCard
-                            quantity={item.quantity}
-                            checkable
-                            key={index}
-                            product={item._id}
-                            commande={commande}
-                            setCommande={setCommande}
-                          />;
-                  }}
+                data={products}
+                contentContainerStyle={{ marginTop: "5%" }}
+                renderItem={({ item, index }) => {
+                  return (
+                    <ProductCard
+                      quantity={item.quantity}
+                      checkable
+                      key={index}
+                      product={item._id}
+                      commande={commande}
+                      setCommande={setCommande}
+                    />
+                  );
+                }}
               />
-            </View>       
-          
+            </View>
 
             <View>
-            <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:'5%'}}>
-              <Text style={{...styles.offrePrixTXT,fontWeight:'bold'}}>Total de la commande :</Text>
-              <Text style={{...styles.offrePrixTXT,fontWeight:'bold',color:color.INFO_TEXT}}>{`${commande.price}`} DT</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginTop: "5%",
+                }}
+              >
+                <Text style={{ ...styles.offrePrixTXT, fontWeight: "bold" }}>
+                  Total de la commande :
+                </Text>
+                <Text
+                  style={{
+                    ...styles.offrePrixTXT,
+                    fontWeight: "bold",
+                    color: color.INFO_TEXT,
+                  }}
+                >
+                  {`${commande.price}`} DT
+                </Text>
+              </View>
+              <Button
+                style={{ alignSelf: "center", width: "70%", marginTop: "3%" }}
+                color={color.Primary}
+                icon="calculator"
+                mode="contained"
+                onPress={calculateInitialPrice}
+              >
+                Calculate Total
+              </Button>
+
+              <View style={{ marginTop: "15%" }}>
+                <Text
+                  style={{
+                    ...styles.offrePrixTXT,
+                    fontWeight: "bold",
+                    color: color.INFO_TEXT,
+                    textAlign: "center",
+                  }}
+                >
+                  Prix proposé :
+                </Text>
+                <Input
+                  styleBox={{ height: 45 }}
+                  mode="box"
+                  value={commande.price}
+                  handleChange={(txt) =>
+                    setCommande({
+                      ...commande,
+                      price: txt,
+                    })
+                  }
+                />
+              </View>
             </View>
-            <Button style={{alignSelf:"center", width:'70%', marginTop:'3%'}} color={color.Primary} icon="calculator" mode="contained" onPress={calculateInitialPrice} >Calculate Total</Button>
 
-            <View style={{marginTop: '15%'}}>
-              <Text style={{...styles.offrePrixTXT,fontWeight:'bold',color:color.INFO_TEXT,textAlign:'center'}}>Prix proposé :</Text>
-              <Input
-              styleBox={{height:45}}
-              mode='box'
-              value={commande.price}
-              handleChange={(txt) =>
-                setCommande({
-                  ...commande,
-                  price: txt,
-                })}
-            />
-
-            </View>
-
-            </View>
-
-            <View style={{ flexDirection: "row" ,justifyContent:'space-between'}}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <RedBtn myRedBtn action={hideDialog1} title="Annuler" />
               <GreenBtn
                 myGreenBtn
@@ -379,9 +434,7 @@ export default function OffrePrixCommande({ route, navigation }) {
                       ...commande.offer,
                       sent: true,
                       onHold: false,
-                      date: moment(new Date()).format(
-                        "DD/MM/YYYY [à] HH[h]mm"
-                      ),
+                      date: moment(new Date()).format("DD/MM/YYYY [à] HH[h]mm"),
                     },
                   });
                 }}
@@ -411,7 +464,7 @@ export default function OffrePrixCommande({ route, navigation }) {
               numberOfLines={5}
               label="Mon avis"
               value={commande.review.reviewText}
-              onChangeText={(txt) => 
+              onChangeText={(txt) =>
                 setCommande({
                   ...commande,
                   review: {
@@ -454,8 +507,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "flex-end",
   },
-  offrePrixTXT:{
+  offrePrixTXT: {
     fontSize: RFValue(14),
-    color: color.Primary
-  }
+    color: color.Primary,
+  },
 });

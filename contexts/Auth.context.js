@@ -6,9 +6,8 @@ import AppLoading from "expo-app-loading";
 import commonService from "../services/Common";
 import { role } from "../constants/Strings";
 
-
-  // Logout
-  //storage.removeToken();
+// Logout
+//storage.removeToken();
 
 export const Context = createContext();
 
@@ -23,25 +22,8 @@ const AuthContext = ({ children }) => {
   const [merchantsList, setMerchantsList] = useState([]);
   const [currentMerchant, setCurrentMerchant] = useState(null);
   const [ardoiseList, setArdoiseList] = useState([]);
-  const [ardoiseListMerchant, setArdoiseListMerchant] = useState([])
-  const [orders,setOrders] = useState([]);
-
-  const getOrdersByArdoiseId = async (ardoiseId) => {
-    const response = await commonService.getOrders(ardoiseId);
-    if (response.ok) 
-      console.log(response.data); 
-      else console.log(response.problem);
-    };
-  
-    const getOrdersByUserr = async () => {
-      const response = await commonService.getOrdersByUserr();
-      if (response.ok) 
-        console.log(response.data); 
-        else console.log(response.problem);
-
-        return response.data;
-      };
-    
+  const [ardoiseListMerchant, setArdoiseListMerchant] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const [user, setUser] = useState();
 
@@ -55,6 +37,18 @@ const AuthContext = ({ children }) => {
       setUser(jwtDecode(token));
       return jwtDecode(token);
     }
+  };
+
+  const getOrdersByArdoiseId = async (ardoiseId) => {
+    const response = await commonService.getOrders(ardoiseId);
+    if (response.ok) console.log(response.data);
+    else console.log(response.problem);
+  };
+
+  const getOrders = async () => {
+    const response = await commonService.getOrders();
+    if (response.ok) response.data && setOrders(response.data);
+    else console.log(response.problem);
   };
 
   // useEffect(() => {
@@ -84,18 +78,23 @@ const AuthContext = ({ children }) => {
     else console.log(response.problem);
   };
 
-  useEffect(()=>{
-    if(user)
-      getArdoise();
-  }
-  ,[user])
+  // useEffect(()=>{
+  //   if(user)
+  //     getArdoise();
+  // }
+  // ,[user])
 
   const [isReady, setIsReady] = useState(false);
 
   const onAppStarting = async () => {
-
     const user = await restoreToken();
-    user && (user.role === role.CLIENT || user.role === role.MERCHANT )&& (await getArdoise());
+    user &&
+      (user.role === role.CLIENT || user.role === role.MERCHANT) &&
+      (await getArdoise());
+
+    user &&
+      (user.role === role.CLIENT || user.role === role.MERCHANT) &&
+      (await getOrders());
   };
 
   if (!isReady)
@@ -131,8 +130,6 @@ const AuthContext = ({ children }) => {
     setUser();
   };
 
-
-
   return (
     <Context.Provider
       value={{
@@ -148,10 +145,11 @@ const AuthContext = ({ children }) => {
         setArdoiseList,
         globalState,
         getOrdersByArdoiseId,
-        getOrdersByUserr,
+        getOrders,
         ardoiseListMerchant,
         setArdoiseListMerchant,
-        orders, setOrders
+        orders,
+        setOrders,
       }}
     >
       {children}
