@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from "react-native";
 import Myappbar from "../components/componentsClient/Myappbar";
 import CardClient from "../components/componentsClient/CardClient";
@@ -41,6 +42,7 @@ import moment from "moment";
 import Review from "../components/Review";
 import ClientReviewItem from "../components/Client_UI/ClientReviewItem";
 import EmptyList from "../components/EmptyList";
+import FondPageMarchands from "../assets/svgr/FondPageMarchands.jsx";
 
 function ConsulterCompteMarchand({ navigation, route }) {
   const [reviewVisible, setReviewVisible] = useState(false);
@@ -56,13 +58,12 @@ function ConsulterCompteMarchand({ navigation, route }) {
 
   const navToHistoriquePaiements = () =>
     navigation.navigate("HistoriquePaiements");
-  const navToConsulterArdoiseFermee = () =>
-    navigation.navigate("ConsulterArdoiseFermee");
+
   const navToProfilMarchand = () => navigation.navigate("ProfilMarchand");
 
   const navToListemarchands = () => navigation.navigate("Listemarchands");
 
-  const { ardoise } = route.params;
+  const { ardoise, noGoBack } = route.params;
 
   const currentMerchant = ardoise.merchant;
 
@@ -84,6 +85,8 @@ function ConsulterCompteMarchand({ navigation, route }) {
     const result = await CommonServices.getOrdersByArdoise(ardoise._id);
     if (result.ok && result.data.length > 0) {
       setOrders(result.data);
+    } else {
+      console.log(result.problem);
     }
   };
 
@@ -95,19 +98,39 @@ function ConsulterCompteMarchand({ navigation, route }) {
   }, []);
 
   const closeArdoise = async () => {
-    const ardoiseData = {
-      ardoiseId: ardoise._id,
-      state: "closed",
-      closingDay: Date.now(),
-    };
-    const result = await CommonServices.changeArdoiseState(ardoiseData);
-    if (result.ok) {
-      console.log("ardoise closed ::::", result);
-      navigation.navigate("ConsulterArdoiseFermee", {
-        ardoise: ardoise,
-        orders: orders,
-      });
+    if (orders.some((e) => e.status.payment.payed === false)) {
+      console.log("there are active orders ... ");
+      Alert.alert("Erreur", "L'ardoise contient des commandes actives", [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    } else {
+      const ardoiseData = {
+        ardoiseId: ardoise._id,
+        state: "closed",
+        closingDay: Date.now(),
+      };
+      const result = await CommonServices.changeArdoiseState(ardoiseData);
+      if (result.ok) {
+        console.log("ardoise closed ::::", result);
+        ardoise.closingDay = Date.now();
+        ardoise.state = "closed";
+        navigation.navigate("ConsulterArdoiseFermee", {
+          ardoise: ardoise,
+          orders: orders,
+        });
+      }
     }
+
+    // console.log("closingDay:::::::::::::", Date.now());
+    // navigation.navigate("ConsulterArdoiseFermee", {
+    //   ardoise: ardoise,
+    //   orders: orders,
+    // });
   };
 
   return (
@@ -115,10 +138,12 @@ function ConsulterCompteMarchand({ navigation, route }) {
       <View
         style={{ flex: 1, backgroundColor: "#324B3E", paddingBottom: "10%" }}
       >
+        <FondPageMarchands style={styles.svg} />
         <Myappbar
           title="Profil marchand"
           // subtitle="Vous avez 3 nouvelles notifications"
           navigation={navigation}
+          noGoBack={noGoBack}
         />
         <ScrollView
           style={{
@@ -127,10 +152,10 @@ function ConsulterCompteMarchand({ navigation, route }) {
             paddingBottom: "20%",
           }}
         >
-          <Image
+          {/* <Image
             style={styles.image}
             source={require("../assets/assets/icons/client-fond-btn-marchands.png")}
-          />
+          /> */}
 
           <View style={{ marginTop: "10%" }}>
             <CardClient
@@ -179,7 +204,7 @@ function ConsulterCompteMarchand({ navigation, route }) {
                       action={() => {
                         //con
                         hideDialog();
-                        setReviewVisible(true);
+                        //setReviewVisible(true);
                         closeArdoise();
                       }}
                     />
@@ -248,6 +273,7 @@ function ConsulterCompteMarchand({ navigation, route }) {
               {isMinus && (
                 <FlatList
                   numColumns={1}
+                  nestedScrollEnabled
                   contentContainerStyle={styles.orderContainer}
                   data={orders}
                   onRefresh={() => {
@@ -486,6 +512,10 @@ function ConsulterCompteMarchand({ navigation, route }) {
   );
 }
 const styles = StyleSheet.create({
+  svg: {
+    position: "absolute",
+    alignSelf: "flex-end",
+  },
   image: {
     height: "50%",
     width: "30%",

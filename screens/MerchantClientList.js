@@ -92,10 +92,11 @@ function MerchantClientList({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#324B3E" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "#324B3E" }}>
+      <FondPageMarchand style={styles.svg} />
+
       <Myappbar navigation={navigation} title="Mes clients" />
 
-      <FondPageMarchand style={styles.svg} />
       <View
         onStartShouldSetResponderCapture={() => setScroll(true)}
         style={{
@@ -129,6 +130,7 @@ function MerchantClientList({ navigation }) {
           style={{ height: h(35) }}
         >
           <FlatList
+            nestedScrollEnabled
             data={pendingArdoiseList}
             renderItem={renderItem_NewClients}
             keyExtractor={(item) => item._id}
@@ -170,6 +172,7 @@ function MerchantClientList({ navigation }) {
           style={{ height: h(35), marginBottom: "10%" }}
         >
           <FlatList
+            nestedScrollEnabled
             data={openedArdoiseList}
             renderItem={renderItem_Myclients}
             keyExtractor={(item) => item._id}
@@ -177,7 +180,7 @@ function MerchantClientList({ navigation }) {
           />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }
 

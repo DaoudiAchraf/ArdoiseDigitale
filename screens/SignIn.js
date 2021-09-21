@@ -100,8 +100,8 @@ const SignIn = ({ navigation }) => {
                 mode="outlined"
                 color="white"
                 onPress={() => {
-                  setUsername("SO609");
-                  setPassword("cUASYTct1K");
+                  setUsername("LL895");
+                  setPassword("9It3LSKtpI");
                 }}
               >
                 client
@@ -110,8 +110,8 @@ const SignIn = ({ navigation }) => {
                 mode="outlined"
                 color="white"
                 onPress={() => {
-                  setUsername("RO152");
-                  setPassword("sWNVfKuAI3");
+                  setUsername("NN723");
+                  setPassword("hGsXe5hC35");
                 }}
               >
                 merchant

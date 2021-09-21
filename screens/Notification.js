@@ -20,14 +20,14 @@ function Notification({ navigation }) {
         backgroundColor: "#324B3E",
       }}
     >
+      <Image
+        style={styles.image}
+        source={require("../assets/assets/icons/fond-page-notifications.png")}
+      />
       <Myappbar
         title="Notifications"
         subtitle="Vous avez 3 nouvelles notifications"
         navigation={navigation}
-      />
-      <Image
-        style={styles.image}
-        source={require("../assets/assets/icons/fond-page-notifications.png")}
       />
 
       <View style={{ marginTop: "18%", margin: "3%", padding: "2%" }}>
@@ -36,7 +36,6 @@ function Notification({ navigation }) {
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-          navigation={navOffrePrixCommande}
           badged
         />
         <Item2
@@ -44,7 +43,6 @@ function Notification({ navigation }) {
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-          navigation={navOffrePrixCommande}
           badged
         />
         <Item2
@@ -52,7 +50,6 @@ function Notification({ navigation }) {
           small="Sam lrving le 12/12/2020 à 10h30"
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-commande.png")}
-          navigation={navOffrePrixCommande}
           badged
         />
         <Item2
@@ -61,7 +58,6 @@ function Notification({ navigation }) {
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-historique.png")}
           grayed
-          navigation={navOffrePrixCommande}
         />
         <Item2
           title="Echéance étendue"
@@ -83,7 +79,6 @@ function Notification({ navigation }) {
           smaller="Appuyez pour voir les détails."
           source={require("../assets/assets/icons/client-fond-btn-historique.png")}
           grayed
-          navigation={navOffrePrixCommande}
         />
       </View>
       <Separator />

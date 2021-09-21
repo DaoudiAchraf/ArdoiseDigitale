@@ -8,6 +8,7 @@ import {
   Dimensions,
   ScrollView,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import MarkerSvg from "../assets/svg-icones-client/marker.jsx";
 import Filter from "../assets/svg-icones-client/filter.jsx";
@@ -15,27 +16,27 @@ import BackSvg from "../assets/svg-icones-client/back.jsx";
 import Recherche from "../assets/assets/svgricons/recherche.jsx";
 import { h, w } from "../utils/Size";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import Geo from "../services/Geo";
 
 import { Button, TextInput, Portal, Searchbar } from "react-native-paper";
 import MenuFiltres from "../components/Client_UI/menu_filtres";
 import CalloutMarker from "../components/componentsClient/CalloutMarker";
 import clientService from "../services/Clientt";
 import { Context } from "../contexts/Auth.context";
-import ProfilMarchand from "./ProfilMarchand.js";
-import CardClient from "../components/componentsClient/CardClient.js";
 
 export default function MapScreen({ navigation }) {
   const {
     merchantsList,
     setMerchantsList,
+    merchantsFilterList,
+    setMerchantsFilterList,
     currentMerchant,
     setCurrentMerchant,
   } = useContext(Context);
 
   const fetchMerchants = async () => {
     const result = await clientService.getProfiles();
-    if(result.ok)
-    {
+    if (result.ok) {
       //const tab = result.data.filter(item => item._id === "60d0b42971607e928ce4a7bf" || item._id === "60d0b4cc71607e928ce4a7c1" || item._id === "60d0b34e71607e928ce4a7bd");
       setMerchantsList(result.data);
     }
@@ -44,6 +45,8 @@ export default function MapScreen({ navigation }) {
   useEffect(() => {
     fetchMerchants();
   }, []);
+  // console.log("heeeeeeeeeeeeeeeeehi", merchantsList.length);
+  // console.log("heeeeeeeeeeeeeeeeehi", merchantsFilterList.length);
 
   // const [markers, setMarkers] = useState([
   //   {
@@ -68,41 +71,84 @@ export default function MapScreen({ navigation }) {
   //   },
   // ]);
 
-  const nav = (merchant) => {
-    setCurrentMerchant(merchant);
-    //navigation.navigate("ProfilMarchand");
-    //console.log("thus MErchan",merchant);
+  const initialAddress = {
+    latitude: 36.870140377782809,
+    longitude: 10.237451295943895,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
   };
 
-  const navToMerchant =()=>{
-    console.log("hrzrzrzrzrzrzrzrrzr")
-    //navigation.navigate("ProfilMarchand");
-  }
+  const [address, setAddress] = useState({
+    latitude: 36.870140377782809,
+    longitude: 10.237451295943895,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+
+  const [value, setValue] = useState();
+  const [focus, setFocus] = useState(true);
+  const [suggestions, setSuggestions] = useState([]);
+
+  const handleChange = (txt) => {
+    setValue(txt);
+    txt.length > 0
+      ? Geo.getSuggestions(txt).then((res) => setSuggestions(res.data.items))
+      : setSuggestions([]);
+  };
+
+  const pickSuggest = (item) => {
+    console.log("place----------", item);
+    //console.log(item);
+    console.log(item.title);
+    setValue(item.title);
+    setAddress({
+      latitude: item.position.lat,
+      longitude: item.position.lng,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+    setSuggestions([]);
+  };
+  const onRegionChange = (region) => {
+    setAddress({ region });
+    setCurrentMerchant();
+  };
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: 36.87014037882809,
-          longitude: 10.237451295943895,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        region={address}
+        initialRegion={initialAddress}
+        onRegionChange={onRegionChange}
       >
-        {merchantsList.map((merchant, index) => (
-          <Marker
-            onPress={() => nav(merchant)}
-            key={merchant._id}
-            coordinate={{
-              latitude: merchant.address.position.lat,
-              longitude: merchant.address.position.lng,
-            }}
-            tracksViewChanges={false}
-          >
-            <MarkerSvg />
-          </Marker>
-        ))}
+        {merchantsFilterList.length !== 0
+          ? merchantsFilterList.map((merchant, index) => (
+              <Marker
+                onPress={() => setCurrentMerchant(merchant)}
+                key={merchant._id}
+                coordinate={{
+                  latitude: merchant.address.position.lat,
+                  longitude: merchant.address.position.lng,
+                }}
+                tracksViewChanges={false}
+              >
+                <MarkerSvg />
+              </Marker>
+            ))
+          : merchantsList.map((merchant, index) => (
+              <Marker
+                onPress={() => setCurrentMerchant(merchant)}
+                key={merchant._id}
+                coordinate={{
+                  latitude: merchant.address.position.lat,
+                  longitude: merchant.address.position.lng,
+                }}
+                tracksViewChanges={false}
+              >
+                <MarkerSvg />
+              </Marker>
+            ))}
       </MapView>
 
       <View style={styles.container2}>
@@ -116,17 +162,35 @@ export default function MapScreen({ navigation }) {
         />
 
         <MenuFiltres />
-
-        <Searchbar
-          icon={Recherche}
-          placeholder={"Recherche.."}
-          onChangeText={(text) => console.log(text)}
-          onIconPress={(text) => {
-            console.log(text);
-          }}
-          inputStyle={{ fontSize: RFValue(12) }}
-          style={{ width: w(47), height: h(5.5) }}
-        />
+        <View>
+          <Searchbar
+            icon={Recherche}
+            placeholder={"Recherche.."}
+            onChangeText={(text) => handleChange(text)}
+            onIconPress={(text) => {
+              console.log(text);
+            }}
+            inputStyle={{ fontSize: RFValue(12) }}
+            style={{ width: w(47), height: h(5.5) }}
+          />
+          {suggestions.length !== 0 && (
+            <View style={styles.autocompleteContainer}>
+              <ScrollView style={styles.autocompleteContainer}>
+                {suggestions.map((item, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.itemStyle}
+                    onPress={() => pickSuggest(item)}
+                  >
+                    <Text key={index} style={styles.itemTxt}>
+                      {item.title}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+          )}
+        </View>
       </View>
 
       <View style={styles.callout}>
@@ -144,7 +208,7 @@ export default function MapScreen({ navigation }) {
             text1="Livraison disponible."
             text2="Accepte le paiement comptant et par crédit total."
             source={require("../assets/assets/targetexpress.jpg")}
-            action={() => setCurrentMerchant(null)}
+            action={() => setCurrentMerchant()}
             item={currentMerchant}
           />
         )}
@@ -183,5 +247,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     width: "100%",
+  },
+  autocompleteContainer: {
+    borderWidth: 0.5,
+    borderTopWidth: 0,
+    backgroundColor: "white",
+  },
+  itemStyle: {
+    fontSize: RFPercentage(2),
+  },
+  itemTxt: {
+    fontSize: RFPercentage(3),
   },
 });

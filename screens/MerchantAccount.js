@@ -107,10 +107,7 @@ function MerchantAccount({ navigation }) {
         />
       </View>
 
-      <ScrollView
-        nestedScrollEnabled={true}
-        style={{ top: "6%", marginBottom: "15%" }}
-      >
+      <ScrollView style={{ top: "6%", marginBottom: "15%" }}>
         <View style={{ padding: "2%", width: w(94), alignSelf: "center" }}>
           {/* <Item1
             title="Mon solde"
@@ -131,7 +128,7 @@ function MerchantAccount({ navigation }) {
           />
           <Item1
             title="Ma Liste des clients"
-            description={`Vous avez ${ardoiseList.length} ardoises ouvertes`}
+            description={`Vous avez ${ardoiseList.length} ardoises`}
             img={require("../assets/assets/icons/client-fond-btn-marchands.png")}
             navigation={navToMerchantClientList}
           />
@@ -182,6 +179,8 @@ function MerchantAccount({ navigation }) {
             source={require("../assets/assets/icons/fond-page-commandes.png")}
           /> */}
           <FlatList
+            style={{ height: h(35), flexGrow: 0 }}
+            nestedScrollEnabled
             contentContainerStyle={styles.orderContainer}
             data={activeOrders}
             onRefresh={() => {

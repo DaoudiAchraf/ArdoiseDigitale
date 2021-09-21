@@ -98,12 +98,13 @@ const ListeDesCommandes = ({ navigation }) => {
         backgroundColor: "#324B3E",
       }}
     >
+      <FondPageCommandes style={styles.svg} />
+
       <Myappbar
         title="Liste Des Commandes"
         subtitle={"Vous avez " + orders.length + " Commandes"}
         navigation={navigation}
       />
-      <FondPageCommandes style={styles.svg} />
 
       <View style={{ margin: "3%", padding: "2%" }}>
         <View
@@ -127,6 +128,7 @@ const ListeDesCommandes = ({ navigation }) => {
         </View>
         {isMinus && (
           <FlatList
+            nestedScrollEnabled
             contentContainerStyle={{ margin: "0%" }}
             data={activeOrders}
             onRefresh={() => {
@@ -188,6 +190,7 @@ const ListeDesCommandes = ({ navigation }) => {
               grayed="true"
             /> */}
             <FlatList
+              nestedScrollEnabled
               contentContainerStyle={{ margin: "0%" }}
               data={finishedOrders}
               onRefresh={() => {

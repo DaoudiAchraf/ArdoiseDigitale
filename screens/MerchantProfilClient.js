@@ -78,10 +78,11 @@ function MerchantProfilClient({ navigation, route }) {
             backgroundColor: "#324B3E",
           }}
         >
-          <Myappbar navigation={navigation} title="Profil client" />
           <View style={{ position: "absolute", right: "-5%" }}>
             <ClientFondBtnMarchand />
           </View>
+          <Myappbar navigation={navigation} title="Profil client" />
+
           <View style={{ marginTop: "10%", width: "93%", alignSelf: "center" }}>
             <ClientItem
               name={`${client.firstName} ${client.lastName}`}

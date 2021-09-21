@@ -14,11 +14,12 @@ function HistoriquePaiements({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: "#324B3E" }}>
       <ScrollView style={{ flex: 1 }}>
-        <Myappbar navigation={navigation} title="Historique des paiements" />
         <Image
           style={styles.image}
           source={require("../assets/assets/icons/fond-page-historique.png")}
         />
+        <Myappbar navigation={navigation} title="Historique des paiements" />
+
         <View style={{ margin: "10%" }}>
           <Item4
             title="Payement automatique de crédit"

@@ -48,6 +48,7 @@ function MerchantProfilClient({ navigation, route }) {
 
   useEffect(() => {
     getOrders();
+    fetchOrders();
   }, []);
 
   const fetchOrders = () => {
@@ -121,10 +122,10 @@ function MerchantProfilClient({ navigation, route }) {
             backgroundColor: "#324B3E",
           }}
         >
-          <Myappbar navigation={navigation} title="Profil client" />
           <View style={{ position: "absolute", right: "-5%" }}>
             <ClientFondBtnMarchand />
           </View>
+          <Myappbar navigation={navigation} title="Profil client" />
           <View style={{ marginTop: "10%", width: "93%", alignSelf: "center" }}>
             <ClientItem
               name={`${client.firstName} ${client.lastName}`}
@@ -154,13 +155,18 @@ function MerchantProfilClient({ navigation, route }) {
               </View>
 
               <View style={{ width: "10%", alignSelf: "center" }}>
-                <PlusMinus isMinus={isMinus} setIsMinus={setIsMinus} />
+                <PlusMinus
+                  action={fetchOrders}
+                  isMinus={isMinus}
+                  setIsMinus={setIsMinus}
+                />
               </View>
             </View>
 
             {isMinus && (
               <View>
                 <FlatList
+                  nestedScrollEnabled
                   contentContainerStyle={styles.orderContainer}
                   data={ardoiseOrders}
                   onRefresh={() => {

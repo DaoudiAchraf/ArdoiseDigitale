@@ -20,7 +20,8 @@ const AuthContext = ({ children }) => {
   console.log("render from context");
 
   const [merchantsList, setMerchantsList] = useState([]);
-  const [currentMerchant, setCurrentMerchant] = useState(null);
+  const [merchantsFilterList, setMerchantsFilterList] = useState([]);
+  const [currentMerchant, setCurrentMerchant] = useState();
   const [ardoiseList, setArdoiseList] = useState([]);
   const [ardoiseListMerchant, setArdoiseListMerchant] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -51,6 +52,13 @@ const AuthContext = ({ children }) => {
     else console.log(response.problem);
   };
 
+  const getArdoise = async () => {
+    const response = await commonService.getArdoise();
+    if (response.ok) response.data && setArdoiseList(response.data);
+    //console.log(response.data);
+    else console.log(response.problem);
+  };
+
   // useEffect(() => {
 
   //   const getArdoise = async()=>{
@@ -71,13 +79,6 @@ const AuthContext = ({ children }) => {
   //    //(user && user.role === role.CLIENT) && getArdoise();
   // }, [user])
 
-  const getArdoise = async () => {
-    const response = await commonService.getArdoise();
-    if (response.ok) response.data && setArdoiseList(response.data);
-    //console.log(response.data);
-    else console.log(response.problem);
-  };
-
   // useEffect(()=>{
   //   if(user)
   //     getArdoise();
@@ -86,15 +87,23 @@ const AuthContext = ({ children }) => {
 
   const [isReady, setIsReady] = useState(false);
 
-  const onAppStarting = async () => {
-    const user = await restoreToken();
-    user &&
-      (user.role === role.CLIENT || user.role === role.MERCHANT) &&
-      (await getArdoise());
+  const onAppStarting = async (user) => {
+    if (!user) {
+      const userr = await restoreToken();
 
-    user &&
-      (user.role === role.CLIENT || user.role === role.MERCHANT) &&
-      (await getOrders());
+      if (
+        userr &&
+        (userr.role === role.CLIENT || userr.role === role.MERCHANT)
+      ) {
+        await getArdoise();
+        await getOrders();
+      }
+    }
+    console.log("userrrrrrrrrrrrrr", user);
+    if (user && (user.role === role.CLIENT || user.role === role.MERCHANT)) {
+      await getArdoise();
+      await getOrders();
+    }
   };
 
   if (!isReady)
@@ -122,6 +131,7 @@ const AuthContext = ({ children }) => {
       const { token } = result.data;
       storage.storeToken(token);
       setUser(jwtDecode(token));
+      onAppStarting(jwtDecode(token));
     }
   };
 
@@ -139,6 +149,8 @@ const AuthContext = ({ children }) => {
         logout,
         merchantsList,
         setMerchantsList,
+        merchantsFilterList,
+        setMerchantsFilterList,
         currentMerchant,
         setCurrentMerchant,
         ardoiseList,

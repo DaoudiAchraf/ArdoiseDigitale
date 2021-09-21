@@ -21,15 +21,17 @@ const DropDown = ({ items, selectedItem, handleChange, mode }) => {
         onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
       >
         {items.map((item, index) => {
-          
-          return <Picker.Item color="grey" 
-                    itemStyle={{ color: "grey"}}
-                    key={index}
-                    label={item}
-                    value={item}
-                    // label={typeof(item) === String ? item : item.name}
-                    // value={typeof(item) === String ? item : {index:index}}
-                 />;
+          return (
+            <Picker.Item
+              color="grey"
+              itemStyle={{ color: "grey" }}
+              key={index}
+              label={item}
+              value={item}
+              // label={typeof(item) === String ? item : item.name}
+              // value={typeof(item) === String ? item : {index:index}}
+            />
+          );
         })}
       </Picker>
     </View>

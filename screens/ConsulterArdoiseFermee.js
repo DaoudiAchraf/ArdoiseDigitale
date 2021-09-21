@@ -43,7 +43,10 @@ function ConsulterArdoiseFermee({ navigation, route }) {
   };
 
   const navToListemarchands = () => navigation.navigate("Listemarchands");
-
+  console.log(
+    "ardoise fermee ::::::::::::::::::::::::::::::::::::::::",
+    ardoise
+  );
   return (
     <Provider>
       <View style={{ flex: 1 }}>
@@ -53,6 +56,7 @@ function ConsulterArdoiseFermee({ navigation, route }) {
             backgroundColor: "#324B3E",
           }}
         >
+          <FondPageMarchands style={styles.svg} />
           <Myappbar
             title={currentMerchant.firstName + " " + currentMerchant.lastName}
             subtitle={`Ardoise fermée le ${moment(ardoise.closingDay).format(
@@ -60,8 +64,6 @@ function ConsulterArdoiseFermee({ navigation, route }) {
             )}`}
             navigation={navigation}
           />
-          <FondPageMarchands style={styles.svg} />
-
           <View style={{ marginTop: "10%", alignContent: "space-around" }}>
             <CardClient
               title={`${currentMerchant.firstName} ${currentMerchant.lastName}`}
@@ -116,6 +118,7 @@ function ConsulterArdoiseFermee({ navigation, route }) {
               >
                 <FlatList
                   numColumns={1}
+                  nestedScrollEnabled
                   contentContainerStyle={styles.orderContainer}
                   data={orders}
                   ListEmptyComponent={EmptyList}

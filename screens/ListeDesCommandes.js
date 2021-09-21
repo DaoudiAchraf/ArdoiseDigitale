@@ -37,14 +37,14 @@ const ListeDesCommandes = ({ navigation }) => {
     setActiveOrders(activeOrderss);
 
     const finishedOrderss = orders.filter(
-      (order) => order.status.recieved.recieved && order.status.payment.payed
+      (order) => order.status.recieved.recieved || order.status.payment.payed
     );
     setFinishedOrders(finishedOrderss);
   };
 
   const navTo_NewOrder = (item) => {
     navigation.navigate("OffrePrixCommande", {
-      ...item,
+      order: item,
       merchant: item.ardoise.merchant,
     });
   };
@@ -113,12 +113,13 @@ const ListeDesCommandes = ({ navigation }) => {
         backgroundColor: "#324B3E",
       }}
     >
+      <FondPageCommandes style={styles.svg} />
+
       <Myappbar
         title={"Liste Des Commandes"}
         subtitle={"Vous avez " + orders.length + " Commandes"}
         navigation={navigation}
       />
-      <FondPageCommandes style={styles.svg} />
 
       <View style={{ margin: "3%", padding: "2%" }}>
         <View
@@ -142,6 +143,7 @@ const ListeDesCommandes = ({ navigation }) => {
         </View>
         {isMinus && (
           <FlatList
+            nestedScrollEnabled
             contentContainerStyle={{ margin: "0%" }}
             data={activeOrders}
             onRefresh={() => {
@@ -189,9 +191,11 @@ const ListeDesCommandes = ({ navigation }) => {
             <PlusMinus1 isMinus1={isMinus1} setIsMinus1={setIsMinus1} />
           </View>
         </View>
+        {/* Could be sectioned: orders that belongs to closed ardoises and orders that are finished but their ardoise is still open */}
         {isMinus1 && (
           <View>
             <FlatList
+              nestedScrollEnabled
               contentContainerStyle={{ margin: "0%" }}
               data={finishedOrders}
               onRefresh={() => {

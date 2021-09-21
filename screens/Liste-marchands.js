@@ -57,7 +57,7 @@ function Listemarchands({ navigation }) {
   const { ardoiseList, setCurrentMerchant, currentMerchant } =
     useContext(Context);
 
-  console.log(ardoiseList);
+  console.log("e5er we7ed fehom", ardoiseList[ardoiseList.length - 1]);
 
   const navToMerchant = (item) => {
     console.log(item);
@@ -71,9 +71,8 @@ function Listemarchands({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <Myappbar title="Ma liste de marchands" navigation={navigation} />
-
         <FondPageMarchand style={styles.svg} />
+        <Myappbar title="Ma liste de marchands" navigation={navigation} />
         <View style={{ marginTop: "10%", margin: "3%", padding: "2%" }}>
           <MyItem
             title="Trouver un marchand"

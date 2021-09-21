@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Text, StyleSheet, ScrollView,FlatList } from "react-native";
+import { View, Text, StyleSheet, ScrollView, FlatList } from "react-native";
 import Divider from "react-native-divider";
 import {
   Dialog,
@@ -24,29 +24,30 @@ import CalloutCard from "../components/Client_UI/CalloutCard";
 import { URL } from "../services/Client";
 import { color } from "../constants/Colors";
 
-export default function OrderDetails({ navigation,route }) {
+export default function OrderDetails({ navigation, route }) {
+  const { products } = route.params;
 
-   
-   const { products} = route.params;
-   
-   const  {merchant} = route.params.ardoise;
+  const { merchant } = route.params.ardoise;
 
   //  console.log('_______________________');
   //  console.log(products);
 
-    let total= 0;
-    products.forEach(item=>total+=item._id.price*item.quantity);
-
+  let total = 0;
+  products.forEach((item) => (total += item._id.price * item.quantity));
 
   const [commande, setCommande] = useState({
     ref: "HM-123456789",
     dateOfCreation: moment(new Date()).format("DD/MM/YYYY [à] hh[h]mm"),
     shopTitle: "Target Express",
-    shopDescription: merchant.address ? `${merchant.address.location.label}`: "751 Green Hill Dr.Webster,\nNY 14580",
+    shopDescription: merchant.address
+      ? `${merchant.address.location.label}`
+      : "751 Green Hill Dr.Webster,\nNY 14580",
     details: { paymentType: "Crédit Total", Livraison: true },
     merchant: {
       name: `${merchant.firstName} ${merchant.lastName}`,
-      img: merchant.merchantImage ? {uri:URL+'/images/'+merchant.merchantImage}:require("../assets/UserOrange.png"),
+      img: merchant.merchantImage
+        ? { uri: URL + "/images/" + merchant.merchantImage }
+        : require("../assets/UserOrange.png"),
       delivery: true,
       paymentType: ["comptant", "crédit total"],
     },
@@ -81,16 +82,14 @@ export default function OrderDetails({ navigation,route }) {
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
   return (
-    <Provider >
-        <View style={{ backgroundColor: "#324B3E" }}>
-            <MyAppbar navigation={navigation} title="details Commande" />
+    <Provider>
+      <View style={{ backgroundColor: "#324B3E" }}>
+        <MyAppbar navigation={navigation} title="details Commande" />
+      </View>
 
-        </View>
-
-        <ScrollView style={{ backgroundColor: "#324B3E" }}>
-
+      <ScrollView style={{ backgroundColor: "#324B3E" }}>
         <View style={styles.content}>
-          <CalloutCard commande={commande} order/>
+          <CalloutCard commande={commande} order />
           {commande.review.reviewed ? (
             <GreenBtn
               grayed
@@ -160,38 +159,105 @@ export default function OrderDetails({ navigation,route }) {
                       ) : (
                         [
                           commande.offer.onHold ? (
-                            
                             <View>
-                              <Divider borderColor="#fff" color="#fff" orientation="center">
+                              <Divider
+                                borderColor="#fff"
+                                color="#fff"
+                                orientation="center"
+                              >
                                 <Text style={{ fontSize: RFValue(16) }}>
                                   Détails de la commande
                                 </Text>
                               </Divider>
 
-                            <View style={{backgroundColor:color.WHITE,padding:15,alignSelf:'center',elevation:20,borderWidth:5,borderColor:color.Primary}}>
-                              <View style={{flexDirection: 'row',alignSelf:'center',alignItems:'center'}}>
-                                  <Text style={{...styles.orderDetailTXT,fontWeight:'bold',fontSize: RFValue(15)}}>Total des achats : </Text>
-                                  <Text style={{...styles.orderDetailTXT,fontSize: RFValue(15),color:color.Primary}}>
+                              <View
+                                style={{
+                                  backgroundColor: color.WHITE,
+                                  padding: 15,
+                                  alignSelf: "center",
+                                  elevation: 20,
+                                  borderWidth: 5,
+                                  borderColor: color.Primary,
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    flexDirection: "row",
+                                    alignSelf: "center",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      ...styles.orderDetailTXT,
+                                      fontWeight: "bold",
+                                      fontSize: RFValue(15),
+                                    }}
+                                  >
+                                    Total des achats :{" "}
+                                  </Text>
+                                  <Text
+                                    style={{
+                                      ...styles.orderDetailTXT,
+                                      fontSize: RFValue(15),
+                                      color: color.Primary,
+                                    }}
+                                  >
                                     {total} DT
                                   </Text>
+                                </View>
+
+                                <View
+                                  style={{
+                                    flexDirection: "row",
+                                    marginTop: "3%",
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      ...styles.orderDetailTXT,
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    02/08/2021
+                                  </Text>
+                                  <Text style={styles.orderDetailTXT}> à </Text>
+                                  <Text
+                                    style={{
+                                      ...styles.orderDetailTXT,
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    02/08/2021
+                                  </Text>
+                                  <Text style={styles.orderDetailTXT}>
+                                    : Commande créée
+                                  </Text>
+                                </View>
+
+                                <View style={{ flexDirection: "row" }}>
+                                  <Text
+                                    style={{
+                                      ...styles.orderDetailTXT,
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    02/08/2021
+                                  </Text>
+                                  <Text style={styles.orderDetailTXT}> à </Text>
+                                  <Text
+                                    style={{
+                                      ...styles.orderDetailTXT,
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    02/08/2021
+                                  </Text>
+                                  <Text style={styles.orderDetailTXT}>
+                                    : Commande accepté
+                                  </Text>
+                                </View>
                               </View>
-
-                              <View style={{flexDirection:'row',marginTop: '3%'}}>
-                                  <Text style={{...styles.orderDetailTXT,fontWeight:'bold'}} >02/08/2021</Text> 
-                                  <Text  style={styles.orderDetailTXT}> à </Text> 
-                                  <Text  style={{...styles.orderDetailTXT,fontWeight:'bold'}}>02/08/2021</Text>
-                                  <Text  style={styles.orderDetailTXT}>: Commande créée</Text>
-                                </View>
-
-                                <View style={{flexDirection:'row'}}>
-                                  <Text style={{...styles.orderDetailTXT,fontWeight:'bold'}} >02/08/2021</Text> 
-                                  <Text  style={styles.orderDetailTXT}> à </Text> 
-                                  <Text  style={{...styles.orderDetailTXT,fontWeight:'bold'}}>02/08/2021</Text>
-                                  <Text  style={styles.orderDetailTXT}>: Commande accepté</Text>
-                                </View>
-                            </View>
-
-                            
 
                               {/* <ItemPrix
                                 key="7"
@@ -346,7 +412,9 @@ export default function OrderDetails({ navigation,route }) {
             }}
           >
             <Divider borderColor="#fff" color="#fff" orientation="center">
-              <Text style={{ fontSize: RFValue(16.5),paddingBottom:'3%' }}>Liste des produits</Text>
+              <Text style={{ fontSize: RFValue(16.5), paddingBottom: "3%" }}>
+                Liste des produits
+              </Text>
             </Divider>
 
             {/* <ProductCard_Item 
@@ -363,17 +431,20 @@ export default function OrderDetails({ navigation,route }) {
             /> */}
 
             <FlatList
-                numColumns={1}
-                data={products} 
-                contentContainerStyle={{marginTop: '5%'}}
-                renderItem={({item,index}) => {
-                    return <ProductCard_Item  
-                              key={index}
-                              product={item}
-                              navigation={navigation}
-                              badged
-                            />;
-                }}
+              nestedScrollEnabled
+              numColumns={1}
+              data={products}
+              contentContainerStyle={{ marginTop: "5%" }}
+              renderItem={({ item, index }) => {
+                return (
+                  <ProductCard_Item
+                    key={index}
+                    product={item}
+                    navigation={navigation}
+                    badged
+                  />
+                );
+              }}
             />
 
             {/* <Divider borderColor="#fff" color="#fff" orientation="center">
@@ -398,15 +469,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: w(80),
     marginTop: h(2),
-    paddingBottom: '15%'
+    paddingBottom: "15%",
   },
   svg: {
     position: "absolute",
     alignSelf: "flex-end",
-
   },
-  orderDetailTXT:{
+  orderDetailTXT: {
     color: "#545353",
-    fontSize: RFValue(12)
-  }
+    fontSize: RFValue(12),
+  },
 });

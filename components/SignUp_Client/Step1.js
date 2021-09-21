@@ -13,9 +13,7 @@ const Step1 = ({ toNextStep }) => {
   const { addInfos, initialState } = useContext(Context);
   const [cinImage, setCinImage] = useState(initialState["photo"]);
   const [selectedItem, setSelectedItem] = useState(0);
-  const [maritalStatus, setMaritalStatus] = useState(
-    initialState["maritalStatus"]
-  );
+  const [maritalStatus, setMaritalStatus] = useState("Célibataire");
 
   const [errors, setErrors] = useState({
     lastName: false,
@@ -31,12 +29,12 @@ const Step1 = ({ toNextStep }) => {
 
   const onSubmit = (values) => {
     //values["image"] = cinImage;
-    // console.log(values);
+    // console.log("qsjkfhqksdfhkqjsdhf", maritalStatus);
 
     if (isValid(values, errors, setErrors)) {
-      // console.log("--->",{...values,photo:cinImage});
+      //console.log("--->", {...values, photo: cinImage, maritalStatus: maritalStatus, });
 
-      addInfos({ ...values });
+      addInfos({ ...values, maritalStatus: maritalStatus });
       toNextStep();
     }
   };
@@ -102,7 +100,7 @@ const Step1 = ({ toNextStep }) => {
           />
           <DropDown
             items={["Célibataire", "Marié"]}
-            maritalStatus={maritalStatus}
+            selectedItem={maritalStatus}
             handleChange={setMaritalStatus}
           />
           {/* <ImagePicker

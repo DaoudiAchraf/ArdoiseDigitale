@@ -9,32 +9,41 @@ import OrderCardViewer from "../components/OrderCardViewer";
 import ClientProfilOrders from "../components/componentsClient/ClientProfilOrders";
 import EmptyList from "../components/EmptyList";
 import moment from "moment";
+import { h, w } from "../utils/Size";
 
 function Clientaccount({ navigation }) {
+  const navigation = useNavigation();
   const { ardoiseList, orders, getOrders } = useContext(Context);
   const [activeOrders, setActiveOrders] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchOrders = () => {
     const activeOrderss = orders.filter(
-      (order) => !(order.status.recieved.recieved && order.status.payment.payed)
+      (order) =>
+        !(
+          order.status.recieved.recieved &&
+          order.status.payment.payed &&
+          order.ardoise.state === "closed"
+        )
     );
+    console.log("active oorders.......................", activeOrders);
     setActiveOrders(activeOrderss);
   };
 
   useEffect(() => {
-    getOrders();
+    //getOrders();
     fetchOrders();
-  }, []);
+  }, [orders]);
 
   const navTo_NewOrder = (item) => {
     navigation.navigate("OffrePrixCommande", {
-      ...item,
+      order: item,
       merchant: item.ardoise.merchant,
     });
   };
 
   const renderClientOrderDetail = (order) => {
+    //console.log("aaaaaaazerzearaerzazer", order);
     if (order) {
       var orderState = order.status.payment.payed
         ? "Commande payée"
@@ -97,10 +106,7 @@ function Clientaccount({ navigation }) {
           source={require("../assets/assets/LogoWhite.png")}
         />
       </View>
-      <ScrollView
-        nestedScrollEnabled={true}
-        style={{ top: "6%", marginBottom: "15%" }}
-      >
+      <ScrollView style={{ top: "6%", marginBottom: "15%" }}>
         <View style={{ padding: "2%" }}>
           <Item1
             title="Mon compte"
@@ -122,7 +128,7 @@ function Clientaccount({ navigation }) {
           />
           <Item1
             title="Mes marchands"
-            description={`Vous avez ${ardoiseList.length} ardoises ouverte`}
+            description={`Vous avez ${ardoiseList.length} ardoises`}
             img={require("../assets/assets/icons/client-fond-btn-marchands.png")}
             navigation={navToListemarchands}
           />
@@ -131,6 +137,8 @@ function Clientaccount({ navigation }) {
           </Divider>
 
           <FlatList
+            nestedScrollEnabled
+            style={{ height: h(35), flexGrow: 0 }}
             contentContainerStyle={styles.orderContainer}
             data={activeOrders}
             onRefresh={() => {

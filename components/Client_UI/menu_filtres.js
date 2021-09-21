@@ -19,12 +19,12 @@ const MenuFiltres = () => {
     "patisserie",
     "buraliste",
     "épicerie fine",
-  ]
+  ];
   const openMenu = () => setVisible(true);
 
   const closeMenu = () => setVisible(false);
 
-  const { merchantsList, setMerchantsList } = useContext(Context);
+  const { merchantsList, setMerchantsFilterList } = useContext(Context);
 
   const [filterState, setFilterState] = useState({
     city: 0,
@@ -32,15 +32,26 @@ const MenuFiltres = () => {
     paymentType: 0,
     delivery: 0,
   });
-  useEffect(() => {
-    console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", merchantsList);
-    const tab = merchantsList.filter(
-      (item) =>
-        item.activityDomain === activityDomainTab[filterState.activityDomain]
-    );
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",activityDomainTab[filterState.activityDomain], tab);
 
-    setMerchantsList(tab);
+  const deleteFilters = () => {
+    setMerchantsFilterList([]);
+  };
+
+  useEffect(() => {
+    //console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", merchantsList);
+    if (visible) {
+      const tab = merchantsList.filter(
+        (item) =>
+          item.activityDomain === activityDomainTab[filterState.activityDomain]
+      );
+      // console.log(
+      //   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      //   activityDomainTab[filterState.activityDomain],
+      //   tab
+      // );
+
+      setMerchantsFilterList(tab);
+    }
   }, [filterState]);
 
   return (
@@ -73,6 +84,15 @@ const MenuFiltres = () => {
           <Title style={{ marginBottom: "2%", color: "#426252" }}>
             Filtres
           </Title>
+          <Button
+            style={{ position: "absolute", top: "10%", right: "10%" }}
+            mode="contained"
+            compact
+            color="grey"
+            onPress={deleteFilters}
+          >
+            effacer les filtres
+          </Button>
           <Caption>Ville</Caption>
 
           <View>

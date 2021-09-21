@@ -111,8 +111,9 @@ export default function OffrePrixCommande({ navigation, route }) {
   return (
     <Provider>
       <ScrollView style={{ backgroundColor: "#324B3E" }}>
-        <MyAppbar navigation={navigation} title="Commande" />
         <FondPageCommandes style={styles.svg} />
+
+        <MyAppbar navigation={navigation} title="Commande" />
         <View style={styles.contentView}>
           <CalloutCard commande={commande} />
           {commande.review.reviewed ? (
@@ -343,6 +344,7 @@ export default function OffrePrixCommande({ navigation, route }) {
             </Divider>
 
             <FlatList
+              nestedScrollEnabled
               numColumns={1}
               data={order.products}
               contentContainerStyle={{ marginTop: "5%" }}

@@ -9,11 +9,12 @@ function DetailsTransaction({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: "#324B3E" }}>
       <ScrollView style={{ flex: 1 }}>
-        <Myappbar navigation={navigation} title="Details de la transaction" />
         <Image
           style={styles.image}
           source={require("../assets/assets/icons/fond-page-historique.png")}
         />
+        <Myappbar navigation={navigation} title="Details de la transaction" />
+
         <View style={{ margin: "3%" }}>
           <Transaction
             type="Type de paiement"

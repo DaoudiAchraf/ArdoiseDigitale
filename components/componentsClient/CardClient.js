@@ -112,7 +112,7 @@ const CardClient = (props) => {
               Livraison Disponible
             </Text>
             <Text style={styles.attributes} numberOfLines={2}>
-              accepete le payment au comptant
+              accepte le payment au comptant
             </Text>
           </View>
         </View>
