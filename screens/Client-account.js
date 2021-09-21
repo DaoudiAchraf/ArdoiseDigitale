@@ -12,7 +12,6 @@ import moment from "moment";
 import { h, w } from "../utils/Size";
 
 function Clientaccount({ navigation }) {
-  const navigation = useNavigation();
   const { ardoiseList, orders, getOrders } = useContext(Context);
   const [activeOrders, setActiveOrders] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
